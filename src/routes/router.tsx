@@ -9,6 +9,8 @@ import Register from "../pages/users/Register";
 import ForgotPassword from "../pages/users/ForgotPassword";
 import ResetPassword from "../pages/users/ResetPassword";
 
+import ShowSociety from "../pages/society/Showsocieties.jsx"
+
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -25,6 +27,8 @@ export const router = createBrowserRouter(
         <Route path="/dashboard" element={<LoggedRoute redirectPath="/login" />}>
           <Route index element={<Index />} />
         </Route>
+
+        <Route path="/showsociety" element={<ShowSociety />} />
       </Route>
     </>
   )
