@@ -8,6 +8,7 @@ import Login from "../pages/users/Login";
 import Register from "../pages/users/Register";
 import ForgotPassword from "../pages/users/ForgotPassword";
 import ResetPassword from "../pages/users/ResetPassword";
+import Invoice from "../pages/invoice/Invoice";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +25,7 @@ export const router = createBrowserRouter(
         {/* Protected Routes */}
         <Route path="/dashboard" element={<LoggedRoute redirectPath="/login" />}>
           <Route index element={<Index />} />
+          <Route path="/invoice" element={<Invoice />} />
         </Route>
       </Route>
     </>
