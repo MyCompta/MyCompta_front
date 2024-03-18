@@ -1,4 +1,8 @@
-import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
 import LoggedRoute from "./LoggedRoute";
 import NotLoggedRoute from "./NotLoggedRoute";
 
@@ -9,6 +13,7 @@ import Register from "../pages/users/Register";
 import ForgotPassword from "../pages/users/ForgotPassword";
 import ResetPassword from "../pages/users/ResetPassword";
 
+import IndexInvoices from "../pages/invoices/IndexInvoices";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -22,8 +27,9 @@ export const router = createBrowserRouter(
         </Route>
 
         {/* Protected Routes */}
-        <Route path="/dashboard" element={<LoggedRoute redirectPath="/login" />}>
-          <Route index element={<Index />} />
+        <Route element={<LoggedRoute redirectPath="/login" />}>
+          <Route path="/dashboard" element={<Index />} />
+          <Route path="/invoices" element={<IndexInvoices />} />
         </Route>
       </Route>
     </>
