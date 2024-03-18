@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./InvoiceTable.scss";
 import fetcher from "../../utils/fetcher";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const InvoiceTable = () => {
   const [invoicesData, setInvoicesData] = useState([]);

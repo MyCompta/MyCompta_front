@@ -14,6 +14,9 @@ import ForgotPassword from "../pages/users/ForgotPassword";
 import ResetPassword from "../pages/users/ResetPassword";
 
 import IndexInvoices from "../pages/invoices/IndexInvoices";
+import ShowInvoice from "../pages/invoices/ShowInvoice";
+import EditInvoice from "../pages/invoices/EditInvoice";
+
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -30,6 +33,8 @@ export const router = createBrowserRouter(
         <Route element={<LoggedRoute redirectPath="/login" />}>
           <Route path="/dashboard" element={<Index />} />
           <Route path="/invoices" element={<IndexInvoices />} />
+          <Route path="/invoices/:id" element={<ShowInvoice />} />
+          <Route path="/invoices/:id/edit" element={<EditInvoice />} />
         </Route>
       </Route>
     </>
