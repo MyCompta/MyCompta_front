@@ -16,6 +16,7 @@ type TInvoice = {
   author: TUserInfos;
   client: TUserInfos;
   title: string;
+  number: string;
   date: Date;
   dueDate: Date;
   subTotal: number;

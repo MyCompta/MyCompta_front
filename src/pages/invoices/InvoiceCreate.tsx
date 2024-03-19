@@ -1,7 +1,7 @@
 import "./Invoice.css";
 import { useEffect, useState } from "react";
-import { UserInfos } from "./components/invoice/UserInfos";
-import { ItemLine } from "./components/invoice/ItemLine";
+import { UserInfos } from "../../components/invoice/UserInfos";
+import { ItemLine } from "../../components/invoice/ItemLine";
 
 export default function Invoice() {
   const [author, setAuthor] = useState({
@@ -61,7 +61,6 @@ export default function Invoice() {
           sumTaxValues(items).reduce((acc, item) => acc + item.total, 0),
       };
     });
-    console.log(invoice);
   }, [items, setInvoice]);
 
   useEffect(() => {
@@ -72,7 +71,6 @@ export default function Invoice() {
         client: client,
       };
     });
-    console.log(invoice);
   }, [author, client, setInvoice]);
 
   const addNewItem = () => {
@@ -121,10 +119,65 @@ export default function Invoice() {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
+    let date;
+    if (name === "date" || name === "dueDate") {
+      date = new Date(value);
+    }
+
     setInvoice({
       ...invoice,
-      [name]: value,
+      [name]: date ? date : value,
     } as TInvoice);
+  };
+
+  const [dueDateChoice, setDueDateChoice] = useState(false);
+  const handleDateSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = event.target;
+    if (value === "choice") {
+      setDueDateChoice(true);
+      return;
+    }
+
+    setDueDateChoice(false);
+
+    if (value === "45") {
+      setInvoice({
+        ...invoice,
+        dueDate: new Date(
+          Date.parse(
+            new Date(Date.parse(invoice.date.toString()))
+              .toISOString()
+              .slice(0, 10)
+              .split("-")
+              .map((date, i) => {
+                if (i === 0) {
+                  return date;
+                }
+                if (i === 1) {
+                  return Number(date) === 12
+                    ? "01"
+                    : Number(date) + 1 >= 10
+                      ? `${Number(date) + 1}`
+                      : "0" + (Number(date) + 1);
+                }
+                return "01";
+              })
+              .join("-")
+          ) +
+            44 * 24 * 60 * 60 * 1000
+        ),
+      } as TInvoice);
+      console.log(invoice);
+      return;
+    }
+
+    setInvoice({
+      ...invoice,
+      dueDate: new Date(Date.parse(invoice.date.toString()) + Number(value) * 24 * 60 * 60 * 1000),
+    } as TInvoice);
+
+    console.log(invoice);
   };
 
   return (
@@ -139,12 +192,46 @@ export default function Invoice() {
         <UserInfos user={client} setUser={setClient} />
       </div>
       <div className="invoice__title">
-        <input
-          type="text"
-          name="title"
-          placeholder="Titre de la facture"
-          onChange={handleInputChange}
-        />
+        <div>
+          <label htmlFor="title">Titre de la facture</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Titre de la facture"
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="number">N° de facture</label>
+          <input
+            type="text"
+            name="number"
+            id="number"
+            placeholder="N° de facture"
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="date">Date d'émission :</label>
+          <input
+            type="date"
+            name="date"
+            id="date"
+            onChange={handleInputChange}
+            value={invoice.date.toISOString().substring(0, 10)}
+          />
+          <label htmlFor="dueDate">Date d'écheance :</label>
+          <select name="dueDateSelect" id="dueDate" onChange={handleDateSelect}>
+            <option value="0">À réception</option>
+            <option value="15">15 jours</option>
+            <option value="30">30 jours</option>
+            <option value="60">60 jours</option>
+            <option value="45">45 jours fin de mois</option>
+            <option value="choice">Choisir une date</option>
+          </select>
+          {dueDateChoice && <input type="date" name="dueDate" onChange={handleInputChange} />}
+        </div>
       </div>
       <div className="invoice__items">
         <button onClick={addNewItem}>Ajouter un produit</button>
