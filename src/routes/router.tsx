@@ -8,6 +8,11 @@ import Login from "../pages/users/Login";
 import Register from "../pages/users/Register";
 import ForgotPassword from "../pages/users/ForgotPassword";
 import ResetPassword from "../pages/users/ResetPassword";
+import InvoiceCreate from "../pages/invoices/InvoiceCreate";
+
+import IndexInvoices from "../pages/invoices/IndexInvoices";
+import ShowInvoice from "../pages/invoices/ShowInvoice";
+import EditInvoice from "../pages/invoices/EditInvoice";
 
 import ShowSociety from "../pages/society/Showsocieties.jsx"
 
@@ -24,8 +29,12 @@ export const router = createBrowserRouter(
         </Route>
 
         {/* Protected Routes */}
-        <Route path="/dashboard" element={<LoggedRoute redirectPath="/login" />}>
-          <Route index element={<Index />} />
+        <Route element={<LoggedRoute redirectPath="/login" />}>
+          <Route path="/dashboard" element={<Index />} />
+          <Route path="/invoices" element={<IndexInvoices />} />
+          <Route path="/invoices/create" element={<InvoiceCreate />} />
+          <Route path="/invoices/:id" element={<ShowInvoice />} />
+          <Route path="/invoices/:id/edit" element={<EditInvoice />} />
         </Route>
 
         <Route path="/showsociety" element={<ShowSociety />} />
