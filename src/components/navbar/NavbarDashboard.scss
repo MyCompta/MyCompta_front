@@ -1,10 +1,16 @@
 @import "../../styles/global.scss";
 
 .left-navbar {
-  width: 215px;
+  width: 240px;
+  min-width: 200px;
   height: 100%;
   background-color: $main-color;
   color: white;
+
+  h1 {
+    text-align: center;
+    height: 29px;
+  }
 
   &__society {
     padding-left: 15px;
@@ -13,10 +19,25 @@
     width: calc(100% - 15px);
     height: 56px;
     line-height: 26px;
+    cursor: pointer;
+    position: relative;
   }
 
   &__society:hover {
     background-color: #171e1f;
+  }
+
+  &__society:hover svg {
+    filter: none;
+  }
+
+  svg {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    font-size: 28px;
+    color: #ffffff;
+    filter: contrast(0.5);
   }
 
   &__item {
@@ -26,7 +47,15 @@
     position: relative;
     cursor: pointer;
     height: 34px;
-    width: calc(100% - 30px);
+    width: calc(100% - 26px);
+
+    img {
+      width: 30px;
+      position: absolute;
+      top: 5px;
+      left: 8px;
+      filter: contrast(0.5);
+    }
 
     p {
       text-align: center;
@@ -37,7 +66,7 @@
       display: none;
       position: absolute;
       top: 50%;
-      right: 3px;
+      right: 4px;
       width: 34px;
       height: 32px;
       background-color: $selected-second-color;
@@ -51,6 +80,10 @@
 
   &__item:hover {
     background-color: $second-color;
+  }
+
+  &__item:hover img {
+    filter: none;
   }
 
   &__item:hover a {
