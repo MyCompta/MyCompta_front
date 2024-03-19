@@ -20,8 +20,8 @@ const CreateSociety = () => {
 
   const [creationSuccess, setCreationSuccess] = useState(false);
 
-  console.log("dans le create", token)
-  console.log("user token id", user_id)
+  // console.log("dans le create", token)
+  // console.log("user token id", user_id)
 
 
   const HandleSubmitCreateSociety = async (e) => {
