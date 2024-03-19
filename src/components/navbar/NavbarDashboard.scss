@@ -6,10 +6,22 @@
   background-color: $main-color;
   color: white;
 
+  &__society {
+    padding-left: 15px;
+    border-top: 1px solid #171e1f;
+    border-bottom: 1px solid #171e1f;
+    width: calc(100% - 15px);
+    height: 56px;
+    line-height: 26px;
+  }
+
+  &__society:hover {
+    background-color: #171e1f;
+  }
+
   &__item {
     margin: 10px;
     padding: 3px;
-    background-color: $second-color;
     border-radius: 5px;
     position: relative;
     cursor: pointer;
@@ -22,6 +34,7 @@
     }
 
     a {
+      display: none;
       position: absolute;
       top: 50%;
       right: 3px;
@@ -30,9 +43,17 @@
       background-color: $selected-second-color;
       text-align: center;
       transform: translateY(-16px);
-      line-height: 30px;
+      line-height: 34px;
       border-radius: 5px;
       font-size: 22px;
     }
+  }
+
+  &__item:hover {
+    background-color: $second-color;
+  }
+
+  &__item:hover a {
+    display: block;
   }
 }

@@ -3,7 +3,6 @@ import NavbarLanding from "./components/navbar/NavbarLanding";
 import NavbarDashboard from "./components/navbar/NavbarDashboard";
 import Error from "./components/notifications/Error";
 import Success from "./components/notifications/Success";
-import "./styles/global.scss";
 
 export default function Layout() {
   const location = useLocation();

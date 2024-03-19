@@ -1,4 +1,6 @@
-$main-color: #171e1f;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Palanquin:wght@100;200;300;400;500;600;700&display=swap");
+
+$main-color: #212a2b;
 $second-color: #3398bd;
 $selected-second-color: #62b8d8;
 $text-color: #313538;
@@ -7,59 +9,10 @@ $alert-color: #e66b55;
 $sucess-color: #80ee96;
 $bg-color: #f5f6f9;
 
-@font-face {
-  font-family: "Palanquin";
-  src: url("./fonts/Palanquin-Thin.ttf") format("truetype");
-  font-weight: 100;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Palanquin";
-  src: url("./fonts/Palanquin-ExtraLight.ttf") format("truetype");
-  font-weight: 200;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Palanquin";
-  src: url("./fonts/Palanquin-Light.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Palanquin";
-  src: url("./fonts/Palanquin-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Palanquin";
-  src: url("./fonts/Palanquin-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Palanquin";
-  src: url("./fonts/Palanquin-SemiBold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Palanquin";
-  src: url("./fonts/Palanquin-Bold.ttf") format("truetype");
-  font-weight: bold;
-  font-style: normal;
-}
-
 html,
 body {
   height: 100%;
-  font-family: Palanquin, sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: $text-color;
   margin: 0;
   background-color: $bg-color;

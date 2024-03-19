@@ -12,7 +12,10 @@ export default function Navbar() {
   return (
     <nav className="left-navbar">
       <h1>Mycompta - dashboard</h1>
-      <p>SOCIETY</p>
+      <div className="left-navbar__society">
+        <p>SOCIETY</p>
+      </div>
+
       <Link to="/dashboard">
         <div className="left-navbar__item">
           <p>Dashboard</p>
@@ -25,13 +28,13 @@ export default function Navbar() {
         </div>
       </Link>
       <Link to="/quotations">
-        <div>
+        <div className="left-navbar__item">
           <p>Quotations</p>
           <Link to="/quotations/new">+</Link>
         </div>
       </Link>
       <Link to="/invoices">
-        <div>
+        <div className="left-navbar__item">
           <p>Invoices</p>
           <Link to="/invoices/new">+</Link>
         </div>
