@@ -15,12 +15,14 @@ export default function Layout() {
   return (
     <>
       {isDashboardRoute ? <NavbarDashboard /> : <NavbarLanding />}
-      <Outlet />
+      <main>
+        <Outlet />
+        <footer>
+          <p>© 2024 Mycompta. Tous droits réservés.</p>
+        </footer>
+      </main>
       <Error />
       <Success />
-      <footer>
-        <p>© 2024 Mycompta. Tous droits réservés.</p>
-      </footer>
     </>
   );
 }
