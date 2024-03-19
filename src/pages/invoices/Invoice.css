@@ -1,0 +1,24 @@
+.invoice {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  min-width: 600px;
+  gap: 2rem;
+}
+
+.invoice__author,
+.invoice__client {
+  width: min(100%, 450px);
+}
+
+.invoice__client {
+  margin-left: auto;
+}
+
+.invoice__author {
+  margin-right: auto;
+}

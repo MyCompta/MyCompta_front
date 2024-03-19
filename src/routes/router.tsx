@@ -1,8 +1,4 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-} from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
 import LoggedRoute from "./LoggedRoute";
 import NotLoggedRoute from "./NotLoggedRoute";
 
@@ -12,6 +8,7 @@ import Login from "../pages/users/Login";
 import Register from "../pages/users/Register";
 import ForgotPassword from "../pages/users/ForgotPassword";
 import ResetPassword from "../pages/users/ResetPassword";
+import InvoiceCreate from "../pages/invoices/InvoiceCreate";
 
 import IndexInvoices from "../pages/invoices/IndexInvoices";
 import ShowInvoice from "../pages/invoices/ShowInvoice";
@@ -33,6 +30,7 @@ export const router = createBrowserRouter(
         <Route element={<LoggedRoute redirectPath="/login" />}>
           <Route path="/dashboard" element={<Index />} />
           <Route path="/invoices" element={<IndexInvoices />} />
+          <Route path="/invoices/create" element={<InvoiceCreate />} />
           <Route path="/invoices/:id" element={<ShowInvoice />} />
           <Route path="/invoices/:id/edit" element={<EditInvoice />} />
         </Route>
