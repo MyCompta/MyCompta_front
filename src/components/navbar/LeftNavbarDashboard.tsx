@@ -1,15 +1,40 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./LeftNavbarDashboard.scss";
 import { CgSelect } from "react-icons/cg";
 import invoiceIcon from "../../assets/images/invoice.svg";
 import quoteIcon from "../../assets/images/quote.svg";
 import customerIcon from "../../assets/images/customer.svg";
 import dashboardIcon from "../../assets/images/dashboard.svg";
+import { FaBell } from "react-icons/fa";
+import { LuLogOut } from "react-icons/lu";
+import { CgProfile } from "react-icons/cg";
+import Cookies from "js-cookie";
 
 export default function LeftNavbarDashboard() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    Cookies.remove("token");
+    navigate("/");
+  };
+
   return (
     <nav className="left-navbar">
       <p className="left-navbar__logo">Mycompta</p>
+      <div className="left-navbar__profile-options">
+        <div className="profile-icon">
+          <p>AL</p>
+        </div>
+        <div className="notification">
+          <FaBell />
+        </div>
+        <Link to="/profile" className="profile-link">
+          <CgProfile />
+        </Link>
+        <div className="logout-icon" onClick={handleLogout}>
+          <LuLogOut />
+        </div>
+      </div>
       <div className="left-navbar__society">
         <p>SOCIETY</p>
         <CgSelect />

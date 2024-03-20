@@ -92,6 +92,7 @@ export const PopupProfile = ({ onCloseProfilPopup, profilePopupRef }: any) => {
     onCloseProfilPopup();
     navigate("/");
   };
+
   return (
     <div className="popup-profile" ref={profilePopupRef}>
       <img src={tic} alt="tic" />

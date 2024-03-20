@@ -31,6 +31,15 @@
     line-height: 26px;
     cursor: pointer;
     position: relative;
+
+    svg {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      font-size: 28px;
+      color: #ffffff;
+      filter: contrast(0.5);
+    }
   }
 
   &__society:hover {
@@ -41,13 +50,52 @@
     filter: none;
   }
 
-  svg {
-    position: absolute;
-    right: 14px;
-    top: 14px;
-    font-size: 28px;
-    color: #ffffff;
-    filter: contrast(0.5);
+  &__profile-options {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    height: 36px;
+
+    @include medium-screen {
+      display: flex;
+    }
+
+    .profile-icon {
+      border-radius: 50px;
+      background-color: #3398bd;
+      width: 40px;
+      height: 40px;
+      margin: 5px;
+      cursor: pointer;
+
+      p {
+        text-align: center;
+        line-height: 6px;
+        font-size: 16px;
+        color: white;
+        font-weight: 300;
+      }
+    }
+
+    .notification {
+      svg {
+        width: 16px;
+        height: 16px;
+        margin: 5px;
+        cursor: pointer;
+      }
+    }
+
+    .profile-link,
+    .logout-icon {
+      svg {
+        width: 20px;
+        height: 20px;
+        margin: 5px;
+        cursor: pointer;
+      }
+    }
   }
 
   &__item {
