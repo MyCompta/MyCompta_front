@@ -2,14 +2,14 @@ type TUserInfos = {
   name: string;
   surname?: string;
   is_pro?: boolean;
-  logo: string;
+  logo?: string;
   logoAlt?: string;
   address: {
     street: string;
     city: string;
     zip: string;
   };
-  [key: string]: string | undefined | object;
+  [key: string]: string | undefined | boolean | object;
 };
 
 type TInvoice = {
@@ -52,22 +52,63 @@ type TDiscount = {
   total: number;
 };
 
-type TInvoiceDataform = {
+type TInvoiceShowBack = {
   invoice: {
-    content: {
-      items: TItem[];
-      tax: TTax[];
-    };
-    date: Date;
-    dueDate: Date;
+    id: number;
+    content: json;
+    date: string;
+    due_date: string;
     title: string;
     number: string;
-    subTotal: number;
+    subtotal: number;
     tva: number;
     total: number;
     sale: number;
     is_draft: boolean;
     is_paid: boolean;
     status: string;
+    society_id: number;
+    user_id: number;
+    created_at: string;
+    updated_at: string;
   };
+  author: TSocietyBack;
+  client?: TUserInfos;
+};
+
+type TInvoiceGetBack = {
+  id: number;
+  content: json;
+  date: string;
+  due_date: string;
+  title: string;
+  number: string;
+  subtotal: number;
+  tva: number;
+  total: number;
+  sale: number;
+  is_draft: boolean;
+  is_paid: boolean;
+  status: string;
+  society_id: number;
+  user_id: number;
+  created_at: string;
+  updated_at: string;
+};
+
+type TSocietyBack = {
+  id: number;
+  adress: string;
+  city: string;
+  zip: number;
+  country: string;
+  name: string;
+  capital: number;
+  email: string;
+  id: 1;
+  siret: number;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  user_id: number;
 };

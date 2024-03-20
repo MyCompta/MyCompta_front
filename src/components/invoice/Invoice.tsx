@@ -2,7 +2,7 @@ import { UserInfos } from "./UserInfos";
 import { ItemLine } from "./ItemLine";
 import { useState, useEffect } from "react";
 import fetcher from "../../utils/fetcher";
-import invoiceDataFormatter from "../../utils/invoiceDataFormatter";
+import { invoiceDataFormatterSend } from "../../utils/invoiceDataFormatter";
 import { useSetAtom } from "jotai";
 import { successAtom } from "../../atom/notificationAtom";
 
@@ -202,9 +202,14 @@ export default function Invoice({
   const handleSave = async () => {
     let req: any;
     if (invoice.id) {
-      req = await fetcher(`invoices/${invoice.id}`, invoiceDataFormatter(invoice), "PATCH", true);
+      req = await fetcher(
+        `invoices/${invoice.id}`,
+        invoiceDataFormatterSend(invoice),
+        "PATCH",
+        true
+      );
     } else {
-      req = await fetcher("invoices", invoiceDataFormatter(invoice), "POST", true);
+      req = await fetcher("invoices", invoiceDataFormatterSend(invoice), "POST", true);
     }
 
     req?.error && console.error(req.error);
