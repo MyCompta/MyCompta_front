@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import fetcher from "../../utils/fetcher";
 import Cookies from "js-cookie";
+import { useAtom } from 'jotai'
+
+import fetcher from "../../utils/fetcher";
+import { societyAtom } from '../../atom/societyAtom.jsx';
 
 const apiUrl = import.meta.env.VITE_API_URL
 const token = Cookies.get("token");
@@ -11,13 +14,16 @@ console.log("token dans showsociety", token)
 
 const ShowSociety = () => {
   const { id } = useParams();
+  const [society, setSociety] = useAtom(societyAtom);
   const [societyData, setSocietyData] = useState([]);
   const navigate = useNavigate();
+
+  console.log("societyAtom dans showsocieties", society)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(apiUrl + `societies/${id}`,
+        const response = await fetch(apiUrl + `societies/${society}`,
           {
             method: "GET",
             headers: {

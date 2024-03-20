@@ -12,7 +12,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const token = Cookies.get("token");
 
 const IndexSocieties = () => {
-  const [society] = useAtom(societyAtom);
+  const [society, setSociety] = useAtom(societyAtom);
   const [societyData, setSocietyData] = useState('');
   const [, setError] = useState('');
   const [showCreateSociety, setShowCreateSociety] = useState(false);
@@ -46,6 +46,12 @@ const IndexSocieties = () => {
     setShowCreateSociety(true);
   }
 
+  const handleSocietyClick = (id) => {
+    setSociety(id);
+  }
+
+  // console.log("societyAtom dans indexsocieties", society)
+
   return (
     <div className="societycontainer">
       <div className="sideleft">
@@ -57,7 +63,7 @@ const IndexSocieties = () => {
         <div>
           {societyData.map((societyItem, index) => (
             <li key={index}>
-              <Link to={`/societies/${societyItem.id}`}>
+              <Link to={`/${societyItem.name}`} onClick={() => handleSocietyClick(societyItem.id)} >
                 {societyItem.name}
               </Link>
             </li>
@@ -68,7 +74,7 @@ const IndexSocieties = () => {
       )}
       </div>
 
-      <div className="displaysocietycontainer">
+      <div className="displaycreatesocietycontainer">
         {showCreateSociety && <div><CreateSociety /></div>}
       </div>
     </div>
