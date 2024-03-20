@@ -224,6 +224,30 @@ export default function Invoice({
     }
   };
 
+  // Auto save after 5s
+  const [autoSave, setAutoSave] = useState<null | NodeJS.Timeout>(null);
+  const triggerAutoSave = () => {
+    if (autoSave) {
+      clearTimeout(autoSave);
+    }
+
+    const timeout = setTimeout(() => {
+      handleSave();
+    }, 5000);
+
+    setAutoSave(timeout);
+  };
+
+  useEffect(() => {
+    triggerAutoSave();
+
+    return () => {
+      if (autoSave) {
+        clearTimeout(autoSave);
+      }
+    };
+  }, [invoice]);
+
   return (
     <div className="invoice">
       <h1 style={{ textAlign: "right", margin: 0 }}>Facture</h1>
