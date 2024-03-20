@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 
 
-export const societyAtom = atom({
+const societyAtom = atom({
   id: '',
   name: '',
   adress: '',
@@ -13,3 +13,5 @@ export const societyAtom = atom({
   capital: '',
   email: '',
 })
+
+export default societyAtom

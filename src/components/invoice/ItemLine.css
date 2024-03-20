@@ -1,0 +1,70 @@
+.invoice__items table {
+  border-spacing: 0;
+  margin: 3rem 0;
+  width: 100%;
+}
+
+.invoice__items input::-webkit-outer-spin-button,
+.invoice__items input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.invoice__items input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.invoice__items input,
+.invoice__items select {
+  border: 1px dashed #222;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background: transparent;
+  width: calc(100% - 1rem);
+}
+.invoice__items select {
+  width: 100%;
+  min-width: max-content;
+}
+
+.item__line td:not(.no-outline) {
+  border: 1px dashed #222;
+  border-bottom: none;
+}
+.item__line td:not(.no-outline) {
+  border-right: none;
+}
+.item__line td:not(.no-outline):first-child {
+  border-top-left-radius: 0.5rem;
+}
+.item__line td:not(.no-outline):nth-child(5) {
+  border-right: 1px dashed #222;
+  border-top-right-radius: 0.5rem;
+}
+
+.item__line__price {
+  margin: 0;
+  text-align: center;
+}
+
+.item__line__description {
+  width: calc(100% - 1rem);
+  padding: 0.5rem;
+  border: none;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  background: transparent;
+  resize: vertical;
+}
+
+.item__line__description__cell {
+  border: 1px dashed #222;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.item__line__spacing {
+  padding-bottom: 1.5rem;
+}

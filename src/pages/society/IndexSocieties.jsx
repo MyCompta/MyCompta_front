@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useAtom } from 'jotai';
 import { Link } from "react-router-dom";
 import Cookies from 'js-cookie';
-import { societyAtom } from '../../atom/societyAtom.jsx';
 
 import NewSociety from '../../components/society/NewSociety.jsx';
 import CreateSociety from './CreateSociety.jsx';
@@ -12,7 +10,6 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const token = Cookies.get("token");
 
 const IndexSocieties = () => {
-  const [society, setSociety] = useAtom(societyAtom);
   const [societyData, setSocietyData] = useState('');
   const [, setError] = useState('');
   const [showCreateSociety, setShowCreateSociety] = useState(false);
@@ -40,7 +37,7 @@ const IndexSocieties = () => {
     }
 
     fetchData();
-  }, [society]);
+  }, []);
 
   const handleNewSocietyClick = () => {
     setShowCreateSociety(true);
@@ -49,8 +46,6 @@ const IndexSocieties = () => {
   const handleSocietyClick = (id) => {
     localStorage.setItem('selectedSocietyId', id);
   }
-
-  console.log("societyAtom dans indexsocieties", society)
 
   return (
     <div className="societycontainer">
@@ -63,7 +58,7 @@ const IndexSocieties = () => {
         <div>
           {societyData.map((societyItem, index) => (
             <li key={index}>
-              <Link to={`/${societyItem.name}`} onClick={() => handleSocietyClick(societyItem.id)} >
+              <Link to={`/society/${societyItem.name}`} onClick={() => handleSocietyClick(societyItem.id)} >
                 {societyItem.name}
               </Link>
             </li>
