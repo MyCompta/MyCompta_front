@@ -9,6 +9,12 @@ $alert-color: #e66b55;
 $sucess-color: #80ee96;
 $bg-color: #f5f6f9;
 
+@mixin medium-screen {
+  @media only screen and (max-width: 950px) {
+    @content;
+  }
+}
+
 html,
 body {
   height: 100%;
@@ -25,6 +31,19 @@ body {
 
 main {
   width: 100%;
+  z-index: 9999;
+  background-color: white;
+  margin-top: 69px;
+  margin-left: 230px;
+  transition: margin-left 0.3s ease;
+
+  @include medium-screen {
+    margin-left: 0px;
+  }
+}
+
+main.hamburger-opened {
+  margin-left: 230px;
 }
 
 a {

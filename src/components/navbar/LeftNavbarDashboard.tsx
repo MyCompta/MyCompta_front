@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import "./NavbarDashboard.scss";
+import "./LeftNavbarDashboard.scss";
 import { CgSelect } from "react-icons/cg";
 import invoiceIcon from "../../assets/images/invoice.svg";
 import quoteIcon from "../../assets/images/quote.svg";
 import customerIcon from "../../assets/images/customer.svg";
 import dashboardIcon from "../../assets/images/dashboard.svg";
 
-export default function Navbar() {
+export default function LeftNavbarDashboard() {
   return (
     <nav className="left-navbar">
       <h1>Mycompta</h1>
