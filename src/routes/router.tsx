@@ -26,12 +26,12 @@ export const router = createBrowserRouter(
         {/* Protected Routes */}
         <Route path="/dashboard" element={<LoggedRoute redirectPath="/login" />}>
           <Route index element={<Index />} />
-          <Route path="/`${societyItem.name}`" element={<ShowSociety />} />
+          <Route path="/:name" element={<ShowSociety />} />
         </Route>
-
+          
         
 
-        
+             
       </Route>
     </>
   )
