@@ -25,12 +25,13 @@ export const router = createBrowserRouter(
     <>
       <Route path="/" element={<Layout />}>
         <Route index element={<Index />} />
+        <Route path="/cgu" element={<CGU />} />
         <Route element={<NotLoggedRoute redirectPath="/dashboard" />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/cgu" element={<CGU />} />
+          
         </Route>
 
         {/* Protected Routes */}
