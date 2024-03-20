@@ -33,6 +33,6 @@ export default function Layout() {
       </main>
       <Error />
       <Success />
-    </>
+      </>
   );
 }
