@@ -17,6 +17,10 @@ const TopNavbarDashboard = ({ onToggle }: any) => {
     setIsProfilePopupOpen(!isProfilePopupOpen);
   };
 
+  const handleAutoCloseProfilPopup = () => {
+    setIsProfilePopupOpen(false);
+  };
+
   useEffect(() => {
     onToggle(isHamburgerOpen);
   }, [isHamburgerOpen]);
@@ -36,7 +40,9 @@ const TopNavbarDashboard = ({ onToggle }: any) => {
             <p>AL</p>
           </div>
         </div>
-        {isProfilePopupOpen && <PopupProfile />}
+        {isProfilePopupOpen && (
+          <PopupProfile onCloseProfilPopup={handleAutoCloseProfilPopup} />
+        )}
       </div>
       <LeftNavbardashboard />
     </>
@@ -45,10 +51,11 @@ const TopNavbarDashboard = ({ onToggle }: any) => {
 
 export default TopNavbarDashboard;
 
-export const PopupProfile = () => {
+export const PopupProfile = ({ onCloseProfilPopup }: any) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     Cookies.remove("token");
+    onCloseProfilPopup();
     navigate("/");
   };
   return (
