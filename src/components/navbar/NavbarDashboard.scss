@@ -1,0 +1,92 @@
+@import "../../styles/global.scss";
+
+.left-navbar {
+  width: 240px;
+  min-width: 200px;
+  height: 100%;
+  background-color: $main-color;
+  color: white;
+
+  h1 {
+    text-align: center;
+    height: 29px;
+  }
+
+  &__society {
+    padding-left: 15px;
+    border-top: 1px solid #171e1f;
+    border-bottom: 1px solid #171e1f;
+    width: calc(100% - 15px);
+    height: 56px;
+    line-height: 26px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  &__society:hover {
+    background-color: #171e1f;
+  }
+
+  &__society:hover svg {
+    filter: none;
+  }
+
+  svg {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    font-size: 28px;
+    color: #ffffff;
+    filter: contrast(0.5);
+  }
+
+  &__item {
+    margin: 10px;
+    padding: 3px;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    height: 34px;
+    width: calc(100% - 26px);
+
+    img {
+      width: 30px;
+      position: absolute;
+      top: 5px;
+      left: 8px;
+      filter: contrast(0.5);
+    }
+
+    p {
+      text-align: center;
+      line-height: 4px;
+    }
+
+    a {
+      display: none;
+      position: absolute;
+      top: 50%;
+      right: 4px;
+      width: 34px;
+      height: 32px;
+      background-color: $selected-second-color;
+      text-align: center;
+      transform: translateY(-16px);
+      line-height: 34px;
+      border-radius: 5px;
+      font-size: 22px;
+    }
+  }
+
+  &__item:hover {
+    background-color: $second-color;
+  }
+
+  &__item:hover img {
+    filter: none;
+  }
+
+  &__item:hover a {
+    display: block;
+  }
+}
