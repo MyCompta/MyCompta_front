@@ -1,12 +1,19 @@
+import { useState } from "react";
 import { Outlet, matchPath, useLocation } from "react-router-dom";
 import NavbarLanding from "./components/navbar/NavbarLanding";
-import NavbarDashboard from "./components/navbar/NavbarDashboard";
-import NavbarDashboard2 from "./components/navbar/NavbarDashboard2";
+import TopNavbarDashboard from "./components/navbar/TopNavbarDashboard";
 import Error from "./components/notifications/Error";
 import Success from "./components/notifications/Success";
 
 export default function Layout() {
   const location = useLocation();
+  const [isHamburgerOpen, setHamburgerOpen] = useState();
+
+  const handleHamburger = (toggle) => {
+    setHamburgerOpen(toggle);
+    console.log("burger Actionned", isHamburgerOpen);
+  };
+
   const isDashboardRoute = matchPath(
     { path: "/dashboard/*" },
     location.pathname
@@ -17,9 +24,8 @@ export default function Layout() {
       {/*}
       {isDashboardRoute ? <NavbarDashboard /> : <NavbarLanding />}
     */}
-      <NavbarDashboard />
-      <main>
-        <NavbarDashboard2 />
+      <TopNavbarDashboard onToggle={handleHamburger} />
+      <main className={isHamburgerOpen ? "hamburger-opened" : ""}>
         <Outlet />
         <footer>
           <p>© 2024 Mycompta. Tous droits réservés.</p>
@@ -27,6 +33,6 @@ export default function Layout() {
       </main>
       <Error />
       <Success />
-    </>
+      </>
   );
 }

@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Palanquin:wght@100;200;300;400;500;600;700&display=swap");
+html,
+body {
+  height: 100%;
+  font-family: "Montserrat", sans-serif;
+  color: #313538;
+  margin: 0;
+  background-color: #f5f6f9;
+}
+
+#root {
+  display: flex;
+  height: 100%;
+}
+
+main {
+  width: 100%;
+  z-index: 9999;
+  background-color: white;
+  margin-top: 69px;
+  margin-left: 230px;
+  transition: margin-left 0.3s ease;
+}
+@media only screen and (max-width: 950px) {
+  main {
+    margin-left: 0px;
+  }
+}
+
+main.hamburger-opened {
+  margin-left: 230px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.top-navbar {
+  width: 100%;
+  height: 69px;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 1px solid #e7e9eb;
+  position: relative;
+}
+
+.right-box {
+  display: flex;
+  margin: 9px 30px;
+}
+.right-box__notification {
+  width: 44px;
+  height: 40px;
+  border: 1px solid #e7e9eb;
+  border-radius: 5px;
+  margin: 5px;
+  color: black;
+  cursor: pointer;
+}
+.right-box__notification:hover svg {
+  filter: opacity(0.8);
+}
+.right-box__notification svg {
+  width: 20px;
+  height: 28px;
+  margin-top: 6px;
+  margin-left: 12px;
+  filter: opacity(0.6);
+}
+.right-box__profile {
+  border-radius: 50px;
+  background-color: #3398bd;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+}
+.right-box__profile:hover {
+  filter: opacity(0.8);
+}
+.right-box__profile p {
+  text-align: center;
+  line-height: 6px;
+  font-size: 16px;
+  color: white;
+  font-weight: 300;
+}
+
+.popup-profile {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 30px;
+  top: 74px;
+  background-color: white;
+  border: 1px solid #e7e9eb;
+  border-radius: 5px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  font-size: 14px;
+  width: 170px;
+  text-align: left;
+}
+.popup-profile img {
+  position: absolute;
+  width: 24px;
+  top: -12px;
+  right: 12px;
+}
+.popup-profile a {
+  font-size: 14px;
+  padding: 14px 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #e7e9eb;
+}
+.popup-profile a svg {
+  margin-right: 6px;
+  vertical-align: text-bottom;
+  width: 17px;
+  height: 17px;
+}
+.popup-profile button {
+  background-color: white;
+  border: none;
+  text-align: left;
+  margin: 6px 0;
+  padding: 8px;
+  color: #313538;
+  font-size: 14px;
+  cursor: pointer;
+}
+.popup-profile button:hover {
+  background-color: #e66b55;
+  color: white;
+}
+.popup-profile button:hover svg {
+  color: white;
+}
+.popup-profile button svg {
+  margin-right: 6px;
+  vertical-align: text-bottom;
+  width: 17px;
+  height: 17px;
+}/*# sourceMappingURL=NavbarDashboard2.css.map */
