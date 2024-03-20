@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import fetcher from "../../utils/fetcher";
-import Cookies from "js-cookie";
+import { useSetAtom } from "jotai";
+import { successAtom } from "../../atom/notificationAtom";
 
 const ShowInvoice = () => {
   const { id } = useParams();
   const [invoiceData, setInvoiceData] = useState([]);
   const navigate = useNavigate();
+  const setSuccess = useSetAtom(successAtom);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetcher(`invoices/${id}`, undefined, "GET");
+        const response = await fetcher(`invoices/${id}`, undefined, "GET", true);
         if (!response.error) {
           setInvoiceData(response);
         } else {
@@ -31,9 +33,13 @@ const ShowInvoice = () => {
 
   const onClick = async () => {
     try {
-      const response = await fetcher(`invoices/${id}`, undefined, "DELETE");
+      const response = await fetcher(`invoices/${id}`, undefined, "DELETE", true);
+
+      // TODO: add error handling
 
       if (!response.error) {
+        console.log(response);
+        setSuccess("Facture supprimée avec succès");
         navigate(`/invoices`);
       } else {
         console.error(response.error);

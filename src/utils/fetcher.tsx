@@ -13,7 +13,7 @@ const fetcher = async (url: string, body?: FormData, method?: string, auth?: boo
   return fetch(apiUrl + url, {
     method: method?.toUpperCase() || "POST",
     headers: {
-      ...(auth && { Authorization: `Bearer ${JSON.parse(token as string).token}` }),
+      ...(auth && { Authorization: JSON.parse(token as string).token }),
     },
     body: body,
   })
