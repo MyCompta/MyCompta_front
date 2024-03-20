@@ -23,7 +23,7 @@ const ShowSociety = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(apiUrl + `societies/${society}`,
+        const response = await fetch(apiUrl + `societies/${localStorage.getItem('selectedSocietyId')}`,
           {
             method: "GET",
             headers: {

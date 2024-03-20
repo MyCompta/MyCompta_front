@@ -47,10 +47,10 @@ const IndexSocieties = () => {
   }
 
   const handleSocietyClick = (id) => {
-    setSociety(id);
+    localStorage.setItem('selectedSocietyId', id);
   }
 
-  // console.log("societyAtom dans indexsocieties", society)
+  console.log("societyAtom dans indexsocieties", society)
 
   return (
     <div className="societycontainer">
