@@ -6,12 +6,48 @@
   display: flex;
   justify-content: flex-end;
   border-bottom: 1px solid #e7e9eb;
-  position: relative;
+  position: fixed;
+  left: 0;
+
+  @include medium-screen {
+    background-color: $main-color;
+    border-bottom: 1px solid #171e1f;
+    z-index: 100;
+  }
+
+  &__logo {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 20px;
+    margin: auto;
+    display: none;
+
+    @include medium-screen {
+      display: flex;
+    }
+  }
+}
+
+.hamburger-react {
+  color: white;
+  position: absolute !important;
+  top: 10px;
+  left: 10px;
+  display: none;
+
+  @include medium-screen {
+    display: flex;
+  }
 }
 
 .right-box {
   display: flex;
   margin: 9px 30px;
+
+  @include medium-screen {
+    display: none;
+  }
 
   &__notification {
     width: 44px;
