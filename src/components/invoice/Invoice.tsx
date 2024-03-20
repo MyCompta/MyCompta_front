@@ -295,7 +295,7 @@ export default function Invoice({
             value={invoice.date.toISOString().substring(0, 10)}
           />
           <label htmlFor="dueDate">Date d'écheance :</label>
-          <select name="dueDateSelect" id="dueDate" onChange={handleDateSelect}>
+          <select name="dueDateSelect" id="dueDate" onChange={handleDateSelect} defaultValue={"30"}>
             <option value="0">À réception</option>
             <option value="15">15 jours</option>
             <option value="30">30 jours</option>
