@@ -9,39 +9,48 @@ import dashboardIcon from "../../assets/images/dashboard.svg";
 export default function LeftNavbarDashboard() {
   return (
     <nav className="left-navbar">
-      <h1>Mycompta</h1>
+      <p className="left-navbar__logo">Mycompta</p>
       <div className="left-navbar__society">
         <p>SOCIETY</p>
         <CgSelect />
       </div>
 
-      <Link to="/dashboard">
-        <div className="left-navbar__item">
+      <div className="left-navbar__item">
+        <Link to="/dashboard" className="index">
           <img src={dashboardIcon} alt="dashboard icon" />
           <p>Dashboard</p>
-        </div>
-      </Link>
-      <Link to="/customers">
-        <div className="left-navbar__item">
+        </Link>
+      </div>
+
+      <div className="left-navbar__item">
+        <Link to="/customers" className="index">
           <img src={customerIcon} alt="customer icon" />
           <p>Customers</p>
-          <Link to="/customers/new">+</Link>
-        </div>
-      </Link>
-      <Link to="/quotations">
-        <div className="left-navbar__item">
+        </Link>
+        <Link to="/customers/new" className="new">
+          +
+        </Link>
+      </div>
+
+      <div className="left-navbar__item">
+        <Link to="/quotations" className="index">
           <img src={quoteIcon} alt="quote icon" />
           <p>Quotations</p>
-          <Link to="/quotations/new">+</Link>
-        </div>
-      </Link>
-      <Link to="/invoices">
-        <div className="left-navbar__item">
+        </Link>
+        <Link to="/quotations/new" className="new">
+          +
+        </Link>
+      </div>
+
+      <div className="left-navbar__item">
+        <Link to="/invoices" className="index">
           <img src={invoiceIcon} alt="invoice icon" />
           <p>Invoices</p>
-          <Link to="/invoices/new">+</Link>
-        </div>
-      </Link>
+        </Link>
+        <Link to="/invoices/create" className="new">
+          +
+        </Link>
+      </div>
     </nav>
   );
 }

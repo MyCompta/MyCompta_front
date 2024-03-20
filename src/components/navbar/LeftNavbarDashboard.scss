@@ -14,9 +14,12 @@
     transform: translateX(-230px);
   }
 
-  h1 {
+  &__logo {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
     text-align: center;
-    height: 29px;
+    height: 21px;
   }
 
   &__society {
@@ -56,20 +59,22 @@
     height: 34px;
     width: calc(100% - 26px);
 
-    img {
-      width: 30px;
-      position: absolute;
-      top: 5px;
-      left: 8px;
-      filter: contrast(0.5);
+    .index {
+      img {
+        width: 30px;
+        position: absolute;
+        top: 5px;
+        left: 8px;
+        filter: contrast(0.5);
+      }
+
+      p {
+        text-align: center;
+        line-height: 4px;
+      }
     }
 
-    p {
-      text-align: center;
-      line-height: 4px;
-    }
-
-    a {
+    .new {
       display: none;
       position: absolute;
       top: 50%;

@@ -19,14 +19,15 @@ const TopNavbarDashboard = ({ onToggle }: any) => {
 
   useEffect(() => {
     onToggle(isHamburgerOpen);
-    console.log("isHamburgerOpen", isHamburgerOpen);
   }, [isHamburgerOpen]);
 
   return (
     <>
       <div className="top-navbar">
         <Hamburger toggled={isHamburgerOpen} toggle={setHamburgerOpen} />
-        <p className="top-navbar__logo">MyCompta</p>
+        <div className="top-navbar__logo">
+          <p>MyCompta</p>
+        </div>
         <div className="right-box">
           <div className="right-box__notification">
             <FaBell />
