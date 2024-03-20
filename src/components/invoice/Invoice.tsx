@@ -1,6 +1,10 @@
 import { UserInfos } from "./UserInfos";
 import { ItemLine } from "./ItemLine";
 import { useState, useEffect } from "react";
+import fetcher from "../../utils/fetcher";
+import invoiceDataFormatter from "../../utils/invoiceDataFormatter";
+import { useSetAtom } from "jotai";
+import { successAtom } from "../../atom/notificationAtom";
 
 export default function Invoice({
   authorProp,
@@ -11,6 +15,7 @@ export default function Invoice({
   clientProp?: TUserInfos;
   invoiceProp?: TInvoice;
 }) {
+  const setSuccess = useSetAtom(successAtom);
   const [author, setAuthor] = useState(
     authorProp ||
       ({
@@ -74,7 +79,6 @@ export default function Invoice({
           total: 0,
         },
         description: "",
-        discount: false,
       },
     ]);
   };
@@ -141,7 +145,7 @@ export default function Invoice({
             44 * 24 * 60 * 60 * 1000
         ),
       } as TInvoice);
-      console.log(invoice);
+      // console.log(invoice);
       return;
     }
 
@@ -150,7 +154,7 @@ export default function Invoice({
       dueDate: new Date(Date.parse(invoice.date.toString()) + Number(value) * 24 * 60 * 60 * 1000),
     } as TInvoice);
 
-    console.log(invoice);
+    // console.log(invoice);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -182,6 +186,7 @@ export default function Invoice({
           sumTaxValues(items).reduce((acc, item) => acc + item.total, 0),
       };
     });
+    // console.log(invoice);
   }, [items, setInvoice]);
 
   useEffect(() => {
@@ -193,6 +198,31 @@ export default function Invoice({
       };
     });
   }, [author, client, setInvoice]);
+
+  const handleSave = async () => {
+    let req: any;
+    if (invoice.id) {
+      req = await fetcher(`invoices/${invoice.id}`, invoiceDataFormatter(invoice), "PATCH", true);
+    } else {
+      req = await fetcher("invoices", invoiceDataFormatter(invoice), "POST", true);
+    }
+
+    req?.error && console.error(req.error);
+
+    if (!req?.error) {
+      console.log(req);
+      setSuccess("Facture enregistrée avec succès");
+
+      if (!invoice.id) {
+        setInvoice((invoice) => {
+          return {
+            ...invoice,
+            id: req.id,
+          };
+        });
+      }
+    }
+  };
 
   return (
     <div className="invoice">
@@ -308,6 +338,7 @@ export default function Invoice({
           </tfoot>
         </table>
       </div>
+      <button onClick={handleSave}>Enregistrer la facture</button>
     </div>
   );
 }

@@ -13,6 +13,7 @@ type TUserInfos = {
 };
 
 type TInvoice = {
+  id?: number;
   author: TUserInfos;
   client: TUserInfos;
   title: string;
@@ -24,6 +25,9 @@ type TInvoice = {
   discountTotal: number;
   total: number;
   items: TItem[];
+  is_draft?: boolean;
+  is_paid?: boolean;
+  status?: string;
 };
 
 type TItem = {
@@ -32,9 +36,9 @@ type TItem = {
   quantity: number;
   unit: string;
   price: number;
-  tax?: TTax;
+  tax: TTax;
   description: string;
-  discount: TDiscount | false;
+  discount?: TDiscount;
 };
 
 type TTax = {
@@ -46,4 +50,24 @@ type TDiscount = {
   name: string;
   percentage: number;
   total: number;
+};
+
+type TInvoiceDataform = {
+  invoice: {
+    content: {
+      items: TItem[];
+      tax: TTax[];
+    };
+    date: Date;
+    dueDate: Date;
+    title: string;
+    number: string;
+    subTotal: number;
+    tva: number;
+    total: number;
+    sale: number;
+    is_draft: boolean;
+    is_paid: boolean;
+    status: string;
+  };
 };
