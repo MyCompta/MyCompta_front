@@ -12,7 +12,7 @@ const InvoiceTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetcher("/invoices", undefined, "GET");
+        const response = await fetcher("/invoices", undefined, "GET", true);
         if (!response.error) {
           setInvoicesData(response);
         } else {
@@ -35,25 +35,23 @@ const InvoiceTable = () => {
   };
 
   const filterInvoicesByStatus = (status: string) => {
-    if (status === "all") {
-      return invoicesData;
-    }
     if (status === "drafts") {
-      return invoicesData.filter((invoice: any) => invoice.is_draft === true);
+      return invoicesData.filter((invoice: TInvoiceGetBack) => invoice.is_draft === true);
     }
     if (status === "outstanding") {
       return invoicesData.filter(
-        (invoice: any) => new Date(invoice.due_date) > new Date()
+        (invoice: TInvoiceGetBack) => new Date(invoice.due_date) > new Date()
       );
     }
     if (status === "past_due") {
       return invoicesData.filter(
-        (invoice: any) => new Date(invoice.due_date) < new Date()
+        (invoice: TInvoiceGetBack) => new Date(invoice.due_date) < new Date()
       );
     }
     if (status === "paid") {
-      return invoicesData.filter((invoice: any) => invoice.is_paid === true);
+      return invoicesData.filter((invoice: TInvoiceGetBack) => invoice.is_paid === true);
     }
+    return invoicesData;
   };
 
   return (
@@ -61,9 +59,7 @@ const InvoiceTable = () => {
       <div>
         <button onClick={() => setCurrentTab("all")}>All</button>
         <button onClick={() => setCurrentTab("drafts")}>Drafts</button>
-        <button onClick={() => setCurrentTab("outstanding")}>
-          Outstanding
-        </button>
+        <button onClick={() => setCurrentTab("outstanding")}>Outstanding</button>
         <button onClick={() => setCurrentTab("past_due")}>Past Due</button>
         <button onClick={() => setCurrentTab("paid")}>Paid</button>
       </div>
@@ -80,8 +76,8 @@ const InvoiceTable = () => {
           </tr>
         </thead>
         <tbody>
-          {filterInvoicesByStatus(currentTab).map((invoice: any) => (
-            <tr key={invoice.id} onClick={() => handleLineClick(invoice.id)}>
+          {filterInvoicesByStatus(currentTab).map((invoice: TInvoiceGetBack) => (
+            <tr key={invoice.id} onClick={() => handleLineClick(invoice.id!)}>
               <td>#{invoice.id}</td>
               <td>CUSTOMER NAME</td>
               <td>{formatDate2(invoice.date)}</td>
