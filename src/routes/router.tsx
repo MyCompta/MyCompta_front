@@ -16,6 +16,7 @@ import EditInvoice from "../pages/invoices/EditInvoice";
 
 
 import ShowSociety from "../pages/society/ShowSociety"
+import CGU from "../pages/users/CGU"
 
 
 
@@ -29,6 +30,7 @@ export const router = createBrowserRouter(
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/cgu" element={<CGU />} />
         </Route>
 
         {/* Protected Routes */}
