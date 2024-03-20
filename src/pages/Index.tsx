@@ -1,5 +1,5 @@
 import IndexSocieties from "./society/IndexSocieties.jsx"
-import ShowSociety from "./society/Showsocieties.jsx"
+import ShowSociety from "./society/ShowSociety.jsx"
 
 
 export default function Index() {

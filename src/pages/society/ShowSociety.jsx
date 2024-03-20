@@ -1,18 +1,28 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import fetcher from "../../utils/fetcher";
 import Cookies from "js-cookie";
+import { useAtom } from 'jotai';
+
+
+import fetcher from "../../utils/fetcher";
+
+import EditComponentSociety from '../../components/society/EditComponentSociety.jsx';
+import EditSociety from './EditSociety.jsx';
+import societyAtom from '../../atom/societyAtom.jsx'
+
 
 const apiUrl = import.meta.env.VITE_API_URL
 const token = Cookies.get("token");
 
-console.log("token dans showsociety", token)
-
 
 const ShowSociety = () => {
-  const { id } = useParams();
+  
+  const [showEditSociety, setShowEditSociety] = useState(false);
   const [societyData, setSocietyData] = useState([]);
+  const [, setAtomData] = useAtom(societyAtom);
   const navigate = useNavigate();
+
+  const id = localStorage.getItem('selectedSocietyId');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +38,7 @@ const ShowSociety = () => {
           if(response.ok) {
             const data = await response.json();
             setSocietyData(data);
+            setAtomData(data)
           } else {
           console.error(response.error);
           }
@@ -37,9 +48,9 @@ const ShowSociety = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [societyAtom]);
 
-  // console.log("societyData dans showsociety", societyData)
+  
 
   
 
@@ -65,12 +76,17 @@ const ShowSociety = () => {
     }
   };
 
+  const handleEditSocietyClick = () => {
+    setShowEditSociety(true);
+  }
   return (
     <>
       <h1>{societyData.name} {societyData.status}</h1>
-      <button><Link to="/dashboard">Back to dashboard</Link></button>
-      <button><Link to={`/society/${id}/edit`}>Edit</Link></button>
-      <button onClick={onClick}>Delete</button>
+      <div> 
+        <button><Link to="/dashboard">Back to dashboard</Link></button>
+        <EditComponentSociety onClick={handleEditSocietyClick} className="buttoneditsociety"/><br />
+        <button onClick={onClick}>Delete</button>
+      </div>
 
       <div>
         Capital: {societyData.capital}<br />
@@ -81,6 +97,10 @@ const ShowSociety = () => {
         Siret n°: {societyData.siret}<br />
         email: {societyData.email}<br />
          
+      </div>
+
+      <div className="displaycreatesocietycontainer">
+        {showEditSociety && <div><EditSociety /></div>}
       </div>
 
     </>
