@@ -14,6 +14,8 @@ import IndexInvoices from "../pages/invoices/IndexInvoices";
 import ShowInvoice from "../pages/invoices/ShowInvoice";
 import EditInvoice from "../pages/invoices/EditInvoice";
 
+import ShowSociety from "../pages/society/Showsocieties.jsx"
+
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -34,6 +36,8 @@ export const router = createBrowserRouter(
           <Route path="/invoices/:id" element={<ShowInvoice />} />
           <Route path="/invoices/:id/edit" element={<EditInvoice />} />
         </Route>
+
+        <Route path="/showsociety" element={<ShowSociety />} />
       </Route>
     </>
   )
