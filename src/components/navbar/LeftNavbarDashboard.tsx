@@ -79,17 +79,19 @@ export default function LeftNavbarDashboard() {
         </Link>
       </div>
 
-      <div className="left-navbar__connection">
-        <Link
-          to="/register"
-          className="left-navbar__connection-link left-navbar__connection--blue"
-        >
-          Register
-        </Link>
-        <Link to="/login" className="left-navbar__connection-link">
-          Login
-        </Link>
-      </div>
+      {!Cookies.get("token") && (
+        <div className="left-navbar__connection">
+          <Link
+            to="/register"
+            className="left-navbar__connection-link left-navbar__connection--blue"
+          >
+            Register
+          </Link>
+          <Link to="/login" className="left-navbar__connection-link">
+            Login
+          </Link>
+        </div>
+      )}
     </nav>
   );
 }
