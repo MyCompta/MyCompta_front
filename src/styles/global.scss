@@ -31,9 +31,9 @@ body {
 
 main {
   width: 100%;
-  z-index: 9999;
-  background-color: white;
-  margin-top: 69px;
+  z-index: 100;
+  background-color: $bg-color;
+  margin-top: 70px;
   margin-left: 230px;
   transition: margin-left 0.3s ease;
 
@@ -49,4 +49,8 @@ main.hamburger-opened {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+h1 {
+  margin: 30px;
 }

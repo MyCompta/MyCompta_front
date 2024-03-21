@@ -14,9 +14,12 @@
     transform: translateX(-230px);
   }
 
-  h1 {
+  &__logo {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
     text-align: center;
-    height: 29px;
+    height: 21px;
   }
 
   &__society {
@@ -28,6 +31,15 @@
     line-height: 26px;
     cursor: pointer;
     position: relative;
+
+    svg {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      font-size: 28px;
+      color: #ffffff;
+      filter: contrast(0.5);
+    }
   }
 
   &__society:hover {
@@ -38,13 +50,52 @@
     filter: none;
   }
 
-  svg {
-    position: absolute;
-    right: 14px;
-    top: 14px;
-    font-size: 28px;
-    color: #ffffff;
-    filter: contrast(0.5);
+  &__profile-options {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    height: 36px;
+
+    @include medium-screen {
+      display: flex;
+    }
+
+    .profile-icon {
+      border-radius: 50px;
+      background-color: #3398bd;
+      width: 40px;
+      height: 40px;
+      margin: 5px;
+      cursor: pointer;
+
+      p {
+        text-align: center;
+        line-height: 6px;
+        font-size: 16px;
+        color: white;
+        font-weight: 300;
+      }
+    }
+
+    .notification {
+      svg {
+        width: 16px;
+        height: 16px;
+        margin: 5px;
+        cursor: pointer;
+      }
+    }
+
+    .profile-link,
+    .logout-icon {
+      svg {
+        width: 20px;
+        height: 20px;
+        margin: 5px;
+        cursor: pointer;
+      }
+    }
   }
 
   &__item {
@@ -56,20 +107,22 @@
     height: 34px;
     width: calc(100% - 26px);
 
-    img {
-      width: 30px;
-      position: absolute;
-      top: 5px;
-      left: 8px;
-      filter: contrast(0.5);
+    .index {
+      img {
+        width: 30px;
+        position: absolute;
+        top: 5px;
+        left: 8px;
+        filter: contrast(0.5);
+      }
+
+      p {
+        text-align: center;
+        line-height: 4px;
+      }
     }
 
-    p {
-      text-align: center;
-      line-height: 4px;
-    }
-
-    a {
+    .new {
       display: none;
       position: absolute;
       top: 50%;

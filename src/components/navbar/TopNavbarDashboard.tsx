@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./TopNavbarDashboard.scss";
 import { FaBell } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,30 +12,71 @@ import LeftNavbardashboard from "./LeftNavbarDashboard";
 const TopNavbarDashboard = ({ onToggle }: any) => {
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
   const [isHamburgerOpen, setHamburgerOpen] = useState(false);
+  const profilePopupRef = useRef(null);
 
-  const handleProfileClick = () => {
+  const handleProfileClick = (event) => {
+    event.stopPropagation();
     setIsProfilePopupOpen(!isProfilePopupOpen);
   };
 
+  const handleAutoCloseProfilPopup = () => {
+    setIsProfilePopupOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutsideProfilePopup = (event) => {
+      if (
+        profilePopupRef.current &&
+        !profilePopupRef.current.contains(event.target)
+      ) {
+        setIsProfilePopupOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutsideProfilePopup);
+    return () => {
+      document.removeEventListener("click", handleClickOutsideProfilePopup);
+    };
+  }, [profilePopupRef]);
+
   useEffect(() => {
     onToggle(isHamburgerOpen);
-    console.log("isHamburgerOpen", isHamburgerOpen);
   }, [isHamburgerOpen]);
 
   return (
     <>
       <div className="top-navbar">
         <Hamburger toggled={isHamburgerOpen} toggle={setHamburgerOpen} />
-        <p className="top-navbar__logo">MyCompta</p>
-        <div className="right-box">
-          <div className="right-box__notification">
-            <FaBell />
-          </div>
-          <div className="right-box__profile" onClick={handleProfileClick}>
-            <p>AL</p>
-          </div>
+        <div className="top-navbar__logo">
+          <p>MyCompta</p>
         </div>
-        {isProfilePopupOpen && <PopupProfile />}
+
+        {Cookies.get("token") ? (
+          <div className="right-box">
+            <div className="right-box__notification">
+              <FaBell />
+            </div>
+            <div className="right-box__profile" onClick={handleProfileClick}>
+              <p>AL</p>
+            </div>
+          </div>
+        ) : (
+          <div className="right-box">
+            <Link to="/login" className="right-box__login">
+              Login
+            </Link>
+            <Link to="/register" className="right-box__register">
+              Register
+            </Link>
+          </div>
+        )}
+
+        {isProfilePopupOpen && (
+          <PopupProfile
+            onCloseProfilPopup={handleAutoCloseProfilPopup}
+            profilePopupRef={profilePopupRef}
+          />
+        )}
       </div>
       <LeftNavbardashboard />
     </>
@@ -44,14 +85,16 @@ const TopNavbarDashboard = ({ onToggle }: any) => {
 
 export default TopNavbarDashboard;
 
-export const PopupProfile = () => {
+export const PopupProfile = ({ onCloseProfilPopup, profilePopupRef }: any) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     Cookies.remove("token");
+    onCloseProfilPopup();
     navigate("/");
   };
+
   return (
-    <div className="popup-profile">
+    <div className="popup-profile" ref={profilePopupRef}>
       <img src={tic} alt="tic" />
       <Link to="/profile">
         <CgProfile />
