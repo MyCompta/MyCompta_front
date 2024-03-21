@@ -11,7 +11,6 @@ export default function Layout() {
 
   const handleHamburger = (toggle) => {
     setHamburgerOpen(toggle);
-    console.log("burger Actionned", isHamburgerOpen);
   };
 
   const isDashboardRoute = matchPath(
@@ -33,6 +32,6 @@ export default function Layout() {
       </main>
       <Error />
       <Success />
-    </>
+      </>
   );
 }

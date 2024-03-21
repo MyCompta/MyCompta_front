@@ -1,61 +1,66 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
+import { useAtom, useAtomValue } from "jotai";
+
+import societyAtom from "../../atom/societyAtom.jsx";
 import { useNavigate } from "react-router-dom";
 
-const CreateSociety = () => {
+const EditSociety = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const token = Cookies.get("token");
   const user_id = JSON.parse(Cookies.get("token")).user_id;
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [status, setStatus] = useState("micro-entreprise");
-  const [adress, setAdress] = useState("");
-  const [zip, setZip] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [siret, setSiret] = useState("");
-  const [capital, setCapital] = useState("");
-  const [email, setEmail] = useState("");
+  const societyAtomValue = useAtomValue(societyAtom);
+
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+
+  const [name, setName] = useState(societyAtomValue.name);
+  const [status, setStatus] = useState(societyAtomValue.status);
+  const [adress, setAdress] = useState(societyAtomValue.adress);
+  const [zip, setZip] = useState(societyAtomValue.zip);
+  const [city, setCity] = useState(societyAtomValue.city);
+  const [country, setCountry] = useState(societyAtomValue.country);
+  const [capital, setCapital] = useState(societyAtomValue.capital);
+  const [email, setEmail] = useState(societyAtomValue.email);
   const [errors, setErrors] = useState({});
 
-  const [creationSuccess, setCreationSuccess] = useState(false);
+  // console.log("c'estl'atom", societyAtomValue.id)
 
-  // console.log("dans le create", token)
-  // console.log("user token id", user_id)
-
-  const HandleSubmitCreateSociety = async (e) => {
+  const HandleSubmitEditSociety = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(apiUrl + "societies", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: JSON.parse(Cookies.get("token")).token,
-        },
-        body: JSON.stringify({
-          society: {
-            name: name,
-            status: status,
-            adress: adress,
-            zip: zip,
-            city: city,
-            country: country,
-            siret: siret,
-            capital: capital,
-            email: email,
-            user_id: user_id,
+      const response = await fetch(
+        apiUrl + `societies/${societyAtomValue.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: JSON.parse(Cookies.get("token")).token,
           },
-        }),
-      });
+          body: JSON.stringify({
+            society: {
+              name: name,
+              status: status,
+              adress: adress,
+              zip: zip,
+              city: city,
+              country: country,
+              capital: capital,
+              email: email,
+              user_id: user_id,
+            },
+          }),
+        }
+      );
 
       const responseData = await response.json();
 
       if (response.ok) {
-        navigate(`/`);
+        window.location.reload();
       } else {
-        setErrors(responseData);
+        console.log("error responseData", responseData);
       }
     } catch (error) {
       setErrors({ generic: "No answer from server" });
@@ -63,18 +68,17 @@ const CreateSociety = () => {
   };
 
   return (
-    <div className="createsocietyform">
-      <form onSubmit={HandleSubmitCreateSociety}>
-        <h2>You can create company here !</h2>
+    <div className="editsocietyform">
+      <form onSubmit={HandleSubmitEditSociety}>
+        <h2>You can update information's company here !</h2>
         <label>
           Company's name :
           <input
             type="text"
             name="name"
             value={name}
-            placeholder={"name of your company"}
+            placeholder={societyAtomValue.name}
             onChange={(e) => setName(e.target.value)}
-            className={errors && errors.name ? "error" : ""}
           />
         </label>
         <br />
@@ -100,9 +104,8 @@ const CreateSociety = () => {
             type="text"
             name="adress"
             value={adress}
-            placeholder={"adress of your company"}
+            placeholder={societyAtomValue.adress}
             onChange={(e) => setAdress(e.target.value)}
-            className={errors && errors.name ? "error" : ""}
           />
         </label>
         <br />
@@ -112,9 +115,8 @@ const CreateSociety = () => {
             type="number"
             name="zip"
             value={zip}
-            placeholder={"zip code"}
+            placeholder={societyAtomValue.zip}
             onChange={(e) => setZip(e.target.value)}
-            className={errors && errors.name ? "error" : ""}
           />
         </label>
         <br />
@@ -124,9 +126,8 @@ const CreateSociety = () => {
             type="text"
             name="city"
             value={city}
-            placeholder={"city"}
+            placeholder={societyAtomValue.city}
             onChange={(e) => setCity(e.target.value)}
-            className={errors && errors.name ? "error" : ""}
           />
         </label>
         <br />
@@ -136,21 +137,8 @@ const CreateSociety = () => {
             type="text"
             name="country"
             value={country}
-            placeholder={"country name"}
+            placeholder={societyAtomValue.country}
             onChange={(e) => setCountry(e.target.value)}
-            className={errors && errors.name ? "error" : ""}
-          />
-        </label>
-        <br />
-        <label>
-          Siret :
-          <input
-            type="text"
-            name="siret"
-            value={siret}
-            placeholder={"13 digits"}
-            onChange={(e) => setSiret(e.target.value)}
-            className={errors && errors.name ? "error" : ""}
           />
         </label>
         <br />
@@ -160,9 +148,8 @@ const CreateSociety = () => {
             type="text"
             name="capital"
             value={capital}
-            placeholder={"capital"}
+            placeholder={societyAtomValue.capital}
             onChange={(e) => setCapital(e.target.value)}
-            className={errors && errors.name ? "error" : ""}
           />
         </label>
         <br />
@@ -172,16 +159,15 @@ const CreateSociety = () => {
             type="text"
             name="email"
             value={email}
-            placeholder={"your company's email"}
+            placeholder={societyAtomValue.email}
             onChange={(e) => setEmail(e.target.value)}
-            className={errors && errors.name ? "error" : ""}
           />
         </label>
         <br />
-        <button>Create society</button>
+        <button>Save</button>
       </form>
     </div>
   );
 };
 
-export default CreateSociety;
+export default EditSociety;

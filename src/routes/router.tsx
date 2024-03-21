@@ -14,18 +14,24 @@ import IndexInvoices from "../pages/invoices/IndexInvoices";
 import ShowInvoice from "../pages/invoices/ShowInvoice";
 import EditInvoice from "../pages/invoices/EditInvoice";
 
-import ShowSociety from "../pages/society/Showsocieties.jsx"
+
+import ShowSociety from "../pages/society/ShowSociety"
+import CGU from "../pages/users/CGU"
+
+
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Layout />}>
         <Route index element={<Index />} />
+        <Route path="/cgu" element={<CGU />} />
         <Route element={<NotLoggedRoute redirectPath="/dashboard" />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          
         </Route>
 
         {/* Protected Routes */}
@@ -35,9 +41,9 @@ export const router = createBrowserRouter(
           <Route path="/invoices/create" element={<InvoiceCreate />} />
           <Route path="/invoices/:id" element={<ShowInvoice />} />
           <Route path="/invoices/:id/edit" element={<EditInvoice />} />
-        </Route>
 
-        <Route path="/showsociety" element={<ShowSociety />} />
+          <Route path="/society/:name" element={<ShowSociety />} />
+        </Route>
       </Route>
     </>
   )

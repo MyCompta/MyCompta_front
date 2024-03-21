@@ -8,11 +8,13 @@
   border-bottom: 1px solid #e7e9eb;
   position: fixed;
   left: 0;
+  background-color: white;
+  border: 1px solid #e7e9eb;
+  z-index: 1000;
 
   @include medium-screen {
     background-color: $main-color;
     border-bottom: 1px solid #171e1f;
-    z-index: 100;
   }
 
   &__logo {
@@ -20,11 +22,23 @@
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 20px;
-    margin: auto;
-    display: none;
+    margin-right: auto;
+    padding-left: 45px;
+    background-color: #212a2b;
+    border-bottom: 1px solid #171e1f;
+    height: 69px;
+    width: 185px;
+    border-right: 1px solid #171e1f;
+    margin-left: -1px;
 
     @include medium-screen {
-      display: flex;
+      margin-left: auto;
+      background-color: transparent;
+      border: none;
+    }
+
+    p span {
+      color: #4fb2d6;
     }
   }
 }
@@ -90,6 +104,31 @@
       color: white;
       font-weight: 300;
     }
+  }
+
+  &__login {
+    width: 100px;
+    color: $second-color;
+    text-align: center;
+    height: 30px;
+    border-radius: 5px;
+    font-weight: 500;
+    line-height: 30px;
+    margin: 10px 5px;
+    border: 1px solid $second-color;
+  }
+
+  &__register {
+    width: 120px;
+    background-color: $second-color;
+    color: #fff !important;
+    text-align: center;
+    height: 30px;
+    border-radius: 5px;
+    font-weight: 400;
+    line-height: 30px;
+    margin: 10px 5px;
+    border: 1px solid $second-color;
   }
 }
 

@@ -1,5 +1,7 @@
 import { Form } from "../../components/forms/Form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import CGUcheck from './CGUcheck.jsx'
 
 export default function Register() {
   const navigate = useNavigate();
@@ -18,10 +20,23 @@ export default function Register() {
             displayName: "Confirmer le mot de passe",
             type: "password",
           },
+          {
+            name: "cgu",
+            displayName: (
+              <>
+                I have read the {" "}
+                <Link to="/cgu" style={{ color: 'blue' }} target="_blank" rel="noopener noreferrer">terms of service</Link>
+              </>
+            ),
+            type: "checkbox",
+            component: <CGUcheck />,
+          },
         ]}
         controller="user"
         onSuccess={() => navigate("/dashboard")}
       />
+
+      
     </div>
   );
 }

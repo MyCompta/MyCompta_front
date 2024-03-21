@@ -8,6 +8,13 @@
   flex-direction: column;
   min-width: 600px;
   gap: 2rem;
+  margin: 10px;
+}
+
+.invoice__titles {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0.67em;
 }
 
 .invoice__author,
