@@ -1,79 +1,73 @@
-import {useState} from 'react'
-import Cookies from 'js-cookie'
-import { useNavigate } from 'react-router';
+import { useState } from "react";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const CreateSociety = () => {
-
-  const apiUrl = import.meta.env.VITE_API_URL
+  const apiUrl = import.meta.env.VITE_API_URL;
   const token = Cookies.get("token");
-  const user_id = JSON.parse(Cookies.get("token")).user_id
+  const user_id = JSON.parse(Cookies.get("token")).user_id;
   const navigate = useNavigate();
 
-  const [name, setName] = useState('')
-  const [status, setStatus] = useState('micro-entreprise')
-  const [adress, setAdress] = useState('')
-  const [zip, setZip] = useState('')
-  const [city, setCity] = useState('')
-  const [country, setCountry] = useState('')
-  const [siret, setSiret] = useState('')
-  const [capital, setCapital] = useState('')
-  const [email, setEmail] = useState('')
-  const [errors, setErrors] = useState({})
+  const [name, setName] = useState("");
+  const [status, setStatus] = useState("micro-entreprise");
+  const [adress, setAdress] = useState("");
+  const [zip, setZip] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [siret, setSiret] = useState("");
+  const [capital, setCapital] = useState("");
+  const [email, setEmail] = useState("");
+  const [errors, setErrors] = useState({});
 
   const [creationSuccess, setCreationSuccess] = useState(false);
 
   // console.log("dans le create", token)
   // console.log("user token id", user_id)
 
-
   const HandleSubmitCreateSociety = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-      try {
-        const response = await fetch(apiUrl + "societies",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": JSON.parse(Cookies.get("token")).token,
+    try {
+      const response = await fetch(apiUrl + "societies", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: JSON.parse(Cookies.get("token")).token,
+        },
+        body: JSON.stringify({
+          society: {
+            name: name,
+            status: status,
+            adress: adress,
+            zip: zip,
+            city: city,
+            country: country,
+            siret: siret,
+            capital: capital,
+            email: email,
+            user_id: user_id,
           },
-          body: JSON.stringify({
-            society: {
-              "name": name,
-              "status": status,
-              "adress": adress,
-              "zip": zip,
-              "city": city,
-              "country": country,
-              "siret": siret,
-              "capital": capital,
-              "email": email,
-              "user_id": user_id
-            }
-          })
-        });
+        }),
+      });
 
-        const responseData = await response.json();
+      const responseData = await response.json();
 
-      if(response.ok) {
-        navigate(`/`)
+      if (response.ok) {
+        navigate(`/`);
       } else {
         setErrors(responseData);
       }
-      } catch (error) {
-        setErrors({ generic: 'No answer from server' });
-      }
+    } catch (error) {
+      setErrors({ generic: "No answer from server" });
     }
-
-  
-
+  };
 
   return (
-
     <div className="createsocietyform">
       <form onSubmit={HandleSubmitCreateSociety}>
         <h2>You can create company here !</h2>
-        <label>Company's name : 
+        <label>
+          Company's name :
           <input
             type="text"
             name="name"
@@ -84,8 +78,13 @@ const CreateSociety = () => {
           />
         </label>
         <br />
-        <label>Company's social reason : 
-          <select name="status" value={status} onChange={(e) =>setStatus(e.target.value)}>
+        <label>
+          Company's social reason :
+          <select
+            name="status"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
             <option value="micro-entreprise">Micro</option>
             <option value="SASU">SASU</option>
             <option value="EURL">EURL</option>
@@ -95,7 +94,8 @@ const CreateSociety = () => {
           </select>
         </label>
         <br />
-        <label>Address : 
+        <label>
+          Address :
           <input
             type="text"
             name="adress"
@@ -106,7 +106,8 @@ const CreateSociety = () => {
           />
         </label>
         <br />
-        <label>Zip code : 
+        <label>
+          Zip code :
           <input
             type="number"
             name="zip"
@@ -117,7 +118,8 @@ const CreateSociety = () => {
           />
         </label>
         <br />
-        <label>City : 
+        <label>
+          City :
           <input
             type="text"
             name="city"
@@ -128,7 +130,8 @@ const CreateSociety = () => {
           />
         </label>
         <br />
-        <label>Country : 
+        <label>
+          Country :
           <input
             type="text"
             name="country"
@@ -139,7 +142,8 @@ const CreateSociety = () => {
           />
         </label>
         <br />
-        <label>Siret : 
+        <label>
+          Siret :
           <input
             type="text"
             name="siret"
@@ -150,7 +154,8 @@ const CreateSociety = () => {
           />
         </label>
         <br />
-        <label>Capital : 
+        <label>
+          Capital :
           <input
             type="text"
             name="capital"
@@ -161,7 +166,8 @@ const CreateSociety = () => {
           />
         </label>
         <br />
-        <label>Email : 
+        <label>
+          Email :
           <input
             type="text"
             name="email"
@@ -175,7 +181,7 @@ const CreateSociety = () => {
         <button>Create society</button>
       </form>
     </div>
-  )
-  }
+  );
+};
 
-  export default CreateSociety;
+export default CreateSociety;

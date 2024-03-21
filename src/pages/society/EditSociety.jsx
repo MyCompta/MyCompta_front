@@ -1,83 +1,78 @@
-import {useState} from 'react'
-import Cookies from 'js-cookie'
-import { useAtom, useAtomValue } from 'jotai';
+import { useState } from "react";
+import Cookies from "js-cookie";
+import { useAtom, useAtomValue } from "jotai";
 
-import societyAtom from '../../atom/societyAtom.jsx'
-import { useNavigate } from 'react-router';
+import societyAtom from "../../atom/societyAtom.jsx";
+import { useNavigate } from "react-router-dom";
 
 const EditSociety = () => {
-
-  const apiUrl = import.meta.env.VITE_API_URL
+  const apiUrl = import.meta.env.VITE_API_URL;
   const token = Cookies.get("token");
-  const user_id = JSON.parse(Cookies.get("token")).user_id
+  const user_id = JSON.parse(Cookies.get("token")).user_id;
   const navigate = useNavigate();
 
   const societyAtomValue = useAtomValue(societyAtom);
 
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
-  const [name, setName] = useState(societyAtomValue.name)
-  const [status, setStatus] = useState(societyAtomValue.status)
-  const [adress, setAdress] = useState(societyAtomValue.adress)
-  const [zip, setZip] = useState(societyAtomValue.zip)
-  const [city, setCity] = useState(societyAtomValue.city)
-  const [country, setCountry] = useState(societyAtomValue.country)
-  const [capital, setCapital] = useState(societyAtomValue.capital)
-  const [email, setEmail] = useState(societyAtomValue.email)
-  const [errors, setErrors] = useState({})
-
+  const [name, setName] = useState(societyAtomValue.name);
+  const [status, setStatus] = useState(societyAtomValue.status);
+  const [adress, setAdress] = useState(societyAtomValue.adress);
+  const [zip, setZip] = useState(societyAtomValue.zip);
+  const [city, setCity] = useState(societyAtomValue.city);
+  const [country, setCountry] = useState(societyAtomValue.country);
+  const [capital, setCapital] = useState(societyAtomValue.capital);
+  const [email, setEmail] = useState(societyAtomValue.email);
+  const [errors, setErrors] = useState({});
 
   // console.log("c'estl'atom", societyAtomValue.id)
 
-
   const HandleSubmitEditSociety = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-      try {
-        const response = await fetch(apiUrl + `societies/${societyAtomValue.id}`,
+    try {
+      const response = await fetch(
+        apiUrl + `societies/${societyAtomValue.id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": JSON.parse(Cookies.get("token")).token,
+            Authorization: JSON.parse(Cookies.get("token")).token,
           },
           body: JSON.stringify({
             society: {
-              "name": name,
-              "status": status,
-              "adress": adress,
-              "zip": zip,
-              "city": city,
-              "country": country,
-              "capital": capital,
-              "email": email,
-              "user_id": user_id
-            }
-          })
-        });
+              name: name,
+              status: status,
+              adress: adress,
+              zip: zip,
+              city: city,
+              country: country,
+              capital: capital,
+              email: email,
+              user_id: user_id,
+            },
+          }),
+        }
+      );
 
-        const responseData = await response.json();
+      const responseData = await response.json();
 
-
-      if(response.ok) {
+      if (response.ok) {
         window.location.reload();
       } else {
-        console.log("error responseData", responseData)
+        console.log("error responseData", responseData);
       }
-      } catch (error) {
-        setErrors({ generic: 'No answer from server' });
-      }
+    } catch (error) {
+      setErrors({ generic: "No answer from server" });
     }
-
-
-
+  };
 
   return (
-
     <div className="editsocietyform">
       <form onSubmit={HandleSubmitEditSociety}>
         <h2>You can update information's company here !</h2>
-        <label>Company's name : 
+        <label>
+          Company's name :
           <input
             type="text"
             name="name"
@@ -87,8 +82,13 @@ const EditSociety = () => {
           />
         </label>
         <br />
-        <label>Company's social reason : 
-          <select name="status" value={status} onChange={(e) =>setStatus(e.target.value)}>
+        <label>
+          Company's social reason :
+          <select
+            name="status"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
             <option value="micro-entreprise">Micro</option>
             <option value="SASU">SASU</option>
             <option value="EURL">EURL</option>
@@ -98,7 +98,8 @@ const EditSociety = () => {
           </select>
         </label>
         <br />
-        <label>Address : 
+        <label>
+          Address :
           <input
             type="text"
             name="adress"
@@ -108,7 +109,8 @@ const EditSociety = () => {
           />
         </label>
         <br />
-        <label>Zip code : 
+        <label>
+          Zip code :
           <input
             type="number"
             name="zip"
@@ -118,7 +120,8 @@ const EditSociety = () => {
           />
         </label>
         <br />
-        <label>City : 
+        <label>
+          City :
           <input
             type="text"
             name="city"
@@ -128,7 +131,8 @@ const EditSociety = () => {
           />
         </label>
         <br />
-        <label>Country : 
+        <label>
+          Country :
           <input
             type="text"
             name="country"
@@ -138,7 +142,8 @@ const EditSociety = () => {
           />
         </label>
         <br />
-        <label>Capital : 
+        <label>
+          Capital :
           <input
             type="text"
             name="capital"
@@ -148,7 +153,8 @@ const EditSociety = () => {
           />
         </label>
         <br />
-        <label>Email : 
+        <label>
+          Email :
           <input
             type="text"
             name="email"
@@ -161,7 +167,7 @@ const EditSociety = () => {
         <button>Save</button>
       </form>
     </div>
-  )
-  }
+  );
+};
 
-  export default EditSociety;
+export default EditSociety;
