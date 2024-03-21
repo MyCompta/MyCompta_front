@@ -21,20 +21,22 @@ export default function LeftNavbarDashboard() {
   return (
     <nav className="left-navbar">
       <p className="left-navbar__logo">Mycompta</p>
-      <div className="left-navbar__profile-options">
-        <div className="profile-icon">
-          <p>AL</p>
+      {Cookies.get("token") && (
+        <div className="left-navbar__profile-options">
+          <div className="profile-icon">
+            <p>AL</p>
+          </div>
+          <div className="notification">
+            <FaBell />
+          </div>
+          <Link to="/profile" className="profile-link">
+            <CgProfile />
+          </Link>
+          <div className="logout-icon" onClick={handleLogout}>
+            <LuLogOut />
+          </div>
         </div>
-        <div className="notification">
-          <FaBell />
-        </div>
-        <Link to="/profile" className="profile-link">
-          <CgProfile />
-        </Link>
-        <div className="logout-icon" onClick={handleLogout}>
-          <LuLogOut />
-        </div>
-      </div>
+      )}
       <div className="left-navbar__society">
         <p>SOCIETY</p>
         <CgSelect />
@@ -74,6 +76,18 @@ export default function LeftNavbarDashboard() {
         </Link>
         <Link to="/invoices/create" className="new">
           +
+        </Link>
+      </div>
+
+      <div className="left-navbar__connection">
+        <Link
+          to="/register"
+          className="left-navbar__connection-link left-navbar__connection--blue"
+        >
+          Register
+        </Link>
+        <Link to="/login" className="left-navbar__connection-link">
+          Login
         </Link>
       </div>
     </nav>

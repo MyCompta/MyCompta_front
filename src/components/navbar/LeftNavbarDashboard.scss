@@ -149,4 +149,22 @@
   &__item:hover a {
     display: block;
   }
+
+  &__connection {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    width: 230px;
+    bottom: 0;
+
+    &-link {
+      border-top: 1px solid #171e1f;
+      line-height: 50px;
+    }
+
+    &--blue {
+      color: #83deff;
+    }
+  }
 }
