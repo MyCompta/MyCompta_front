@@ -54,7 +54,7 @@ export function Form({
           />
         </div>
       ))}
-      <input type="submit" value={btnDisplay} />
+      <input type="submit" value={btnDisplay} className="registerbutton"/>
     </form>
   );
 }
