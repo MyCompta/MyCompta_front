@@ -194,13 +194,21 @@ export default function Invoice({
       return {
         ...prevInvoice,
         author: author,
+      };
+    });
+  }, [author, setInvoice]);
+
+  useEffect(() => {
+    setInvoice((prevInvoice) => {
+      return {
+        ...prevInvoice,
         client: client,
       };
     });
-  }, [author, client, setInvoice]);
+  }, [client, setInvoice]);
 
   const handleSave = async () => {
-    let req: any;
+    let req: TSaveReq;
     if (invoice.id) {
       req = await fetcher(
         `invoices/${invoice.id}`,
@@ -225,11 +233,11 @@ export default function Invoice({
             id: req.id,
             client: {
               ...invoice.client,
-              id: req.society_id,
+              id: req.client_id,
             },
             author: {
               ...invoice.author,
-              id: req.author_id,
+              id: req.society_id,
             },
           };
         });
@@ -259,6 +267,7 @@ export default function Invoice({
         clearTimeout(autoSave);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invoice]);
 
   return (
@@ -394,3 +403,26 @@ export default function Invoice({
     </div>
   );
 }
+
+type TSaveReq = {
+  additional_info: string;
+  client_id: number;
+  content: string;
+  created_at: string;
+  date: string;
+  due_date: string;
+  id: number;
+  is_draft: boolean;
+  is_paid: boolean;
+  number: string;
+  sale: number;
+  society_id: number;
+  status: string;
+  subtotal: number;
+  title: string;
+  total: number;
+  tva: number;
+  updated_at: string;
+  user_id: number;
+  error?: string;
+};
