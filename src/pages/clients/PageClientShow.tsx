@@ -5,7 +5,7 @@ import { formatDate2 } from "../../utils/date";
 import "./PageClientShow.scss";
 import { useAtom } from "jotai";
 import { editClientModalStatusAtom } from "../../atom/modalAtom";
-import ModalClientNew from "../../components/clients/ModalClientNew";
+import ModalClient from "../../components/clients/ModalClient";
 
 const PageClientShow = () => {
   const { id } = useParams();
@@ -94,7 +94,7 @@ const PageClientShow = () => {
           </table>
         </div>
       </div>
-      {editClientModalStatus && <ModalClientNew clientData={clientData} />}
+      {editClientModalStatus && <ModalClient clientData={clientData} />}
     </>
   );
 };

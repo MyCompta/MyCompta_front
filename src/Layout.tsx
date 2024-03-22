@@ -4,7 +4,7 @@ import NavbarLanding from "./components/navbar/NavbarLanding";
 import TopNavbarDashboard from "./components/navbar/TopNavbarDashboard";
 import Error from "./components/notifications/Error";
 import Success from "./components/notifications/Success";
-import ModalClientNew from "./components/clients/ModalClientNew";
+import ModalClient from "./components/clients/ModalClient";
 import { useAtom } from "jotai";
 import { newClientModalStatusAtom } from "./atom/modalAtom";
 
@@ -39,7 +39,7 @@ export default function Layout() {
           <Link to="/cgu">Terms of use</Link>
         </footer>
       </main>
-      {newClientModalStatus && <ModalClientNew />}
+      {newClientModalStatus && <ModalClient />}
       <Error />
       <Success />
     </>

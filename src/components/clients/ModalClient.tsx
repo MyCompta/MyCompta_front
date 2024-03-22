@@ -1,12 +1,12 @@
 import React from "react";
-import "./ModalClientNew.scss";
+import "./ModalClient.scss";
 import ClientNew from "./ClientNew";
 import ClientEdit from "./ClientEdit";
 import { useAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
 import { editClientModalStatusAtom } from "../../atom/modalAtom";
 
-const ModalClientNew = ({ clientData }) => {
+const ModalClient = ({ clientData }) => {
   const [newClientModalStatus, setNewClientModalStatus] = useAtom(
     newClientModalStatusAtom
   );
@@ -32,4 +32,4 @@ const ModalClientNew = ({ clientData }) => {
   );
 };
 
-export default ModalClientNew;
+export default ModalClient;
