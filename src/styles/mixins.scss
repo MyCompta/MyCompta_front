@@ -1,0 +1,5 @@
+@mixin medium-screen {
+  @media only screen and (max-width: 950px) {
+    @content;
+  }
+}
