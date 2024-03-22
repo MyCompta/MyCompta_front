@@ -16,7 +16,6 @@ import ResetPassword from "../pages/users/ResetPassword";
 import CgProfile from "../pages/users/CgProfile";
 import CGU from "../pages/users/CGU";
 
-import InvoiceCreate from "../pages/invoices/InvoiceCreate";
 import IndexInvoices from "../pages/invoices/IndexInvoices";
 import ShowInvoice from "../pages/invoices/ShowInvoice";
 import EditInvoice from "../pages/invoices/EditInvoice";

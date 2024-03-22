@@ -77,11 +77,12 @@ h1 {
     font-weight: 500;
   }
 
-footer
-{
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  bottom: 0;
-  justify-content: space-evenly;
+  footer
+  {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    bottom: 0;
+    justify-content: space-evenly;
+  }
 }

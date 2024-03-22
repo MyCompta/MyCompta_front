@@ -10,6 +10,8 @@ import EditComponentSociety from '../../components/society/EditComponentSociety.
 import EditSociety from './EditSociety.jsx';
 import societyAtom from '../../atom/societyAtom.jsx'
 
+import "./society.scss"
+
 
 const apiUrl = import.meta.env.VITE_API_URL
 const token = Cookies.get("token");
@@ -82,26 +84,29 @@ const ShowSociety = () => {
   return (
     <>
       <h1>{societyData.name} {societyData.status}</h1>
-      <div> 
-        <button><Link to="/dashboard">Back to dashboard</Link></button>
-        <EditComponentSociety onClick={handleEditSocietyClick} className="buttoneditsociety"/><br />
-        <button onClick={onClick}>Delete</button>
+
+      <div className="headershowsociety">
+        <EditComponentSociety onClick={handleEditSocietyClick}/>
+        <Link to="/societies" className="backtosocietes">Back to MySocieties</Link>
       </div>
 
-      <div>
-        Capital: {societyData.capital}<br />
-        Address: {societyData.adress}<br />
-        Zip code: {societyData.zip}<br />
-        City: {societyData.city}<br />
-        Country: {societyData.country}<br />
-        Siret n°: {societyData.siret}<br />
-        email: {societyData.email}<br />
+      <div className="displayshowsociety">
+        <div className="infosociety">
+          <h4>Siret n°: </h4>{societyData.siret}<br />
+          <h4>Capital: </h4>{societyData.capital}<br />
+          <h4>Address: </h4>{societyData.adress}<br />
+          <h4>Zip code: </h4>{societyData.zip}<br />
+          <h4>City: </h4>{societyData.city}<br />
+          <h4>Country: </h4>{societyData.country}<br />
+          <h4>email: </h4>{societyData.email}<br />
+        </div>
+        <div className="displaycreatesocietycontainer">
+          {showEditSociety && <div><EditSociety /></div>}
+        </div>
+      </div>
          
-      </div>
+        <button onClick={onClick}>Delete</button>
 
-      <div className="displaycreatesocietycontainer">
-        {showEditSociety && <div><EditSociety /></div>}
-      </div>
 
     </>
   );
