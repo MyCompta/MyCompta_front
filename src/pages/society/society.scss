@@ -128,9 +128,16 @@
 
 .displayshowsociety
 {
+  display: flex;
+  justify-content: space-between;
   border: 2px solid red;
   margin-top: 3%;
   margin-left: 3%;
   margin-right: 3%;
   line-height: 1.5rem;
+}
+
+h4
+{
+  display: inline;
 }

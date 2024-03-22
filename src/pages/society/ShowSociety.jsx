@@ -91,20 +91,22 @@ const ShowSociety = () => {
       </div>
 
       <div className="displayshowsociety">
-        Siret n°: {societyData.siret}<br />
-        Capital: {societyData.capital}<br />
-        Address: {societyData.adress}<br />
-        Zip code: {societyData.zip}<br />
-        City: {societyData.city}<br />
-        Country: {societyData.country}<br />
-        email: {societyData.email}<br />
-         
+        <div className="infosociety">
+          <h4>Siret n°: </h4>{societyData.siret}<br />
+          <h4>Capital: </h4>{societyData.capital}<br />
+          <h4>Address: </h4>{societyData.adress}<br />
+          <h4>Zip code: </h4>{societyData.zip}<br />
+          <h4>City: </h4>{societyData.city}<br />
+          <h4>Country: </h4>{societyData.country}<br />
+          <h4>email: </h4>{societyData.email}<br />
+        </div>
+        <div className="displaycreatesocietycontainer">
+          {showEditSociety && <div><EditSociety /></div>}
+        </div>
       </div>
+         
         <button onClick={onClick}>Delete</button>
 
-      <div className="displaycreatesocietycontainer">
-        {showEditSociety && <div><EditSociety /></div>}
-      </div>
 
     </>
   );
