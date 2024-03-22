@@ -1,4 +1,4 @@
-@import "../../styles/global.scss";
+@import "../../styles/vars.scss";
 
 .invoice-table {
   width: 100%;
@@ -26,8 +26,7 @@
   }
 }
 
-.headerindexinvoices
-{
+.headerindexinvoices {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -35,22 +34,18 @@
   margin-bottom: 1%;
 }
 
-h2
-{
+h2 {
   color: $second-color;
 }
 
-.buttonfilterinvoicetable
-{
+.buttonfilterinvoicetable {
   display: flex;
   justify-content: space-evenly;
   padding-top: 0.25%;
   margin-left: 5%;
-
 }
 
-.buttonfilterinvoicetable button
-{
+.buttonfilterinvoicetable button {
   background-color: $bg-color;
   border: 1px solid $second-color;
   color: $second-color;
@@ -61,14 +56,13 @@ h2
   font-family: "Montserrat", sans-serif;
   scale: 0.85;
 
-    &:hover{
-      background-color: $second-color;
-      color: $bg-color;
-    }
+  &:hover {
+    background-color: $second-color;
+    color: $bg-color;
+  }
 }
 
-.buttoncreateinvoicetable
-{
+.buttoncreateinvoicetable {
   background-color: $bg-color;
   border: 1px solid $second-color;
   color: $second-color;
@@ -80,8 +74,7 @@ h2
   scale: 0.85;
 }
 
-.buttoncreateinvoices
-{
+.buttoncreateinvoices {
   background-color: $second-color;
   border: 1px solid $second-color;
   color: $bg-color;
@@ -91,7 +84,7 @@ h2
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
 
-  &:hover{
+  &:hover {
     background-color: $bg-color;
     color: $second-color;
   }
