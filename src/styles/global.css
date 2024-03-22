@@ -10,7 +10,7 @@ body {
 
 #root {
   display: flex;
-  height: 100%;
+  height: auto;
 }
 
 main {
@@ -46,4 +46,4 @@ footer {
   flex-shrink: 0;
   bottom: 0;
   justify-content: space-evenly;
-}/*# sourceMappingURL=global.css.map */
+} /*# sourceMappingURL=global.css.map */
