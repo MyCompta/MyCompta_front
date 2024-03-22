@@ -1,14 +1,12 @@
-@import "../../styles/global.scss";
+@import "../../styles/vars";
+@import "../../styles/global";
 
-.societycontainer
-{
+.societycontainer {
   padding-left: 3rem;
   min-height: 40rem;
 }
 
-
-.buttonnewsociety
-{
+.buttonnewsociety {
   background-color: $second-color;
   border: 1px solid $second-color;
   color: white;
@@ -22,8 +20,7 @@
   top: 6rem;
 }
 
-.main
-{
+.main {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -31,8 +28,7 @@
   padding: 3%;
 }
 
-.companylist
-{
+.companylist {
   position: relative;
   align-items: center;
   padding: 1rem;
@@ -45,18 +41,14 @@
   line-height: 3.5rem;
 }
 
-.error
-{
+.error {
   color: rgb(255, 0, 0);
   font-weight: 800;
-
 }
-
 
 //////////////////////////////////////////createsociety
 
-.createsocietyform
-{
+.createsocietyform {
   display: flex;
   position: relative;
   right: 0;
@@ -65,8 +57,7 @@
   line-height: 2rem;
 }
 
-.createsocietyform button
-{
+.createsocietyform button {
   background-color: $second-color;
   border: 1px solid $second-color;
   color: white;
@@ -78,24 +69,19 @@
   font-family: "Montserrat", sans-serif;
 }
 
-
-@media only screen and (max-width: 1300px)
-{
-  .createsocietyform
-  {
+@media only screen and (max-width: 1300px) {
+  .createsocietyform {
     scale: 0.8;
   }
 
-  .companylist
-  {
+  .companylist {
     scale: 0.8;
   }
 }
 
 /////////////////////////////////////////////////////////ShowSosiety
 
-.headershowsociety
-{
+.headershowsociety {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -103,8 +89,10 @@
   margin-right: 5%;
 }
 
-.buttoneditsociety
-{
+
+
+.backtosocietes {
+
   background-color: $second-color;
   border: 1px solid $second-color;
   color: white;
@@ -112,7 +100,7 @@
   padding: 8px 30px;
   border-radius: 5px;
   cursor: pointer;
-  font-family: "Montserrat", sans-serif; 
+  font-family: "Montserrat", sans-serif;
 }
 
 .displayshowsociety
@@ -163,8 +151,20 @@ h4
 
 /////////////////////////////////////////////////////// Edit society
 
-.savebuttoneditsociety
-{
+.displayeditsocietycontainer {
+  border: 2px red solid;
+  display: flex;
+  position: fixed;
+  background-color: $bg-color;
+  padding: 5%;
+  text-align: center;
+  line-height: 2rem;
+}
+
+
+
+.buttoneditsociety {
+
   background-color: $second-color;
   border: 1px solid $second-color;
   color: white;
@@ -172,8 +172,9 @@ h4
   padding: 8px 30px;
   border-radius: 5px;
   cursor: pointer;
-  font-family: "Montserrat", sans-serif; 
+  font-family: "Montserrat", sans-serif;
 }
+
 
 .deletebuttonsociety
 {
@@ -185,4 +186,8 @@ h4
   border-radius: 5px;
   cursor: pointer;
   font-family: "Montserrat", sans-serif; 
+}
+
+h4 {
+  display: inline;
 }

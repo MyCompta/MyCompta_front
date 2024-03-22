@@ -1,21 +1,16 @@
-@import "../../styles/vars";
-
 .client-title-box {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-
-
-  a {
-    margin-right: 30px;
-  }
+}
+.client-title-box a {
+  margin-right: 30px;
 }
 
-.btnclientnew
-{
-background-color: $second-color;
-  border: 1px solid $second-color;
-  color: $bg-color;
+.btnclientnew {
+  background-color: #3398bd;
+  border: 1px solid #3398bd;
+  color: #f5f6f9;
   font-size: 14px;
   padding: 2px;
   padding-right: 4px;
@@ -23,9 +18,8 @@ background-color: $second-color;
   border-radius: 5px;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
-
-  &:hover{
-    background-color: $bg-color;
-    color: $second-color;
-  }
 }
+.btnclientnew:hover {
+  background-color: #f5f6f9;
+  color: #3398bd;
+}/*# sourceMappingURL=PageClientIndex.css.map */

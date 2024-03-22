@@ -15,6 +15,7 @@ import ResetPassword from "../pages/users/ResetPassword";
 
 import CgProfile from "../pages/users/CgProfile";
 import CGU from "../pages/users/CGU";
+// import Contact from "../pages/Contact"
 
 import IndexInvoices from "../pages/invoices/IndexInvoices";
 import ShowInvoice from "../pages/invoices/ShowInvoice";
@@ -34,6 +35,7 @@ export const router = createBrowserRouter(
       <Route path="/" element={<Layout />}>
         <Route index element={<Index />} />
         <Route path="/cgu" element={<CGU />} />
+        
         <Route element={<NotLoggedRoute redirectPath="/dashboard" />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

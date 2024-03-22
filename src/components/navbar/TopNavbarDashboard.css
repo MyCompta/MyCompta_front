@@ -1,53 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Palanquin:wght@100;200;300;400;500;600;700&display=swap");
-html,
-body {
-  height: 100%;
-  font-family: "Montserrat", sans-serif;
-  color: #313538;
-  margin: 0;
-  background-color: #f5f6f9;
-}
-
-#root {
-  display: flex;
-  height: 100%;
-}
-
-main {
-  width: 100%;
-  z-index: 100;
-  background-color: #f5f6f9;
-  margin-top: 70px;
-  margin-left: 230px;
-  transition: margin-left 0.3s ease;
-}
-@media only screen and (max-width: 950px) {
-  main {
-    margin-left: 0px;
-  }
-}
-
-main.hamburger-opened {
-  margin-left: 230px;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-h1 {
-  margin: 30px;
-}
-
-footer {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  bottom: 0;
-  justify-content: space-evenly;
-}
-
 .top-navbar {
   width: 100%;
   height: 69px;
@@ -57,7 +7,6 @@ footer {
   position: fixed;
   left: 0;
   background-color: white;
-  border: 1px solid #e7e9eb;
   z-index: 1000;
 }
 @media only screen and (max-width: 950px) {
@@ -77,8 +26,6 @@ footer {
   border-bottom: 1px solid #171e1f;
   height: 69px;
   width: 185px;
-  border-right: 1px solid #171e1f;
-  margin-left: -1px;
 }
 @media only screen and (max-width: 950px) {
   .top-navbar__logo {
@@ -152,14 +99,14 @@ footer {
 }
 .right-box__login {
   width: 100px;
-  color: #3398bd;
+  color: #0f526b !important;
   text-align: center;
   height: 30px;
   border-radius: 5px;
   font-weight: 500;
   line-height: 30px;
   margin: 10px 5px;
-  border: 1px solid #3398bd;
+  border: 1px solid #0f526b;
 }
 .right-box__register {
   width: 120px;
@@ -171,7 +118,7 @@ footer {
   font-weight: 400;
   line-height: 30px;
   margin: 10px 5px;
-  border: 1px solid #3398bd;
+  border: 1px solid #0f526b;
 }
 
 .popup-profile {

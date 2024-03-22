@@ -30,6 +30,7 @@ export default function Layout() {
         <Outlet />
         <footer className="footer">
           <p>© 2024 Mycompta. All right reserved.</p>
+          <Link to="/contact">Contact</Link>
           <Link to="/cgu">Terms of use</Link>
         </footer>
       </main>

@@ -1,0 +1,130 @@
+.dark-bg {
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 1000;
+}
+.dark-bg--hidden {
+  display: none;
+}
+
+.modal-client-new {
+  width: 900px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 31px 41px 0 rgba(33, 43, 54, 0.2), 0 2px 16px 0 rgba(33, 43, 54, 0.08);
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  max-height: 80%;
+}
+.modal-client-new--hidden {
+  display: none;
+}
+@media only screen and (max-width: 950px) {
+  .modal-client-new {
+    width: 95%;
+    margin: auto;
+  }
+}
+.modal-client-new__header {
+  width: 100%;
+  border-bottom: 1px solid #e5e5e5;
+}
+.modal-client-new__header-close {
+  position: absolute;
+  right: 20px;
+  top: 8px;
+  cursor: pointer;
+  font-size: 36px;
+}
+
+.client-new-form {
+  padding: 10px 0;
+  display: flex;
+}
+@media only screen and (max-width: 950px) {
+  .client-new-form {
+    flex-direction: column;
+    margin: auto;
+    width: 400px;
+  }
+}
+.client-new-form__info {
+  color: #aaa;
+  position: absolute;
+  right: 30px;
+}
+.client-new-form__info span {
+  color: #e66b55;
+}
+.client-new-form__row1 {
+  display: flex;
+  flex-direction: column;
+  padding: 60px 30px 30px 30px;
+  width: 50%;
+}
+@media only screen and (max-width: 950px) {
+  .client-new-form__row1 {
+    width: 100%;
+    padding: 60px 0 30px 0;
+    border-bottom: 1px solid #e5e5e5;
+  }
+}
+.client-new-form__row1 label {
+  font-weight: 500;
+}
+.client-new-form__row1 label span {
+  color: #e66b55;
+}
+.client-new-form__row1 input {
+  margin-top: 10px;
+  margin-bottom: 14px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #e5e5e5;
+}
+.client-new-form__row2 {
+  display: flex;
+  flex-direction: column;
+  padding: 60px 30px 30px 30px;
+  width: 50%;
+}
+@media only screen and (max-width: 950px) {
+  .client-new-form__row2 {
+    width: 100%;
+    padding: 30px 0;
+  }
+}
+.client-new-form__row2 label {
+  font-weight: 500;
+}
+.client-new-form__row2 label span {
+  color: #e66b55;
+}
+.client-new-form__row2 input {
+  margin-top: 10px;
+  margin-bottom: 14px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #e5e5e5;
+}
+.client-new-form__submit {
+  position: absolute;
+  bottom: -38px;
+  right: 30px;
+}
+@media only screen and (max-width: 950px) {
+  .client-new-form__submit {
+    width: 100% !important;
+    margin: -30px 30px 100px !important;
+    position: relative;
+  }
+}/*# sourceMappingURL=ModalClientNew.css.map */

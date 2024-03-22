@@ -10,14 +10,14 @@ body {
 
 #root {
   display: flex;
-  height: 100%;
+  height: auto;
 }
 
 main {
   width: 100%;
   z-index: 100;
   background-color: #f5f6f9;
-  margin-top: 70px;
+  margin-top: 69px;
   margin-left: 230px;
   transition: margin-left 0.3s ease;
 }
@@ -40,10 +40,33 @@ h1 {
   margin: 30px;
 }
 
+.btn {
+  width: 120px;
+  background-color: #3398bd;
+  color: #fff !important;
+  text-align: center;
+  height: 30px;
+  border-radius: 5px;
+  font-weight: 400;
+  line-height: 28px;
+  margin: 10px 5px;
+  border: 1px solid #0f526b;
+}
+.btn:hover {
+  filter: opacity(0.8);
+}
+.btn--no-bg {
+  background-color: transparent;
+  color: #0f526b !important;
+  font-weight: 500;
+}
+
 footer {
   display: flex;
-  align-items: center;
-  flex-shrink: 0;
+  position: relative;
   bottom: 0;
-  justify-content: space-evenly;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 5%;
+  padding-right: 5%;
 }/*# sourceMappingURL=global.css.map */
