@@ -10,6 +10,8 @@ import EditComponentSociety from '../../components/society/EditComponentSociety.
 import EditSociety from './EditSociety.jsx';
 import societyAtom from '../../atom/societyAtom.jsx'
 
+import "./society.scss"
+
 
 const apiUrl = import.meta.env.VITE_API_URL
 const token = Cookies.get("token");
@@ -82,22 +84,23 @@ const ShowSociety = () => {
   return (
     <>
       <h1>{societyData.name} {societyData.status}</h1>
-      <div> 
-        <button><Link to="/dashboard">Back to dashboard</Link></button>
-        <EditComponentSociety onClick={handleEditSocietyClick} className="buttoneditsociety"/><br />
-        <button onClick={onClick}>Delete</button>
+
+      <div className="headershowsociety">
+        <EditComponentSociety onClick={handleEditSocietyClick}/>
+        <Link to="/societies" className="backtosocietes">Back to MySocieties</Link>
       </div>
 
-      <div>
+      <div className="displayshowsociety">
+        Siret n°: {societyData.siret}<br />
         Capital: {societyData.capital}<br />
         Address: {societyData.adress}<br />
         Zip code: {societyData.zip}<br />
         City: {societyData.city}<br />
         Country: {societyData.country}<br />
-        Siret n°: {societyData.siret}<br />
         email: {societyData.email}<br />
          
       </div>
+        <button onClick={onClick}>Delete</button>
 
       <div className="displaycreatesocietycontainer">
         {showEditSociety && <div><EditSociety /></div>}
