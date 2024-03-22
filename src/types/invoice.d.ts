@@ -1,15 +1,17 @@
 type TUserInfos = {
+  id?: number;
   name: string;
   surname?: string;
   is_pro?: boolean;
   logo?: string;
   logoAlt?: string;
+  siret?: number;
   address: {
     street: string;
     city: string;
     zip: string;
   };
-  [key: string]: string | undefined | boolean | object;
+  [key: string]: string | number | undefined | boolean | object;
 };
 
 type TInvoice = {
@@ -28,6 +30,7 @@ type TInvoice = {
   is_draft?: boolean;
   is_paid?: boolean;
   status?: string;
+  additionalInfo?: string;
 };
 
 type TItem = {
@@ -71,6 +74,7 @@ type TInvoiceShowBack = {
     user_id: number;
     created_at: string;
     updated_at: string;
+    additional_info?: string;
   };
   author: TSocietyBack;
   client?: TUserInfos;

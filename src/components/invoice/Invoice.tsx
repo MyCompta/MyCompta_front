@@ -84,24 +84,27 @@ export default function Invoice({
   };
 
   const sumTaxValues = (items: TItem[]) => {
-    const taxGroups = items.reduce((acc, item) => {
-      const taxKey = item.tax?.percentage;
-      const taxValue = item.tax?.total ?? 0;
+    const taxGroups = items.reduce(
+      (acc, item) => {
+        const taxKey = item.tax?.percentage;
+        const taxValue = item.tax?.total ?? 0;
 
-      if (!acc[taxKey!]) {
-        acc[taxKey!] = 0;
-      }
-      acc[taxKey!] += taxValue;
+        if (!acc[taxKey!]) {
+          acc[taxKey!] = 0;
+        }
+        acc[taxKey!] += taxValue;
 
-      return acc;
-    }, {} as { [key: number]: number });
+        return acc;
+      },
+      {} as { [key: number]: number }
+    );
 
     return Object.entries(taxGroups).map(
       ([tax, sum]) =>
         ({
           percentage: Number(tax),
           total: sum,
-        } as TTax)
+        }) as TTax
     );
   };
 
@@ -132,8 +135,8 @@ export default function Invoice({
                   return Number(date) === 12
                     ? "01"
                     : Number(date) + 1 >= 10
-                    ? `${Number(date) + 1}`
-                    : "0" + (Number(date) + 1);
+                      ? `${Number(date) + 1}`
+                      : "0" + (Number(date) + 1);
                 }
                 return "01";
               })
@@ -148,10 +151,7 @@ export default function Invoice({
 
     setInvoice({
       ...invoice,
-      dueDate: new Date(
-        Date.parse(invoice.date.toString()) +
-          Number(value) * 24 * 60 * 60 * 1000
-      ),
+      dueDate: new Date(Date.parse(invoice.date.toString()) + Number(value) * 24 * 60 * 60 * 1000),
     } as TInvoice);
 
     // console.log(invoice);
@@ -176,10 +176,7 @@ export default function Invoice({
       return {
         ...prevInvoice,
         items: items,
-        subTotal: items.reduce(
-          (acc, item) => acc + item.price * item.quantity,
-          0
-        ),
+        subTotal: items.reduce((acc, item) => acc + item.price * item.quantity, 0),
         tax: sumTaxValues(items),
         discountTotal: items
           .filter((item) => item.discount)
@@ -226,6 +223,14 @@ export default function Invoice({
           return {
             ...invoice,
             id: req.id,
+            client: {
+              ...invoice.client,
+              id: req.society_id,
+            },
+            author: {
+              ...invoice.author,
+              id: req.author_id,
+            },
           };
         });
       }
@@ -308,9 +313,7 @@ export default function Invoice({
             <option value="45">45 jours fin de mois</option>
             <option value="choice">Choisir une date</option>
           </select>
-          {dueDateChoice && (
-            <input type="date" name="dueDate" onChange={handleInputChange} />
-          )}
+          {dueDateChoice && <input type="date" name="dueDate" onChange={handleInputChange} />}
         </div>
       </div>
       <div className="invoice__items">
@@ -342,13 +345,24 @@ export default function Invoice({
           </tbody>
           <tfoot>
             <tr>
+              <td colSpan={7} className="item__line__description__cell">
+                <textarea
+                  name="additionalInfo"
+                  id="additionalInfo"
+                  placeholder="Informations additionnelles"
+                  className="item__line__description"
+                  value={invoice.additionalInfo}
+                  onChange={(e) =>
+                    setInvoice({ ...invoice, additionalInfo: e.target.value })
+                  }></textarea>
+              </td>
+            </tr>
+            <tr>
               <td colSpan={3}></td>
               <td colSpan={4}>
                 <p>
                   Sous total HT :{" "}
-                  {items
-                    .reduce((acc, item) => acc + item.price * item.quantity, 0)
-                    .toFixed(2)}
+                  {items.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}
                 </p>
                 {/* TVAs */}
                 {sumTaxValues(items)
@@ -365,10 +379,7 @@ export default function Invoice({
                 <p>
                   Total TTC :{" "}
                   {(
-                    items.reduce(
-                      (acc, item) => acc + item.price * item.quantity,
-                      0
-                    ) +
+                    items.reduce((acc, item) => acc + item.price * item.quantity, 0) +
                     sumTaxValues(items)
                       .map((tax) => tax.total)
                       .reduce((acc, curr) => acc + curr, 0)

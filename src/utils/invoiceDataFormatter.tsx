@@ -26,6 +26,27 @@ const invoiceDataFormatterSend = (invoice: TInvoice) => {
   formData.append("invoice[is_draft]", String(invoice.is_draft || true));
   formData.append("invoice[is_paid]", String(invoice.is_paid || false));
   formData.append("invoice[status]", invoice.status || "draft");
+  if (invoice.author.id) {
+    formData.append("invoice[society_id]", String(invoice.author.id));
+  }
+
+  if (invoice.client.id) {
+    formData.append("invoice[client_id]", String(invoice.client.id));
+  } else {
+    formData.append("invoice[client_infos][is_pro]", String(invoice.client.is_pro || false));
+    if (invoice.client.is_pro) {
+      formData.append("invoice[client_infos][business_name]", String(invoice.client.name));
+      formData.append("invoice[client_infos][siret]", String(invoice.client.siret));
+    } else {
+      formData.append("invoice[client_infos][first_name]", invoice.client.name);
+      formData.append("invoice[client_infos][last_name]", invoice.client.surname || "");
+    }
+    formData.append("invoice[client_infos][address]", invoice.client.address.street);
+    formData.append("invoice[client_infos][city]", invoice.client.address.city);
+    formData.append("invoice[client_infos][zip]", invoice.client.address.zip);
+  }
+
+  formData.append("invoice[additional_info]", invoice.additionalInfo || "");
 
   return formData;
 };
