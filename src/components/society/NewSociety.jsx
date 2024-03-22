@@ -1,11 +1,13 @@
 import React from 'react'
 
+import '../../pages/society/society.scss'
+
 function NewSociety ({onClick}) {
 
 
     return (
       <div>
-      <button onClick={onClick}>New society</button>
+      <button onClick={onClick} className="buttonnewsociety">New society</button>
       </div>
     )
   

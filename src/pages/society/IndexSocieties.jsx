@@ -4,7 +4,8 @@ import Cookies from 'js-cookie';
 
 import NewSociety from '../../components/society/NewSociety.jsx';
 import CreateSociety from './CreateSociety.jsx';
-import './society.css'
+
+import './society.scss'
 
 const apiUrl = import.meta.env.VITE_API_URL;
 const token = Cookies.get("token");
@@ -49,28 +50,31 @@ const IndexSocieties = () => {
 
   return (
     <div className="societycontainer">
-      <div className="sideleft">
-      <h2>My Companies</h2><br />
-      
-      <NewSociety onClick={handleNewSocietyClick} className="buttonnewsociety"/><br />
-
-      {societyData.length > 0 ? (
-        <div>
-          {societyData.map((societyItem, index) => (
-            <li key={index}>
-              <Link to={`/society/${societyItem.name}`} onClick={() => handleSocietyClick(societyItem.id)} >
-                {societyItem.name}
-              </Link>
-            </li>
-          ))}
-        </div>
-      ) : (
-        <p>No societies available</p>
-      )}
+      <div classname="header">
+        <h2 style={{ display: 'inline-block' }}>My Companies</h2>
+        <NewSociety onClick={handleNewSocietyClick}/>
       </div>
 
-      <div className="displaycreatesocietycontainer">
-        {showCreateSociety && <div><CreateSociety /></div>}
+      <div className="main">
+        <div className="companylist">
+          {societyData.length > 0 ? (
+            <div>
+              {societyData.map((societyItem, index) => (
+                <li key={index}>
+                  <Link to={`/society/${societyItem.name}`} onClick={() => handleSocietyClick(societyItem.id)} >
+                    {societyItem.name.toUpperCase()}
+                  </Link>
+                </li>
+              ))}
+            </div>
+          ) : (
+            <p>No societies available</p>
+          )}
+        </div>
+
+        <div className="displaycreatesocietycontainer">
+          {showCreateSociety && <div><CreateSociety /></div>}
+        </div>
       </div>
     </div>
   )
