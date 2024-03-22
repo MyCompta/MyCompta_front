@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import { useAtom } from "jotai";
 import { editClientModalStatusAtom } from "../../atom/modalAtom";
 
-const ClientEdit = ({ clientData }) => {
+const ClientEdit = ({ clientData, setClientData }) => {
   const [editClientModalStatus, setEditClientModalStatus] = useAtom(
     editClientModalStatusAtom
   );
@@ -52,6 +52,7 @@ const ClientEdit = ({ clientData }) => {
       );
       if (!response.error) {
         console.log("Client updated successfully");
+        setClientData(response);
         setEditClientModalStatus(false);
       } else {
         console.error(response.error);

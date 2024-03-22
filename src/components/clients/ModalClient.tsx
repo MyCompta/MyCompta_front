@@ -6,7 +6,7 @@ import { useAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
 import { editClientModalStatusAtom } from "../../atom/modalAtom";
 
-const ModalClient = ({ clientData }) => {
+const ModalClient = ({ clientData, setClientData }) => {
   const [newClientModalStatus, setNewClientModalStatus] = useAtom(
     newClientModalStatusAtom
   );
@@ -26,7 +26,9 @@ const ModalClient = ({ clientData }) => {
           ×
         </div>
         {newClientModalStatus && <ClientNew />}
-        {editClientModalStatus && <ClientEdit clientData={clientData} />}
+        {editClientModalStatus && (
+          <ClientEdit clientData={clientData} setClientData={setClientData} />
+        )}
       </div>
     </div>
   );

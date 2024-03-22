@@ -10,6 +10,7 @@ import ModalClient from "../../components/clients/ModalClient";
 const PageClientShow = () => {
   const { id } = useParams();
   const [clientData, setClientData] = useState([]);
+  const [invoiceClientData, setInvoiceClientData] = useState();
   const navigate = useNavigate();
   const [editClientModalStatus, setEditClientModalStatus] = useAtom(
     editClientModalStatusAtom
@@ -21,6 +22,7 @@ const PageClientShow = () => {
         const response = await fetcher(`clients/${id}`, undefined, "GET", true);
         if (!response.error) {
           setClientData(response);
+          setInvoiceClientData(response.invoices);
         } else {
           console.error(response.error);
         }
@@ -35,6 +37,10 @@ const PageClientShow = () => {
   useEffect(() => {
     console.log("clientData", clientData);
   }, [clientData]);
+
+  useEffect(() => {
+    console.log("invoiceClientData", invoiceClientData);
+  }, [invoiceClientData]);
 
   const handleInvoiceClick = (invoiceId) => {
     navigate(`/invoices/${invoiceId}`);
@@ -78,8 +84,8 @@ const PageClientShow = () => {
               </tr>
             </thead>
             <tbody>
-              {clientData.invoices &&
-                clientData.invoices.map((invoice) => (
+              {invoiceClientData ? (
+                invoiceClientData.map((invoice) => (
                   <tr
                     key={invoice.id}
                     onClick={() => handleInvoiceClick(invoice.id)}
@@ -89,12 +95,19 @@ const PageClientShow = () => {
                     <td>{invoice.total}</td>
                     <td>BALANCE</td>
                   </tr>
-                ))}
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4">Loading invoices...</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
       </div>
-      {editClientModalStatus && <ModalClient clientData={clientData} />}
+      {editClientModalStatus && (
+        <ModalClient clientData={clientData} setClientData={setClientData} />
+      )}
     </>
   );
 };
