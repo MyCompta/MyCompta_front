@@ -1,10 +1,17 @@
 import React from "react";
 import "./ModalClientNew.scss";
 import ClientNew from "./ClientNew";
+import { useAtom } from "jotai";
+import { newClientModalStatusAtom } from "../../atom/modalAtom";
 
 const ModalClientNew = ({ setShowModalNewClient }) => {
+  const [newClientModalStatus, setNewClientModalStatus] = useAtom(
+    newClientModalStatusAtom
+  );
+
   const handleCloseModal = () => {
     setShowModalNewClient(false);
+    setNewClientModalStatus(false);
   };
 
   return (

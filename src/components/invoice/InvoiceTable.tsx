@@ -36,7 +36,9 @@ const InvoiceTable = () => {
 
   const filterInvoicesByStatus = (status: string) => {
     if (status === "drafts") {
-      return invoicesData.filter((invoice: TInvoiceGetBack) => invoice.is_draft === true);
+      return invoicesData.filter(
+        (invoice: TInvoiceGetBack) => invoice.is_draft === true
+      );
     }
     if (status === "outstanding") {
       return invoicesData.filter(
@@ -49,7 +51,9 @@ const InvoiceTable = () => {
       );
     }
     if (status === "paid") {
-      return invoicesData.filter((invoice: TInvoiceGetBack) => invoice.is_paid === true);
+      return invoicesData.filter(
+        (invoice: TInvoiceGetBack) => invoice.is_paid === true
+      );
     }
     return invoicesData;
   };
@@ -59,7 +63,9 @@ const InvoiceTable = () => {
       <div>
         <button onClick={() => setCurrentTab("all")}>All</button>
         <button onClick={() => setCurrentTab("drafts")}>Drafts</button>
-        <button onClick={() => setCurrentTab("outstanding")}>Outstanding</button>
+        <button onClick={() => setCurrentTab("outstanding")}>
+          Outstanding
+        </button>
         <button onClick={() => setCurrentTab("past_due")}>Past Due</button>
         <button onClick={() => setCurrentTab("paid")}>Paid</button>
       </div>
@@ -76,16 +82,18 @@ const InvoiceTable = () => {
           </tr>
         </thead>
         <tbody>
-          {filterInvoicesByStatus(currentTab).map((invoice: TInvoiceGetBack) => (
-            <tr key={invoice.id} onClick={() => handleLineClick(invoice.id!)}>
-              <td>#{invoice.id}</td>
-              <td>CUSTOMER NAME</td>
-              <td>{formatDate2(invoice.date)}</td>
-              <td>{formatDate2(invoice.due_date)}</td>
-              <td>{invoice.total}</td>
-              <td>BALANCE</td>
-            </tr>
-          ))}
+          {filterInvoicesByStatus(currentTab).map(
+            (invoice: TInvoiceGetBack) => (
+              <tr key={invoice.id} onClick={() => handleLineClick(invoice.id!)}>
+                <td>#{invoice.id}</td>
+                <td>CUSTOMER NAME</td>
+                <td>{formatDate2(invoice.date)}</td>
+                <td>{formatDate2(invoice.due_date)}</td>
+                <td>{invoice.total}</td>
+                <td>BALANCE</td>
+              </tr>
+            )
+          )}
         </tbody>
       </table>
     </>

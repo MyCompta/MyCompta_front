@@ -11,10 +11,15 @@ import { LuLogOut } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import Cookies from "js-cookie";
 import ModalClientNew from "../clients/ModalClientNew";
+import { useAtom } from "jotai";
+import { newClientModalStatusAtom } from "../../atom/modalAtom";
 
 export default function LeftNavbarDashboard() {
   const [showModalNewClient, setShowModalNewClient] = useState(false);
   const navigate = useNavigate();
+  const [newClientModalStatus, setNewClientModalStatus] = useAtom(
+    newClientModalStatusAtom
+  );
 
   const handleLogout = () => {
     Cookies.remove("token");
@@ -23,6 +28,7 @@ export default function LeftNavbarDashboard() {
 
   const handleOpenNewClientModal = () => {
     setShowModalNewClient(true);
+    setNewClientModalStatus(true);
   };
 
   return (
@@ -102,7 +108,7 @@ export default function LeftNavbarDashboard() {
         )}
       </nav>
 
-      {showModalNewClient && (
+      {newClientModalStatus && (
         <ModalClientNew setShowModalNewClient={setShowModalNewClient} />
       )}
     </>
