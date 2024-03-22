@@ -55,18 +55,19 @@ const ShowInvoice = () => {
 
   const handleDraft = (checked: boolean) => {
     setInvoiceData({
-      ...invoiceData,
+      ...invoiceData!,
       is_draft: checked,
-      ...(checked && { is_paid: false }),
-      ...(checked && { status: "draft" }),
+      ...(checked && { is_paid: false, status: "draft" }),
+      ...(!checked && invoiceData?.status === "draft" && { status: "pending" }),
     });
   };
 
   const handlePaid = (checked: boolean) => {
     setInvoiceData({
-      ...invoiceData,
+      ...invoiceData!,
       is_paid: checked,
       ...(checked && { is_draft: false }),
+      ...(checked && invoiceData?.status !== "paid" && { status: "paid" }),
       ...(invoiceData?.status === "paid" && !checked && { status: "sent" }),
     });
   };
@@ -74,11 +75,12 @@ const ShowInvoice = () => {
   const handleStatusSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
     setInvoiceData({
-      ...invoiceData,
+      ...invoiceData!,
       status: value,
       ...(value === "paid" && { is_draft: false, is_paid: true }),
       ...(value !== "paid" && invoiceData?.status === "paid" && { is_paid: false }),
       ...(value === "draft" && { is_draft: true, is_paid: false }),
+      ...(value !== "draft" && invoiceData?.status === "draft" && { is_draft: false }),
     });
   };
 
@@ -87,7 +89,10 @@ const ShowInvoice = () => {
     const updateInvoice = async () => {
       if (!invoiceData) return;
       const formData = new FormData();
-      formData.append("invoice[is_draft]", String(invoiceData.is_draft || true));
+      formData.append(
+        "invoice[is_draft]",
+        String(invoiceData.is_draft !== undefined ? invoiceData.is_draft : true)
+      );
       formData.append("invoice[is_paid]", String(invoiceData.is_paid || false));
       formData.append("invoice[status]", invoiceData.status || "draft");
 
@@ -109,7 +114,7 @@ const ShowInvoice = () => {
         <>
           <div>
             Invoice status :
-            <select value={invoiceData?.status} onChange={handleStatusSelect}>
+            <select value={invoiceData.status} onChange={handleStatusSelect}>
               <option value={"draft"}>Draft</option>
               <option value={"pending"}>Pending</option>
               <option value={"sent"}>Sent</option>
