@@ -76,4 +76,12 @@ h1 {
     color: $second-color-dark !important;
     font-weight: 500;
   }
+
+footer
+{
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  bottom: 0;
+  justify-content: space-evenly;
 }

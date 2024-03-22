@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Outlet, matchPath, useLocation } from "react-router-dom";
+import { Outlet, matchPath, useLocation, Link } from "react-router-dom";
 import NavbarLanding from "./components/navbar/NavbarLanding";
 import TopNavbarDashboard from "./components/navbar/TopNavbarDashboard";
 import Error from "./components/notifications/Error";
 import Success from "./components/notifications/Success";
+
+import "./styles/global.scss"
 
 export default function Layout() {
   const location = useLocation();
@@ -26,8 +28,9 @@ export default function Layout() {
       <TopNavbarDashboard onToggle={handleHamburger} />
       <main className={isHamburgerOpen ? "hamburger-opened" : ""}>
         <Outlet />
-        <footer>
-          <p>© 2024 Mycompta. Tous droits réservés.</p>
+        <footer className="footer">
+          <p>© 2024 Mycompta. All right reserved.</p>
+          <Link to="/cgu">Terms of use</Link>
         </footer>
       </main>
       <Error />

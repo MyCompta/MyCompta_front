@@ -13,17 +13,21 @@ import Register from "../pages/users/Register";
 import ForgotPassword from "../pages/users/ForgotPassword";
 import ResetPassword from "../pages/users/ResetPassword";
 
+import CgProfile from "../pages/users/CgProfile";
+import CGU from "../pages/users/CGU";
+
 import InvoiceCreate from "../pages/invoices/InvoiceCreate";
 import IndexInvoices from "../pages/invoices/IndexInvoices";
 import ShowInvoice from "../pages/invoices/ShowInvoice";
 import EditInvoice from "../pages/invoices/EditInvoice";
-
-import ShowSociety from "../pages/society/ShowSociety";
+import InvoiceCreate from "../pages/invoices/InvoiceCreate";
 
 import PageClientIndex from "../pages/clients/PageClientIndex";
 import PageClientShow from "../pages/clients/PageClientShow";
 
-import CGU from "../pages/users/CGU";
+import IndexSocieties from "../pages/society/IndexSocieties";
+import ShowSociety from "../pages/society/ShowSociety";
+
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,6 +45,7 @@ export const router = createBrowserRouter(
         {/* Protected Routes */}
         <Route element={<LoggedRoute redirectPath="/login" />}>
           <Route path="/dashboard" element={<Index />} />
+          <Route path="/profile" element={<CgProfile />} />
 
           <Route path="/invoices" element={<IndexInvoices />} />
           <Route path="/invoices/create" element={<InvoiceCreate />} />
@@ -50,6 +55,7 @@ export const router = createBrowserRouter(
           <Route path="/clients" element={<PageClientIndex />} />
           <Route path="/clients/:id" element={<PageClientShow />} />
 
+          <Route path="/societies" element={<IndexSocieties />} />
           <Route path="/society/:name" element={<ShowSociety />} />
         </Route>
       </Route>
