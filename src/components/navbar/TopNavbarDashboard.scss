@@ -9,7 +9,6 @@
   position: fixed;
   left: 0;
   background-color: white;
-  border: 1px solid #e7e9eb;
   z-index: 1000;
 
   @include medium-screen {
@@ -28,8 +27,6 @@
     border-bottom: 1px solid #171e1f;
     height: 69px;
     width: 185px;
-    border-right: 1px solid #171e1f;
-    margin-left: -1px;
 
     @include medium-screen {
       margin-left: auto;
