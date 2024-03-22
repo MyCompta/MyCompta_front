@@ -6,8 +6,8 @@ const PageClientIndex = () => {
   return (
     <>
       <div className="client-title-box">
-        <h1>My clients</h1>
-        <Link to="/clients/new" className="btn">
+        <h2>My clients</h2>
+        <Link to="/clients/new" className="btnclientnew">
           New client
         </Link>
       </div>

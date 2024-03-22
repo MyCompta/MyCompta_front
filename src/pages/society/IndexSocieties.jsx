@@ -50,7 +50,7 @@ const IndexSocieties = () => {
 
   return (
     <div className="societycontainer">
-      <div classname="header">
+      <div className="header">
         <h2 style={{ display: 'inline-block' }}>My Companies</h2>
         <NewSociety onClick={handleNewSocietyClick}/>
       </div>

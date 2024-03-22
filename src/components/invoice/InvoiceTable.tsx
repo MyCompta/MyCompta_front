@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./InvoiceTable.scss";
 import fetcher from "../../utils/fetcher";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { formatDate2 } from "../../utils/date";
 
 const InvoiceTable = () => {
@@ -56,12 +56,16 @@ const InvoiceTable = () => {
 
   return (
     <>
-      <div>
-        <button onClick={() => setCurrentTab("all")}>All</button>
-        <button onClick={() => setCurrentTab("drafts")}>Drafts</button>
-        <button onClick={() => setCurrentTab("outstanding")}>Outstanding</button>
-        <button onClick={() => setCurrentTab("past_due")}>Past Due</button>
-        <button onClick={() => setCurrentTab("paid")}>Paid</button>
+      <div className="headerindexinvoices">
+        <h2>Invoices</h2>
+        <div className="buttonfilterinvoicetable">
+          <button onClick={() => setCurrentTab("all")}>All</button>
+          <button onClick={() => setCurrentTab("drafts")}>Drafts</button>
+          <button onClick={() => setCurrentTab("outstanding")}>Outstanding</button>
+          <button onClick={() => setCurrentTab("past_due")}>Past Due</button>
+          <button onClick={() => setCurrentTab("paid")}>Paid</button>
+        </div>
+        <Link to="/invoices/create"><button className="buttoncreateinvoices">Create Invoice</button></Link>
       </div>
 
       <table className="invoice-table">
