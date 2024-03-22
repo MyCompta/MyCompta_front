@@ -6,10 +6,13 @@ type TUserInfos = {
   logo?: string;
   logoAlt?: string;
   siret?: number;
+  modified?: boolean;
+  email?: string;
   address: {
     street: string;
     city: string;
     zip: string;
+    country: string;
   };
   [key: string]: string | number | undefined | boolean | object;
 };
@@ -77,7 +80,7 @@ type TInvoiceShowBack = {
     additional_info?: string;
   };
   author: TSocietyBack;
-  client?: TUserInfos;
+  client: TClientBack;
 };
 
 type TInvoiceGetBack = {
@@ -115,4 +118,20 @@ type TSocietyBack = {
   created_at: string;
   updated_at: string;
   user_id: number;
+};
+
+type TClientBack = {
+  id: number;
+  first_name?: string;
+  last_name?: string;
+  business_name?: string;
+  surname: string;
+  email: string;
+  created_at: string;
+  updated_at: string;
+  address: string;
+  city: string;
+  zip: number;
+  is_pro: boolean;
+  siret?: string;
 };

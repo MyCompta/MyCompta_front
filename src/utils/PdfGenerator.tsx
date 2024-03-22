@@ -100,16 +100,11 @@ export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
             <View style={{ padding: 10, backgroundColor: "#fafafa" }}>
               <Text style={styles.label}>Facturé à :</Text>
               <Text>
-                Client name
-                {invoice.client?.name} {invoice.client?.surname}
+                {invoice.client.name} {invoice.client.surname}
               </Text>
+              <Text>{invoice.client.address.street}</Text>
               <Text>
-                Addresse du client
-                {invoice.client?.address.street}
-              </Text>
-              <Text>
-                12345, Ville
-                {invoice.client?.address.zip} {invoice.client?.address.city}
+                {invoice.client.address.zip} {invoice.client.address.city}
               </Text>
             </View>
             <View style={styles.header}>

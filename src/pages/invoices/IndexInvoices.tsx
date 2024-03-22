@@ -1,4 +1,3 @@
-import React from "react";
 import InvoiceTable from "../../components/invoice/InvoiceTable";
 
 const IndexInvoices = () => {
