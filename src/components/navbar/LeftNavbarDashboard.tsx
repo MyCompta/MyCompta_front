@@ -15,7 +15,6 @@ import { useAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
 
 export default function LeftNavbarDashboard() {
-  const [showModalNewClient, setShowModalNewClient] = useState(false);
   const navigate = useNavigate();
   const [newClientModalStatus, setNewClientModalStatus] = useAtom(
     newClientModalStatusAtom
@@ -27,7 +26,6 @@ export default function LeftNavbarDashboard() {
   };
 
   const handleOpenNewClientModal = () => {
-    setShowModalNewClient(true);
     setNewClientModalStatus(true);
   };
 
@@ -108,9 +106,7 @@ export default function LeftNavbarDashboard() {
         )}
       </nav>
 
-      {newClientModalStatus && (
-        <ModalClientNew setShowModalNewClient={setShowModalNewClient} />
-      )}
+      {newClientModalStatus && <ModalClientNew />}
     </>
   );
 }

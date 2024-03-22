@@ -2,8 +2,13 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import fetcher from "../../utils/fetcher";
 import Cookies from "js-cookie";
+import { useAtom } from "jotai";
+import { newClientModalStatusAtom } from "../../atom/modalAtom";
 
-const ClientNew = ({ setShowModalNewClient }) => {
+const ClientNew = () => {
+  const [newClientModalStatus, setNewClientModalStatus] = useAtom(
+    newClientModalStatusAtom
+  );
   const {
     register,
     handleSubmit,
@@ -31,7 +36,7 @@ const ClientNew = ({ setShowModalNewClient }) => {
       const response = await fetcher("/clients", formData, "POST", true);
       if (!response.error) {
         console.log("Client created successfully");
-        setShowModalNewClient(false);
+        setNewClientModalStatus(false);
       } else {
         console.error(response.error);
       }
