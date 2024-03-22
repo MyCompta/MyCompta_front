@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Palanquin:wght@100;200;300;400;500;600;700&display=swap");
+
+$main-color: #212a2b;
+$second-color: #3398bd;
+$second-color-dark: #0f526b;
+$selected-second-color: #62b8d8;
+$text-color: #313538;
+$disable-text-color: #767676;
+$alert-color: #e66b55;
+$sucess-color: #80ee96;
+$bg-color: #f5f6f9;
+
+@mixin medium-screen {
+  @media only screen and (max-width: 950px) {
+    @content;
+  }
+}
+
+html,
+body {
+  height: 100%;
+  font-family: "Montserrat", sans-serif;
+  color: $text-color;
+  margin: 0;
+  background-color: $bg-color;
+}
+
+#root {
+  display: flex;
+  height: 100%;
+}
+
+main {
+  width: 100%;
+  z-index: 100;
+  background-color: $bg-color;
+  margin-top: 70px;
+  margin-left: 230px;
+  transition: margin-left 0.3s ease;
+
+  @include medium-screen {
+    margin-left: 0px;
+  }
+}
+
+main.hamburger-opened {
+  margin-left: 230px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1 {
+  margin: 30px;
+}
+
+.btn {
+  width: 120px;
+  background-color: $second-color;
+  color: #fff !important;
+  text-align: center;
+  height: 30px;
+  border-radius: 5px;
+  font-weight: 400;
+  line-height: 28px;
+  margin: 10px 5px;
+  border: 1px solid $second-color-dark;
+  &:hover {
+    filter: opacity(0.8);
+  }
+
+  &--no-bg {
+    background-color: transparent;
+    color: $second-color-dark !important;
+    font-weight: 500;
+  }
+
+  footer
+  {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    bottom: 0;
+    justify-content: space-evenly;
+  }
+}

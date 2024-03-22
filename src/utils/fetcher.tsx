@@ -2,7 +2,13 @@ import Cookies from "js-cookie";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const fetcher = async (url: string, body?: FormData, method?: string, auth?: boolean) => {
+const fetcher = async (
+  url: string,
+  body?: FormData,
+  method?: string,
+  auth?: boolean
+) => {
+  console.log(body);
   const token = Cookies.get("token");
   if (auth) {
     if (!token || !JSON.parse(token).token) {
@@ -13,7 +19,7 @@ const fetcher = async (url: string, body?: FormData, method?: string, auth?: boo
   return fetch(apiUrl + url, {
     method: method?.toUpperCase() || "POST",
     headers: {
-      ...(auth && { Authorization: `Bearer ${JSON.parse(token as string).token}` }),
+      ...(auth && { Authorization: JSON.parse(token as string).token }),
     },
     body: body,
   })
@@ -31,7 +37,10 @@ const fetcher = async (url: string, body?: FormData, method?: string, auth?: boo
       if (url === "users/sign_in" || (url === "users" && method === "POST")) {
         Cookies.set(
           "token",
-          JSON.stringify({ token: res.headers.get("Authorization"), user_id: resBody.user.id }),
+          JSON.stringify({
+            token: res.headers.get("Authorization"),
+            user_id: resBody.user.id,
+          }),
           {
             expires: 1,
           }

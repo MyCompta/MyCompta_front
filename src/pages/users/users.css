@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Palanquin:wght@100;200;300;400;500;600;700&display=swap");
+html,
+body {
+  height: 100%;
+  font-family: "Montserrat", sans-serif;
+  color: #313538;
+  margin: 0;
+  background-color: #f5f6f9;
+}
+
+#root {
+  display: flex;
+  height: 100%;
+}
+
+main {
+  width: 100%;
+  z-index: 100;
+  background-color: #f5f6f9;
+  margin-top: 70px;
+  margin-left: 230px;
+  transition: margin-left 0.3s ease;
+}
+@media only screen and (max-width: 950px) {
+  main {
+    margin-left: 0px;
+  }
+}
+
+main.hamburger-opened {
+  margin-left: 230px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1 {
+  margin: 30px;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  bottom: 0;
+  justify-content: space-evenly;
+}
+
+.registerpage {
+  display: flex;
+  height: 90%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 3.5rem;
+}
+
+.registerbutton {
+  background-color: #3398bd;
+  border: 1px solid #3398bd;
+  color: white;
+  font-size: 14px;
+  padding: 8px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 4rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+.loginpage {
+  display: flex;
+  height: 90%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 3.5rem;
+  font-size: 1rem;
+}
+
+.forgotpasswordpage {
+  display: flex;
+  height: 90%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 3.5rem;
+  font-size: 1rem;
+}
+
+.cgupage {
+  display: flex;
+  position: relative;
+}
+
+.cgupagetitle {
+  max-height: 15rem;
+  position: sticky;
+  top: 15rem;
+}
+
+.cgucontent {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.mailtocgu {
+  color: blue;
+}
+
+.profileuser {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15rem;
+}
+
+.deleteprofilebutton {
+  background-color: #3398bd;
+  border: 1px solid #3398bd;
+  color: white;
+  font-size: 14px;
+  padding: 8px 30px;
+  border-radius: 5px;
+  margin-left: 50rem;
+  cursor: pointer;
+  margin-top: 4rem;
+  font-family: "Montserrat", sans-serif;
+}/*# sourceMappingURL=users.css.map */

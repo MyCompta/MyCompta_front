@@ -1,0 +1,143 @@
+@import "../../styles/global.scss";
+
+.societycontainer
+{
+  padding-left: 3rem;
+  min-height: 40rem;
+}
+
+
+.buttonnewsociety
+{
+  background-color: $second-color;
+  border: 1px solid $second-color;
+  color: white;
+  font-size: 12px;
+  padding: 6px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  position: absolute;
+  right: 5%;
+  top: 6rem;
+}
+
+.main
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 80%;
+  padding: 3%;
+}
+
+.companylist
+{
+  position: relative;
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+  list-style-type: none;
+  height: auto;
+  border-radius: 5px;
+  line-height: 3.5rem;
+}
+
+.error
+{
+  color: rgb(255, 0, 0);
+  font-weight: 800;
+
+}
+
+
+//////////////////////////////////////////createsociety
+
+.createsocietyform
+{
+  display: flex;
+  position: relative;
+  right: 0;
+  justify-content: center;
+  text-align: center;
+  line-height: 2rem;
+}
+
+.createsocietyform button
+{
+  background-color: $second-color;
+  border: 1px solid $second-color;
+  color: white;
+  font-size: 14px;
+  padding: 8px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 4rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+
+@media only screen and (max-width: 1300px)
+{
+  .createsocietyform
+  {
+    scale: 0.8;
+  }
+
+  .companylist
+  {
+    scale: 0.8;
+  }
+}
+
+/////////////////////////////////////////////////////////ShowSosiety
+
+.headershowsociety
+{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.backtosocietes
+{
+  background-color: $second-color;
+  border: 1px solid $second-color;
+  color: white;
+  font-size: 14px;
+  padding: 8px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif; 
+}
+
+.buttoneditsociety
+{
+  background-color: $second-color;
+  border: 1px solid $second-color;
+  color: white;
+  font-size: 14px;
+  padding: 8px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif; 
+}
+
+.displayshowsociety
+{
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid red;
+  margin-top: 3%;
+  margin-left: 3%;
+  margin-right: 3%;
+  line-height: 1.5rem;
+}
+
+h4
+{
+  display: inline;
+}
