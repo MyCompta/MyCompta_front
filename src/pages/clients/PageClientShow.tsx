@@ -1,13 +1,19 @@
 import { useState, useEffect } from "react";
 import fetcher from "../../utils/fetcher";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { formatDate2 } from "../../utils/date";
 import "./PageClientShow.scss";
+import { useAtom } from "jotai";
+import { editClientModalStatusAtom } from "../../atom/modalAtom";
+import ModalClientNew from "../../components/clients/ModalClientNew";
 
 const PageClientShow = () => {
   const { id } = useParams();
   const [clientData, setClientData] = useState([]);
   const navigate = useNavigate();
+  const [editClientModalStatus, setEditClientModalStatus] = useAtom(
+    editClientModalStatusAtom
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +52,7 @@ const PageClientShow = () => {
         <div className="client-show-body__row1">
           <div className="client-show-body__row1-header">
             <h2>Client details</h2>
-            <Link to={`/clients/${id}/edit`}>Edit</Link>
+            <p onClick={() => setEditClientModalStatus(true)}>Edit</p>
           </div>
           <h3>Owner:</h3>
           <p>
@@ -88,6 +94,7 @@ const PageClientShow = () => {
           </table>
         </div>
       </div>
+      {editClientModalStatus && <ModalClientNew clientData={clientData} />}
     </>
   );
 };

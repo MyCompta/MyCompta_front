@@ -10,7 +10,6 @@ import { FaBell } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import Cookies from "js-cookie";
-import ModalClientNew from "../clients/ModalClientNew";
 import { useAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
 
@@ -105,8 +104,6 @@ export default function LeftNavbarDashboard() {
           </div>
         )}
       </nav>
-
-      {newClientModalStatus && <ModalClientNew />}
     </>
   );
 }

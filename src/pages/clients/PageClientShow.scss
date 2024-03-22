@@ -35,12 +35,13 @@
       justify-content: space-between;
       align-items: center;
 
-      a {
+      p {
         font-weight: 600;
         color: $second-color;
+        cursor: pointer;
       }
 
-      a:hover {
+      p:hover {
         filter: opacity(0.8);
       }
     }
@@ -55,7 +56,7 @@
   }
 
   &__row2 {
-    width: auto;
+    width: -webkit-fill-available;
 
     @include medium-screen {
       width: 80%;

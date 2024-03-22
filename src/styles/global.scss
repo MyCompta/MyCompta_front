@@ -32,11 +32,12 @@ body {
 
 main {
   width: 100%;
-  z-index: 100;
+  z-index: 1000;
   background-color: $bg-color;
   margin-top: 69px;
   margin-left: 230px;
   transition: margin-left 0.3s ease;
+  overflow: overlay;
 
   @include medium-screen {
     margin-left: 0px;

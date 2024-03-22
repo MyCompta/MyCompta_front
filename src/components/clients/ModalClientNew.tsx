@@ -1,31 +1,32 @@
 import React from "react";
 import "./ModalClientNew.scss";
 import ClientNew from "./ClientNew";
+import ClientEdit from "./ClientEdit";
 import { useAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
+import { editClientModalStatusAtom } from "../../atom/modalAtom";
 
-const ModalClientNew = () => {
+const ModalClientNew = ({ clientData }) => {
   const [newClientModalStatus, setNewClientModalStatus] = useAtom(
     newClientModalStatusAtom
+  );
+  const [editClientModalStatus, setEditClientModalStatus] = useAtom(
+    editClientModalStatusAtom
   );
 
   const handleCloseModal = () => {
     setNewClientModalStatus(false);
+    setEditClientModalStatus(false);
   };
 
   return (
     <div className="dark-bg">
-      <div className="modal-client-new">
-        <div className="modal-client-new__header">
-          <h1>New client</h1>
-          <div
-            className="modal-client-new__header-close"
-            onClick={handleCloseModal}
-          >
-            ×
-          </div>
+      <div className="modal-client">
+        <div className="modal-client__close" onClick={handleCloseModal}>
+          ×
         </div>
-        <ClientNew />
+        {newClientModalStatus && <ClientNew />}
+        {editClientModalStatus && <ClientEdit clientData={clientData} />}
       </div>
     </div>
   );

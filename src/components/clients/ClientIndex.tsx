@@ -5,6 +5,7 @@ import "./ClientIndex.scss";
 
 const ClientIndex = () => {
   const [clientsData, setClientsData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {

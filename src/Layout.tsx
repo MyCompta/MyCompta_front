@@ -4,12 +4,18 @@ import NavbarLanding from "./components/navbar/NavbarLanding";
 import TopNavbarDashboard from "./components/navbar/TopNavbarDashboard";
 import Error from "./components/notifications/Error";
 import Success from "./components/notifications/Success";
+import ModalClientNew from "./components/clients/ModalClientNew";
+import { useAtom } from "jotai";
+import { newClientModalStatusAtom } from "./atom/modalAtom";
 
-import "./styles/global.scss"
+import "./styles/global.scss";
 
 export default function Layout() {
   const location = useLocation();
   const [isHamburgerOpen, setHamburgerOpen] = useState();
+  const [newClientModalStatus, setNewClientModalStatus] = useAtom(
+    newClientModalStatusAtom
+  );
 
   const handleHamburger = (toggle) => {
     setHamburgerOpen(toggle);
@@ -33,8 +39,9 @@ export default function Layout() {
           <Link to="/cgu">Terms of use</Link>
         </footer>
       </main>
+      {newClientModalStatus && <ModalClientNew />}
       <Error />
       <Success />
-      </>
+    </>
   );
 }

@@ -5,14 +5,16 @@
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: 1000;
+  z-index: 10000;
+  top: 0;
+  left: 0;
 
   &--hidden {
     display: none;
   }
 }
 
-.modal-client-new {
+.modal-client {
   width: 900px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -38,21 +40,21 @@
     margin: auto;
   }
 
+  &__close {
+    position: absolute;
+    right: 20px;
+    top: 8px;
+    cursor: pointer;
+    font-size: 36px;
+  }
+
   &__header {
     width: 100%;
     border-bottom: 1px solid #e5e5e5;
-
-    &-close {
-      position: absolute;
-      right: 20px;
-      top: 8px;
-      cursor: pointer;
-      font-size: 36px;
-    }
   }
 }
 
-.client-new-form {
+.client-form {
   padding: 10px 0;
   display: flex;
 
@@ -85,7 +87,7 @@
     }
 
     label {
-      font-weight: 500;
+      font-weight: 600;
 
       span {
         color: $alert-color;
@@ -113,7 +115,7 @@
     }
 
     label {
-      font-weight: 500;
+      font-weight: 600;
 
       span {
         color: $alert-color;
