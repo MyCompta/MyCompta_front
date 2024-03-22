@@ -3,9 +3,29 @@
 .client-title-box {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
+
 
   a {
     margin-right: 30px;
+  }
+}
+
+.btnclientnew
+{
+background-color: $second-color;
+  border: 1px solid $second-color;
+  color: $bg-color;
+  font-size: 14px;
+  padding: 2px;
+  padding-right: 4px;
+  padding-left: 4px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+
+  &:hover{
+    background-color: $bg-color;
+    color: $second-color;
   }
 }

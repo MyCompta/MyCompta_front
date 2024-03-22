@@ -5,6 +5,8 @@ import { useAtom, useAtomValue } from "jotai";
 import societyAtom from "../../atom/societyAtom.jsx";
 import { useNavigate } from "react-router-dom";
 
+import "./society.scss"
+
 const EditSociety = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const token = Cookies.get("token");
@@ -64,6 +66,28 @@ const EditSociety = () => {
       }
     } catch (error) {
       setErrors({ generic: "No answer from server" });
+    }
+  };
+
+
+  const onClick = async () => {
+    try {
+      const response = await fetch(apiUrl + `societies/${id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": JSON.parse(Cookies.get("token")).token,
+            }
+          });
+
+      if (response.ok) {
+        navigate(`/dashboard`);
+      } else {
+        console.error(response.error);
+      }
+    } catch (error) {
+      console.error("Error during delete society:", error.message);
     }
   };
 
@@ -164,7 +188,8 @@ const EditSociety = () => {
           />
         </label>
         <br />
-        <button>Save</button>
+        <button className="savebuttoneditsociety">Save</button>
+        <button onClick={onClick} className="deletebuttonsociety">Delete</button>
       </form>
     </div>
   );

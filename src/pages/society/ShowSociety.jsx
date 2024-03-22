@@ -10,6 +10,10 @@ import EditComponentSociety from '../../components/society/EditComponentSociety.
 import EditSociety from './EditSociety.jsx';
 import societyAtom from '../../atom/societyAtom.jsx'
 
+import IndexInvoices from '../invoices/IndexInvoices.tsx';
+
+import PageClientIndex from '../clients/PageClientIndex.tsx';
+
 import "./society.scss"
 
 
@@ -52,62 +56,38 @@ const ShowSociety = () => {
     fetchData();
   }, [societyAtom]);
 
-  
-
-  
-
-
-  const onClick = async () => {
-    try {
-      const response = await fetch(apiUrl + `societies/${id}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": JSON.parse(Cookies.get("token")).token,
-            }
-          });
-
-      if (response.ok) {
-        navigate(`/dashboard`);
-      } else {
-        console.error(response.error);
-      }
-    } catch (error) {
-      console.error("Error during delete society:", error.message);
-    }
-  };
-
   const handleEditSocietyClick = () => {
     setShowEditSociety(true);
   }
   return (
     <>
-      <h1>{societyData.name} {societyData.status}</h1>
-
       <div className="headershowsociety">
+        <h1>{societyData.name && societyData.name.toUpperCase()} <span style={{ fontSize: '0.6em' }}>{societyData.status}</span></h1>
         <EditComponentSociety onClick={handleEditSocietyClick}/>
-        <Link to="/societies" className="backtosocietes">Back to MySocieties</Link>
       </div>
 
       <div className="displayshowsociety">
-        <div className="infosociety">
-          <h4>Siret n°: </h4>{societyData.siret}<br />
-          <h4>Capital: </h4>{societyData.capital}<br />
-          <h4>Address: </h4>{societyData.adress}<br />
-          <h4>Zip code: </h4>{societyData.zip}<br />
-          <h4>City: </h4>{societyData.city}<br />
-          <h4>Country: </h4>{societyData.country}<br />
-          <h4>email: </h4>{societyData.email}<br />
+          <div className="leftinfosociety">
+            <h4>Siret n°: </h4>{societyData.siret}<br />
+            <h4>Capital: </h4>{societyData.capital}<br />
+            <h4>Address: </h4>{societyData.adress}<br />
+            <h4>Zip code: </h4>{societyData.zip}<br />
+            <h4>City: </h4>{societyData.city}<br />
+            <h4>Country: </h4>{societyData.country}<br />
+            <h4>email: </h4>{societyData.email}<br />
+          </div>
+          <div className="rightinfosociety">
+            <div className="indexinvoicesshowsociety">
+              <IndexInvoices />
+            </div>
+            <div className="indexclientsshowsociety">
+              <PageClientIndex />
+            </div>
         </div>
         <div className="displaycreatesocietycontainer">
           {showEditSociety && <div><EditSociety /></div>}
         </div>
       </div>
-         
-        <button onClick={onClick}>Delete</button>
-
-
     </>
   );
 };
