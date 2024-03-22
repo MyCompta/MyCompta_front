@@ -1,20 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Palanquin:wght@100;200;300;400;500;600;700&display=swap");
-
-$main-color: #212a2b;
-$second-color: #3398bd;
-$second-color-dark: #0f526b;
-$selected-second-color: #62b8d8;
-$text-color: #313538;
-$disable-text-color: #767676;
-$alert-color: #e66b55;
-$sucess-color: #80ee96;
-$bg-color: #f5f6f9;
-
-@mixin medium-screen {
-  @media only screen and (max-width: 950px) {
-    @content;
-  }
-}
+@import "./mixins";
+@import "./vars";
 
 html,
 body {
@@ -27,7 +13,7 @@ body {
 
 #root {
   display: flex;
-  height: 100%;
+  height: auto;
 }
 
 main {
@@ -86,4 +72,5 @@ footer{
   justify-content: space-between;
   padding-left: 5%;
   padding-right: 5%;
+
 }
