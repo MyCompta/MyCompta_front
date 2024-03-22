@@ -1,6 +1,12 @@
-.invoice-table {
-  width: 100%;
+@import "../../styles/vars.scss";
+
+.client-table {
   border-collapse: collapse;
+  width: 100%;
+
+  &__business-name:hover {
+    color: $second-color;
+  }
 
   th,
   td {

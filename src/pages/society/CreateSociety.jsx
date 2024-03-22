@@ -2,6 +2,8 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
+import "./society.scss"
+
 const CreateSociety = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const token = Cookies.get("token");
@@ -53,7 +55,7 @@ const CreateSociety = () => {
       const responseData = await response.json();
 
       if (response.ok) {
-        navigate(`/`);
+        navigate(`/societies`);
       } else {
         setErrors(responseData);
       }
@@ -65,9 +67,11 @@ const CreateSociety = () => {
   return (
     <div className="createsocietyform">
       <form onSubmit={HandleSubmitCreateSociety}>
-        <h2>You can create company here !</h2>
+        <div className="createsocietyformtitle">
+          <h2>You can create company here ! <br /> whao!</h2>
+        </div>
         <label>
-          Company's name :
+          Company's name :&nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="text"
             name="name"
@@ -79,7 +83,7 @@ const CreateSociety = () => {
         </label>
         <br />
         <label>
-          Company's social reason :
+          Company's social reason :&nbsp;&nbsp;&nbsp;&nbsp;
           <select
             name="status"
             value={status}
@@ -95,7 +99,7 @@ const CreateSociety = () => {
         </label>
         <br />
         <label>
-          Address :
+          Address :&nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="text"
             name="adress"
@@ -107,7 +111,7 @@ const CreateSociety = () => {
         </label>
         <br />
         <label>
-          Zip code :
+          Zip code :&nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="number"
             name="zip"
@@ -119,7 +123,7 @@ const CreateSociety = () => {
         </label>
         <br />
         <label>
-          City :
+          City :&nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="text"
             name="city"
@@ -131,7 +135,7 @@ const CreateSociety = () => {
         </label>
         <br />
         <label>
-          Country :
+          Country :&nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="text"
             name="country"
@@ -143,7 +147,7 @@ const CreateSociety = () => {
         </label>
         <br />
         <label>
-          Siret :
+          Siret :&nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="text"
             name="siret"
@@ -155,7 +159,7 @@ const CreateSociety = () => {
         </label>
         <br />
         <label>
-          Capital :
+          Capital :&nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="text"
             name="capital"
@@ -167,7 +171,7 @@ const CreateSociety = () => {
         </label>
         <br />
         <label>
-          Email :
+          Email :&nbsp;&nbsp;&nbsp;&nbsp;
           <input
             type="text"
             name="email"

@@ -1,4 +1,5 @@
-@import "../../styles/global.scss";
+@import "../../styles/vars";
+@import "../../styles/mixins";
 
 .left-navbar {
   width: 230px;
@@ -148,7 +149,7 @@
     filter: none;
   }
 
-  &__item:hover a {
+  &__item:hover .new {
     display: block;
   }
 

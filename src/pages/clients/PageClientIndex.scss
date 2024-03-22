@@ -1,0 +1,11 @@
+@import "../../styles/vars";
+
+.client-title-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+    margin-right: 30px;
+  }
+}

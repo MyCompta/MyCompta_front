@@ -10,14 +10,14 @@ body {
 
 #root {
   display: flex;
-  height: 100%;
+  height: auto;
 }
 
 main {
   width: 100%;
-  z-index: 9999;
-  background-color: white;
-  margin-top: 69px;
+  z-index: 100;
+  background-color: #f5f6f9;
+  margin-top: 70px;
   margin-left: 230px;
   transition: margin-left 0.3s ease;
 }
@@ -34,4 +34,16 @@ main.hamburger-opened {
 a {
   text-decoration: none;
   color: inherit;
-}/*# sourceMappingURL=global.css.map */
+}
+
+h1 {
+  margin: 30px;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  bottom: 0;
+  justify-content: space-evenly;
+} /*# sourceMappingURL=global.css.map */
