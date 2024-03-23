@@ -9,8 +9,11 @@ import societyAtom from "../../atom/societyAtom.jsx";
 
 const SocietyIndex = ({ setSocietyModalStatus }) => {
   const [societiesData, setSocietiesData] = useState();
-
-  const [currentSociety, setCurrentSociety] = useAtom(societyAtom);
+  const [currentSociety, setCurrentSociety] = useState(
+    Cookies.get("currentSociety")
+      ? JSON.parse(Cookies.get("currentSociety"))
+      : null
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
