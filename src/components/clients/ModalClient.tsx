@@ -21,8 +21,8 @@ const ModalClient = ({ clientData, setClientData }) => {
 
   return (
     <div className="dark-bg">
-      <div className="modal-client">
-        <div className="modal-client__close" onClick={handleCloseModal}>
+      <div className="modal">
+        <div className="modal__close" onClick={handleCloseModal}>
           ×
         </div>
         {newClientModalStatus && <ClientNew />}

@@ -12,11 +12,15 @@ import { CgProfile } from "react-icons/cg";
 import Cookies from "js-cookie";
 import { useAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
+import { societyModalStatusAtom } from "../../atom/modalAtom";
 
 export default function LeftNavbarDashboard() {
   const navigate = useNavigate();
   const [newClientModalStatus, setNewClientModalStatus] = useAtom(
     newClientModalStatusAtom
+  );
+  const [societyModalStatus, setSocietyModalStatus] = useAtom(
+    societyModalStatusAtom
   );
 
   const handleLogout = () => {
@@ -26,6 +30,10 @@ export default function LeftNavbarDashboard() {
 
   const handleOpenNewClientModal = () => {
     setNewClientModalStatus(true);
+  };
+
+  const handleOpenSocietyModal = () => {
+    setSocietyModalStatus(true);
   };
 
   return (
@@ -48,7 +56,7 @@ export default function LeftNavbarDashboard() {
             </div>
           </div>
         )}
-        <div className="left-navbar__society">
+        <div className="left-navbar__society" onClick={handleOpenSocietyModal}>
           <p>SOCIETY</p>
           <CgSelect />
         </div>
