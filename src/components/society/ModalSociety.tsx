@@ -17,7 +17,7 @@ const ModalSociety = () => {
         <div className="modal__close" onClick={handleCloseModal}>
           ×
         </div>
-        <SocietyIndex />
+        <SocietyIndex setSocietyModalStatus={setSocietyModalStatus} />
       </div>
     </div>
   );

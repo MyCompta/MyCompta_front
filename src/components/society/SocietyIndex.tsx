@@ -3,12 +3,14 @@ import fetcher from "../../utils/fetcher";
 import Cookies from "js-cookie"; // TO GET ID CURRENT SOCIETY AND BE ABLE TO SET A NEW ONE
 import "./SocietyIndex.scss";
 import Society from "./Society";
+import { useNavigate } from "react-router-dom";
 
-const SocietyIndex = () => {
+const SocietyIndex = ({ setSocietyModalStatus }) => {
   const [societiesData, setSocietiesData] = useState();
   const [currentSociety, setCurrentSociety] = useState(
     Cookies.get("currentSociety") ? Cookies.get("currentSociety") : 1
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,18 +29,21 @@ const SocietyIndex = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (societiesData && societiesData.length > 0) {
-      console.log("societiesData", societiesData);
-      console.log("cookie", Cookies.get("currentSociety"));
-      console.log("societiesData[0].id", societiesData[0].id);
-    }
-  }, [societiesData]);
+  const handleNewSociety = () => {
+    setSocietyModalStatus(false);
+    navigate("/societies/create");
+  };
 
   return (
     <>
       <div className="modal-society-header">
         <h1>Switch society</h1>
+        <button
+          className="modal-society-header__btn btn"
+          onClick={handleNewSociety}
+        >
+          +
+        </button>
       </div>
       <div className="modal-society-body">
         {societiesData &&

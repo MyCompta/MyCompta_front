@@ -3,6 +3,15 @@
 .modal-society-header {
   width: 100%;
   border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+
+  &__btn {
+    font-size: 28px;
+    line-height: 34px !important;
+    width: 36px !important;
+    height: 34px !important;
+  }
 }
 
 .modal-society-body {
