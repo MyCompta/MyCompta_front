@@ -93,7 +93,7 @@ const InvoiceTable = () => {
           {filterInvoicesByStatus(currentTab).map(
             (invoice: TInvoiceGetBack) => (
               <tr key={invoice.id} onClick={() => handleLineClick(invoice.id!)}>
-                <td>#{invoice.id}</td>
+                <td>{invoice.id}</td>
                 <td>CUSTOMER NAME</td>
                 <td>{formatDate2(invoice.date)}</td>
                 <td>{formatDate2(invoice.due_date)}</td>
