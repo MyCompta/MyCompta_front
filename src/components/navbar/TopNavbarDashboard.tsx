@@ -91,6 +91,7 @@ export const PopupProfile = ({ onCloseProfilPopup, profilePopupRef }: any) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     Cookies.remove("token");
+    Cookies.remove("currentSociety");
     onCloseProfilPopup();
     navigate("/");
   };

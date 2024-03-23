@@ -30,23 +30,24 @@
     border-top: 1px solid #171e1f;
     border-bottom: 1px solid #171e1f;
     width: calc(100% - 15px);
-    height: 56px;
+    min-height: 56px;
     line-height: 26px;
     cursor: pointer;
-    position: relative;
+    display: flex;
+    align-items: center;
 
     p {
       text-align: center;
-      margin-right: 42px;
+      margin-right: 6px;
+      width: 174px;
     }
 
     svg {
-      position: absolute;
-      right: 14px;
-      top: 14px;
-      font-size: 28px;
+      font-size: 32px;
       color: #ffffff;
       filter: contrast(0.5);
+      margin-right: 10px;
+      width: 32px;
     }
   }
 

@@ -43,7 +43,7 @@ export default function LeftNavbarDashboard() {
       }
     };
 
-    fetchData();
+    Cookies.get("token") && fetchData();
   }, [id]);
 
   useEffect(() => {
@@ -52,6 +52,7 @@ export default function LeftNavbarDashboard() {
 
   const handleLogout = () => {
     Cookies.remove("token");
+    Cookies.remove("currentSociety");
     navigate("/");
   };
 
@@ -83,31 +84,42 @@ export default function LeftNavbarDashboard() {
             </div>
           </div>
         )}
-        <div className="left-navbar__society" onClick={handleOpenSocietyModal}>
-          <p>
-            {currentUserData &&
-            currentUserData.societies &&
-            currentUserData.societies.find(
-              (society) =>
-                society.id === parseInt(Cookies.get("currentSociety"))
-            )
-              ? currentUserData.societies.find(
-                  (society) =>
-                    society.id === parseInt(Cookies.get("currentSociety"))
-                ).name
-              : "Select society"}
-          </p>
 
-          <CgSelect />
-        </div>
-
+        {Cookies.get("token") && (
+          <div
+            className="left-navbar__society"
+            onClick={handleOpenSocietyModal}
+          >
+            <p>
+              {currentUserData &&
+              currentUserData.societies &&
+              currentUserData.societies.find(
+                (society) =>
+                  society.id === parseInt(Cookies.get("currentSociety"))
+              )
+                ? currentUserData.societies.find(
+                    (society) =>
+                      society.id === parseInt(Cookies.get("currentSociety"))
+                  ).name
+                : currentUserData &&
+                  currentUserData.societies &&
+                  currentUserData.societies.length > 0
+                ? (() => {
+                    const selectedSociety = currentUserData.societies[0];
+                    Cookies.set("currentSociety", selectedSociety.id);
+                    return selectedSociety.name;
+                  })()
+                : "Select society"}
+            </p>
+            <CgSelect />
+          </div>
+        )}
         <div className="left-navbar__item">
           <Link to="/dashboard" className="index">
             <img src={dashboardIcon} alt="dashboard icon" />
             <p>Dashboard</p>
           </Link>
         </div>
-
         <div className="left-navbar__item">
           <Link to="/clients" className="index">
             <img src={customerIcon} alt="customer icon" />
@@ -117,7 +129,6 @@ export default function LeftNavbarDashboard() {
             +
           </div>
         </div>
-
         <div className="left-navbar__item">
           <Link to="/quotations" className="index">
             <img src={quoteIcon} alt="quote icon" />
@@ -127,7 +138,6 @@ export default function LeftNavbarDashboard() {
             +
           </Link>
         </div>
-
         <div className="left-navbar__item">
           <Link to="/invoices" className="index">
             <img src={invoiceIcon} alt="invoice icon" />
@@ -137,7 +147,6 @@ export default function LeftNavbarDashboard() {
             +
           </Link>
         </div>
-
         {!Cookies.get("token") && (
           <div className="left-navbar__connection">
             <Link
