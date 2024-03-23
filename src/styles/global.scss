@@ -54,6 +54,7 @@ h1 {
   line-height: 30px;
   margin: 10px 5px;
   border: 1px solid $second-color-dark;
+
   &:hover {
     filter: opacity(0.8);
   }
@@ -65,7 +66,7 @@ h1 {
   }
 }
 
-footer{
+footer {
   display: flex;
   position: relative;
   bottom: 0;
@@ -73,5 +74,4 @@ footer{
   justify-content: space-between;
   padding-left: 5%;
   padding-right: 5%;
-
 }

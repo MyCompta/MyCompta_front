@@ -60,9 +60,9 @@ const InvoiceTable = () => {
 
   return (
     <>
-      <div className="headerindexinvoices">
-        <h2>Invoices</h2>
-        <div className="buttonfilterinvoicetable">
+      <div className="invoice-table-header">
+        <h1>Invoices</h1>
+        <div className="invoice-table-header__filters">
           <button onClick={() => setCurrentTab("all")}>All</button>
           <button onClick={() => setCurrentTab("drafts")}>Drafts</button>
           <button onClick={() => setCurrentTab("outstanding")}>
@@ -72,7 +72,9 @@ const InvoiceTable = () => {
           <button onClick={() => setCurrentTab("paid")}>Paid</button>
         </div>
         <Link to="/invoices/create">
-          <button className="buttoncreateinvoices">Create Invoice</button>
+          <button className="invoice-table-header__btn btn">
+            Create Invoice
+          </button>
         </Link>
       </div>
 
