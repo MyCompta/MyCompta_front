@@ -4,8 +4,6 @@ import Cookies from "js-cookie"; // TO GET ID CURRENT SOCIETY AND BE ABLE TO SET
 import "./SocietyIndex.scss";
 import Society from "./Society";
 import { useNavigate } from "react-router-dom";
-import { useAtom } from "jotai";
-import societyAtom from "../../atom/societyAtom.jsx";
 
 const SocietyIndex = ({ setSocietyModalStatus }) => {
   const [societiesData, setSocietiesData] = useState();
