@@ -1,10 +1,16 @@
 import React from "react";
 import Cookies from "js-cookie";
 
-const society = ({ society, currentSociety, setCurrentSociety }) => {
+const society = ({
+  society,
+  currentSociety,
+  setCurrentSociety,
+  setSocietyModalStatus,
+}) => {
   const handleUpdateCurrentSociety = () => {
     Cookies.set("currentSociety", society.id);
-    setCurrentSociety(society.id);
+    setCurrentSociety(society);
+    setSocietyModalStatus(false);
   };
 
   return (
@@ -13,7 +19,7 @@ const society = ({ society, currentSociety, setCurrentSociety }) => {
       onClick={handleUpdateCurrentSociety}
     >
       {society.name}
-      {parseInt(currentSociety) === society.id ? (
+      {parseInt(currentSociety.id) === society.id ? (
         <div className="modal-society-body__item--active"></div>
       ) : null}
     </div>

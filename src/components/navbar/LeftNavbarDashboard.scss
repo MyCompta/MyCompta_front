@@ -35,6 +35,11 @@
     cursor: pointer;
     position: relative;
 
+    p {
+      text-align: center;
+      margin-right: 42px;
+    }
+
     svg {
       position: absolute;
       right: 14px;

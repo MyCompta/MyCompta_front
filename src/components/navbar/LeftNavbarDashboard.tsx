@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./LeftNavbarDashboard.scss";
 import { CgSelect } from "react-icons/cg";
@@ -13,8 +13,10 @@ import Cookies from "js-cookie";
 import { useAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
 import { societyModalStatusAtom } from "../../atom/modalAtom";
+import fetcher from "../../utils/fetcher";
 
 export default function LeftNavbarDashboard() {
+  const [currentUserData, setCurrentUserData] = useState();
   const navigate = useNavigate();
   const [newClientModalStatus, setNewClientModalStatus] = useAtom(
     newClientModalStatusAtom
@@ -22,6 +24,31 @@ export default function LeftNavbarDashboard() {
   const [societyModalStatus, setSocietyModalStatus] = useAtom(
     societyModalStatusAtom
   );
+
+  const id = Cookies.get("token")
+    ? JSON.parse(Cookies.get("token")).user_id
+    : null;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetcher(`users/${id}`, undefined, "GET", true);
+        if (!response.error) {
+          setCurrentUserData(response);
+        } else {
+          console.error(response.error);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la sélection des données :", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  useEffect(() => {
+    console.log("currentUserData", currentUserData);
+  }, [currentUserData]);
 
   const handleLogout = () => {
     Cookies.remove("token");
@@ -57,7 +84,20 @@ export default function LeftNavbarDashboard() {
           </div>
         )}
         <div className="left-navbar__society" onClick={handleOpenSocietyModal}>
-          <p>SOCIETY</p>
+          <p>
+            {currentUserData &&
+            currentUserData.societies &&
+            currentUserData.societies.find(
+              (society) =>
+                society.id === parseInt(Cookies.get("currentSociety"))
+            )
+              ? currentUserData.societies.find(
+                  (society) =>
+                    society.id === parseInt(Cookies.get("currentSociety"))
+                ).name
+              : "Select society"}
+          </p>
+
           <CgSelect />
         </div>
 
