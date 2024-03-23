@@ -43,7 +43,7 @@ export const router = createBrowserRouter(
 
         {/* Protected Routes */}
         <Route element={<LoggedRoute redirectPath="/login" />}>
-          <Route path="/dashboard" element={<Index />} />
+          <Route path="/dashboard" element={<ShowSociety />} />
           <Route path="/profile" element={<CgProfile />} />
 
           <Route path="/invoices" element={<IndexInvoices />} />

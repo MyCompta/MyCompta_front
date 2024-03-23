@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./InvoiceTable.scss";
 import fetcher from "../../utils/fetcher";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { formatDate2 } from "../../utils/date";
 
 const InvoiceTable = () => {
