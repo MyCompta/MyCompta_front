@@ -1,5 +1,3 @@
-import React from "react";
-import "./ModalSociety.scss";
 import { useAtom } from "jotai";
 import { societyModalStatusAtom } from "../../atom/modalAtom";
 import SocietyIndex from "./SocietyIndex";

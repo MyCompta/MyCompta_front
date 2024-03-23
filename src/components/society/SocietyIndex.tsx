@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import fetcher from "../../utils/fetcher";
 import Cookies from "js-cookie"; // TO GET ID CURRENT SOCIETY AND BE ABLE TO SET A NEW ONE
 import "./SocietyIndex.scss";
+import Society from "./Society";
 
 const SocietyIndex = () => {
   const [societiesData, setSocietiesData] = useState();
-  const id = 1; // TO REMOVE WHEN SOCIETY COOKIE SETS AND SET THE REAL CURRENT SOCIETY
+  const [currentSociety, setCurrentSociety] = useState(
+    Cookies.get("currentSociety") ? Cookies.get("currentSociety") : 1
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +25,7 @@ const SocietyIndex = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     if (societiesData && societiesData.length > 0) {
@@ -40,16 +43,12 @@ const SocietyIndex = () => {
       <div className="modal-society-body">
         {societiesData &&
           societiesData.map((society) => (
-            <div
+            <Society
               key={society.id}
-              className="modal-society-body__item"
-              onClick={() => Cookies.set("currentSociety", society.id)}
-            >
-              {society.name}
-              {parseInt(Cookies.get("currentSociety")) === society.id ? (
-                <div className="modal-society-body__item--active"></div>
-              ) : null}
-            </div>
+              society={society}
+              currentSociety={currentSociety}
+              setCurrentSociety={setCurrentSociety}
+            />
           ))}
       </div>
     </>
