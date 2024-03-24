@@ -66,7 +66,7 @@ const ClientEdit = ({ clientData, setClientData }) => {
 
   return (
     <>
-      <div className="modal-client__header">
+      <div className="modal-client-header">
         <h1>Edit client</h1>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="client-form">
