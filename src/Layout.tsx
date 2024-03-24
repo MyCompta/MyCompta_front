@@ -6,6 +6,7 @@ import Error from "./components/notifications/Error";
 import Success from "./components/notifications/Success";
 import ModalClient from "./components/clients/ModalClient";
 import ModalSociety from "./components/society/ModalSociety";
+import Footer from "./components/Footer";
 import { useAtom } from "jotai";
 import { newClientModalStatusAtom } from "./atom/modalAtom";
 import { societyModalStatusAtom } from "./atom/modalAtom";
@@ -39,10 +40,7 @@ export default function Layout() {
       <TopNavbarDashboard onToggle={handleHamburger} />
       <main className={isHamburgerOpen ? "hamburger-opened" : ""}>
         <Outlet />
-        <footer className="footer">
-          <p>© 2024 Mycompta. All right reserved.</p>
-          <Link to="/cgu">Terms of use</Link>
-        </footer>
+        <Footer />
       </main>
       {newClientModalStatus && <ModalClient />}
       {societyModalStatus && <ModalSociety />}
