@@ -116,6 +116,16 @@
     height: 34px;
     width: calc(100% - 26px);
 
+    &--disabled {
+      filter: opacity(0.5);
+      pointer-events: none;
+
+      &:hover {
+        background-color: transparent;
+        color: $text-color;
+      }
+    }
+
     .index {
       img {
         width: 30px;
