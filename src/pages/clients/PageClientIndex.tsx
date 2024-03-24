@@ -16,7 +16,10 @@ const PageClientIndex = () => {
     <>
       <div className="client-title-box">
         <h1>My clients</h1>
-        <button className="btn" onClick={() => handleOpenModalNewClient()}>
+        <button
+          className="btn client-title-box__btn"
+          onClick={() => handleOpenModalNewClient()}
+        >
           New client
         </button>
       </div>
