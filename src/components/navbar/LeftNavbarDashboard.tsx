@@ -14,6 +14,7 @@ import { useAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
 import { societyModalStatusAtom } from "../../atom/modalAtom";
 import fetcher from "../../utils/fetcher";
+import { isLoggedIn } from "../../utils/auth";
 
 export default function LeftNavbarDashboard() {
   const [currentUserData, setCurrentUserData] = useState();
@@ -114,20 +115,30 @@ export default function LeftNavbarDashboard() {
             <CgSelect />
           </div>
         )}
-        <div className="left-navbar__item">
+        <div
+          className={`left-navbar__item ${
+            isLoggedIn() ? "" : "left-navbar__item--disabled"
+          }`}
+        >
           <Link to="/dashboard" className="index">
             <img src={dashboardIcon} alt="dashboard icon" />
             <p>Dashboard</p>
           </Link>
         </div>
-        <div className="left-navbar__item">
+        <div
+          className={`left-navbar__item ${
+            isLoggedIn() ? "" : "left-navbar__item--disabled"
+          }`}
+        >
           <Link to="/clients" className="index">
             <img src={customerIcon} alt="customer icon" />
             <p>Clients</p>
           </Link>
-          <div onClick={handleOpenNewClientModal} className="new">
-            +
-          </div>
+          {isLoggedIn() && (
+            <div onClick={handleOpenNewClientModal} className="new">
+              +
+            </div>
+          )}
         </div>
         <div className="left-navbar__item">
           <Link to="/quotations" className="index">
