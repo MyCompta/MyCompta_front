@@ -134,7 +134,7 @@ export default function LeftNavbarDashboard() {
             <img src={quoteIcon} alt="quote icon" />
             <p>Quotations</p>
           </Link>
-          <Link to="/quotations/new" className="new">
+          <Link to="/quotations/create" className="new">
             +
           </Link>
         </div>

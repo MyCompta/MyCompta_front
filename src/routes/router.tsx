@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import LoggedRoute from "./LoggedRoute";
 import NotLoggedRoute from "./NotLoggedRoute";
+import Page404 from "../pages/Page404";
 
 import Layout from "../Layout";
 import Index from "../pages/Index";
@@ -21,6 +22,9 @@ import ShowInvoice from "../pages/invoices/ShowInvoice";
 import EditInvoice from "../pages/invoices/EditInvoice";
 import InvoiceCreate from "../pages/invoices/InvoiceCreate";
 
+import PageQuotationIndex from "../pages/quotations/PageQuotationIndex";
+import PageQuotationCreate from "../pages/quotations/PageQuotationCreate";
+
 import PageClientIndex from "../pages/clients/PageClientIndex";
 import PageClientShow from "../pages/clients/PageClientShow";
 
@@ -34,6 +38,7 @@ export const router = createBrowserRouter(
       <Route path="/" element={<Layout />}>
         <Route index element={<Index />} />
         <Route path="/cgu" element={<CGU />} />
+        <Route path="*" element={<Page404 />} />
         <Route element={<NotLoggedRoute redirectPath="/dashboard" />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -50,6 +55,9 @@ export const router = createBrowserRouter(
           <Route path="/invoices/create" element={<InvoiceCreate />} />
           <Route path="/invoices/:id" element={<ShowInvoice />} />
           <Route path="/invoices/:id/edit" element={<EditInvoice />} />
+
+          <Route path="/quotations" element={<PageQuotationIndex />} />
+          <Route path="/quotations/create" element={<PageQuotationCreate />} />
 
           <Route path="/clients" element={<PageClientIndex />} />
           <Route path="/clients/:id" element={<PageClientShow />} />

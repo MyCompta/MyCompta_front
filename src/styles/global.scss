@@ -47,6 +47,8 @@ h1 {
 // ###################################
 
 .btn {
+  cursor: pointer;
+  display: block;
   width: 120px;
   background-color: $second-color;
   color: #fff !important;
@@ -171,5 +173,37 @@ footer {
     top: 8px;
     cursor: pointer;
     font-size: 36px;
+  }
+}
+
+// #### UTILITY PAGES DESIGN ####
+// ##############################
+
+.utility-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  height: calc(100% - 60px);
+}
+
+.utility-page-box {
+  width: fit-content;
+
+  &__title {
+    font-size: 90px;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: 36px;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__btn {
+    margin: 20px auto !important;
+    width: 260px !important;
   }
 }
