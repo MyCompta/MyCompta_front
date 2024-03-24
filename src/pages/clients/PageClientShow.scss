@@ -1,7 +1,31 @@
 @import "../../styles/global";
 
-.client-show-header__business-id {
-  margin: -30px 30px 20px;
+.client-show-header {
+  &__baseline {
+    display: flex;
+    align-items: center;
+    margin: -36px 30px 20px;
+
+    &-back {
+      margin: 0;
+      margin-right: 10px;
+      font-weight: 700;
+      color: $second-color;
+      display: flex;
+      align-items: center;
+      font-size: 22px;
+
+      svg {
+        width: 38px;
+        height: 38px;
+        margin-right: 4px;
+      }
+    }
+
+    &-business-id {
+      font-weight: 500;
+    }
+  }
 }
 
 .client-show-body {
