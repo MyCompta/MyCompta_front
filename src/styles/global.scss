@@ -19,8 +19,8 @@ body {
 main {
   width: 100%;
   z-index: 1000;
-  background-color: $bg-color;
-  margin-top: 69px;
+  background-color: white;
+  margin-top: 70px;
   margin-left: 230px;
   transition: margin-left 0.3s ease;
   overflow: overlay;
@@ -43,6 +43,9 @@ h1 {
   margin: 30px;
 }
 
+// ########## BUTTON DESIGN ##########
+// ###################################
+
 .btn {
   cursor: pointer;
   display: block;
@@ -56,6 +59,7 @@ h1 {
   line-height: 30px;
   margin: 10px 5px;
   border: 1px solid $second-color-dark;
+
   &:hover {
     filter: opacity(0.8);
   }
@@ -64,6 +68,49 @@ h1 {
     background-color: transparent;
     color: $second-color-dark !important;
     font-weight: 500;
+  }
+}
+
+// ########### TABLE DESIGN ##########
+// ###################################
+
+table {
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding: 12px 20px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  background: #f7f9fa;
+  color: #5e6a73;
+}
+
+tbody {
+  tr {
+    cursor: pointer;
+    font-size: 14px;
+
+    &:nth-child(even) {
+      background: #f7f9fa;
+    }
+
+    &:nth-child(odd) {
+      background: #f3f5f7;
+    }
+  }
+
+  tr:hover {
+    background-color: #f9f9f9;
   }
 }
 

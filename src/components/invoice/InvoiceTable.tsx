@@ -60,14 +60,22 @@ const InvoiceTable = () => {
 
   return (
     <>
-      <div>
-        <button onClick={() => setCurrentTab("all")}>All</button>
-        <button onClick={() => setCurrentTab("drafts")}>Drafts</button>
-        <button onClick={() => setCurrentTab("outstanding")}>
-          Outstanding
-        </button>
-        <button onClick={() => setCurrentTab("past_due")}>Past Due</button>
-        <button onClick={() => setCurrentTab("paid")}>Paid</button>
+      <div className="invoice-table-header">
+        <h1>Invoices</h1>
+        <div className="invoice-table-header__filters">
+          <button onClick={() => setCurrentTab("all")}>All</button>
+          <button onClick={() => setCurrentTab("drafts")}>Drafts</button>
+          <button onClick={() => setCurrentTab("outstanding")}>
+            Outstanding
+          </button>
+          <button onClick={() => setCurrentTab("past_due")}>Past Due</button>
+          <button onClick={() => setCurrentTab("paid")}>Paid</button>
+        </div>
+        <Link to="/invoices/create">
+          <button className="invoice-table-header__btn btn">
+            Create Invoice
+          </button>
+        </Link>
       </div>
 
       <table className="invoice-table">
@@ -85,7 +93,7 @@ const InvoiceTable = () => {
           {filterInvoicesByStatus(currentTab).map(
             (invoice: TInvoiceGetBack) => (
               <tr key={invoice.id} onClick={() => handleLineClick(invoice.id!)}>
-                <td>#{invoice.id}</td>
+                <td>{invoice.id}</td>
                 <td>CUSTOMER NAME</td>
                 <td>{formatDate2(invoice.date)}</td>
                 <td>{formatDate2(invoice.due_date)}</td>
