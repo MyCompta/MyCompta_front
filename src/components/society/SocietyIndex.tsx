@@ -4,6 +4,9 @@ import Cookies from "js-cookie"; // TO GET ID CURRENT SOCIETY AND BE ABLE TO SET
 import "./SocietyIndex.scss";
 import Society from "./Society";
 import { useNavigate } from "react-router-dom";
+import { IoDocumentText } from "react-icons/io5";
+import { MdEditDocument } from "react-icons/md";
+import { FaTrash } from "react-icons/fa";
 
 const SocietyIndex = ({ setSocietyModalStatus }) => {
   const [societiesData, setSocietiesData] = useState();
@@ -36,6 +39,22 @@ const SocietyIndex = ({ setSocietyModalStatus }) => {
     navigate("/societies/create");
   };
 
+  const handleDeleteSociety = async (societyId) => {
+    const response = await fetcher(
+      `societies/${societyId}`,
+      undefined,
+      "DELETE",
+      true
+    );
+    if (!response.error) {
+      setSocietiesData(
+        societiesData.filter((society) => society.id !== societyId)
+      );
+    } else {
+      console.error(response.error);
+    }
+  };
+
   return (
     <>
       <div className="modal-society-header">
@@ -50,13 +69,31 @@ const SocietyIndex = ({ setSocietyModalStatus }) => {
       <div className="modal-society-body">
         {societiesData &&
           societiesData.map((society) => (
-            <Society
-              key={society.id}
-              society={society}
-              currentSociety={currentSociety}
-              setCurrentSociety={setCurrentSociety}
-              setSocietyModalStatus={setSocietyModalStatus}
-            />
+            <div className="modal-society-item-container" key={society.id}>
+              <Society
+                society={society}
+                currentSociety={currentSociety}
+                setCurrentSociety={setCurrentSociety}
+                setSocietyModalStatus={setSocietyModalStatus}
+              />
+              <div className="modal-society-item-options">
+                <IoDocumentText
+                  className="btn btn--no-bg btn--xs"
+                  title="Details"
+                  onClick={() => navigate(`/societies/${society.name}`)}
+                />
+                <MdEditDocument
+                  className="btn btn--no-bg btn--xs"
+                  title="Edit"
+                  onClick={() => navigate(`/societies/${society.name}/edit`)}
+                />
+                <FaTrash
+                  className="modal-society-item-options__trash btn btn--alert btn--xs"
+                  title="Delete"
+                  onClick={() => handleDeleteSociety(society.id)}
+                />
+              </div>
+            </div>
           ))}
         {societiesData && societiesData.length === 0 && (
           <div className="modal-society-body__item">No society yet</div>
