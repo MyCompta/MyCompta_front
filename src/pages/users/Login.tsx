@@ -1,10 +1,19 @@
 import { Form } from "../../components/forms/Form";
 import { useNavigate, Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
-import "./users.scss"
+import "./users.scss";
 
 export default function Login() {
   const navigate = useNavigate();
+
+  const handleOnSuccess = () => {
+    Cookies.get("currentSociety")
+      ? navigate("/dashboard")
+      : navigate("/societies/create");
+    //navigate("/dashboard");
+  };
+
   return (
     <div className="loginpage">
       <h1>Login Page</h1>

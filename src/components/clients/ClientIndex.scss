@@ -8,4 +8,10 @@
   &__business-name:hover {
     color: $second-color;
   }
+
+  &__empty {
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+  }
 }

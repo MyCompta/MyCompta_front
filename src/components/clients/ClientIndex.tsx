@@ -49,6 +49,29 @@ const ClientIndex = () => {
         </tr>
       </thead>
       <tbody>
+        {clientsData.length > 0 ? (
+          clientsData.map((client: TClient) => (
+            <tr key={client.id}>
+              <td
+                onClick={() => handleClientClick(client.id!)}
+                className="client-table__business-name"
+              >
+                {client.business_name}
+              </td>
+              <td>_</td>
+              <td>_</td>
+              <td>_</td>
+              <td>_</td>
+              <td>_</td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan={6} className="client-table__empty">
+              No clients found
+            </td>
+          </tr>
+        )}
         {clientsData.map((client: TClient) => (
           <tr key={client.id}>
             <td
