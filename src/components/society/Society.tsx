@@ -1,13 +1,19 @@
-import React, { useEffect } from "react";
+import { useEffect, Dispatch, SetStateAction } from "react";
 import Cookies from "js-cookie";
 import { useAtom } from "jotai";
 import { currentSocietyAtom } from "../../atom/societyAtom";
 
-const society = ({ society, setSocietyModalStatus }) => {
+const Society = ({
+  society,
+  setSocietyModalStatus,
+}: {
+  society: TSocietyBack;
+  setSocietyModalStatus: Dispatch<SetStateAction<boolean>>;
+}) => {
   const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
 
   const handleUpdateCurrentSociety = () => {
-    Cookies.set("currentSociety", society.id);
+    Cookies.set("currentSociety", String(society.id));
     setCurrentSociety(society.id);
     setSocietyModalStatus(false);
   };
@@ -17,10 +23,7 @@ const society = ({ society, setSocietyModalStatus }) => {
   });
 
   return (
-    <div
-      className="modal-society-body__item"
-      onClick={handleUpdateCurrentSociety}
-    >
+    <div className="modal-society-body__item" onClick={handleUpdateCurrentSociety}>
       {society.name}
       {parseInt(currentSociety) === society.id ? (
         <div className="modal-society-body__item--active"></div>
@@ -29,4 +32,4 @@ const society = ({ society, setSocietyModalStatus }) => {
   );
 };
 
-export default society;
+export default Society;

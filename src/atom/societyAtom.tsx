@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 export const currentSocietyAtom = atom(
   Cookies.get("currentSociety")
-    ? JSON.parse(Cookies.get("currentSociety"))
+    ? JSON.parse(Cookies.get("currentSociety")!)
     : null
 );
 

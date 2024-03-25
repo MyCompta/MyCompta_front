@@ -1,12 +1,9 @@
-import { useAtom } from "jotai";
-import { societyModalStatusAtom } from "../../atom/modalAtom";
 import SocietyIndex from "./SocietyIndex";
+import { useSetAtom } from "jotai";
+import { societyModalStatusAtom } from "../../atom/modalAtom";
 
 const ModalSociety = () => {
-  const [societyModalStatus, setSocietyModalStatus] = useAtom(
-    societyModalStatusAtom
-  );
-
+  const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
   const handleCloseModal = () => {
     setSocietyModalStatus(false);
   };
@@ -17,7 +14,7 @@ const ModalSociety = () => {
         <div className="modal__close" onClick={handleCloseModal}>
           ×
         </div>
-        <SocietyIndex setSocietyModalStatus={setSocietyModalStatus} />
+        <SocietyIndex />
       </div>
     </div>
   );

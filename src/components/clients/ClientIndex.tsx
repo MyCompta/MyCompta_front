@@ -49,10 +49,10 @@ const ClientIndex = () => {
         </tr>
       </thead>
       <tbody>
-        {clientsData.map((client) => (
+        {clientsData.map((client: TClient) => (
           <tr key={client.id}>
             <td
-              onClick={() => handleClientClick(client.id)}
+              onClick={() => handleClientClick(client.id!)}
               className="client-table__business-name"
             >
               {client.business_name}

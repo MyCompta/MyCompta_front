@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import fetcher from "../../utils/fetcher";
-import Cookies from "js-cookie"; // TO GET ID CURRENT SOCIETY AND BE ABLE TO SET A NEW ONE
+// import Cookies from "js-cookie"; // TO GET ID CURRENT SOCIETY AND BE ABLE TO SET A NEW ONE
 import "./SocietyIndex.scss";
 import Society from "./Society";
 import { useNavigate } from "react-router-dom";
+import { useSetAtom } from "jotai";
+import { societyModalStatusAtom } from "../../atom/modalAtom";
+
 import { IoDocumentText } from "react-icons/io5";
 import { MdEditDocument } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
-import { useAtom } from "jotai";
-import { currentSocietyAtom } from "../../atom/societyAtom";
 
-const SocietyIndex = ({ setSocietyModalStatus }) => {
-  const [societiesData, setSocietiesData] = useState();
-  const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
+const SocietyIndex = () => {
+  const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
+  const [societiesData, setSocietiesData] = useState<TSocietyBack[]>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,17 +38,10 @@ const SocietyIndex = ({ setSocietyModalStatus }) => {
     navigate("/societies/create");
   };
 
-  const handleDeleteSociety = async (societyId) => {
-    const response = await fetcher(
-      `societies/${societyId}`,
-      undefined,
-      "DELETE",
-      true
-    );
+  const handleDeleteSociety = async (societyId: number) => {
+    const response = await fetcher(`societies/${societyId}`, undefined, "DELETE", true);
     if (!response.error) {
-      setSocietiesData(
-        societiesData.filter((society) => society.id !== societyId)
-      );
+      setSocietiesData(societiesData?.filter((society) => society.id !== societyId));
     } else {
       console.error(response.error);
     }
@@ -57,10 +51,7 @@ const SocietyIndex = ({ setSocietyModalStatus }) => {
     <>
       <div className="modal-society-header">
         <h1>Switch society</h1>
-        <button
-          className="modal-society-header__btn btn"
-          onClick={handleNewSociety}
-        >
+        <button className="modal-society-header__btn btn" onClick={handleNewSociety}>
           +
         </button>
       </div>
@@ -68,12 +59,7 @@ const SocietyIndex = ({ setSocietyModalStatus }) => {
         {societiesData &&
           societiesData.map((society) => (
             <div className="modal-society-item-container" key={society.id}>
-              <Society
-                society={society}
-                currentSociety={currentSociety}
-                setCurrentSociety={setCurrentSociety}
-                setSocietyModalStatus={setSocietyModalStatus}
-              />
+              <Society society={society} setSocietyModalStatus={setSocietyModalStatus} />
               <div className="modal-society-item-options">
                 <IoDocumentText
                   className="btn btn--no-bg btn--xs"
