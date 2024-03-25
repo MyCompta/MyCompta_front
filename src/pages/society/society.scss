@@ -1,10 +1,5 @@
 @import "../../styles/vars";
-
-.societycontainer
-{
-  padding-left: 3rem;
-  min-height: 40rem;
-}
+@import "../../styles/global";
 
 
 .buttonnewsociety
@@ -17,32 +12,67 @@
   border-radius: 5px;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
-  position: absolute;
-  right: 5%;
   top: 6rem;
 }
 
-.main
+////////////////////////////////////////indexsocieties
+.societycontainer
+{
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
+  box-shadow: 0px 0px 3px $second-color;
+  padding: 2%;
+  border-radius: 5px;
+}
+
+.header
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonnewsociety
+{
+  background-color: $second-color;
+  border: 1px solid $second-color;
+  color: white;
+  font-size: 12px;
+  padding: 6px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  top: 6rem;
+}
+
+.main_indexsocieties
 {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  width: 80%;
-  padding: 3%;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .companylist
 {
   position: relative;
-  align-items: center;
-  padding: 1rem;
-  text-align: center;
   font-weight: bold;
   text-decoration: none;
   list-style-type: none;
   height: auto;
+  width: 100%;
   border-radius: 5px;
   line-height: 3.5rem;
+}
+
+.singlecompany
+{
+  padding-left: 3%;
+  &:hover
+  {
+    background-color: #f5f6f9;
+  }
 }
 
 .error
@@ -62,7 +92,13 @@
   right: 0;
   justify-content: center;
   text-align: center;
-  line-height: 2rem;
+  line-height: 2.5rem;
+  background-color: white;
+}
+
+.createsocietyinput
+{
+  margin-top: 2%;
 }
 
 .createsocietyform button
@@ -74,7 +110,6 @@
   padding: 8px 30px;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 4rem;
   font-family: "Montserrat", sans-serif;
 }
 
@@ -163,6 +198,32 @@ h4
 
 /////////////////////////////////////////////////////// Edit society
 
+
+.displayeditsocietycontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  margin-top: -6%;
+  width: 80%;
+  height: 80%;
+  background-color: $bg-color;
+  text-align: center;
+  line-height: 2rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px $second-color;
+}
+
+
+
+.buttonedit
+{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 5%;
+  scale: 0.8;
+}
+
 .savebuttoneditsociety
 {
   background-color: $second-color;
@@ -172,7 +233,12 @@ h4
   padding: 8px 30px;
   border-radius: 5px;
   cursor: pointer;
-  font-family: "Montserrat", sans-serif; 
+  font-family: "Montserrat", sans-serif;
+
+    &:hover
+    {
+      background-color: #62b8d8;
+    } 
 }
 
 .deletebuttonsociety
@@ -185,5 +251,28 @@ h4
   border-radius: 5px;
   cursor: pointer;
   font-family: "Montserrat", sans-serif; 
+
+  &:hover
+    {
+      background-color: #62b8d8;
+    } 
 }
 
+h4 {
+  display: inline;
+}
+
+.closetag
+{
+  position: relative;
+  top: -46%;
+  left: 23%;
+  border-radius: 10px;
+  padding-bottom: 2px;
+  scale: 1.2;
+
+    &:hover
+    {
+      border-radius: 5px;
+    }
+}

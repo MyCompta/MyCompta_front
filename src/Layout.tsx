@@ -41,6 +41,7 @@ export default function Layout() {
       <main className={isHamburgerOpen ? "hamburger-opened" : ""}>
         <Outlet />
         <Footer />
+
       </main>
       {newClientModalStatus && <ModalClient />}
       {societyModalStatus && <ModalSociety />}

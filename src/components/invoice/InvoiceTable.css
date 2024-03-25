@@ -1,19 +1,89 @@
 .invoice-table {
   width: 100%;
   border-collapse: collapse;
+  background-color: white;
 }
-.invoice-table th,
-.invoice-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
+
+.invoice-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.invoice-table th {
-  background-color: #f2f2f2;
+
+h2 {
+  color: #3398bd;
 }
-.invoice-table tbody tr {
+
+.buttonfilterinvoicetable {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 0.25%;
+  margin-left: 5%;
+}
+
+.buttonfilterinvoicetable button {
+  background-color: #f5f6f9;
+  border: 1px solid #3398bd;
+  color: #3398bd;
+  font-size: 14px;
+  padding: opx;
+  border-radius: 5px;
   cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  scale: 0.85;
 }
-.invoice-table tbody tr:hover {
-  background-color: #f5f5f5;
+.buttonfilterinvoicetable button:hover {
+  background-color: #3398bd;
+  color: #f5f6f9;
+}
+
+.buttoncreateinvoicetable {
+  background-color: #f5f6f9;
+  border: 1px solid #3398bd;
+  color: #3398bd;
+  font-size: 14px;
+  padding: opx;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  scale: 0.85;
+}
+
+.buttoncreateinvoices {
+  background-color: #3398bd;
+  border: 1px solid #3398bd;
+  color: #f5f6f9;
+  font-size: 14px;
+  padding: opx;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+}
+.buttoncreateinvoices:hover {
+  background-color: #f5f6f9;
+  color: #3398bd;
+}
+.buttoncreateinvoices:hover__btn {
+  margin-right: 30px !important;
+}
+.buttoncreateinvoices:hover__filters {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 0.25%;
+  margin-left: 5%;
+}
+.buttoncreateinvoices:hover__filters button {
+  background-color: #f5f6f9;
+  border: 1px solid #3398bd;
+  color: #3398bd;
+  font-size: 14px;
+  padding: opx;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  scale: 0.85;
+}
+.buttoncreateinvoices:hover__filters button:hover {
+  background-color: #3398bd;
+  color: #f5f6f9;
 }/*# sourceMappingURL=InvoiceTable.css.map */
