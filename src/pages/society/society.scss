@@ -261,3 +261,18 @@ h4
 h4 {
   display: inline;
 }
+
+.closetag
+{
+  position: relative;
+  top: -46%;
+  left: 23%;
+  border-radius: 10px;
+  padding-bottom: 2px;
+  scale: 1.2;
+
+    &:hover
+    {
+      border-radius: 5px;
+    }
+}

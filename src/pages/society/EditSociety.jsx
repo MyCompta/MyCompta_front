@@ -16,6 +16,7 @@ const EditSociety = () => {
   const societyAtomValue = useAtomValue(societyAtom);
 
   const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [showEditSociety, setShowEditSociety] = useState('');
 
   const [name, setName] = useState(societyAtomValue.name);
   const [status, setStatus] = useState(societyAtomValue.status);
