@@ -2,17 +2,19 @@ import { useState, useEffect } from "react";
 import fetcher from "../../utils/fetcher";
 import { useNavigate } from "react-router-dom";
 import "./ClientIndex.scss";
-import Cookies from "js-cookie";
+import { useAtom } from "jotai";
+import { currentSocietyAtom } from "../../atom/societyAtom";
 
 const ClientIndex = () => {
   const [clientsData, setClientsData] = useState([]);
   const navigate = useNavigate();
+  const [currentSociety] = useAtom(currentSocietyAtom);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetcher(
-          "/clients?society_id=" + Cookies.get("currentSociety"),
+          "/clients?society_id=" + currentSociety,
           undefined,
           "GET",
           true
@@ -28,7 +30,7 @@ const ClientIndex = () => {
     };
 
     fetchData();
-  }, []);
+  }, [currentSociety]);
 
   const handleClientClick = (clientId: number) => {
     navigate(`/clients/${clientId}`);

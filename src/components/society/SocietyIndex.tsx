@@ -4,14 +4,12 @@ import Cookies from "js-cookie"; // TO GET ID CURRENT SOCIETY AND BE ABLE TO SET
 import "./SocietyIndex.scss";
 import Society from "./Society";
 import { useNavigate } from "react-router-dom";
+import { useAtom } from "jotai";
+import { currentSocietyAtom } from "../../atom/societyAtom";
 
 const SocietyIndex = ({ setSocietyModalStatus }) => {
   const [societiesData, setSocietiesData] = useState();
-  const [currentSociety, setCurrentSociety] = useState(
-    Cookies.get("currentSociety")
-      ? JSON.parse(Cookies.get("currentSociety"))
-      : null
-  );
+  const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,8 +51,6 @@ const SocietyIndex = ({ setSocietyModalStatus }) => {
             <Society
               key={society.id}
               society={society}
-              currentSociety={currentSociety}
-              setCurrentSociety={setCurrentSociety}
               setSocietyModalStatus={setSocietyModalStatus}
             />
           ))}

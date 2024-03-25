@@ -3,18 +3,20 @@ import "./InvoiceTable.scss";
 import fetcher from "../../utils/fetcher";
 import { useNavigate, Link } from "react-router-dom";
 import { formatDate2 } from "../../utils/date";
-import Cookies from "js-cookie";
+import { useAtom } from "jotai";
+import { currentSocietyAtom } from "../../atom/societyAtom";
 
 const InvoiceTable = () => {
   const [invoicesData, setInvoicesData] = useState([]);
   const [currentTab, setCurrentTab] = useState("all");
   const navigate = useNavigate();
+  const [currentSociety] = useAtom(currentSocietyAtom);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetcher(
-          "/invoices?society_id=" + Cookies.get("currentSociety"),
+          "/invoices?society_id=" + currentSociety,
           undefined,
           "GET",
           true
@@ -30,7 +32,7 @@ const InvoiceTable = () => {
     };
 
     fetchData();
-  }, []);
+  }, [currentSociety]);
 
   useEffect(() => {
     console.log("invoicesData", invoicesData);
