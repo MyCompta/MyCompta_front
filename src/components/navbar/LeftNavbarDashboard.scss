@@ -80,7 +80,7 @@
 
       p {
         text-align: center;
-        line-height: 6px;
+        line-height: 8px;
         font-size: 16px;
         color: white;
         font-weight: 300;
@@ -88,6 +88,8 @@
     }
 
     .notification {
+      margin-top: 4px;
+
       svg {
         width: 16px;
         height: 16px;
@@ -98,6 +100,8 @@
 
     .profile-link,
     .logout-icon {
+      margin-top: 4px;
+
       svg {
         width: 20px;
         height: 20px;

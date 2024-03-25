@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import fetcher from "../../utils/fetcher";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { formatDate2 } from "../../utils/date";
 import "./PageClientShow.scss";
 import { useAtom } from "jotai";
 import { editClientModalStatusAtom } from "../../atom/modalAtom";
 import ModalClient from "../../components/clients/ModalClient";
+import { IoIosArrowDropleftCircle } from "react-icons/io";
 
 const PageClientShow = () => {
   const { id } = useParams();
@@ -50,9 +51,15 @@ const PageClientShow = () => {
     <>
       <div className="client-show-header">
         <h1>{clientData.business_name}</h1>
-        <p className="client-show-header__business-id">
-          Business id : {clientData.siret}
-        </p>
+        <div className="client-show-header__baseline">
+          <Link to="/clients" className="client-show-header__baseline-back">
+            <IoIosArrowDropleftCircle />
+            Clients
+          </Link>
+          <p className="client-show-header__baseline-business-id">
+            -&nbsp; Business id : {clientData.siret}
+          </p>
+        </div>
       </div>
       <div className="client-show-body">
         <div className="client-show-body__row1">
