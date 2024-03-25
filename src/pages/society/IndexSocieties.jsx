@@ -55,7 +55,7 @@ const IndexSocieties = () => {
         <NewSociety onClick={handleNewSocietyClick} />
       </div>
 
-      <div className="main">
+      <div className="main_indexsocieties">
         <div className="companylist">
           {societyData.length > 0 ? (
             <div>

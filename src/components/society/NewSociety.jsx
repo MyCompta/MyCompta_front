@@ -1,13 +1,15 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import '../../pages/society/society.scss'
+import '../../pages/society/society.scss';
 
-function NewSociety ({onClick}) {
+function NewSociety () {
 
 
     return (
+
       <div>
-      <button onClick={onClick} className="buttonnewsociety">New society</button>
+        <Link to="/societies/create" className="buttonnewsociety">New society</Link>
       </div>
     )
   

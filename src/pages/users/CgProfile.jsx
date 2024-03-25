@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
+import IndexSocieties from "../society/IndexSocieties"
+
 import "./users.scss"
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -42,24 +44,29 @@ const CgProfile =() => {
   // console.log(userData)
 
   const onClickDelete = async () => {
-    try {
-      const response = await fetch(apiUrl + `users/${id}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": JSON.parse(Cookies.get("token")).token,
-            }
-          });
 
-      if (response.ok) {
-        Cookies.remove('token');
-        navigate(`/`);           
-      } else {
-        console.error(response.error);
+    const confirmDelete = window.confirm("Are you sure to delete entire profile?");
+
+    if(confirmDelete) {
+      try {
+        const response = await fetch(apiUrl + `users/${id}`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": JSON.parse(Cookies.get("token")).token,
+              }
+            });
+
+        if (response.ok) {
+          Cookies.remove('token');
+          navigate(`/`);           
+        } else {
+          console.error(response.error);
+        }
+      } catch (error) {
+        console.error("Error during delete profil:", error.message);
       }
-    } catch (error) {
-      console.error("Error during delete profil:", error.message);
     }
   };
 
@@ -75,8 +82,12 @@ const CgProfile =() => {
         <p>Date of creation : {userData.created_at}</p>
         <p>Last uptdate : {userData.updated_at}</p>
       </div>
+
+      <div className="indexsocieties">
+        <IndexSocieties />
+      </div>
       
-      <button onClick={onClickDelete} className="deleteprofilebutton">Delete</button>
+      <button onClick={onClickDelete} className="deleteprofilebutton">Delete profile</button>
 
     </div>
   )

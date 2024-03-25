@@ -59,11 +59,18 @@ const ShowSociety = () => {
   const handleEditSocietyClick = () => {
     setShowEditSociety(true);
   }
+
+  const closeEditModal = () => {
+    setShowEditSociety(false);
+  }
+
+
   return (
     <>
       <div className="headershowsociety">
         <h1>{societyData.name && societyData.name.toUpperCase()} <span style={{ fontSize: '0.6em' }}>{societyData.status}</span></h1>
         <EditComponentSociety onClick={handleEditSocietyClick}/>
+        
       </div>
 
       <div className="displayshowsociety">
@@ -84,9 +91,12 @@ const ShowSociety = () => {
               <PageClientIndex />
             </div>
         </div>
-        <div className="displaycreatesocietycontainer">
-          {showEditSociety && <div><EditSociety /></div>}
-        </div>
+        {showEditSociety && (
+          <div className="displayeditsocietycontainer">
+            <EditSociety />
+            <button onClick={closeEditModal} className="closetag">x</button>
+          </div>
+        )}
       </div>
     </>
   );

@@ -2,15 +2,23 @@ import { useState, useEffect } from "react";
 import fetcher from "../../utils/fetcher";
 import { useNavigate } from "react-router-dom";
 import "./ClientIndex.scss";
+import { useAtom } from "jotai";
+import { currentSocietyAtom } from "../../atom/societyAtom";
 
 const ClientIndex = () => {
   const [clientsData, setClientsData] = useState([]);
   const navigate = useNavigate();
+  const [currentSociety] = useAtom(currentSocietyAtom);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetcher("/clients", undefined, "GET", true);
+        const response = await fetcher(
+          "/clients?society_id=" + currentSociety,
+          undefined,
+          "GET",
+          true
+        );
         if (!response.error) {
           setClientsData(response);
         } else {
@@ -22,7 +30,7 @@ const ClientIndex = () => {
     };
 
     fetchData();
-  }, []);
+  }, [currentSociety]);
 
   const handleClientClick = (clientId: number) => {
     navigate(`/clients/${clientId}`);

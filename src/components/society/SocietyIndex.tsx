@@ -7,14 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { IoDocumentText } from "react-icons/io5";
 import { MdEditDocument } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
+import { useAtom } from "jotai";
+import { currentSocietyAtom } from "../../atom/societyAtom";
 
 const SocietyIndex = ({ setSocietyModalStatus }) => {
   const [societiesData, setSocietiesData] = useState();
-  const [currentSociety, setCurrentSociety] = useState(
-    Cookies.get("currentSociety")
-      ? JSON.parse(Cookies.get("currentSociety"))
-      : null
-  );
+  const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
   const navigate = useNavigate();
 
   useEffect(() => {

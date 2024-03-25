@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Cookies from "js-cookie";
+import { useAtom } from "jotai";
+import { currentSocietyAtom } from "../../atom/societyAtom";
 
-const society = ({
-  society,
-  currentSociety,
-  setCurrentSociety,
-  setSocietyModalStatus,
-}) => {
+const society = ({ society, setSocietyModalStatus }) => {
+  const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
+
   const handleUpdateCurrentSociety = () => {
     Cookies.set("currentSociety", society.id);
-    setCurrentSociety(society);
+    setCurrentSociety(society.id);
     setSocietyModalStatus(false);
   };
+
+  useEffect(() => {
+    console.log("currentSociety", currentSociety);
+  });
 
   return (
     <div

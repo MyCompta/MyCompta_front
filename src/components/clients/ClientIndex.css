@@ -1,0 +1,8 @@
+.client-table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: white;
+}
+.client-table__business-name:hover {
+  color: #3398bd;
+}/*# sourceMappingURL=ClientIndex.css.map */
