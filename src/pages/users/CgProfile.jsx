@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
+import IndexSocieties from "../society/IndexSocieties"
+
 import "./users.scss"
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -75,8 +77,12 @@ const CgProfile =() => {
         <p>Date of creation : {userData.created_at}</p>
         <p>Last uptdate : {userData.updated_at}</p>
       </div>
+
+      <div className="indexsocieties">
+        <IndexSocieties />
+      </div>
       
-      <button onClick={onClickDelete} className="deleteprofilebutton">Delete</button>
+      <button onClick={onClickDelete} className="deleteprofilebutton">Delete profile</button>
 
     </div>
   )
