@@ -1,58 +1,12 @@
-@import "../../styles/global";
+@import "../../styles/vars";
+@import "../../styles/mixins";
 
-.dark-bg {
-  background-color: rgba(0, 0, 0, 0.4);
+.modal-client-header {
   width: 100%;
-  height: 100%;
-  position: fixed;
-  z-index: 1000;
-
-  &--hidden {
-    display: none;
-  }
+  border-bottom: 1px solid #e5e5e5;
 }
 
-.modal-client-new {
-  width: 900px;
-  border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0 31px 41px 0 rgba(33, 43, 54, 0.2),
-    0 2px 16px 0 rgba(33, 43, 54, 0.08);
-  background-color: white;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-  max-height: 80%;
-
-  &--hidden {
-    display: none;
-  }
-
-  @include medium-screen {
-    width: 95%;
-    margin: auto;
-  }
-
-  &__header {
-    width: 100%;
-    border-bottom: 1px solid #e5e5e5;
-
-    &-close {
-      position: absolute;
-      right: 20px;
-      top: 8px;
-      cursor: pointer;
-      font-size: 36px;
-    }
-  }
-}
-
-.client-new-form {
+.client-form {
   padding: 10px 0;
   display: flex;
 
@@ -85,7 +39,7 @@
     }
 
     label {
-      font-weight: 500;
+      font-weight: 600;
 
       span {
         color: $alert-color;
@@ -113,7 +67,7 @@
     }
 
     label {
-      font-weight: 500;
+      font-weight: 600;
 
       span {
         color: $alert-color;

@@ -1,20 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Palanquin:wght@100;200;300;400;500;600;700&display=swap");
-
-$main-color: #212a2b;
-$second-color: #3398bd;
-$second-color-dark: #0f526b;
-$selected-second-color: #62b8d8;
-$text-color: #313538;
-$disable-text-color: #767676;
-$alert-color: #e66b55;
-$sucess-color: #80ee96;
-$bg-color: #f5f6f9;
-
-@mixin medium-screen {
-  @media only screen and (max-width: 950px) {
-    @content;
-  }
-}
+@import "./mixins";
+@import "./vars";
 
 html,
 body {
@@ -32,11 +18,12 @@ body {
 
 main {
   width: 100%;
-  z-index: 100;
-  background-color: $bg-color;
+  z-index: 1000;
+  background-color: white;
   margin-top: 70px;
   margin-left: 230px;
   transition: margin-left 0.3s ease;
+  overflow: overlay;
 
   @include medium-screen {
     margin-left: 0px;
@@ -56,33 +43,178 @@ h1 {
   margin: 30px;
 }
 
+// ########## BUTTON DESIGN ##########
+// ###################################
+
 .btn {
-  width: 120px;
+  padding: 0 20px;
+  cursor: pointer;
+  display: block;
   background-color: $second-color;
   color: #fff !important;
   text-align: center;
-  height: 30px;
+  height: 38px;
   border-radius: 5px;
   font-weight: 400;
-  line-height: 28px;
+  line-height: 38px;
   margin: 10px 5px;
   border: 1px solid $second-color-dark;
+  font-size: 16px;
+  box-shadow: 0 1px 0 0 rgba(22, 29, 37, 0.1),
+    inset 0 1px 0 1px rgba(255, 255, 255, 0.06);
+
   &:hover {
     filter: opacity(0.8);
   }
 
   &--no-bg {
-    background-color: transparent;
-    color: $second-color-dark !important;
+    background-image: linear-gradient(-180deg, #fff 0, #f9fafb 100%);
+    color: $text-color !important;
+    border: 1px solid #c4cdd5 !important;
     font-weight: 500;
   }
 
-  footer
-  {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    bottom: 0;
-    justify-content: space-evenly;
+  &--xs {
+    padding: 8px;
+    height: 20px;
+    width: 22px;
+    margin: 0px 2px;
+  }
+
+  &--alert {
+    background: linear-gradient(-180deg, #ea4a2e 0, #da391d 100%);
+    border: 1px solid #a83c29;
   }
 }
+
+
+
+table {
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding: 12px 20px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  background: #f7f9fa;
+  color: #5e6a73;
+}
+
+tbody {
+  tr {
+    cursor: pointer;
+    font-size: 14px;
+
+    &:nth-child(even) {
+      background-color: #f7f9fa;
+    }
+
+    &:nth-child(odd) {
+      background: white;
+    }
+  }
+
+  tr:hover {
+    background-color: rgb(222, 244, 254);
+  }
+}
+
+// ######## MODAL DESIGN ########
+// ##############################
+
+.dark-bg {
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+
+  &--hidden {
+    display: none;
+  }
+}
+
+.modal {
+  width: 900px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 31px 41px 0 rgba(33, 43, 54, 0.2),
+    0 2px 16px 0 rgba(33, 43, 54, 0.08);
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  max-height: 80%;
+
+  &--hidden {
+    display: none;
+  }
+
+  @include medium-screen {
+    width: 95%;
+    margin: auto;
+  }
+
+  &__close {
+    position: absolute;
+    right: 20px;
+    top: 8px;
+    cursor: pointer;
+    font-size: 36px;
+  }
+}
+
+// #### UTILITY PAGES DESIGN ####
+// ##############################
+
+.utility-page {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 5%;
+  padding-right: 5%;
+  height: 100vh;
+  height: calc(100% - 60px);
+}
+
+.utility-page-box {
+  width: fit-content;
+
+  &__title {
+    font-size: 90px;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: 36px;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__btn {
+    margin: 20px auto !important;
+    width: 260px !important;
+  }
+
+}
+

@@ -1,9 +1,7 @@
 import { Form } from "../../components/forms/Form";
 import { Link, useNavigate } from "react-router-dom";
 
-import "./users.scss"
-
-import CGUcheck from './CGUcheck.jsx'
+import "./users.scss";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -26,19 +24,18 @@ export default function Register() {
             name: "cgu",
             displayName: (
               <>
-                I have read the {" "}
-                <Link to="/cgu" style={{ color: 'blue' }} target="_blank" rel="noopener noreferrer">terms of service</Link>
+                I have read the{" "}
+                <Link to="/cgu" style={{ color: "blue" }} target="_blank" rel="noopener noreferrer">
+                  terms of service
+                </Link>
               </>
             ),
             type: "checkbox",
-            component: <CGUcheck />,
           },
         ]}
         controller="user"
         onSuccess={() => navigate("/dashboard")}
       />
-
-      
     </div>
   );
 }

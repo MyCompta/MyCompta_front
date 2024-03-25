@@ -1,4 +1,5 @@
-@import "../../styles/global.scss";
+@import "../../styles/vars";
+@import "../../styles/mixins";
 
 .left-navbar {
   width: 230px;
@@ -29,18 +30,24 @@
     border-top: 1px solid #171e1f;
     border-bottom: 1px solid #171e1f;
     width: calc(100% - 15px);
-    height: 56px;
+    min-height: 56px;
     line-height: 26px;
     cursor: pointer;
-    position: relative;
+    display: flex;
+    align-items: center;
+
+    p {
+      text-align: center;
+      margin-right: 6px;
+      width: 174px;
+    }
 
     svg {
-      position: absolute;
-      right: 14px;
-      top: 14px;
-      font-size: 28px;
+      font-size: 32px;
       color: #ffffff;
       filter: contrast(0.5);
+      margin-right: 10px;
+      width: 32px;
     }
   }
 
@@ -73,7 +80,7 @@
 
       p {
         text-align: center;
-        line-height: 6px;
+        line-height: 8px;
         font-size: 16px;
         color: white;
         font-weight: 300;
@@ -81,6 +88,8 @@
     }
 
     .notification {
+      margin-top: 4px;
+
       svg {
         width: 16px;
         height: 16px;
@@ -91,6 +100,8 @@
 
     .profile-link,
     .logout-icon {
+      margin-top: 4px;
+
       svg {
         width: 20px;
         height: 20px;
@@ -108,6 +119,16 @@
     cursor: pointer;
     height: 34px;
     width: calc(100% - 26px);
+
+    &--disabled {
+      filter: opacity(0.5);
+      pointer-events: none;
+
+      &:hover {
+        background-color: transparent;
+        color: $text-color;
+      }
+    }
 
     .index {
       img {

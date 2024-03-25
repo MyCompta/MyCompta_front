@@ -1,15 +1,20 @@
 type TUserInfos = {
+  id?: number;
   name: string;
   surname?: string;
   is_pro?: boolean;
   logo?: string;
   logoAlt?: string;
+  siret?: number;
+  modified?: boolean;
+  email?: string;
   address: {
     street: string;
     city: string;
     zip: string;
+    country: string;
   };
-  [key: string]: string | undefined | boolean | object;
+  [key: string]: string | number | undefined | boolean | object;
 };
 
 type TInvoice = {
@@ -28,6 +33,7 @@ type TInvoice = {
   is_draft?: boolean;
   is_paid?: boolean;
   status?: string;
+  additionalInfo?: string;
 };
 
 type TItem = {
@@ -71,9 +77,10 @@ type TInvoiceShowBack = {
     user_id: number;
     created_at: string;
     updated_at: string;
+    additional_info?: string;
   };
   author: TSocietyBack;
-  client?: TUserInfos;
+  client: TClientBack;
 };
 
 type TInvoiceGetBack = {
@@ -96,19 +103,17 @@ type TInvoiceGetBack = {
   updated_at: string;
 };
 
-type TSocietyBack = {
+type TClientBack = {
   id: number;
-  adress: string;
-  city: string;
-  zip: number;
-  country: string;
-  name: string;
-  capital: number;
+  first_name?: string;
+  last_name?: string;
+  business_name?: string;
   email: string;
-  id: 1;
-  siret: number;
-  status: string;
   created_at: string;
   updated_at: string;
-  user_id: number;
+  address: string;
+  city: string;
+  zip: number;
+  is_pro: boolean;
+  siret?: string;
 };

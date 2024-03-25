@@ -1,8 +1,6 @@
-@import "../../styles/global.scss";
+@import "../../styles/vars";
 
-
-.registerpage
-{
+.registerpage {
   display: flex;
   height: 90%;
   flex-direction: column;
@@ -12,8 +10,7 @@
   line-height: 3.5rem;
 }
 
-.registerbutton
-{
+.registerbutton {
   background-color: $second-color;
   border: 1px solid $second-color;
   color: white;
@@ -27,8 +24,7 @@
 
 ////////////////////////////////////////////////////////////////////
 
-.loginpage
-{
+.loginpage {
   display: flex;
   height: 90%;
   flex-direction: column;
@@ -41,8 +37,7 @@
 
 ////////////////////////////////////////////////////////////////////
 
-.forgotpasswordpage
-{
+.forgotpasswordpage {
   display: flex;
   height: 90%;
   flex-direction: column;
@@ -55,41 +50,43 @@
 
 /////////////////////////////////////////////////////////////////
 
-.cgupage
-{
+.cgupage {
   display: flex;
   position: relative;
 }
 
-.cgupagetitle
-{
+.cgupagetitle {
   max-height: 15rem;
   position: sticky;
   top: 15rem;
 }
 
-.cgucontent
-{
+.cgucontent {
   padding-left: 2rem;
   padding-right: 2rem;
 }
 
-.mailtocgu
-{
+.mailtocgu {
   color: blue;
 }
 
 /////////////////////////////////////////////////////////////////
 
-.profileuser
-{
+.profileuser {
   display: flex;
   flex-direction: column;
   padding-left: 15rem;
+  margin: 2%;
+  top: 20%;
+  box-shadow: 0px 0px 3px $second-color;
+  max-height: 13.5rem;
+  padding: 2%;
+  align-items: center;
+  border-radius: 5px;
+  line-height: 2rem;
 }
 
-.deleteprofilebutton
-{
+.deleteprofilebutton {
   background-color: $second-color;
   border: 1px solid $second-color;
   color: white;

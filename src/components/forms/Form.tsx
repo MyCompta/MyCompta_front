@@ -48,13 +48,15 @@ export function Form({
             type={field.type ? field.type : "text"}
             name={field.name}
             value={field.value}
-            placeholder={field.displayName}
+            {...(field.displayName && typeof field.displayName === "string"
+              ? { placeholder: field.displayName, title: field.displayName }
+              : {})}
             id={field.name + i.toString()}
             required={!field.optional}
           />
         </div>
       ))}
-      <input type="submit" value={btnDisplay} className="registerbutton"/>
+      <input type="submit" value={btnDisplay} className="registerbutton" />
     </form>
   );
 }
@@ -63,6 +65,6 @@ interface IFormFields {
   name: string;
   type?: string;
   value?: string;
-  displayName?: string;
+  displayName?: string | JSX.Element;
   optional?: boolean;
 }

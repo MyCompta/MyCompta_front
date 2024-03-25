@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
-import NewSociety from '../../components/society/NewSociety.jsx';
-import CreateSociety from './CreateSociety.jsx';
+import NewSociety from "../../components/society/NewSociety";
+import CreateSociety from "./CreateSociety";
 
-import './society.scss'
+import "./society.scss";
 
 const apiUrl = import.meta.env.VITE_API_URL;
-const token = Cookies.get("token");
+// const token = Cookies.get("token");
 
 const IndexSocieties = () => {
-  const [societyData, setSocietyData] = useState('');
-  const [, setError] = useState('');
+  const [societyData, setSocietyData] = useState<TSocietyBack[]>([]);
+  const [, setError] = useState("");
   const [showCreateSociety, setShowCreateSociety] = useState(false);
 
   useEffect(() => {
@@ -22,46 +22,48 @@ const IndexSocieties = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": JSON.parse(Cookies.get("token")).token,
-          }
+            Authorization: JSON.parse(Cookies.get("token")!).token,
+          },
         });
 
         if (response.ok) {
           const data = await response.json();
           setSocietyData(data);
         } else {
-          setError('unavailable list of societies');
+          setError("unavailable list of societies");
         }
       } catch (error) {
-        setError('no answer from server');
+        setError("no answer from server");
       }
-    }
+    };
 
     fetchData();
   }, []);
 
   const handleNewSocietyClick = () => {
     setShowCreateSociety(true);
-  }
+  };
 
-  const handleSocietyClick = (id) => {
-    localStorage.setItem('selectedSocietyId', id);
-  }
+  const handleSocietyClick = (id: number) => {
+    localStorage.setItem("selectedSocietyId", String(id));
+  };
 
   return (
     <div className="societycontainer">
-      <div classname="header">
-        <h2 style={{ display: 'inline-block' }}>My Companies</h2>
-        <NewSociety onClick={handleNewSocietyClick}/>
+      <div className="header">
+        <h2 style={{ display: "inline-block" }}>My Companies</h2>
+        <NewSociety onClick={handleNewSocietyClick} />
       </div>
 
-      <div className="main">
+      <div className="main_indexsocieties">
         <div className="companylist">
           {societyData.length > 0 ? (
             <div>
               {societyData.map((societyItem, index) => (
                 <li key={index}>
-                  <Link to={`/society/${societyItem.name}`} onClick={() => handleSocietyClick(societyItem.id)} >
+                  <Link
+                    to={`/societies/${societyItem.name}`}
+                    onClick={() => handleSocietyClick(societyItem.id)}>
                     {societyItem.name.toUpperCase()}
                   </Link>
                 </li>
@@ -73,11 +75,15 @@ const IndexSocieties = () => {
         </div>
 
         <div className="displaycreatesocietycontainer">
-          {showCreateSociety && <div><CreateSociety /></div>}
+          {showCreateSociety && (
+            <div>
+              <CreateSociety />
+            </div>
+          )}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default IndexSocieties;

@@ -9,12 +9,16 @@ import { CgProfile } from "react-icons/cg";
 import { Squash as Hamburger } from "hamburger-react";
 import LeftNavbardashboard from "./LeftNavbarDashboard";
 
-const TopNavbarDashboard = ({ onToggle }: any) => {
+const TopNavbarDashboard = ({
+  onToggle,
+}: {
+  onToggle: (toggle: boolean) => void;
+}) => {
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
   const [isHamburgerOpen, setHamburgerOpen] = useState(false);
-  const profilePopupRef = useRef(null);
+  const profilePopupRef = useRef<HTMLDivElement>(null);
 
-  const handleProfileClick = (event) => {
+  const handleProfileClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     setIsProfilePopupOpen(!isProfilePopupOpen);
   };
@@ -24,10 +28,10 @@ const TopNavbarDashboard = ({ onToggle }: any) => {
   };
 
   useEffect(() => {
-    const handleClickOutsideProfilePopup = (event) => {
+    const handleClickOutsideProfilePopup = (event: MouseEvent) => {
       if (
         profilePopupRef.current &&
-        !profilePopupRef.current.contains(event.target)
+        !profilePopupRef.current.contains(event.target as Node)
       ) {
         setIsProfilePopupOpen(false);
       }
@@ -41,16 +45,14 @@ const TopNavbarDashboard = ({ onToggle }: any) => {
 
   useEffect(() => {
     onToggle(isHamburgerOpen);
-  }, [isHamburgerOpen]);
+  }, [isHamburgerOpen, onToggle]);
 
   return (
     <>
       <div className="top-navbar">
         <Hamburger toggled={isHamburgerOpen} toggle={setHamburgerOpen} />
         <div className="top-navbar__logo">
-          <p>
-            My<span>C</span>ompta
-          </p>
+          <Link to="/dashboard"><p>My<span>C</span>ompta</p></Link>
         </div>
 
         {Cookies.get("token") ? (
@@ -87,10 +89,17 @@ const TopNavbarDashboard = ({ onToggle }: any) => {
 
 export default TopNavbarDashboard;
 
-export const PopupProfile = ({ onCloseProfilPopup, profilePopupRef }: any) => {
+export const PopupProfile = ({
+  onCloseProfilPopup,
+  profilePopupRef,
+}: {
+  onCloseProfilPopup: () => void;
+  profilePopupRef: React.RefObject<HTMLDivElement>;
+}) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     Cookies.remove("token");
+    Cookies.remove("currentSociety");
     onCloseProfilPopup();
     navigate("/");
   };

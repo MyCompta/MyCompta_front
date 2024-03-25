@@ -1,19 +1,22 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 
-import societyAtom from "../../atom/societyAtom.jsx";
+import societyAtom from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
+
+import "./society.scss";
 
 const EditSociety = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
-  const token = Cookies.get("token");
-  const user_id = JSON.parse(Cookies.get("token")).user_id;
+  // const token = Cookies.get("token");
+  const user_id = JSON.parse(Cookies.get("token")!).user_id;
   const navigate = useNavigate();
 
   const societyAtomValue = useAtomValue(societyAtom);
 
-  const [updateSuccess, setUpdateSuccess] = useState(false);
+  // const [updateSuccess, setUpdateSuccess] = useState(false);
+  // const [showEditSociety, setShowEditSociety] = useState("");
 
   const [name, setName] = useState(societyAtomValue.name);
   const [status, setStatus] = useState(societyAtomValue.status);
@@ -23,37 +26,34 @@ const EditSociety = () => {
   const [country, setCountry] = useState(societyAtomValue.country);
   const [capital, setCapital] = useState(societyAtomValue.capital);
   const [email, setEmail] = useState(societyAtomValue.email);
-  const [errors, setErrors] = useState({});
+  const [, setErrors] = useState({});
 
-  // console.log("c'estl'atom", societyAtomValue.id)
+  console.log("c'estl'atom", societyAtomValue.id);
 
-  const HandleSubmitEditSociety = async (e) => {
+  const HandleSubmitEditSociety = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        apiUrl + `societies/${societyAtomValue.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: JSON.parse(Cookies.get("token")).token,
+      const response = await fetch(apiUrl + `societies/${societyAtomValue.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: JSON.parse(Cookies.get("token")!).token,
+        },
+        body: JSON.stringify({
+          society: {
+            name: name,
+            status: status,
+            adress: adress,
+            zip: zip,
+            city: city,
+            country: country,
+            capital: capital,
+            email: email,
+            user_id: user_id,
           },
-          body: JSON.stringify({
-            society: {
-              name: name,
-              status: status,
-              adress: adress,
-              zip: zip,
-              city: city,
-              country: country,
-              capital: capital,
-              email: email,
-              user_id: user_id,
-            },
-          }),
-        }
-      );
+        }),
+      });
 
       const responseData = await response.json();
 
@@ -64,6 +64,27 @@ const EditSociety = () => {
       }
     } catch (error) {
       setErrors({ generic: "No answer from server" });
+    }
+  };
+
+  const onClick = async () => {
+    try {
+      const response = await fetch(apiUrl + `societies/${societyAtomValue.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: JSON.parse(Cookies.get("token")!).token,
+        },
+      });
+
+      if (response.ok) {
+        navigate(`/profile`);
+      } else {
+        const error = await response.json();
+        console.error(error);
+      }
+    } catch (error) {
+      console.error("Error during delete society:", error);
     }
   };
 
@@ -84,11 +105,7 @@ const EditSociety = () => {
         <br />
         <label>
           Company's social reason :
-          <select
-            name="status"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
+          <select name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
             <option value="micro-entreprise">Micro</option>
             <option value="SASU">SASU</option>
             <option value="EURL">EURL</option>
@@ -164,7 +181,12 @@ const EditSociety = () => {
           />
         </label>
         <br />
-        <button>Save</button>
+        <div className="buttonedit">
+          <button className="savebuttoneditsociety">Save</button>
+          <button onClick={onClick} className="deletebuttonsociety">
+            Delete
+          </button>
+        </div>
       </form>
     </div>
   );
