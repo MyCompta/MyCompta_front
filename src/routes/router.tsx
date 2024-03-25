@@ -31,6 +31,7 @@ import PageClientShow from "../pages/clients/PageClientShow";
 
 import IndexSocieties from "../pages/society/IndexSocieties";
 import ShowSociety from "../pages/society/ShowSociety";
+import EditSociety from "../pages/society/EditSociety";
 import CreateSociety from "../pages/society/CreateSociety";
 
 export const router = createBrowserRouter(
@@ -66,7 +67,8 @@ export const router = createBrowserRouter(
           <Route path="/clients/:id" element={<PageClientShow />} />
 
           <Route path="/societies" element={<IndexSocieties />} />
-          <Route path="/society/:name" element={<ShowSociety />} />
+          <Route path="/societies/:name" element={<ShowSociety />} />
+          <Route path="/societies/:name/edit" element={<EditSociety />} />
           <Route path="/societies/create" element={<CreateSociety />} />
         </Route>
       </Route>
