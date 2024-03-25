@@ -1,14 +1,19 @@
-import React from "react";
 import Cookies from "js-cookie";
+import { Dispatch, SetStateAction } from "react";
 
-const society = ({
+const Society = ({
   society,
   currentSociety,
   setCurrentSociety,
   setSocietyModalStatus,
+}: {
+  society: TSocietyBack;
+  currentSociety: number;
+  setCurrentSociety: Dispatch<SetStateAction<number | null>>;
+  setSocietyModalStatus: Dispatch<SetStateAction<boolean>>;
 }) => {
   const handleUpdateCurrentSociety = () => {
-    Cookies.set("currentSociety", society.id);
+    Cookies.set("currentSociety", String(society.id));
     setCurrentSociety(society);
     setSocietyModalStatus(false);
   };
@@ -26,4 +31,4 @@ const society = ({
   );
 };
 
-export default society;
+export default Society;

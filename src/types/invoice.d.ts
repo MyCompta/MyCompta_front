@@ -103,29 +103,11 @@ type TInvoiceGetBack = {
   updated_at: string;
 };
 
-type TSocietyBack = {
-  id: number;
-  adress: string;
-  city: string;
-  zip: number;
-  country: string;
-  name: string;
-  capital: number;
-  email: string;
-  id: 1;
-  siret: number;
-  status: string;
-  created_at: string;
-  updated_at: string;
-  user_id: number;
-};
-
 type TClientBack = {
   id: number;
   first_name?: string;
   last_name?: string;
   business_name?: string;
-  surname: string;
   email: string;
   created_at: string;
   updated_at: string;

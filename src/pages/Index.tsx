@@ -1,5 +1,3 @@
-import IndexSocieties from "./society/IndexSocieties.jsx";
-import ShowSociety from "./society/ShowSociety.jsx";
 import { Link } from "react-router-dom";
 import "./index.scss";
 import { isLoggedIn } from "../utils/auth.js";

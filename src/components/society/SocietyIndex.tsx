@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import fetcher from "../../utils/fetcher";
 import Cookies from "js-cookie"; // TO GET ID CURRENT SOCIETY AND BE ABLE TO SET A NEW ONE
 import "./SocietyIndex.scss";
 import Society from "./Society";
 import { useNavigate } from "react-router-dom";
+import { useSetAtom } from "jotai";
+import { societyModalStatusAtom } from "../../atom/modalAtom";
 
-const SocietyIndex = ({ setSocietyModalStatus }) => {
-  const [societiesData, setSocietiesData] = useState();
-  const [currentSociety, setCurrentSociety] = useState(
+const SocietyIndex = () => {
+  const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
+  const [societiesData, setSocietiesData] = useState<TSocietyBack[]>();
+  const [currentSociety, setCurrentSociety] = useState<number | null>(
     Cookies.get("currentSociety")
-      ? JSON.parse(Cookies.get("currentSociety"))
+      ? JSON.parse(Cookies.get("currentSociety")!)
       : null
   );
   const navigate = useNavigate();
@@ -53,7 +56,7 @@ const SocietyIndex = ({ setSocietyModalStatus }) => {
             <Society
               key={society.id}
               society={society}
-              currentSociety={currentSociety}
+              currentSociety={currentSociety!}
               setCurrentSociety={setCurrentSociety}
               setSocietyModalStatus={setSocietyModalStatus}
             />

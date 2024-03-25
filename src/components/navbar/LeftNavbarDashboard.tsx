@@ -10,24 +10,20 @@ import { FaBell } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import Cookies from "js-cookie";
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
 import { societyModalStatusAtom } from "../../atom/modalAtom";
 import fetcher from "../../utils/fetcher";
 import { isLoggedIn } from "../../utils/auth";
 
 export default function LeftNavbarDashboard() {
-  const [currentUserData, setCurrentUserData] = useState();
+  const [currentUserData, setCurrentUserData] = useState<TUserShowBack>();
   const navigate = useNavigate();
-  const [newClientModalStatus, setNewClientModalStatus] = useAtom(
-    newClientModalStatusAtom
-  );
-  const [societyModalStatus, setSocietyModalStatus] = useAtom(
-    societyModalStatusAtom
-  );
+  const setNewClientModalStatus = useSetAtom(newClientModalStatusAtom);
+  const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
 
   const id = Cookies.get("token")
-    ? JSON.parse(Cookies.get("token")).user_id
+    ? JSON.parse(Cookies.get("token")!).user_id
     : null;
 
   useEffect(() => {
@@ -93,24 +89,24 @@ export default function LeftNavbarDashboard() {
           >
             <p>
               {currentUserData &&
-              currentUserData.societies &&
-              currentUserData.societies.find(
-                (society) =>
-                  society.id === parseInt(Cookies.get("currentSociety"))
-              )
-                ? currentUserData.societies.find(
-                    (society) =>
-                      society.id === parseInt(Cookies.get("currentSociety"))
-                  ).name
-                : currentUserData &&
-                  currentUserData.societies &&
-                  currentUserData.societies.length > 0
-                ? (() => {
-                    const selectedSociety = currentUserData.societies[0];
-                    Cookies.set("currentSociety", selectedSociety.id);
-                    return selectedSociety.name;
-                  })()
-                : "Select society"}
+                currentUserData.societies &&
+                (currentUserData.societies.find(
+                  (society) =>
+                    society.id === parseInt(Cookies.get("currentSociety")!)
+                )
+                  ? currentUserData.societies.find(
+                      (society) =>
+                        society.id === parseInt(Cookies.get("currentSociety")!)
+                    )?.name
+                  : currentUserData &&
+                    currentUserData.societies &&
+                    currentUserData.societies.length > 0
+                  ? (() => {
+                      const selectedSociety = currentUserData.societies[0];
+                      Cookies.set("currentSociety", String(selectedSociety.id));
+                      return selectedSociety.name;
+                    })()
+                  : "Select society")}
             </p>
             <CgSelect />
           </div>

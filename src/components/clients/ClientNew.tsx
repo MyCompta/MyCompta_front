@@ -1,36 +1,43 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import fetcher from "../../utils/fetcher";
 import Cookies from "js-cookie";
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
 
+export type FormValues = {
+  business_name: string;
+  first_name: string;
+  last_name: string;
+  siret: string;
+  address: string;
+  zip: number;
+  city: string;
+};
+
 const ClientNew = () => {
-  const [newClientModalStatus, setNewClientModalStatus] = useAtom(
-    newClientModalStatusAtom
-  );
+  const setNewClientModalStatus = useSetAtom(newClientModalStatusAtom);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormValues>();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FormValues) => {
     const formData = new FormData();
 
     formData.append(
       "client[user_id]",
-      JSON.parse(Cookies.get("token")).user_id
+      JSON.parse(Cookies.get("token")!).user_id
     );
-    formData.append("client[society_id]", 1); // !! TO CHANGE !!
+    formData.append("client[society_id]", String(1)); // !! TO CHANGE !!
     formData.append("client[business_name]", data.business_name);
     formData.append("client[first_name]", data.first_name);
     formData.append("client[last_name]", data.last_name);
     formData.append("client[siret]", data.siret);
     formData.append("client[address]", data.address);
-    formData.append("client[zip]", data.zip);
+    formData.append("client[zip]", String(data.zip));
     formData.append("client[city]", data.city);
-    formData.append("client[is_pro]", data.siret ? true : false);
+    formData.append("client[is_pro]", data.siret ? "true" : "false");
 
     try {
       const response = await fetcher("/clients", formData, "POST", true);

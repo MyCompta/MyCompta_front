@@ -2,10 +2,10 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import { useAtom, useAtomValue } from "jotai";
 
-import societyAtom from "../../atom/societyAtom.jsx";
+import societyAtom from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
 
-import "./society.scss"
+import "./society.scss";
 
 const EditSociety = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -69,17 +69,15 @@ const EditSociety = () => {
     }
   };
 
-
   const onClick = async () => {
     try {
-      const response = await fetch(apiUrl + `societies/${id}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": JSON.parse(Cookies.get("token")).token,
-            }
-          });
+      const response = await fetch(apiUrl + `societies/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: JSON.parse(Cookies.get("token")).token,
+        },
+      });
 
       if (response.ok) {
         navigate(`/dashboard`);
@@ -189,7 +187,9 @@ const EditSociety = () => {
         </label>
         <br />
         <button className="savebuttoneditsociety">Save</button>
-        <button onClick={onClick} className="deletebuttonsociety">Delete</button>
+        <button onClick={onClick} className="deletebuttonsociety">
+          Delete
+        </button>
       </form>
     </div>
   );

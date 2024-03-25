@@ -43,7 +43,7 @@ const PageClientShow = () => {
     console.log("invoiceClientData", invoiceClientData);
   }, [invoiceClientData]);
 
-  const handleInvoiceClick = (invoiceId) => {
+  const handleInvoiceClick = (invoiceId: number) => {
     navigate(`/invoices/${invoiceId}`);
   };
 

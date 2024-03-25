@@ -1,12 +1,18 @@
-import React from "react";
 import "./ModalClient.scss";
 import ClientNew from "./ClientNew";
 import ClientEdit from "./ClientEdit";
 import { useAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
 import { editClientModalStatusAtom } from "../../atom/modalAtom";
+import { Dispatch, SetStateAction } from "react";
 
-const ModalClient = ({ clientData, setClientData }) => {
+const ModalClient = ({
+  clientData,
+  setClientData,
+}: {
+  clientData?: TClientBack;
+  setClientData?: Dispatch<SetStateAction<TClientBack>>;
+}) => {
   const [newClientModalStatus, setNewClientModalStatus] = useAtom(
     newClientModalStatusAtom
   );
@@ -27,7 +33,7 @@ const ModalClient = ({ clientData, setClientData }) => {
         </div>
         {newClientModalStatus && <ClientNew />}
         {editClientModalStatus && (
-          <ClientEdit clientData={clientData} setClientData={setClientData} />
+          <ClientEdit clientData={clientData!} setClientData={setClientData!} />
         )}
       </div>
     </div>

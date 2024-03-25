@@ -1,12 +1,10 @@
 import ClientIndex from "../../components/clients/ClientIndex";
 import "./PageClientIndex.scss";
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
 
 const PageClientIndex = () => {
-  const [newClientModalStatus, setNewClientModalStatus] = useAtom(
-    newClientModalStatusAtom
-  );
+  const setNewClientModalStatus = useSetAtom(newClientModalStatusAtom);
 
   const handleOpenModalNewClient = () => {
     setNewClientModalStatus(true);
