@@ -1,17 +1,37 @@
 import { Form } from "../../components/forms/Form";
 import { useNavigate, Link } from "react-router-dom";
-import Cookies from "js-cookie";
+import fetcher from "../../utils/fetcher";
+import { useEffect } from "react";
 
 import "./users.scss";
 
 export default function Login() {
   const navigate = useNavigate();
 
+  const checkUserSocieties = async () => {
+    try {
+      const response = await fetcher(`societies`, undefined, "GET", true);
+      if (!response.error) {
+        const { data } = response;
+        if (data && data.societies.length > 0) {
+          navigate("/dashboard");
+        } else {
+          navigate("/societies/create");
+        }
+      } else {
+        console.error(response.error);
+      }
+    } catch (error) {
+      console.error("Error checking user societies:", error);
+    }
+  };
+
+  useEffect(() => {
+    checkUserSocieties();
+  });
+
   const handleOnSuccess = () => {
-    Cookies.get("currentSociety")
-      ? navigate("/dashboard")
-      : navigate("/societies/create");
-    //navigate("/dashboard");
+    checkUserSocieties();
   };
 
   return (
@@ -26,7 +46,7 @@ export default function Login() {
           { name: "password", displayName: "Password : ", type: "password" },
         ]}
         controller="user"
-        onSuccess={() => navigate("/dashboard")}
+        onSuccess={handleOnSuccess}
       />
       <Link to="/register">Register</Link>
       <Link to="/forgot-password">Forgot password</Link>
