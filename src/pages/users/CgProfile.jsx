@@ -44,24 +44,29 @@ const CgProfile =() => {
   // console.log(userData)
 
   const onClickDelete = async () => {
-    try {
-      const response = await fetch(apiUrl + `users/${id}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": JSON.parse(Cookies.get("token")).token,
-            }
-          });
 
-      if (response.ok) {
-        Cookies.remove('token');
-        navigate(`/`);           
-      } else {
-        console.error(response.error);
+    const confirmDelete = window.confirm("Are you sure to delete entire profile?");
+
+    if(confirmDelete) {
+      try {
+        const response = await fetch(apiUrl + `users/${id}`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": JSON.parse(Cookies.get("token")).token,
+              }
+            });
+
+        if (response.ok) {
+          Cookies.remove('token');
+          navigate(`/`);           
+        } else {
+          console.error(response.error);
+        }
+      } catch (error) {
+        console.error("Error during delete profil:", error.message);
       }
-    } catch (error) {
-      console.error("Error during delete profil:", error.message);
     }
   };
 

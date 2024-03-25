@@ -52,17 +52,19 @@ const IndexSocieties = () => {
     <div className="societycontainer">
       <div className="header">
         <h2 style={{ display: 'inline-block' }}>My Companies</h2>
-        <NewSociety onClick={handleNewSocietyClick}/>
+        <NewSociety />
       </div>
 
-      <div className="main">
+      <div className="main_indexsocieties">
         <div className="companylist">
           {societyData.length > 0 ? (
             <div>
               {societyData.map((societyItem, index) => (
                 <li key={index}>
                   <Link to={`/society/${societyItem.name}`} onClick={() => handleSocietyClick(societyItem.id)} >
-                    {societyItem.name.toUpperCase()}
+                    <div className="singlecompany">
+                      {societyItem.name.toUpperCase()}
+                    </div>
                   </Link>
                 </li>
               ))}
@@ -70,10 +72,6 @@ const IndexSocieties = () => {
           ) : (
             <p>No societies available</p>
           )}
-        </div>
-
-        <div className="displaycreatesocietycontainer">
-          {showCreateSociety && <div><CreateSociety /></div>}
         </div>
       </div>
     </div>

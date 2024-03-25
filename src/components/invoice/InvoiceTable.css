@@ -1,102 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Palanquin:wght@100;200;300;400;500;600;700&display=swap");
-html,
-body {
-  height: 100%;
-  font-family: "Montserrat", sans-serif;
-  color: #313538;
-  margin: 0;
-  background-color: #f5f6f9;
-}
-
-#root {
-  display: flex;
-  height: auto;
-}
-
-main {
-  width: 100%;
-  z-index: 100;
-  background-color: #f5f6f9;
-  margin-top: 69px;
-  margin-left: 230px;
-  transition: margin-left 0.3s ease;
-}
-@media only screen and (max-width: 950px) {
-  main {
-    margin-left: 0px;
-  }
-}
-
-main.hamburger-opened {
-  margin-left: 230px;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-h1 {
-  margin: 30px;
-}
-
-.btn {
-  width: 120px;
-  background-color: #3398bd;
-  color: #fff !important;
-  text-align: center;
-  height: 30px;
-  border-radius: 5px;
-  font-weight: 400;
-  line-height: 28px;
-  margin: 10px 5px;
-  border: 1px solid #0f526b;
-}
-.btn:hover {
-  filter: opacity(0.8);
-}
-.btn--no-bg {
-  background-color: transparent;
-  color: #0f526b !important;
-  font-weight: 500;
-}
-
-footer {
-  display: flex;
-  position: relative;
-  bottom: 0;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: 5%;
-  padding-right: 5%;
-}
-
 .invoice-table {
   width: 100%;
   border-collapse: collapse;
-}
-.invoice-table th,
-.invoice-table td {
-  border: 1px solid #ddd;
-  padding: 8px 20px;
-  text-align: left;
-}
-.invoice-table th {
-  background-color: #f2f2f2;
-}
-.invoice-table tbody tr {
-  cursor: pointer;
-}
-.invoice-table tbody tr:hover {
-  background-color: #f5f5f5;
+  background-color: white;
 }
 
-.headerindexinvoices {
+.invoice-table-header {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  max-height: 10%;
-  margin-bottom: 1%;
+  justify-content: space-between;
 }
 
 h2 {
@@ -151,4 +62,28 @@ h2 {
 .buttoncreateinvoices:hover {
   background-color: #f5f6f9;
   color: #3398bd;
+}
+.buttoncreateinvoices:hover__btn {
+  margin-right: 30px !important;
+}
+.buttoncreateinvoices:hover__filters {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 0.25%;
+  margin-left: 5%;
+}
+.buttoncreateinvoices:hover__filters button {
+  background-color: #f5f6f9;
+  border: 1px solid #3398bd;
+  color: #3398bd;
+  font-size: 14px;
+  padding: opx;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  scale: 0.85;
+}
+.buttoncreateinvoices:hover__filters button:hover {
+  background-color: #3398bd;
+  color: #f5f6f9;
 }/*# sourceMappingURL=InvoiceTable.css.map */

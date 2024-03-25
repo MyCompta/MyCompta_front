@@ -1,15 +1,27 @@
-import { Link } from "react-router-dom";
 import ClientIndex from "../../components/clients/ClientIndex";
 import "./PageClientIndex.scss";
+import { useAtom } from "jotai";
+import { newClientModalStatusAtom } from "../../atom/modalAtom";
 
 const PageClientIndex = () => {
+  const [newClientModalStatus, setNewClientModalStatus] = useAtom(
+    newClientModalStatusAtom
+  );
+
+  const handleOpenModalNewClient = () => {
+    setNewClientModalStatus(true);
+  };
+
   return (
     <>
       <div className="client-title-box">
-        <h2>My clients</h2>
-        <Link to="/clients/new" className="btnclientnew">
+        <h1>My clients</h1>
+        <button
+          className="btn client-title-box__btn"
+          onClick={() => handleOpenModalNewClient()}
+        >
           New client
-        </Link>
+        </button>
       </div>
 
       <ClientIndex />

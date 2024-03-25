@@ -27,7 +27,7 @@ const EditSociety = () => {
   const [email, setEmail] = useState(societyAtomValue.email);
   const [errors, setErrors] = useState({});
 
-  // console.log("c'estl'atom", societyAtomValue.id)
+  console.log("c'estl'atom", societyAtomValue.id)
 
   const HandleSubmitEditSociety = async (e) => {
     e.preventDefault();
@@ -72,7 +72,7 @@ const EditSociety = () => {
 
   const onClick = async () => {
     try {
-      const response = await fetch(apiUrl + `societies/${id}`,
+      const response = await fetch(apiUrl + `societies/${societyAtomValue.id}`,
           {
             method: "DELETE",
             headers: {
@@ -82,7 +82,7 @@ const EditSociety = () => {
           });
 
       if (response.ok) {
-        navigate(`/dashboard`);
+        navigate(`/profile`);
       } else {
         console.error(response.error);
       }
@@ -188,8 +188,10 @@ const EditSociety = () => {
           />
         </label>
         <br />
-        <button className="savebuttoneditsociety">Save</button>
-        <button onClick={onClick} className="deletebuttonsociety">Delete</button>
+        <div className="buttonedit">
+          <button className="savebuttoneditsociety">Save</button>
+          <button onClick={onClick} className="deletebuttonsociety">Delete</button>
+        </div>
       </form>
     </div>
   );

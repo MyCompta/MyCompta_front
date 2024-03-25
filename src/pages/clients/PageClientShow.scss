@@ -1,0 +1,89 @@
+@import "../../styles/global";
+
+.client-show-header {
+  &__baseline {
+    display: flex;
+    align-items: center;
+    margin: -36px 30px 20px;
+
+    &-back {
+      margin: 0;
+      margin-right: 10px;
+      font-weight: 700;
+      color: $second-color;
+      display: flex;
+      align-items: center;
+      font-size: 22px;
+
+      svg {
+        width: 38px;
+        height: 38px;
+        margin-right: 4px;
+      }
+    }
+
+    &-business-id {
+      font-weight: 500;
+    }
+  }
+}
+
+.client-show-body {
+  display: flex;
+
+  @include medium-screen {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__row1,
+  &__row2 {
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+    padding: 10px 15px 20px;
+    margin: 15px;
+  }
+
+  &__row1 {
+    width: 220px;
+    min-width: 220px;
+    height: fit-content;
+
+    @include medium-screen {
+      width: 80%;
+    }
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      p {
+        font-weight: 600;
+        color: $second-color;
+        cursor: pointer;
+      }
+
+      p:hover {
+        filter: opacity(0.8);
+      }
+    }
+
+    h3 {
+      margin-bottom: 0px;
+    }
+
+    p {
+      margin: 6px;
+    }
+  }
+
+  &__row2 {
+    width: -webkit-fill-available;
+
+    @include medium-screen {
+      width: 80%;
+    }
+  }
+}

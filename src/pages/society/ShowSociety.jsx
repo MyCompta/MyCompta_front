@@ -84,9 +84,11 @@ const ShowSociety = () => {
               <PageClientIndex />
             </div>
         </div>
-        <div className="displayeditsocietycontainer">
-          {showEditSociety && <div><EditSociety /></div>}
-        </div>
+        {showEditSociety && (
+          <div className="displayeditsocietycontainer">
+            <EditSociety />
+          </div>
+        )}
       </div>
     </>
   );

@@ -1,10 +1,10 @@
 .client-title-box {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
-.client-title-box a {
-  margin-right: 30px;
+.client-title-box__btn {
+  margin-right: 30px !important;
 }
 
 .btnclientnew {
