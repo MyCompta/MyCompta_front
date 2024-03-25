@@ -18,11 +18,13 @@ export const UserInfos = ({
           ...(user[firstKey] as object),
           [secondKey]: value,
         },
+        modified: true,
       } as TUserInfos);
     } else {
       setUser({
         ...user,
         [name]: value,
+        modified: true,
       } as TUserInfos);
     }
   };
@@ -81,6 +83,34 @@ export const UserInfos = ({
           onChange={handleInputChange}
         />
       </div>
+      <input
+        type="text"
+        name="address.country"
+        placeholder="Pays"
+        required
+        value={user.address.country}
+        onChange={handleInputChange}
+      />
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        value={user.email}
+        onChange={handleInputChange}
+      />
+
+      {user.is_pro && (
+        <input
+          type="text"
+          name="siret"
+          placeholder="Siret"
+          required
+          value={user.siret}
+          onChange={handleInputChange}
+        />
+      )}
     </div>
   );
 };
