@@ -55,16 +55,15 @@ const IndexSocieties = () => {
         <NewSociety onClick={handleNewSocietyClick} />
       </div>
 
-      <div className="main">
+      <div className="main_indexsocieties">
         <div className="companylist">
           {societyData.length > 0 ? (
             <div>
               {societyData.map((societyItem, index) => (
                 <li key={index}>
                   <Link
-                    to={`/society/${societyItem.name}`}
-                    onClick={() => handleSocietyClick(societyItem.id)}
-                  >
+                    to={`/societies/${societyItem.name}`}
+                    onClick={() => handleSocietyClick(societyItem.id)}>
                     {societyItem.name.toUpperCase()}
                   </Link>
                 </li>

@@ -1,0 +1,25 @@
+.client-title-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.client-title-box__btn {
+  margin-right: 30px !important;
+}
+
+.btnclientnew {
+  background-color: #3398bd;
+  border: 1px solid #3398bd;
+  color: #f5f6f9;
+  font-size: 14px;
+  padding: 2px;
+  padding-right: 4px;
+  padding-left: 4px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+}
+.btnclientnew:hover {
+  background-color: #f5f6f9;
+  color: #3398bd;
+}/*# sourceMappingURL=PageClientIndex.css.map */

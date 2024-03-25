@@ -15,20 +15,28 @@
   }
 }
 
+.modal-society-item-container {
+  position: relative;
+  display: flex;
+
+  &:hover {
+    background: #f3f5f7;
+  }
+
+  &:hover .modal-society-item-options {
+    display: flex;
+  }
+}
+
 .modal-society-body {
   &__item {
     padding: 12px 20px 12px 60px;
-    border-bottom: 1px solid #e5e5e5;
+    //border-bottom: 1px solid #e5e5e5;
     font-weight: 700;
     cursor: pointer;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     color: $text-color-light;
-
-    &:hover {
-      background: #f3f5f7;
-    }
 
     &--active {
       width: 12px;
@@ -36,6 +44,21 @@
       border-radius: 100px;
       display: inline-block;
       background: $sucess-color;
+      margin-left: 6px;
+    }
+  }
+
+  .modal-society-item-options {
+    display: none;
+    position: absolute;
+    right: 6px;
+    top: 3px;
+    z-index: 10;
+
+    &__trash {
+      width: 17px !important;
+      height: 15px !important;
+      padding: 10px !important;
     }
   }
 }

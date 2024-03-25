@@ -16,6 +16,7 @@ const EditSociety = () => {
   const societyAtomValue = useAtomValue(societyAtom);
 
   const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [showEditSociety, setShowEditSociety] = useState("");
 
   const [name, setName] = useState(societyAtomValue.name);
   const [status, setStatus] = useState(societyAtomValue.status);
@@ -27,35 +28,32 @@ const EditSociety = () => {
   const [email, setEmail] = useState(societyAtomValue.email);
   const [errors, setErrors] = useState({});
 
-  // console.log("c'estl'atom", societyAtomValue.id)
+  console.log("c'estl'atom", societyAtomValue.id);
 
   const HandleSubmitEditSociety = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        apiUrl + `societies/${societyAtomValue.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: JSON.parse(Cookies.get("token")).token,
+      const response = await fetch(apiUrl + `societies/${societyAtomValue.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: JSON.parse(Cookies.get("token")).token,
+        },
+        body: JSON.stringify({
+          society: {
+            name: name,
+            status: status,
+            adress: adress,
+            zip: zip,
+            city: city,
+            country: country,
+            capital: capital,
+            email: email,
+            user_id: user_id,
           },
-          body: JSON.stringify({
-            society: {
-              name: name,
-              status: status,
-              adress: adress,
-              zip: zip,
-              city: city,
-              country: country,
-              capital: capital,
-              email: email,
-              user_id: user_id,
-            },
-          }),
-        }
-      );
+        }),
+      });
 
       const responseData = await response.json();
 
@@ -71,7 +69,7 @@ const EditSociety = () => {
 
   const onClick = async () => {
     try {
-      const response = await fetch(apiUrl + `societies/${id}`, {
+      const response = await fetch(apiUrl + `societies/${societyAtomValue.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -80,7 +78,7 @@ const EditSociety = () => {
       });
 
       if (response.ok) {
-        navigate(`/dashboard`);
+        navigate(`/profile`);
       } else {
         console.error(response.error);
       }
@@ -106,11 +104,7 @@ const EditSociety = () => {
         <br />
         <label>
           Company's social reason :
-          <select
-            name="status"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
+          <select name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
             <option value="micro-entreprise">Micro</option>
             <option value="SASU">SASU</option>
             <option value="EURL">EURL</option>
@@ -186,10 +180,12 @@ const EditSociety = () => {
           />
         </label>
         <br />
-        <button className="savebuttoneditsociety">Save</button>
-        <button onClick={onClick} className="deletebuttonsociety">
-          Delete
-        </button>
+        <div className="buttonedit">
+          <button className="savebuttoneditsociety">Save</button>
+          <button onClick={onClick} className="deletebuttonsociety">
+            Delete
+          </button>
+        </div>
       </form>
     </div>
   );

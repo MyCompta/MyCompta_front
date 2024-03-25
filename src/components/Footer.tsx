@@ -5,6 +5,7 @@ const Footer = () => {
     <footer className="footer">
       <p>© 2024 Mycompta. All right reserved.</p>
       <Link to="/cgu">Terms of use</Link>
+      <Link to="/contact">Contact</Link>
     </footer>
   );
 };

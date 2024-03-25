@@ -20,10 +20,10 @@ export default function Index() {
         </div>
         <div className="unlogged-home__connection">
           <p className="unlogged-home__connection-register-text">
-            Or <Link to="/users/register">register</Link> for all options
+            Or <Link to="/register">register</Link> for all options
           </p>
           <p className="unlogged-home__connection-login-text">
-            Already have an account ? <Link to="/users/login">Login</Link>
+            Already have an account ? <Link to="/login">Login</Link>
           </p>
         </div>
       </div>

@@ -1,0 +1,34 @@
+.modal-society-header {
+  width: 100%;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+}
+.modal-society-header__btn {
+  font-size: 28px !important;
+  line-height: 34px !important;
+  width: 36px !important;
+  height: 34px !important;
+  padding: 0 !important;
+}
+
+.modal-society-body__item {
+  padding: 12px 20px 12px 60px;
+  border-bottom: 1px solid #e5e5e5;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #5e6a73;
+}
+.modal-society-body__item:hover {
+  background: #f3f5f7;
+}
+.modal-society-body__item--active {
+  width: 12px;
+  height: 12px;
+  border-radius: 100px;
+  display: inline-block;
+  background: #80ee96;
+}/*# sourceMappingURL=SocietyIndex.css.map */

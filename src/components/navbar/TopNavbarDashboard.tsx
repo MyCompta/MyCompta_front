@@ -52,9 +52,7 @@ const TopNavbarDashboard = ({
       <div className="top-navbar">
         <Hamburger toggled={isHamburgerOpen} toggle={setHamburgerOpen} />
         <div className="top-navbar__logo">
-          <p>
-            My<span>C</span>ompta
-          </p>
+          <Link to="/dashboard"><p>My<span>C</span>ompta</p></Link>
         </div>
 
         {Cookies.get("token") ? (

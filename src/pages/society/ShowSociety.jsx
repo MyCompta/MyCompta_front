@@ -54,6 +54,11 @@ const ShowSociety = () => {
   const handleEditSocietyClick = () => {
     setShowEditSociety(true);
   };
+
+  const closeEditModal = () => {
+    setShowEditSociety(false);
+  };
+
   return (
     <>
       <div className="headershowsociety">
@@ -96,13 +101,14 @@ const ShowSociety = () => {
             <PageClientIndex />
           </div>
         </div>
-        <div className="displaycreatesocietycontainer">
-          {showEditSociety && (
-            <div>
-              <EditSociety />
-            </div>
-          )}
-        </div>
+        {showEditSociety && (
+          <div className="displayeditsocietycontainer">
+            <EditSociety />
+            <button onClick={closeEditModal} className="closetag">
+              x
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
