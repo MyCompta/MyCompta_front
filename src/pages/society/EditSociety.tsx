@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 
 import societyAtom from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
@@ -9,14 +9,14 @@ import "./society.scss";
 
 const EditSociety = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
-  const token = Cookies.get("token");
-  const user_id = JSON.parse(Cookies.get("token")).user_id;
+  // const token = Cookies.get("token");
+  const user_id = JSON.parse(Cookies.get("token")!).user_id;
   const navigate = useNavigate();
 
   const societyAtomValue = useAtomValue(societyAtom);
 
-  const [updateSuccess, setUpdateSuccess] = useState(false);
-  const [showEditSociety, setShowEditSociety] = useState("");
+  // const [updateSuccess, setUpdateSuccess] = useState(false);
+  // const [showEditSociety, setShowEditSociety] = useState("");
 
   const [name, setName] = useState(societyAtomValue.name);
   const [status, setStatus] = useState(societyAtomValue.status);
@@ -26,11 +26,11 @@ const EditSociety = () => {
   const [country, setCountry] = useState(societyAtomValue.country);
   const [capital, setCapital] = useState(societyAtomValue.capital);
   const [email, setEmail] = useState(societyAtomValue.email);
-  const [errors, setErrors] = useState({});
+  const [, setErrors] = useState({});
 
   console.log("c'estl'atom", societyAtomValue.id);
 
-  const HandleSubmitEditSociety = async (e) => {
+  const HandleSubmitEditSociety = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
@@ -38,7 +38,7 @@ const EditSociety = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: JSON.parse(Cookies.get("token")).token,
+          Authorization: JSON.parse(Cookies.get("token")!).token,
         },
         body: JSON.stringify({
           society: {
@@ -73,17 +73,18 @@ const EditSociety = () => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: JSON.parse(Cookies.get("token")).token,
+          Authorization: JSON.parse(Cookies.get("token")!).token,
         },
       });
 
       if (response.ok) {
         navigate(`/profile`);
       } else {
-        console.error(response.error);
+        const error = await response.json();
+        console.error(error);
       }
     } catch (error) {
-      console.error("Error during delete society:", error.message);
+      console.error("Error during delete society:", error);
     }
   };
 

@@ -1,6 +1,6 @@
 import "../../pages/society/society.scss";
 
-function EditComponentSociety({ onClick }) {
+function EditComponentSociety({ onClick }: { onClick: () => void }) {
   return (
     <div>
       <button onClick={onClick} className="buttoneditsociety">

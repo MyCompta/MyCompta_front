@@ -11,14 +11,10 @@ const ModalClient = ({
   setClientData,
 }: {
   clientData?: TClientBack;
-  setClientData?: Dispatch<SetStateAction<TClientBack>>;
+  setClientData?: Dispatch<SetStateAction<TClientBack | undefined>>;
 }) => {
-  const [newClientModalStatus, setNewClientModalStatus] = useAtom(
-    newClientModalStatusAtom
-  );
-  const [editClientModalStatus, setEditClientModalStatus] = useAtom(
-    editClientModalStatusAtom
-  );
+  const [newClientModalStatus, setNewClientModalStatus] = useAtom(newClientModalStatusAtom);
+  const [editClientModalStatus, setEditClientModalStatus] = useAtom(editClientModalStatusAtom);
 
   const handleCloseModal = () => {
     setNewClientModalStatus(false);

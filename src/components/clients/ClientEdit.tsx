@@ -11,7 +11,7 @@ const ClientEdit = ({
   setClientData,
 }: {
   clientData: TClientBack;
-  setClientData: Dispatch<SetStateAction<TClientBack>>;
+  setClientData: Dispatch<SetStateAction<TClientBack | undefined>>;
 }) => {
   const setEditClientModalStatus = useSetAtom(editClientModalStatusAtom);
   const {
@@ -44,10 +44,7 @@ const ClientEdit = ({
   const onSubmit = async (data: FormValues) => {
     const formData = new FormData();
 
-    formData.append(
-      "client[user_id]",
-      JSON.parse(Cookies.get("token")!).user_id
-    );
+    formData.append("client[user_id]", JSON.parse(Cookies.get("token")!).user_id);
     formData.append("client[society_id]", String(1)); // !! TO CHANGE !!
     formData.append("client[business_name]", data.business_name!);
     formData.append("client[first_name]", data.first_name!);
@@ -59,12 +56,7 @@ const ClientEdit = ({
     formData.append("client[is_pro]", String(data.siret ? true : false));
 
     try {
-      const response = await fetcher(
-        `/clients/${clientData.id}`,
-        formData,
-        "PUT",
-        true
-      );
+      const response = await fetcher(`/clients/${clientData.id}`, formData, "PUT", true);
       if (!response.error) {
         console.log("Client updated successfully");
         setClientData(response);
@@ -158,11 +150,7 @@ const ClientEdit = ({
           />
         </div>
 
-        <input
-          type="submit"
-          value="Save changes"
-          className="btn client-form__submit"
-        />
+        <input type="submit" value="Save changes" className="btn client-form__submit" />
       </form>
     </>
   );

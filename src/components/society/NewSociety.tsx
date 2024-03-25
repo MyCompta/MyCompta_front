@@ -1,6 +1,6 @@
 import "../../pages/society/society.scss";
 
-function NewSociety({ onClick }) {
+function NewSociety({ onClick }: { onClick: () => void }) {
   return (
     <div>
       <button onClick={onClick} className="buttonnewsociety">

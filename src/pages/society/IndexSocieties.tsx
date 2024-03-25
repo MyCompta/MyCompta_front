@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -8,10 +8,10 @@ import CreateSociety from "./CreateSociety";
 import "./society.scss";
 
 const apiUrl = import.meta.env.VITE_API_URL;
-const token = Cookies.get("token");
+// const token = Cookies.get("token");
 
 const IndexSocieties = () => {
-  const [societyData, setSocietyData] = useState("");
+  const [societyData, setSocietyData] = useState<TSocietyBack[]>([]);
   const [, setError] = useState("");
   const [showCreateSociety, setShowCreateSociety] = useState(false);
 
@@ -22,7 +22,7 @@ const IndexSocieties = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: JSON.parse(Cookies.get("token")).token,
+            Authorization: JSON.parse(Cookies.get("token")!).token,
           },
         });
 
@@ -44,8 +44,8 @@ const IndexSocieties = () => {
     setShowCreateSociety(true);
   };
 
-  const handleSocietyClick = (id) => {
-    localStorage.setItem("selectedSocietyId", id);
+  const handleSocietyClick = (id: number) => {
+    localStorage.setItem("selectedSocietyId", String(id));
   };
 
   return (
