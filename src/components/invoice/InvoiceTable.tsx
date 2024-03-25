@@ -3,6 +3,7 @@ import "./InvoiceTable.scss";
 import fetcher from "../../utils/fetcher";
 import { useNavigate, Link } from "react-router-dom";
 import { formatDate2 } from "../../utils/date";
+import Cookies from "js-cookie";
 
 const InvoiceTable = () => {
   const [invoicesData, setInvoicesData] = useState([]);
@@ -12,7 +13,12 @@ const InvoiceTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetcher("/invoices", undefined, "GET", true);
+        const response = await fetcher(
+          "/invoices?society_id=" + Cookies.get("currentSociety"),
+          undefined,
+          "GET",
+          true
+        );
         if (!response.error) {
           setInvoicesData(response);
         } else {
