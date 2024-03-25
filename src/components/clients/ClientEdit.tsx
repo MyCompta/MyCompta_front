@@ -1,19 +1,30 @@
-import React from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import fetcher from "../../utils/fetcher";
 import Cookies from "js-cookie";
 import { useAtom } from "jotai";
-import { newClientModalStatusAtom } from "../../atom/modalAtom";
+import { editClientModalStatusAtom } from "../../atom/modalAtom";
 
-const ClientNew = () => {
-  const [newClientModalStatus, setNewClientModalStatus] = useAtom(
-    newClientModalStatusAtom
+const ClientEdit = ({ clientData, setClientData }) => {
+  const [editClientModalStatus, setEditClientModalStatus] = useAtom(
+    editClientModalStatusAtom
   );
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
+
+  useEffect(() => {
+    setValue("business_name", clientData.business_name);
+    setValue("first_name", clientData.first_name);
+    setValue("last_name", clientData.last_name);
+    setValue("siret", clientData.siret);
+    setValue("address", clientData.address);
+    setValue("zip", clientData.zip);
+    setValue("city", clientData.city);
+  }, [setValue, clientData]);
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -33,22 +44,30 @@ const ClientNew = () => {
     formData.append("client[is_pro]", data.siret ? true : false);
 
     try {
-      const response = await fetcher("/clients", formData, "POST", true);
+      const response = await fetcher(
+        `/clients/${clientData.id}`,
+        formData,
+        "PUT",
+        true
+      );
       if (!response.error) {
-        console.log("Client created successfully");
-        setNewClientModalStatus(false);
+        console.log("Client updated successfully");
+        setClientData(response);
+        setEditClientModalStatus(false);
       } else {
         console.error(response.error);
       }
     } catch (error) {
-      console.error("Erreur lors de la récupération des données :", error);
+      console.error("Erreur lors de la mise à jour des données :", error);
     }
   };
+
+  if (!clientData) return <p>Loading...</p>;
 
   return (
     <>
       <div className="modal-client-header">
-        <h1>New client</h1>
+        <h1>Edit client</h1>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="client-form">
         <p className="client-form__info">
@@ -60,30 +79,20 @@ const ClientNew = () => {
           </label>
           <input
             type="text"
-            {...register("business_name", {
-              required: true,
-            })}
+            {...register("business_name")}
             placeholder="Business name here"
             autoComplete="current-business-name"
           />
-          {errors.business_name && errors.business_name.type === "required" && (
-            <p>Business name can not be empty</p>
-          )}
 
           <label htmlFor="siret">
             Siret<span> *</span>
           </label>
           <input
             type="number"
-            {...register("siret", {
-              required: true,
-            })}
+            {...register("siret")}
             placeholder="Siret here"
             autoComplete="current-siret"
           />
-          {errors.siret && errors.siret.type === "required" && (
-            <p>Siret can not be empty</p>
-          )}
 
           <label htmlFor="first_name">First Name</label>
           <input
@@ -108,50 +117,35 @@ const ClientNew = () => {
           </label>
           <input
             type="text"
-            {...register("address", {
-              required: true,
-            })}
+            {...register("address")}
             placeholder="Address here"
             autoComplete="current-address"
           />
-          {errors.address && errors.address.type === "required" && (
-            <p>Address can not be empty</p>
-          )}
 
           <label htmlFor="zip">
             Zip Code<span> *</span>
           </label>
           <input
             type="number"
-            {...register("zip", {
-              required: true,
-            })}
+            {...register("zip")}
             placeholder="Zip code here"
             autoComplete="current-zip"
           />
-          {errors.zip && errors.zip.type === "required" && (
-            <p>Zip code can not be empty</p>
-          )}
 
           <label htmlFor="city">
             City<span> *</span>
           </label>
           <input
             type="text"
-            {...register("city", {
-              required: true,
-            })}
+            {...register("city")}
             placeholder="City here"
             autoComplete="current-city"
           />
-          {errors.city && errors.city.type === "required" && (
-            <p>City can not be empty</p>
-          )}
         </div>
 
         <input
           type="submit"
-          value="Create"
+          value="Save changes"
           className="btn client-form__submit"
         />
       </form>
@@ -159,4 +153,4 @@ const ClientNew = () => {
   );
 };
 
-export default ClientNew;
+export default ClientEdit;

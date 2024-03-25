@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./LeftNavbarDashboard.scss";
 import { CgSelect } from "react-icons/cg";
@@ -10,19 +10,59 @@ import { FaBell } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import Cookies from "js-cookie";
-import ModalClientNew from "../clients/ModalClientNew";
+import { useAtom } from "jotai";
+import { newClientModalStatusAtom } from "../../atom/modalAtom";
+import { societyModalStatusAtom } from "../../atom/modalAtom";
+import fetcher from "../../utils/fetcher";
+import { isLoggedIn } from "../../utils/auth";
 
 export default function LeftNavbarDashboard() {
-  const [showModalNewClient, setShowModalNewClient] = useState(false);
+  const [currentUserData, setCurrentUserData] = useState();
   const navigate = useNavigate();
+  const [newClientModalStatus, setNewClientModalStatus] = useAtom(
+    newClientModalStatusAtom
+  );
+  const [societyModalStatus, setSocietyModalStatus] = useAtom(
+    societyModalStatusAtom
+  );
+
+  const id = Cookies.get("token")
+    ? JSON.parse(Cookies.get("token")).user_id
+    : null;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetcher(`users/${id}`, undefined, "GET", true);
+        if (!response.error) {
+          setCurrentUserData(response);
+        } else {
+          console.error(response.error);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la sélection des données :", error);
+      }
+    };
+
+    Cookies.get("token") && fetchData();
+  }, [id]);
+
+  useEffect(() => {
+    console.log("currentUserData", currentUserData);
+  }, [currentUserData]);
 
   const handleLogout = () => {
     Cookies.remove("token");
+    Cookies.remove("currentSociety");
     navigate("/");
   };
 
   const handleOpenNewClientModal = () => {
-    setShowModalNewClient(true);
+    setNewClientModalStatus(true);
+  };
+
+  const handleOpenSocietyModal = () => {
+    setSocietyModalStatus(true);
   };
 
   return (
@@ -45,38 +85,70 @@ export default function LeftNavbarDashboard() {
             </div>
           </div>
         )}
-        <div className="left-navbar__society">
-          <p>SOCIETY</p>
-          <CgSelect />
-        </div>
 
-        <div className="left-navbar__item">
+        {Cookies.get("token") && (
+          <div
+            className="left-navbar__society"
+            onClick={handleOpenSocietyModal}
+          >
+            <p>
+              {currentUserData &&
+              currentUserData.societies &&
+              currentUserData.societies.find(
+                (society) =>
+                  society.id === parseInt(Cookies.get("currentSociety"))
+              )
+                ? currentUserData.societies.find(
+                    (society) =>
+                      society.id === parseInt(Cookies.get("currentSociety"))
+                  ).name
+                : currentUserData &&
+                  currentUserData.societies &&
+                  currentUserData.societies.length > 0
+                ? (() => {
+                    const selectedSociety = currentUserData.societies[0];
+                    Cookies.set("currentSociety", selectedSociety.id);
+                    return selectedSociety.name;
+                  })()
+                : "Select society"}
+            </p>
+            <CgSelect />
+          </div>
+        )}
+        <div
+          className={`left-navbar__item ${
+            isLoggedIn() ? "" : "left-navbar__item--disabled"
+          }`}
+        >
           <Link to="/dashboard" className="index">
             <img src={dashboardIcon} alt="dashboard icon" />
             <p>Dashboard</p>
           </Link>
         </div>
-
-        <div className="left-navbar__item">
+        <div
+          className={`left-navbar__item ${
+            isLoggedIn() ? "" : "left-navbar__item--disabled"
+          }`}
+        >
           <Link to="/clients" className="index">
             <img src={customerIcon} alt="customer icon" />
             <p>Clients</p>
           </Link>
-          <div onClick={handleOpenNewClientModal} className="new">
-            +
-          </div>
+          {isLoggedIn() && (
+            <div onClick={handleOpenNewClientModal} className="new">
+              +
+            </div>
+          )}
         </div>
-
         <div className="left-navbar__item">
           <Link to="/quotations" className="index">
             <img src={quoteIcon} alt="quote icon" />
             <p>Quotations</p>
           </Link>
-          <Link to="/quotations/new" className="new">
+          <Link to="/quotations/create" className="new">
             +
           </Link>
         </div>
-
         <div className="left-navbar__item">
           <Link to="/invoices" className="index">
             <img src={invoiceIcon} alt="invoice icon" />
@@ -86,7 +158,6 @@ export default function LeftNavbarDashboard() {
             +
           </Link>
         </div>
-
         {!Cookies.get("token") && (
           <div className="left-navbar__connection">
             <Link
@@ -101,10 +172,6 @@ export default function LeftNavbarDashboard() {
           </div>
         )}
       </nav>
-
-      {showModalNewClient && (
-        <ModalClientNew setShowModalNewClient={setShowModalNewClient} />
-      )}
     </>
   );
 }

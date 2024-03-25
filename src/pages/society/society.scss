@@ -1,11 +1,14 @@
 @import "../../styles/vars";
 
-.societycontainer {
+.societycontainer
+{
   padding-left: 3rem;
   min-height: 40rem;
 }
 
-.buttonnewsociety {
+
+.buttonnewsociety
+{
   background-color: $second-color;
   border: 1px solid $second-color;
   color: white;
@@ -19,7 +22,8 @@
   top: 6rem;
 }
 
-.main {
+.main
+{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -27,7 +31,8 @@
   padding: 3%;
 }
 
-.companylist {
+.companylist
+{
   position: relative;
   align-items: center;
   padding: 1rem;
@@ -40,14 +45,18 @@
   line-height: 3.5rem;
 }
 
-.error {
+.error
+{
   color: rgb(255, 0, 0);
   font-weight: 800;
+
 }
+
 
 //////////////////////////////////////////createsociety
 
-.createsocietyform {
+.createsocietyform
+{
   display: flex;
   position: relative;
   right: 0;
@@ -56,7 +65,8 @@
   line-height: 2rem;
 }
 
-.createsocietyform button {
+.createsocietyform button
+{
   background-color: $second-color;
   border: 1px solid $second-color;
   color: white;
@@ -68,26 +78,33 @@
   font-family: "Montserrat", sans-serif;
 }
 
-@media only screen and (max-width: 1300px) {
-  .createsocietyform {
+
+@media only screen and (max-width: 1300px)
+{
+  .createsocietyform
+  {
     scale: 0.8;
   }
 
-  .companylist {
+  .companylist
+  {
     scale: 0.8;
   }
 }
 
 /////////////////////////////////////////////////////////ShowSosiety
 
-.headershowsociety {
+.headershowsociety
+{
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-left: 5%;
   margin-right: 5%;
 }
 
-.backtosocietes {
+.buttoneditsociety
+{
   background-color: $second-color;
   border: 1px solid $second-color;
   color: white;
@@ -95,30 +112,78 @@
   padding: 8px 30px;
   border-radius: 5px;
   cursor: pointer;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif; 
 }
 
-.buttoneditsociety {
-  background-color: $second-color;
-  border: 1px solid $second-color;
-  color: white;
-  font-size: 14px;
-  padding: 8px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: "Montserrat", sans-serif;
-}
-
-.displayshowsociety {
+.displayshowsociety
+{
   display: flex;
-  justify-content: space-between;
-  border: 2px solid red;
-  margin-top: 3%;
-  margin-left: 3%;
-  margin-right: 3%;
-  line-height: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
-h4 {
+h4
+{
   display: inline;
 }
+
+.leftinfosociety
+{
+  margin-top: 2%;
+  position: sticky;
+  top: 20%;
+  box-shadow: 0px 0px 3px $second-color;
+  max-height: 13.5rem;
+  padding: 2%;
+  align-items: center;
+  border-radius: 5px;
+  line-height: 2rem;
+}
+.rightinfosociety
+{
+}
+
+.indexinvoicesshowsociety
+{
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px $second-color;
+  height: 20rem;
+  overflow: scroll;
+  padding: 2%;
+}
+
+.indexclientsshowsociety
+{
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px $second-color;
+  margin-top: 2%;
+}
+
+/////////////////////////////////////////////////////// Edit society
+
+.savebuttoneditsociety
+{
+  background-color: $second-color;
+  border: 1px solid $second-color;
+  color: white;
+  font-size: 14px;
+  padding: 8px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif; 
+}
+
+.deletebuttonsociety
+{
+  background-color: $second-color;
+  border: 1px solid $second-color;
+  color: white;
+  font-size: 14px;
+  padding: 8px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif; 
+}
+
