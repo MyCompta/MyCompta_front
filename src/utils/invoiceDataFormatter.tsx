@@ -7,8 +7,8 @@ const invoiceDataFormatterSend = (invoice: TInvoice) => {
   };
 
   formData.append("invoice[content]", JSON.stringify(content));
-  formData.append("invoice[date]", invoice.date.toISOString());
-  formData.append("invoice[due_date]", invoice.dueDate.toISOString());
+  formData.append("invoice[issued_at]", invoice.date.toISOString());
+  formData.append("invoice[due_at]", invoice.dueDate.toISOString());
   formData.append("invoice[title]", invoice.title);
   formData.append("invoice[number]", invoice.number);
   formData.append("invoice[subtotal]", String(invoice.subTotal));
@@ -100,8 +100,8 @@ const invoiceDataFormatterReceive = (invoice: TInvoiceShowBack) => {
     id: invoiceData.id,
     items: content.items,
     tax: content.tax,
-    date: new Date(invoiceData.date),
-    dueDate: new Date(invoiceData.due_date),
+    date: new Date(invoiceData.issued_at),
+    dueDate: new Date(invoiceData.due_at),
     title: invoiceData.title,
     number: invoiceData.number,
     subTotal: invoiceData.subtotal,
