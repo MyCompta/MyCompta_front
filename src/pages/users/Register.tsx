@@ -1,10 +1,18 @@
 import { Form } from "../../components/forms/Form";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useSetAtom } from "jotai";
+import { isLoggedAtom } from "../../atom/authAtom";
 import "./users.scss";
 
 export default function Register() {
   const navigate = useNavigate();
+  const setIsLogged = useSetAtom(isLoggedAtom);
+
+  const handleOnSuccess = () => {
+    setIsLogged(true);
+    navigate("/societies/create");
+  };
+
   return (
     <div className="registerpage">
       <h1>Register Page</h1>
@@ -39,7 +47,7 @@ export default function Register() {
           },
         ]}
         controller="user"
-        onSuccess={() => navigate("/societies/create")}
+        onSuccess={handleOnSuccess}
       />
     </div>
   );
