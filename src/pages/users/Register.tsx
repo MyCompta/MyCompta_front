@@ -25,7 +25,12 @@ export default function Register() {
             displayName: (
               <>
                 I have read the{" "}
-                <Link to="/cgu" style={{ color: "blue" }} target="_blank" rel="noopener noreferrer">
+                <Link
+                  to="/cgu"
+                  style={{ color: "blue" }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   terms of service
                 </Link>
               </>
@@ -34,7 +39,7 @@ export default function Register() {
           },
         ]}
         controller="user"
-        onSuccess={() => navigate("/dashboard")}
+        onSuccess={() => navigate("/societies/create")}
       />
     </div>
   );

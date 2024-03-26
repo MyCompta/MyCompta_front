@@ -98,17 +98,28 @@ const InvoiceTable = () => {
           </tr>
         </thead>
         <tbody>
-          {filterInvoicesByStatus(currentTab).map(
-            (invoice: TInvoiceGetBack) => (
-              <tr key={invoice.id} onClick={() => handleLineClick(invoice.id!)}>
-                <td>{invoice.id}</td>
-                <td>CUSTOMER NAME</td>
-                <td>{formatDate2(invoice.date)}</td>
-                <td>{formatDate2(invoice.due_date)}</td>
-                <td>{invoice.total}</td>
-                <td>BALANCE</td>
-              </tr>
+          {filterInvoicesByStatus(currentTab).length > 0 ? (
+            filterInvoicesByStatus(currentTab).map(
+              (invoice: TInvoiceGetBack) => (
+                <tr
+                  key={invoice.id}
+                  onClick={() => handleLineClick(invoice.id!)}
+                >
+                  <td>{invoice.id}</td>
+                  <td>CUSTOMER NAME</td>
+                  <td>{formatDate2(invoice.date)}</td>
+                  <td>{formatDate2(invoice.due_date)}</td>
+                  <td>{invoice.total}</td>
+                  <td>BALANCE</td>
+                </tr>
+              )
             )
+          ) : (
+            <tr>
+              <td colSpan={6} className="invoice-table__no-invoices">
+                No invoices found
+              </td>
+            </tr>
           )}
         </tbody>
       </table>
