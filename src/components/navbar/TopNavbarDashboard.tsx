@@ -11,6 +11,7 @@ import LeftNavbardashboard from "./LeftNavbarDashboard";
 import { useAtomValue } from "jotai";
 import { useSetAtom } from "jotai";
 import { isLoggedAtom } from "../../atom/authAtom";
+import { currentSocietyAtom } from "../../atom/societyAtom";
 
 const TopNavbarDashboard = ({
   onToggle,
@@ -106,11 +107,13 @@ export const PopupProfile = ({
 }) => {
   const navigate = useNavigate();
   const setIsLogged = useSetAtom(isLoggedAtom);
+  const setCurrentSociety = useSetAtom(currentSocietyAtom);
 
   const handleLogout = () => {
     Cookies.remove("token");
     Cookies.remove("currentSociety");
     setIsLogged(false);
+    setCurrentSociety(null);
     onCloseProfilPopup();
     navigate("/");
   };
