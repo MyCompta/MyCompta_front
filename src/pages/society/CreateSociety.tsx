@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { useAtomValue } from "jotai";
+import { currentSocietyAtom } from "../../atom/societyAtom";
 
 import "./society.scss";
 
@@ -9,6 +11,7 @@ const CreateSociety = () => {
   // const token = Cookies.get("token");
   const user_id = JSON.parse(Cookies.get("token")!).user_id;
   const navigate = useNavigate();
+  const currentSociety = useAtomValue(currentSocietyAtom);
 
   const [name, setName] = useState("");
   const [status, setStatus] = useState("micro-entreprise");
@@ -70,7 +73,7 @@ const CreateSociety = () => {
     <div className="createsocietyform">
       <form onSubmit={HandleSubmitCreateSociety}>
         <div className="createsocietyformtitle">
-          {Cookies.get("currentSociety") ? (
+          {currentSociety ? (
             <h2>
               You can create company here ! <br /> whao!
             </h2>

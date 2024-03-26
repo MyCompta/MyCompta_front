@@ -10,13 +10,13 @@ import { FaBell } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import Cookies from "js-cookie";
-import { useSetAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
 import { societyModalStatusAtom } from "../../atom/modalAtom";
 import fetcher from "../../utils/fetcher";
 import { isLoggedIn } from "../../utils/auth";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { isLoggedAtom } from "../../atom/authAtom";
+import { currentSocietyAtom } from "../../atom/societyAtom";
 
 export default function LeftNavbarDashboard() {
   const [currentUserData, setCurrentUserData] = useState<TUserShowBack>();
@@ -24,6 +24,7 @@ export default function LeftNavbarDashboard() {
   const setNewClientModalStatus = useSetAtom(newClientModalStatusAtom);
   const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
   const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
+  const setCurrentSociety = useSetAtom(currentSocietyAtom);
 
   const id = Cookies.get("token")
     ? JSON.parse(Cookies.get("token")!).user_id
@@ -54,6 +55,7 @@ export default function LeftNavbarDashboard() {
     Cookies.remove("token");
     Cookies.remove("currentSociety");
     setIsLogged(false);
+    setCurrentSociety(null);
     navigate("/");
   };
 
@@ -106,6 +108,7 @@ export default function LeftNavbarDashboard() {
                     currentUserData.societies &&
                     currentUserData.societies.length > 0
                   ? (() => {
+                      console.log("society.id", currentUserData.societies[0]);
                       const selectedSociety = currentUserData.societies[0];
                       Cookies.set("currentSociety", String(selectedSociety.id));
                       return selectedSociety.name;
