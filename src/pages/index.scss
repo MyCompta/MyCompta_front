@@ -1,7 +1,13 @@
 @import "../styles/vars";
 
+.unlogged-home-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 50px);
+}
+
 .unlogged-home {
-  margin: auto;
   width: 420px;
   text-align: center;
 
