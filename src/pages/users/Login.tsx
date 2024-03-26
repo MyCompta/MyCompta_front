@@ -4,20 +4,25 @@ import fetcher from "../../utils/fetcher";
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { isLoggedAtom } from "../../atom/authAtom";
+import { currentSocietyAtom } from "../../atom/societyAtom";
+import Cookies from "js-cookie";
 
 import "./users.scss";
 
 export default function Login() {
   const navigate = useNavigate();
   const setIsLogged = useSetAtom(isLoggedAtom);
+  const setCurrentSociety = useSetAtom(currentSocietyAtom);
 
   const checkUserSocieties = async () => {
     try {
       const response = await fetcher(`societies`, undefined, "GET", true);
+      console.log("response", response);
       if (!response.error) {
-        const { data } = response;
         setIsLogged(true);
-        if (data && data.societies.length > 0) {
+        console.log("response scoieties", response);
+        if (response && response.length > 0) {
+          setCurrentSociety(response[0].id);
           navigate("/dashboard");
         } else {
           navigate("/societies/create");
@@ -35,6 +40,7 @@ export default function Login() {
   });
 
   const handleOnSuccess = () => {
+    console.log("handleSuccess", Cookies.get("token"));
     checkUserSocieties();
   };
 

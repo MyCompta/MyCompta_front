@@ -7,10 +7,12 @@ import IndexSocieties from "../society/IndexSocieties";
 import "./users.scss";
 
 
-
 const CgProfile = () => {
   const [userData, setUserData] = useState<TUserShowBack>();
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const token = Cookies.get("token");
+  const id = token ? JSON.parse(token).user_id : null;
 
   const apiUrl = import.meta.env.VITE_API_URL;
   const token = Cookies.get("token");
@@ -40,12 +42,14 @@ const CgProfile = () => {
     };
 
     fetchData();
-  }, [setUserData]);
+  }, [apiUrl, id]);
 
   console.log("user data dans cgprofile",userData)
 
   const onClickDelete = async () => {
-    const confirmDelete = window.confirm("Are you sure to delete entire profile?");
+    const confirmDelete = window.confirm(
+      "Are you sure to delete entire profile?"
+    );
 
     if (confirmDelete) {
       try {
@@ -77,8 +81,14 @@ const CgProfile = () => {
       {userData && (
         <div className="profileuser">
           <p>Email : {userData.email}</p>
-          <p>Date of creation : {new Date(Date.parse(userData.created_at)).toLocaleDateString()}</p>
-          <p>Last uptdate : {new Date(Date.parse(userData.updated_at)).toLocaleDateString()}</p>
+          <p>
+            Date of creation :{" "}
+            {new Date(Date.parse(userData.created_at)).toLocaleDateString()}
+          </p>
+          <p>
+            Last uptdate :{" "}
+            {new Date(Date.parse(userData.updated_at)).toLocaleDateString()}
+          </p>
         </div>
       )}
 
