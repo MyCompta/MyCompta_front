@@ -23,7 +23,10 @@ const Society = ({
   });
 
   return (
-    <div className="modal-society-body__item" onClick={handleUpdateCurrentSociety}>
+    <div
+      className="modal-society-body__item"
+      onClick={handleUpdateCurrentSociety}
+    >
       {society.name}
       {parseInt(currentSociety) === society.id ? (
         <div className="modal-society-body__item--active"></div>

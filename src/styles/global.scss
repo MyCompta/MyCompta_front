@@ -87,8 +87,6 @@ h1 {
   }
 }
 
-
-
 table {
   border: 1px solid #ddd;
 }
@@ -185,14 +183,11 @@ tbody {
 // ##############################
 
 .utility-page {
-
   display: flex;
   justify-content: center;
   align-items: center;
-  justify-content: space-between;
   padding-left: 5%;
   padding-right: 5%;
-  height: 100vh;
   height: calc(100% - 60px);
 }
 
@@ -215,6 +210,4 @@ tbody {
     margin: 20px auto !important;
     width: 260px !important;
   }
-
 }
-

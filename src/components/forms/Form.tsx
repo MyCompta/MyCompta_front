@@ -1,6 +1,7 @@
 import fetcher from "../../utils/fetcher";
 import { useSetAtom } from "jotai";
 import { errorAtom } from "../../atom/notificationAtom";
+import "./Form.scss";
 
 export function Form({
   method = "POST",
@@ -40,7 +41,7 @@ export function Form({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form-form">
       {fields.map((field, i) => (
         <div key={i}>
           <label htmlFor={field.name + i.toString()}>{field.displayName}</label>
@@ -56,7 +57,7 @@ export function Form({
           />
         </div>
       ))}
-      <input type="submit" value={btnDisplay} className="registerbutton" />
+      <input type="submit" value={btnDisplay} className="btn form-form__btn" />
     </form>
   );
 }

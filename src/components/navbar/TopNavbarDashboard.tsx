@@ -8,6 +8,10 @@ import { LuLogOut } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import { Squash as Hamburger } from "hamburger-react";
 import LeftNavbardashboard from "./LeftNavbarDashboard";
+import { useAtomValue } from "jotai";
+import { useSetAtom } from "jotai";
+import { isLoggedAtom } from "../../atom/authAtom";
+import { currentSocietyAtom } from "../../atom/societyAtom";
 
 const TopNavbarDashboard = ({
   onToggle,
@@ -17,6 +21,7 @@ const TopNavbarDashboard = ({
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
   const [isHamburgerOpen, setHamburgerOpen] = useState(false);
   const profilePopupRef = useRef<HTMLDivElement>(null);
+  const isLogged = useAtomValue(isLoggedAtom);
 
   const handleProfileClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
@@ -52,10 +57,14 @@ const TopNavbarDashboard = ({
       <div className="top-navbar">
         <Hamburger toggled={isHamburgerOpen} toggle={setHamburgerOpen} />
         <div className="top-navbar__logo">
-          <Link to="/dashboard"><p>My<span>C</span>ompta</p></Link>
+          <Link to="/dashboard">
+            <p>
+              My<span>C</span>ompta
+            </p>
+          </Link>
         </div>
 
-        {Cookies.get("token") ? (
+        {isLogged ? (
           <div className="right-box">
             <div className="right-box__notification">
               <FaBell />
@@ -97,9 +106,14 @@ export const PopupProfile = ({
   profilePopupRef: React.RefObject<HTMLDivElement>;
 }) => {
   const navigate = useNavigate();
+  const setIsLogged = useSetAtom(isLoggedAtom);
+  const setCurrentSociety = useSetAtom(currentSocietyAtom);
+
   const handleLogout = () => {
     Cookies.remove("token");
     Cookies.remove("currentSociety");
+    setIsLogged(false);
+    setCurrentSociety(null);
     onCloseProfilPopup();
     navigate("/");
   };
