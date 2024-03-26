@@ -40,20 +40,24 @@ export default function Login() {
 
   return (
     <div className="loginpage">
-      <h1>Login Page</h1>
+      <h1>Log into Your Account</h1>
       <Form
         method="POST"
         fetchUrl="users/sign_in"
         btnDisplay="Login"
         fields={[
-          { name: "email", displayName: "Email address : ", type: "email" },
-          { name: "password", displayName: "Password : ", type: "password" },
+          { name: "email", displayName: "Email address", type: "email" },
+          { name: "password", displayName: "Password", type: "password" },
         ]}
         controller="user"
         onSuccess={handleOnSuccess}
       />
-      <Link to="/register">Register</Link>
-      <Link to="/forgot-password">Forgot password</Link>
+      <Link to="/register" className="form-form-link">
+        Register
+      </Link>
+      <Link to="/forgot-password" className="form-form-link">
+        Forgot password
+      </Link>
     </div>
   );
 }
