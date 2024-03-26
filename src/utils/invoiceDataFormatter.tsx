@@ -74,7 +74,7 @@ const invoiceDataFormatterReceive = (invoice: TInvoiceShowBack) => {
     email: author.email,
     is_pro: true,
     address: {
-      street: author.adress,
+      street: author.address,
       city: author.city,
       zip: author.zip.toString(),
     },

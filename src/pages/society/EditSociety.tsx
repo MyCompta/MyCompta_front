@@ -20,7 +20,7 @@ const EditSociety = () => {
 
   const [name, setName] = useState(societyAtomValue.name);
   const [status, setStatus] = useState(societyAtomValue.status);
-  const [adress, setAdress] = useState(societyAtomValue.adress);
+  const [address, setAddress] = useState(societyAtomValue.address);
   const [zip, setZip] = useState(societyAtomValue.zip);
   const [city, setCity] = useState(societyAtomValue.city);
   const [country, setCountry] = useState(societyAtomValue.country);
@@ -44,7 +44,7 @@ const EditSociety = () => {
           society: {
             name: name,
             status: status,
-            adress: adress,
+            address: address,
             zip: zip,
             city: city,
             country: country,
@@ -119,10 +119,10 @@ const EditSociety = () => {
           Address :
           <input
             type="text"
-            name="adress"
-            value={adress}
-            placeholder={societyAtomValue.adress}
-            onChange={(e) => setAdress(e.target.value)}
+            name="address"
+            value={address}
+            placeholder={societyAtomValue.address}
+            onChange={(e) => setAddress(e.target.value)}
           />
         </label>
         <br />

@@ -15,7 +15,7 @@ const CreateSociety = () => {
 
   const [name, setName] = useState("");
   const [status, setStatus] = useState("micro-entreprise");
-  const [adress, setAdress] = useState("");
+  const [address, setAddress] = useState("");
   const [zip, setZip] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
@@ -43,7 +43,7 @@ const CreateSociety = () => {
           society: {
             name: name,
             status: status,
-            adress: adress,
+            address: address,
             zip: zip,
             city: city,
             country: country,
@@ -96,11 +96,7 @@ const CreateSociety = () => {
           <br />
           <label>
             Company's social reason :&nbsp;&nbsp;&nbsp;&nbsp;
-            <select
-              name="status"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-            >
+            <select name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
               <option value="micro-entreprise">Micro</option>
               <option value="SASU">SASU</option>
               <option value="EURL">EURL</option>
@@ -114,10 +110,10 @@ const CreateSociety = () => {
             Address :&nbsp;&nbsp;&nbsp;&nbsp;
             <input
               type="text"
-              name="adress"
-              value={adress}
-              placeholder={"adress of your company"}
-              onChange={(e) => setAdress(e.target.value)}
+              name="address"
+              value={address}
+              placeholder={"address of your company"}
+              onChange={(e) => setAddress(e.target.value)}
               className={errors && errors.name ? "error" : ""}
             />
           </label>
