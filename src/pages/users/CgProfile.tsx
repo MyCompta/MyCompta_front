@@ -6,13 +6,16 @@ import IndexSocieties from "../society/IndexSocieties";
 
 import "./users.scss";
 
-const apiUrl = import.meta.env.VITE_API_URL;
-const token = Cookies.get("token");
-const id = token ? JSON.parse(token).user_id : null;
+
 
 const CgProfile = () => {
   const [userData, setUserData] = useState<TUserShowBack>();
   const navigate = useNavigate();
+
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const token = Cookies.get("token");
+  const id = token ? JSON.parse(token).user_id : null;
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +42,7 @@ const CgProfile = () => {
     fetchData();
   }, [setUserData]);
 
-  // console.log(userData)
+  console.log("user data dans cgprofile",userData)
 
   const onClickDelete = async () => {
     const confirmDelete = window.confirm("Are you sure to delete entire profile?");
