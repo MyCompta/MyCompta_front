@@ -15,12 +15,15 @@ import { newClientModalStatusAtom } from "../../atom/modalAtom";
 import { societyModalStatusAtom } from "../../atom/modalAtom";
 import fetcher from "../../utils/fetcher";
 import { isLoggedIn } from "../../utils/auth";
+import { useAtom } from "jotai";
+import { isLoggedAtom } from "../../atom/authAtom";
 
 export default function LeftNavbarDashboard() {
   const [currentUserData, setCurrentUserData] = useState<TUserShowBack>();
   const navigate = useNavigate();
   const setNewClientModalStatus = useSetAtom(newClientModalStatusAtom);
   const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
+  const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
 
   const id = Cookies.get("token")
     ? JSON.parse(Cookies.get("token")!).user_id
@@ -50,6 +53,7 @@ export default function LeftNavbarDashboard() {
   const handleLogout = () => {
     Cookies.remove("token");
     Cookies.remove("currentSociety");
+    setIsLogged(false);
     navigate("/");
   };
 
@@ -82,7 +86,7 @@ export default function LeftNavbarDashboard() {
           </div>
         )}
 
-        {Cookies.get("token") && (
+        {isLogged && (
           <div
             className="left-navbar__society"
             onClick={handleOpenSocietyModal}
@@ -154,7 +158,7 @@ export default function LeftNavbarDashboard() {
             +
           </Link>
         </div>
-        {!Cookies.get("token") && (
+        {!isLogged && (
           <div className="left-navbar__connection">
             <Link
               to="/register"
