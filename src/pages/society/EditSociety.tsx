@@ -63,7 +63,7 @@ const EditSociety = () => {
         setErrors(responseData);
       }
     } catch (error) {
-      setErrors({ generic: "No answer from server" });
+      setErrors(prevError => { return {...prevError, generic: "No answer from server" }});
     }
   };
 

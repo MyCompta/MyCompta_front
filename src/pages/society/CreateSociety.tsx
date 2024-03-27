@@ -159,7 +159,7 @@ const CreateSociety = () => {
               placeholder={"adress of your company"}
               onChange={(e) => setAddress(e.target.value)}
             />
-            {errors && errors.address && <span className="error-message">Address {errors.adress}</span>}
+            {errors && errors.address && <span className="error-message">Address {errors.address}</span>}
 
             <label>
               Zip code<span> *</span>
