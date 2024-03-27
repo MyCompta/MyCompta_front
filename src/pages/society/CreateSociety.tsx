@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-import { useAtomValue } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { currentSocietyAtom } from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
-import { useSetAtom } from "jotai";
 import { successAtom } from "../../atom/notificationAtom";
+import societyAtom from "../../atom/societyAtom";
 
 import "./society.scss";
 
@@ -12,7 +12,8 @@ const CreateSociety = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   // const token = Cookies.get("token");
   const user_id = JSON.parse(Cookies.get("token")!).user_id;
-  const currentSociety = useAtomValue(currentSocietyAtom);
+  const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
+  const setSociety = useSetAtom(societyAtom);
   const setSuccess = useSetAtom(successAtom);
   const navigate = useNavigate();
 
@@ -25,13 +26,34 @@ const CreateSociety = () => {
   const [siret, setSiret] = useState("");
   const [capital, setCapital] = useState("");
   const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({ name: "", address: "", capital: "", city: "", country: "", email: "", siret: "", zip: "", generic: "" });
+  const [errors, setErrors] = useState<ErrorRes>({
+    name: "",
+    address: "",
+    capital: "",
+    city: "",
+    country: "",
+    email: "",
+    siret: "",
+    zip: "",
+    generic: "",
+  });
 
+  type ErrorRes = {
+    name: string;
+    address: string;
+    capital: string;
+    city: string;
+    country: string;
+    email: string;
+    siret: string;
+    zip: string;
+    generic: string;
+  };
 
   // console.log("dans le create", token)
   // console.log("user token id", user_id)
 
-  console.log("errors dans createsociety", errors)
+  console.log("errors dans createsociety", errors);
 
   const HandleSubmitCreateSociety = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,13 +81,30 @@ const CreateSociety = () => {
         }),
       });
 
-      const responseData = await response.json();
-
       if (response.ok) {
+        const responseData = (await response.json()) as TSocietyBack;
         console.log("Your society has been created");
         setSuccess("Your society has been created");
+
+        Cookies.set("currentSociety", String(responseData.id));
+        setCurrentSociety(String(responseData.id));
+
+        setSociety({
+          id: String(responseData.id),
+          name: responseData.name,
+          address: responseData.address,
+          zip: responseData.zip.toString(),
+          city: responseData.city,
+          country: responseData.country,
+          siret: responseData.siret.toString(),
+          status: responseData.status,
+          capital: responseData.capital.toString(),
+          email: responseData.email,
+        });
+
         navigate(`/societies/${name}`);
       } else {
+        const responseData = (await response.json()) as ErrorRes;
         setErrors(responseData);
       }
     } catch (error) {
@@ -77,18 +116,11 @@ const CreateSociety = () => {
 
   return (
     <div className="create-society-form-container">
-      {currentSociety ? (
-        <h2>Add another society</h2>
-      ) : (
-        <h2>Add your society to continue</h2>
-      )}
+      {currentSociety ? <h2>Add another society</h2> : <h2>Add your society to continue</h2>}
       <p className="create-society-form-container__info">
         <span>* </span>indicates a required field
       </p>
-      <form
-        onSubmit={HandleSubmitCreateSociety}
-        className="create-society-form"
-      >
+      <form onSubmit={HandleSubmitCreateSociety} className="create-society-form">
         <div className="create-society-form-rows">
           <div className="create-society-form-rows__row1">
             <label>
@@ -105,11 +137,7 @@ const CreateSociety = () => {
             <label>
               Society's social reason<span> *</span>
             </label>
-            <select
-              name="status"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-            >
+            <select name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
               <option value="micro-entreprise">Micro</option>
               <option value="SASU">SASU</option>
               <option value="EURL">EURL</option>
@@ -140,7 +168,9 @@ const CreateSociety = () => {
               placeholder={"capital"}
               onChange={(e) => setCapital(e.target.value)}
             />
-            {errors && errors.capital && <span className="error-message">Capital {errors.capital}</span>}
+            {errors && errors.capital && (
+              <span className="error-message">Capital {errors.capital}</span>
+            )}
 
             <label>
               Email<span> *</span>
@@ -166,7 +196,9 @@ const CreateSociety = () => {
               placeholder={"adress of your company"}
               onChange={(e) => setAddress(e.target.value)}
             />
-            {errors && errors.address && <span className="error-message">Address {errors.address}</span>}
+            {errors && errors.address && (
+              <span className="error-message">Address {errors.address}</span>
+            )}
 
             <label>
               Zip code<span> *</span>
@@ -204,8 +236,9 @@ const CreateSociety = () => {
               placeholder={"country name"}
               onChange={(e) => setCountry(e.target.value)}
             />
-            {errors && errors.country && <span className="error-message">Country {errors.country}</span>}
-
+            {errors && errors.country && (
+              <span className="error-message">Country {errors.country}</span>
+            )}
           </div>
         </div>
         <button className="btn">Create society</button>

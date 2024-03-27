@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import fetcher from "../../utils/fetcher";
-// import Cookies from "js-cookie"; // TO GET ID CURRENT SOCIETY AND BE ABLE TO SET A NEW ONE
+import Cookies from "js-cookie"; // TO GET ID CURRENT SOCIETY AND BE ABLE TO SET A NEW ONE
 import "./SocietyIndex.scss";
 import Society from "./Society";
 import { useNavigate } from "react-router-dom";
@@ -56,16 +56,16 @@ const SocietyIndex = () => {
     );
     if (!confirmed) return;
 
-    const response = await fetcher(
-      `societies/${societyId}`,
-      undefined,
-      "DELETE",
-      true
-    );
+    const response = await fetcher(`societies/${societyId}`, undefined, "DELETE", true);
     if (!response.error) {
-      setSocietiesData(
-        societiesData?.filter((society) => society.id !== societyId)
-      );
+      const newSocietiesData = societiesData?.filter((society) => society.id !== societyId);
+      setSocietiesData(newSocietiesData);
+      if (societyId === parseInt(Cookies.get("currentSociety")!) && newSocietiesData?.length) {
+        Cookies.set("currentSociety", String(newSocietiesData[0].id));
+      }
+      if (!newSocietiesData?.length) {
+        Cookies.remove("currentSociety");
+      }
       console.log("Society deleted successfully");
       setError("Society deleted successfully");
     } else {
@@ -77,10 +77,7 @@ const SocietyIndex = () => {
     <>
       <div className="modal-society-header">
         <h1>Switch society</h1>
-        <button
-          className="modal-society-header__btn btn"
-          onClick={handleNewSociety}
-        >
+        <button className="modal-society-header__btn btn" onClick={handleNewSociety}>
           +
         </button>
       </div>
@@ -88,10 +85,7 @@ const SocietyIndex = () => {
         {societiesData &&
           societiesData.map((society) => (
             <div className="modal-society-item-container" key={society.id}>
-              <Society
-                society={society}
-                setSocietyModalStatus={setSocietyModalStatus}
-              />
+              <Society society={society} setSocietyModalStatus={setSocietyModalStatus} />
               <div className="modal-society-item-options">
                 <IoDocumentText
                   className="btn btn--no-bg btn--xs"
