@@ -26,7 +26,7 @@ const EditSociety = () => {
   const [country, setCountry] = useState(societyAtomValue.country);
   const [capital, setCapital] = useState(societyAtomValue.capital);
   const [email, setEmail] = useState(societyAtomValue.email);
-  const [, setErrors] = useState({});
+  const [errors, setErrors] = useState({name: "", address: "", capital: "", city: "", country: "", email: "", siret: "", zip: "", generic: "" });
 
   console.log("c'estl'atom", societyAtomValue.id);
 
@@ -60,7 +60,7 @@ const EditSociety = () => {
       if (response.ok) {
         window.location.reload();
       } else {
-        console.log("error responseData", responseData);
+        setErrors(responseData);
       }
     } catch (error) {
       setErrors({ generic: "No answer from server" });
@@ -92,19 +92,18 @@ const EditSociety = () => {
     <div className="editsocietyform">
       <form onSubmit={HandleSubmitEditSociety}>
         <h2>You can update information's company here !</h2>
-        <label>
-          Company's name :
+        <label>Company's name :</label>
           <input
             type="text"
             name="name"
             value={name}
             placeholder={societyAtomValue.name}
             onChange={(e) => setName(e.target.value)}
-          />
-        </label>
+          />&nbsp;&nbsp;&nbsp;
+        {errors && errors.name && <span className="error-message">Company's name {errors.name}</span>}
+      
         <br />
-        <label>
-          Company's social reason :
+        <label>Company's social reason :</label>
           <select name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
             <option value="micro-entreprise">Micro</option>
             <option value="SASU">SASU</option>
@@ -113,73 +112,73 @@ const EditSociety = () => {
             <option value="SAS">SAS</option>
             <option value="SA">SA</option>
           </select>
-        </label>
         <br />
-        <label>
-          Address :
+
+        <label>Address :</label>
           <input
             type="text"
             name="address"
             value={address}
             placeholder={societyAtomValue.address}
             onChange={(e) => setAddress(e.target.value)}
-          />
-        </label>
+          />&nbsp;&nbsp;&nbsp;
+        {errors && errors.address && <span className="error-message">Address {errors.address}</span>}
+
         <br />
-        <label>
-          Zip code :
+        <label>Zip code :</label>
           <input
             type="number"
             name="zip"
             value={zip}
             placeholder={societyAtomValue.zip}
             onChange={(e) => setZip(e.target.value)}
-          />
-        </label>
+          />&nbsp;&nbsp;&nbsp;
+        {errors && errors.zip && <span className="error-message">Zip code {errors.zip}</span>}
+
         <br />
-        <label>
-          City :
+        <label>City :</label>
           <input
             type="text"
             name="city"
             value={city}
             placeholder={societyAtomValue.city}
             onChange={(e) => setCity(e.target.value)}
-          />
-        </label>
+          />&nbsp;&nbsp;&nbsp;
+        {errors && errors.city && <span className="error-message">City {errors.city}</span>}
+
         <br />
-        <label>
-          Country :
+        <label>Country :</label>
           <input
             type="text"
             name="country"
             value={country}
             placeholder={societyAtomValue.country}
             onChange={(e) => setCountry(e.target.value)}
-          />
-        </label>
+          />&nbsp;&nbsp;&nbsp;
+        {errors && errors.country && <span className="error-message">Country {errors.country}</span>}
+        
         <br />
-        <label>
-          Capital :
+        <label>Capital :</label>
           <input
             type="text"
             name="capital"
             value={capital}
             placeholder={societyAtomValue.capital}
             onChange={(e) => setCapital(e.target.value)}
-          />
-        </label>
+          />&nbsp;&nbsp;&nbsp;
+        {errors && errors.capital && <span className="error-message">Capital {errors.capital}</span>}
+
         <br />
-        <label>
-          Email :
+        <label>Email :</label>
           <input
             type="text"
             name="email"
             value={email}
             placeholder={societyAtomValue.email}
             onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
+          />&nbsp;&nbsp;&nbsp;
+        {errors && errors.email && <span className="error-message">Email {errors.email}</span>}
+
         <br />
         <div className="buttonedit">
           <button className="savebuttoneditsociety">Save</button>
