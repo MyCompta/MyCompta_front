@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 import { useAtomValue } from "jotai";
 import { currentSocietyAtom } from "../../atom/societyAtom";
 
@@ -10,7 +9,6 @@ const CreateSociety = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   // const token = Cookies.get("token");
   const user_id = JSON.parse(Cookies.get("token")!).user_id;
-  const navigate = useNavigate();
   const currentSociety = useAtomValue(currentSocietyAtom);
 
   const [name, setName] = useState("");
@@ -58,7 +56,7 @@ const CreateSociety = () => {
       const responseData = await response.json();
 
       if (response.ok) {
-        navigate(`/profile`);
+        window.location.reload();
       } else {
         setErrors(responseData);
       }
@@ -155,7 +153,7 @@ const CreateSociety = () => {
             </label>
             <input
               type="text"
-              name="adress"
+              name="address"
               value={address}
               placeholder={"adress of your company"}
               onChange={(e) => setAddress(e.target.value)}

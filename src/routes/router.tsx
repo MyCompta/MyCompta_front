@@ -16,7 +16,10 @@ import ResetPassword from "../pages/users/ResetPassword";
 
 import CgProfile from "../pages/users/CgProfile";
 import CGU from "../pages/users/CGU";
+import Confidentiality from "../pages/users/Confidentiality"
 // import Contact from "../pages/Contact"
+
+import Dashboard from "../pages/dashboard";
 
 import IndexInvoices from "../pages/invoices/IndexInvoices";
 import ShowInvoice from "../pages/invoices/ShowInvoice";
@@ -40,6 +43,7 @@ export const router = createBrowserRouter(
       <Route path="/" element={<Layout />}>
         <Route index element={<Index />} />
         <Route path="/cgu" element={<CGU />} />
+        <Route path="Confidentiality" element={<Confidentiality />} />
 
         <Route path="*" element={<Page404 />} />
 
@@ -52,7 +56,7 @@ export const router = createBrowserRouter(
 
         {/* Protected Routes */}
         <Route element={<LoggedRoute redirectPath="/login" />}>
-          <Route path="/dashboard" element={<ShowSociety />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<CgProfile />} />
 
           <Route path="/invoices" element={<IndexInvoices />} />

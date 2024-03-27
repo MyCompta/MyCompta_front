@@ -48,6 +48,10 @@ const IndexSocieties = () => {
     localStorage.setItem("selectedSocietyId", String(id));
   };
 
+  const closeCreateModal = () => {
+    setShowCreateSociety(false);
+  };
+
   return (
     <div className="societycontainer">
       <div className="header">
@@ -73,16 +77,16 @@ const IndexSocieties = () => {
             <p>No societies available</p>
           )}
         </div>
-
-        <div className="displaycreatesocietycontainer">
-          {showCreateSociety && (
-            <div>
-              <CreateSociety />
-            </div>
+        {showCreateSociety && (
+          <div className="display_edit_and_new_societycontainer">
+            <CreateSociety />
+            <button onClick={closeCreateModal} className="closetag">
+              X
+            </button>
+          </div>
           )}
         </div>
       </div>
-    </div>
   );
 };
 
