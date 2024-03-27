@@ -39,9 +39,21 @@ const SocietyIndex = () => {
   };
 
   const handleDeleteSociety = async (societyId: number) => {
-    const response = await fetcher(`societies/${societyId}`, undefined, "DELETE", true);
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this society?"
+    );
+    if (!confirmed) return;
+
+    const response = await fetcher(
+      `societies/${societyId}`,
+      undefined,
+      "DELETE",
+      true
+    );
     if (!response.error) {
-      setSocietiesData(societiesData?.filter((society) => society.id !== societyId));
+      setSocietiesData(
+        societiesData?.filter((society) => society.id !== societyId)
+      );
     } else {
       console.error(response.error);
     }
@@ -51,7 +63,10 @@ const SocietyIndex = () => {
     <>
       <div className="modal-society-header">
         <h1>Switch society</h1>
-        <button className="modal-society-header__btn btn" onClick={handleNewSociety}>
+        <button
+          className="modal-society-header__btn btn"
+          onClick={handleNewSociety}
+        >
           +
         </button>
       </div>
@@ -59,7 +74,10 @@ const SocietyIndex = () => {
         {societiesData &&
           societiesData.map((society) => (
             <div className="modal-society-item-container" key={society.id}>
-              <Society society={society} setSocietyModalStatus={setSocietyModalStatus} />
+              <Society
+                society={society}
+                setSocietyModalStatus={setSocietyModalStatus}
+              />
               <div className="modal-society-item-options">
                 <IoDocumentText
                   className="btn btn--no-bg btn--xs"

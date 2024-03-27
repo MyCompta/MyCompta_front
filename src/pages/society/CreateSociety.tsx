@@ -75,13 +75,18 @@ const CreateSociety = () => {
       ) : (
         <h2>Add your society to continue</h2>
       )}
+      <p className="create-society-form-container__info">
+        <span>* </span>indicates a required field
+      </p>
       <form
         onSubmit={HandleSubmitCreateSociety}
         className="create-society-form"
       >
         <div className="create-society-form-rows">
           <div className="create-society-form-rows__row1">
-            <label>Society's name</label>
+            <label>
+              Society's name<span> *</span>
+            </label>
             <input
               type="text"
               name="name"
@@ -90,7 +95,9 @@ const CreateSociety = () => {
               onChange={(e) => setName(e.target.value)}
             />
 
-            <label>Society's social reason</label>
+            <label>
+              Society's social reason<span> *</span>
+            </label>
             <select
               name="status"
               value={status}
@@ -104,7 +111,9 @@ const CreateSociety = () => {
               <option value="SA">SA</option>
             </select>
 
-            <label>Siret</label>
+            <label>
+              Siret<span> *</span>
+            </label>
             <input
               type="text"
               name="siret"
@@ -114,7 +123,9 @@ const CreateSociety = () => {
             />
             {errors && errors.siret && <span className="error-message">Siret {errors.siret}</span>}
 
-            <label>Capital</label>
+            <label>
+              Capital<span> *</span>
+            </label>
             <input
               type="text"
               name="capital"
@@ -124,7 +135,9 @@ const CreateSociety = () => {
             />
             {errors && errors.capital && <span className="error-message">Capital {errors.capital}</span>}
 
-            <label>Email</label>
+            <label>
+              Email<span> *</span>
+            </label>
             <input
               type="text"
               name="email"
@@ -136,7 +149,9 @@ const CreateSociety = () => {
           </div>
 
           <div className="create-society-form-rows__row2">
-            <label>Address</label>
+            <label>
+              Address<span> *</span>
+            </label>
             <input
               type="text"
               name="address"
@@ -146,7 +161,9 @@ const CreateSociety = () => {
             />
             {errors && errors.address && <span className="error-message">Address {errors.adress}</span>}
 
-            <label>Zip code</label>
+            <label>
+              Zip code<span> *</span>
+            </label>
             <input
               type="number"
               name="zip"
@@ -157,7 +174,9 @@ const CreateSociety = () => {
             />
             {errors && errors.zip && <span className="error-message">Zip code {errors.zip}</span>}
 
-            <label>City</label>
+            <label>
+              City<span> *</span>
+            </label>
             <input
               type="text"
               name="city"
@@ -168,7 +187,9 @@ const CreateSociety = () => {
             />
             {errors && errors.city && <span className="error-message">City {errors.city}</span>}
 
-            <label>Country</label>
+            <label>
+              Country<span> *</span>
+            </label>
             <input
               type="text"
               name="country"
