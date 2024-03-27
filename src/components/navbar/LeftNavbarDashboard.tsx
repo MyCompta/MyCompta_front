@@ -16,6 +16,7 @@ import fetcher from "../../utils/fetcher";
 import { isLoggedIn } from "../../utils/auth";
 import { useAtom, useSetAtom } from "jotai";
 import { isLoggedAtom } from "../../atom/authAtom";
+import { currentUserSocietiesAtom } from "../../atom/societyAtom";
 import { currentSocietyAtom } from "../../atom/societyAtom";
 import { IoPersonCircleSharp } from "react-icons/io5";
 
@@ -25,7 +26,8 @@ export default function LeftNavbarDashboard() {
   const setNewClientModalStatus = useSetAtom(newClientModalStatusAtom);
   const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
   const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
-  const setCurrentSociety = useSetAtom(currentSocietyAtom);
+  const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
+  const [userSocieties, setUserSocieties] = useAtom(currentUserSocietiesAtom);
 
   const id = Cookies.get("token")
     ? JSON.parse(Cookies.get("token")!).user_id
@@ -37,6 +39,7 @@ export default function LeftNavbarDashboard() {
         const response = await fetcher(`users/${id}`, undefined, "GET", true);
         if (!response.error) {
           setCurrentUserData(response);
+          setUserSocieties(response.societies);
         } else {
           console.error(response.error);
         }
@@ -46,11 +49,11 @@ export default function LeftNavbarDashboard() {
     };
 
     Cookies.get("token") && fetchData();
-  }, [id]);
+  }, [id, setUserSocieties]);
 
   useEffect(() => {
-    console.log("currentUserData", currentUserData);
-  }, [currentUserData]);
+    console.log("userSocieties", userSocieties);
+  }, [userSocieties]);
 
   const handleLogout = () => {
     Cookies.remove("token");
@@ -95,23 +98,16 @@ export default function LeftNavbarDashboard() {
             onClick={handleOpenSocietyModal}
           >
             <p>
-              {currentUserData &&
-                currentUserData.societies &&
-                (currentUserData.societies.find(
-                  (society) =>
-                    society.id === parseInt(Cookies.get("currentSociety")!)
-                )
-                  ? currentUserData.societies.find(
-                      (society) =>
-                        society.id === parseInt(Cookies.get("currentSociety")!)
+              {userSocieties &&
+                (userSocieties.find((society) => society.id === currentSociety)
+                  ? userSocieties.find(
+                      (society) => society.id === currentSociety
                     )?.name
-                  : currentUserData &&
-                    currentUserData.societies &&
-                    currentUserData.societies.length > 0
+                  : userSocieties.length > 0
                   ? (() => {
-                      console.log("society.id", currentUserData.societies[0]);
-                      const selectedSociety = currentUserData.societies[0];
+                      const selectedSociety = userSocieties[0];
                       Cookies.set("currentSociety", String(selectedSociety.id));
+                      setCurrentSociety(selectedSociety.id);
                       return selectedSociety.name;
                     })()
                   : "Select society")}
@@ -119,6 +115,7 @@ export default function LeftNavbarDashboard() {
             <CgSelect />
           </div>
         )}
+
         <div
           className={`left-navbar__item ${
             isLoggedIn() ? "" : "left-navbar__item--disabled"

@@ -2,8 +2,9 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import { useAtomValue } from "jotai";
 import { currentSocietyAtom } from "../../atom/societyAtom";
+import { currentUserSocietiesAtom } from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
-import { useSetAtom } from "jotai";
+import { useSetAtom, useAtom } from "jotai";
 import { successAtom } from "../../atom/notificationAtom";
 
 import "./society.scss";
@@ -14,6 +15,9 @@ const CreateSociety = () => {
   const user_id = JSON.parse(Cookies.get("token")!).user_id;
   const currentSociety = useAtomValue(currentSocietyAtom);
   const setSuccess = useSetAtom(successAtom);
+  const [currentUserSocieties, setCurrentUserSocieties] = useAtom(
+    currentUserSocietiesAtom
+  );
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -25,13 +29,22 @@ const CreateSociety = () => {
   const [siret, setSiret] = useState("");
   const [capital, setCapital] = useState("");
   const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({ name: "", address: "", capital: "", city: "", country: "", email: "", siret: "", zip: "", generic: "" });
-
+  const [errors, setErrors] = useState({
+    name: "",
+    address: "",
+    capital: "",
+    city: "",
+    country: "",
+    email: "",
+    siret: "",
+    zip: "",
+    generic: "",
+  });
 
   // console.log("dans le create", token)
   // console.log("user token id", user_id)
 
-  console.log("errors dans createsociety", errors)
+  console.log("errors dans createsociety", errors);
 
   const HandleSubmitCreateSociety = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,6 +77,8 @@ const CreateSociety = () => {
       if (response.ok) {
         console.log("Your society has been created");
         setSuccess("Your society has been created");
+        setCurrentUserSocieties([...currentUserSocieties, responseData]);
+        console.log("currentUserSocieties", currentUserSocieties);
         navigate(`/societies/${name}`);
       } else {
         setErrors(responseData);
@@ -128,7 +143,9 @@ const CreateSociety = () => {
               placeholder={"13 digits"}
               onChange={(e) => setSiret(e.target.value)}
             />
-            {errors && errors.siret && <span className="error-message">Siret {errors.siret}</span>}
+            {errors && errors.siret && (
+              <span className="error-message">Siret {errors.siret}</span>
+            )}
 
             <label>
               Capital<span> *</span>
@@ -140,7 +157,9 @@ const CreateSociety = () => {
               placeholder={"capital"}
               onChange={(e) => setCapital(e.target.value)}
             />
-            {errors && errors.capital && <span className="error-message">Capital {errors.capital}</span>}
+            {errors && errors.capital && (
+              <span className="error-message">Capital {errors.capital}</span>
+            )}
 
             <label>
               Email<span> *</span>
@@ -152,7 +171,9 @@ const CreateSociety = () => {
               placeholder={"your company's email"}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {errors && errors.email && <span className="error-message">Email {errors.email}</span>}
+            {errors && errors.email && (
+              <span className="error-message">Email {errors.email}</span>
+            )}
           </div>
 
           <div className="create-society-form-rows__row2">
@@ -166,7 +187,9 @@ const CreateSociety = () => {
               placeholder={"adress of your company"}
               onChange={(e) => setAddress(e.target.value)}
             />
-            {errors && errors.address && <span className="error-message">Address {errors.address}</span>}
+            {errors && errors.address && (
+              <span className="error-message">Address {errors.address}</span>
+            )}
 
             <label>
               Zip code<span> *</span>
@@ -179,7 +202,9 @@ const CreateSociety = () => {
               onChange={(e) => setZip(e.target.value)}
               className={errors && errors.name ? "error" : ""}
             />
-            {errors && errors.zip && <span className="error-message">Zip code {errors.zip}</span>}
+            {errors && errors.zip && (
+              <span className="error-message">Zip code {errors.zip}</span>
+            )}
 
             <label>
               City<span> *</span>
@@ -192,7 +217,9 @@ const CreateSociety = () => {
               onChange={(e) => setCity(e.target.value)}
               className={errors && errors.name ? "error" : ""}
             />
-            {errors && errors.city && <span className="error-message">City {errors.city}</span>}
+            {errors && errors.city && (
+              <span className="error-message">City {errors.city}</span>
+            )}
 
             <label>
               Country<span> *</span>
@@ -204,8 +231,9 @@ const CreateSociety = () => {
               placeholder={"country name"}
               onChange={(e) => setCountry(e.target.value)}
             />
-            {errors && errors.country && <span className="error-message">Country {errors.country}</span>}
-
+            {errors && errors.country && (
+              <span className="error-message">Country {errors.country}</span>
+            )}
           </div>
         </div>
         <button className="btn">Create society</button>
