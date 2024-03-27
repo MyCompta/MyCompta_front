@@ -75,9 +75,7 @@
 
 //////////////////////////////////////////createsociety
 
-
-.createsocietyinput
-{
+.createsocietyinput {
   margin-top: 2%;
 }
 
@@ -86,6 +84,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: auto;
 
   &__info {
     margin: 0 30px 20px auto;
@@ -100,12 +99,11 @@
 .create-society-form {
   display: flex;
   flex-direction: column;
-  width: 120%;
+  width: 100%;
 }
 
 .create-society-form-rows {
   display: flex;
-
 
   @include medium-screen {
     flex-direction: column;
@@ -144,7 +142,6 @@
 }
 
 .create-society-form button {
-
   margin-left: 35%;
   margin-right: 35%;
   margin-bottom: 2%;
@@ -155,7 +152,6 @@
     scale: 0.8;
   }
 }
-
 
 /////////////////////////////////////////////////////////ShowSosiety
 
@@ -218,8 +214,6 @@ h4 {
 
 /////////////////////////////////////////////////////// Edit society
 
-
-
 .display_edit_and_new_societycontainer {
   display: flex;
   flex-wrap: wrap;
@@ -278,9 +272,7 @@ h4 {
   display: inline;
 }
 
-
-.closetag
-{
+.closetag {
   position: absolute;
   top: 5%;
   right: 5%;
@@ -293,8 +285,7 @@ h4 {
   scale: 1.2;
   background-color: $second-color;
 
-    &:hover
-    {
-      border-radius: 2px;
-    }
+  &:hover {
+    border-radius: 2px;
+  }
 }
