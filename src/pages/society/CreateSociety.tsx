@@ -15,7 +15,7 @@ const CreateSociety = () => {
 
   const [name, setName] = useState("");
   const [status, setStatus] = useState("micro-entreprise");
-  const [adress, setAdress] = useState("");
+  const [address, setAddress] = useState("");
   const [zip, setZip] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
@@ -43,7 +43,7 @@ const CreateSociety = () => {
           society: {
             name: name,
             status: status,
-            adress: adress,
+            address: address,
             zip: zip,
             city: city,
             country: country,
@@ -141,9 +141,9 @@ const CreateSociety = () => {
             <input
               type="text"
               name="adress"
-              value={adress}
+              value={address}
               placeholder={"adress of your company"}
-              onChange={(e) => setAdress(e.target.value)}
+              onChange={(e) => setAddress(e.target.value)}
               className={errors && errors.name ? "error" : ""}
             />
 
