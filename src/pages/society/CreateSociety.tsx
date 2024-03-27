@@ -10,7 +10,6 @@ const CreateSociety = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   // const token = Cookies.get("token");
   const user_id = JSON.parse(Cookies.get("token")!).user_id;
-  const navigate = useNavigate();
   const currentSociety = useAtomValue(currentSocietyAtom);
 
   const [name, setName] = useState("");
