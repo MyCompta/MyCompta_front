@@ -9,6 +9,7 @@ import { clientsAtom } from "../../atom/clientsAtom";
 import { currentSocietyAtom, societiesAtom } from "../../atom/societyAtom";
 import societyAtom from "../../atom/societyAtom";
 import Switch from "react-switch";
+import { useNavigate } from "react-router-dom";
 
 export default function Invoice({
   authorProp,
@@ -21,6 +22,7 @@ export default function Invoice({
 }) {
   const setSuccess = useSetAtom(successAtom);
   const [society, setSociety] = useAtom(societyAtom);
+  const navigate = useNavigate();
   const [author, setAuthor] = useState(
     authorProp ||
       ({
@@ -283,7 +285,11 @@ export default function Invoice({
           };
         });
       }
+
+      return Promise.resolve();
     }
+
+    return Promise.reject();
   };
 
   // Auto save after 5s
@@ -600,7 +606,9 @@ export default function Invoice({
           </tfoot>
         </table>
       </div>
-      <button onClick={handleSave} disabled={!invoice.is_valid}>
+      <button
+        onClick={() => handleSave().then(() => navigate(`/invoices/${invoice.id}`))}
+        disabled={!invoice.is_valid}>
         Enregistrer la facture
       </button>
     </div>
