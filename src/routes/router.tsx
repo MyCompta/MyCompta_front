@@ -16,6 +16,7 @@ import ResetPassword from "../pages/users/ResetPassword";
 
 import CgProfile from "../pages/users/CgProfile";
 import CGU from "../pages/users/CGU";
+import Confidentiality from "../pages/users/Confidentiality"
 // import Contact from "../pages/Contact"
 
 import Dashboard from "../pages/dashboard";
@@ -42,6 +43,7 @@ export const router = createBrowserRouter(
       <Route path="/" element={<Layout />}>
         <Route index element={<Index />} />
         <Route path="/cgu" element={<CGU />} />
+        <Route path="Confidentiality" element={<Confidentiality />} />
 
         <Route path="*" element={<Page404 />} />
 

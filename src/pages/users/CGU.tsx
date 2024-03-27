@@ -4,7 +4,7 @@ const CGU = () => {
   return (
     <div className="cgupage">
       <div className="cgupagetitle">
-        <h1>This is the terms of service's page</h1>
+        <h1>Terms of service</h1>
       </div>
 
       <div className="cgucontent">
@@ -122,7 +122,7 @@ const CGU = () => {
         <br />
         10.1. If you have any questions about these Terms, please contact us at{" "}
         <a href="mailto:someone@example.com" className="mailtocgu">
-          mycompta@opmail.com
+          mycompta@yopmail.com
         </a>
         .
         <br />
