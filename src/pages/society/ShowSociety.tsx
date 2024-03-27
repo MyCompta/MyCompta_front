@@ -1,22 +1,20 @@
 import { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 
 // import fetcher from "../../utils/fetcher";
 
 import EditComponentSociety from "../../components/society/EditComponentSociety";
 import EditSociety from "./EditSociety";
 import societyAtom from "../../atom/societyAtom";
-
 import IndexInvoices from "../invoices/IndexInvoices";
-
 import PageClientIndex from "../clients/PageClientIndex";
-
 import "./society.scss";
 
 const apiUrl = import.meta.env.VITE_API_URL;
-// const token = Cookies.get("token");
+
+
 
 const ShowSociety = () => {
   const [showEditSociety, setShowEditSociety] = useState(false);
@@ -24,7 +22,9 @@ const ShowSociety = () => {
   const [, setAtomData] = useAtom(societyAtom);
   // const navigate = useNavigate();
 
-  const id = localStorage.getItem("selectedSocietyId");
+  const idsociety = useAtomValue(societyAtom)
+  const id = idsociety.id
+
 
   useEffect(() => {
     const fetchData = async () => {
