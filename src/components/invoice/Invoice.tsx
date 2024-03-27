@@ -8,6 +8,7 @@ import { successAtom } from "../../atom/notificationAtom";
 import { clientsAtom } from "../../atom/clientsAtom";
 import { currentSocietyAtom, societiesAtom } from "../../atom/societyAtom";
 import societyAtom from "../../atom/societyAtom";
+import Switch from "react-switch";
 
 export default function Invoice({
   authorProp,
@@ -237,6 +238,13 @@ export default function Invoice({
           is_valid: true,
         };
       });
+    } else {
+      setInvoice((prevInvoice) => {
+        return {
+          ...prevInvoice,
+          is_valid: false,
+        };
+      });
     }
   }, [client, author, setInvoice]);
 
@@ -281,10 +289,10 @@ export default function Invoice({
   // Auto save after 5s
   const [autoSave, setAutoSave] = useState<null | NodeJS.Timeout>(null);
   const triggerAutoSave = () => {
-    if (!invoice.is_valid) return;
     if (autoSave) {
       clearTimeout(autoSave);
     }
+    if (!invoice.is_valid) return;
 
     const timeout = setTimeout(() => {
       handleSave();
@@ -340,12 +348,13 @@ export default function Invoice({
             street: "",
             zip: "",
             city: "",
-            country: "FR",
+            country: "",
           },
           siret: undefined,
           is_pro: false,
           name: "",
           surname: "",
+          email: "",
         } as TUserInfos;
       });
       return;
@@ -464,6 +473,15 @@ export default function Invoice({
               </option>
             ))}
         </select>
+        <div>
+          Client pro ?
+          <Switch
+            checked={client.is_pro!}
+            onChange={() =>
+              setClient((prevClient) => ({ ...prevClient, is_pro: !prevClient.is_pro }))
+            }
+          />
+        </div>
         <UserInfos user={client} setUser={setClient} />
       </div>
       <div className="invoice__title">
