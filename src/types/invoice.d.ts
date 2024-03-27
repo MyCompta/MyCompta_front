@@ -63,8 +63,8 @@ type TInvoiceShowBack = {
   invoice: {
     id: number;
     content: json;
-    date: string;
-    due_date: string;
+    issued_at: string;
+    due_at: string;
     title: string;
     number: string;
     subtotal: number;

@@ -44,7 +44,10 @@ const ClientEdit = ({
   const onSubmit = async (data: FormValues) => {
     const formData = new FormData();
 
-    formData.append("client[user_id]", JSON.parse(Cookies.get("token")!).user_id);
+    formData.append(
+      "client[user_id]",
+      JSON.parse(Cookies.get("token")!).user_id
+    );
     formData.append("client[society_id]", String(1)); // !! TO CHANGE !!
     formData.append("client[business_name]", data.business_name!);
     formData.append("client[first_name]", data.first_name!);
@@ -56,7 +59,12 @@ const ClientEdit = ({
     formData.append("client[is_pro]", String(data.siret ? true : false));
 
     try {
-      const response = await fetcher(`/clients/${clientData.id}`, formData, "PUT", true);
+      const response = await fetcher(
+        `/clients/${clientData.id}`,
+        formData,
+        "PUT",
+        true
+      );
       if (!response.error) {
         console.log("Client updated successfully");
         setClientData(response);
@@ -76,81 +84,87 @@ const ClientEdit = ({
       <div className="modal-client-header">
         <h1>Edit client</h1>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="client-form">
+      <form onSubmit={handleSubmit(onSubmit)} className="client-form-container">
         <p className="client-form__info">
           <span>* </span>indicates a required field
         </p>
-        <div className="client-form__row1">
-          <label htmlFor="business_name">
-            Business Name<span> *</span>
-          </label>
-          <input
-            type="text"
-            {...register("business_name")}
-            placeholder="Business name here"
-            autoComplete="current-business-name"
-          />
+        <div className="client-form">
+          <div className="client-form__row1">
+            <label htmlFor="business_name">
+              Business Name<span> *</span>
+            </label>
+            <input
+              type="text"
+              {...register("business_name")}
+              placeholder="Business name here"
+              autoComplete="current-business-name"
+            />
 
-          <label htmlFor="siret">
-            Siret<span> *</span>
-          </label>
-          <input
-            type="number"
-            {...register("siret")}
-            placeholder="Siret here"
-            autoComplete="current-siret"
-          />
+            <label htmlFor="siret">
+              Siret<span> *</span>
+            </label>
+            <input
+              type="number"
+              {...register("siret")}
+              placeholder="Siret here"
+              autoComplete="current-siret"
+            />
 
-          <label htmlFor="first_name">First Name</label>
-          <input
-            type="text"
-            {...register("first_name")}
-            placeholder="First name here"
-            autoComplete="current-first_name"
-          />
+            <label htmlFor="first_name">First Name</label>
+            <input
+              type="text"
+              {...register("first_name")}
+              placeholder="First name here"
+              autoComplete="current-first_name"
+            />
 
-          <label htmlFor="last_name">Last Name</label>
-          <input
-            type="text"
-            {...register("last_name")}
-            placeholder="Last name here"
-            autoComplete="current-last_name"
-          />
+            <label htmlFor="last_name">Last Name</label>
+            <input
+              type="text"
+              {...register("last_name")}
+              placeholder="Last name here"
+              autoComplete="current-last_name"
+            />
+          </div>
+
+          <div className="client-form__row2">
+            <label htmlFor="address">
+              Address<span> *</span>
+            </label>
+            <input
+              type="text"
+              {...register("address")}
+              placeholder="Address here"
+              autoComplete="current-address"
+            />
+
+            <label htmlFor="zip">
+              Zip Code<span> *</span>
+            </label>
+            <input
+              type="number"
+              {...register("zip")}
+              placeholder="Zip code here"
+              autoComplete="current-zip"
+            />
+
+            <label htmlFor="city">
+              City<span> *</span>
+            </label>
+            <input
+              type="text"
+              {...register("city")}
+              placeholder="City here"
+              autoComplete="current-city"
+            />
+          </div>
         </div>
 
-        <div className="client-form__row2">
-          <label htmlFor="address">
-            Address<span> *</span>
-          </label>
-          <input
-            type="text"
-            {...register("address")}
-            placeholder="Address here"
-            autoComplete="current-address"
-          />
-
-          <label htmlFor="zip">
-            Zip Code<span> *</span>
-          </label>
-          <input
-            type="number"
-            {...register("zip")}
-            placeholder="Zip code here"
-            autoComplete="current-zip"
-          />
-
-          <label htmlFor="city">
-            City<span> *</span>
-          </label>
-          <input
-            type="text"
-            {...register("city")}
-            placeholder="City here"
-            autoComplete="current-city"
-          />
-        </div>
-
-        <input type="submit" value="Save changes" className="btn client-form__submit" />
+        <input
+          type="submit"
+          value="Save changes"
+          className="btn client-form__submit"
+        />
       </form>
     </>
   );

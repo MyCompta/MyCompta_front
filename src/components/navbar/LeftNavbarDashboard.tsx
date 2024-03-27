@@ -17,6 +17,7 @@ import { isLoggedIn } from "../../utils/auth";
 import { useAtom, useSetAtom } from "jotai";
 import { isLoggedAtom } from "../../atom/authAtom";
 import { currentSocietyAtom } from "../../atom/societyAtom";
+import { IoPersonCircleSharp } from "react-icons/io5";
 
 export default function LeftNavbarDashboard() {
   const [currentUserData, setCurrentUserData] = useState<TUserShowBack>();
@@ -74,7 +75,7 @@ export default function LeftNavbarDashboard() {
         {Cookies.get("token") && (
           <div className="left-navbar__profile-options">
             <div className="profile-icon">
-              <p>AL</p>
+              <IoPersonCircleSharp />
             </div>
             <div className="notification">
               <FaBell />

@@ -80,7 +80,7 @@ const ShowSociety = () => {
             {societyData.capital}
             <br />
             <h4>Address: </h4>
-            {societyData.adress}
+            {societyData.address}
             <br />
             <h4>Zip code: </h4>
             {societyData.zip}
@@ -105,10 +105,10 @@ const ShowSociety = () => {
           </div>
         </div>
         {showEditSociety && (
-          <div className="displayeditsocietycontainer">
+          <div className="display_edit_and_new_societycontainer">
             <EditSociety />
             <button onClick={closeEditModal} className="closetag">
-              x
+              X
             </button>
           </div>
         )}
