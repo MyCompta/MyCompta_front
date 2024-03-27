@@ -1,6 +1,8 @@
-#errorModal {
-  color: #591515;
-  background: #fc5959;
+@import "../../styles/vars.scss";
+
+#successModal {
+  color: #0a3c14;
+  background: $sucess-color;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -12,18 +14,18 @@
   overflow: hidden;
 }
 
-#errorModal::before {
+#successModal::before {
   content: "";
   width: 0%;
   height: 4px;
   top: 0;
   left: 0;
   position: absolute;
-  background-color: #ff9300;
-  animation: Errorprogress 5s 1s forwards ease-out;
+  background-color: #0a3c14;
+  animation: Successprogress 5s 1s forwards ease-out;
 }
 
-@keyframes Errorprogress {
+@keyframes Successprogress {
   from {
     width: 0%;
   }

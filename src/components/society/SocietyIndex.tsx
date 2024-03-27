@@ -6,6 +6,7 @@ import Society from "./Society";
 import { useNavigate } from "react-router-dom";
 import { useSetAtom } from "jotai";
 import { societyModalStatusAtom } from "../../atom/modalAtom";
+import { errorAtom } from "../../atom/notificationAtom";
 
 import { IoDocumentText } from "react-icons/io5";
 import { MdEditDocument } from "react-icons/md";
@@ -15,6 +16,7 @@ const SocietyIndex = () => {
   const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
   const [societiesData, setSocietiesData] = useState<TSocietyBack[]>();
   const navigate = useNavigate();
+  const setError = useSetAtom(errorAtom);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,9 +40,19 @@ const SocietyIndex = () => {
     navigate("/societies/create");
   };
 
+  const handleShowSociety = (societyId: number) => {
+    setSocietyModalStatus(false);
+    navigate(`/societies/${societyId}`);
+  };
+
+  const handleEditSociety = (societyId: number) => {
+    setSocietyModalStatus(false);
+    navigate(`/societies/${societyId}/edit`);
+  };
+
   const handleDeleteSociety = async (societyId: number) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this society?"
+      "Are you sure you want to delete this society? All associated information with this society will be erased."
     );
     if (!confirmed) return;
 
@@ -54,6 +66,8 @@ const SocietyIndex = () => {
       setSocietiesData(
         societiesData?.filter((society) => society.id !== societyId)
       );
+      console.log("Society deleted successfully");
+      setError("Society deleted successfully");
     } else {
       console.error(response.error);
     }
@@ -82,12 +96,12 @@ const SocietyIndex = () => {
                 <IoDocumentText
                   className="btn btn--no-bg btn--xs"
                   title="Details"
-                  onClick={() => navigate(`/societies/${society.name}`)}
+                  onClick={() => handleShowSociety(society.id)}
                 />
                 <MdEditDocument
                   className="btn btn--no-bg btn--xs"
                   title="Edit"
-                  onClick={() => navigate(`/societies/${society.name}/edit`)}
+                  onClick={() => handleEditSociety(society.id)}
                 />
                 <FaTrash
                   className="modal-society-item-options__trash btn btn--alert btn--xs"

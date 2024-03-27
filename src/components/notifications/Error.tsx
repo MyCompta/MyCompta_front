@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { errorAtom } from "../../atom/notificationAtom";
 import { useEffect, useState } from "react";
-import "./Error.css";
+import "./Error.scss";
 
 export default function Error() {
   const [error, setError] = useAtom(errorAtom);

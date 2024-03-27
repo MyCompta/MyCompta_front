@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { useSetAtom } from "jotai";
 import { editClientModalStatusAtom } from "../../atom/modalAtom";
 import { Dispatch, SetStateAction } from "react";
+import { successAtom } from "../../atom/notificationAtom";
 
 const ClientEdit = ({
   clientData,
@@ -14,6 +15,7 @@ const ClientEdit = ({
   setClientData: Dispatch<SetStateAction<TClientBack | undefined>>;
 }) => {
   const setEditClientModalStatus = useSetAtom(editClientModalStatusAtom);
+  const setSuccess = useSetAtom(successAtom);
   const {
     register,
     handleSubmit,
@@ -58,8 +60,9 @@ const ClientEdit = ({
     try {
       const response = await fetcher(`/clients/${clientData.id}`, formData, "PUT", true);
       if (!response.error) {
-        console.log("Client updated successfully");
         setClientData(response);
+        console.log("Client updated successfully");
+        setSuccess("Client updated successfully");
         setEditClientModalStatus(false);
       } else {
         console.error(response.error);

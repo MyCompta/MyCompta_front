@@ -7,13 +7,19 @@ import { useAtom } from "jotai";
 import { editClientModalStatusAtom } from "../../atom/modalAtom";
 import ModalClient from "../../components/clients/ModalClient";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
+import { useSetAtom } from "jotai";
+import { errorAtom } from "../../atom/notificationAtom";
 
 const PageClientShow = () => {
   const { id } = useParams();
   const [clientData, setClientData] = useState<TClientBack>();
-  const [invoiceClientData, setInvoiceClientData] = useState<TInvoiceGetBack[]>();
+  const [invoiceClientData, setInvoiceClientData] =
+    useState<TInvoiceGetBack[]>();
   const navigate = useNavigate();
-  const [editClientModalStatus, setEditClientModalStatus] = useAtom(editClientModalStatusAtom);
+  const [editClientModalStatus, setEditClientModalStatus] = useAtom(
+    editClientModalStatusAtom
+  );
+  const setError = useSetAtom(errorAtom);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,6 +51,32 @@ const PageClientShow = () => {
     navigate(`/invoices/${invoiceId}`);
   };
 
+  const handleDeleteClient = async () => {
+    // NOT WORKING NOW : PROBABLY NEED A DEPEND DESTROY ON INVOICE
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this client? All associated information with this client will be erased."
+    );
+    if (!confirmed) return;
+
+    try {
+      const response = await fetcher(
+        `clients/${id}`,
+        undefined,
+        "DELETE",
+        true
+      );
+      if (!response.error) {
+        console.log("Client deleted successfully");
+        setError("Client deleted successfully");
+        navigate("/clients");
+      } else {
+        console.error(response.error);
+      }
+    } catch (error) {
+      console.error("Error during delete property:", error);
+    }
+  };
+
   return (
     <>
       {clientData && (
@@ -65,7 +97,17 @@ const PageClientShow = () => {
             <div className="client-show-body__row1">
               <div className="client-show-body__row1-header">
                 <h2>Client details</h2>
-                <p onClick={() => setEditClientModalStatus(true)}>Edit</p>
+                <div className="client-show-body__row1-header-right-box">
+                  <p
+                    onClick={() => setEditClientModalStatus(true)}
+                    className="edit"
+                  >
+                    Edit
+                  </p>
+                  <p onClick={handleDeleteClient} className="delete">
+                    Delete
+                  </p>
+                </div>
               </div>
               <h3>Owner:</h3>
               <p>
@@ -93,7 +135,10 @@ const PageClientShow = () => {
                 <tbody>
                   {invoiceClientData ? (
                     invoiceClientData.map((invoice) => (
-                      <tr key={invoice.id} onClick={() => handleInvoiceClick(invoice.id)}>
+                      <tr
+                        key={invoice.id}
+                        onClick={() => handleInvoiceClick(invoice.id)}
+                      >
                         <td>#{invoice.id}</td>
                         <td>{formatDate2(invoice.date)}</td>
                         <td>{invoice.total}</td>
