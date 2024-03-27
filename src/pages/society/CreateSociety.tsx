@@ -89,7 +89,6 @@ const CreateSociety = () => {
               placeholder={"name of your company"}
               onChange={(e) => setName(e.target.value)}
             />
-            {errors && errors.name && <span className="error-message">Company's name {errors.name}</span>}
 
             <label>Society's social reason</label>
             <select
