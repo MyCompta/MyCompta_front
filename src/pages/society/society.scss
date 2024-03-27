@@ -79,6 +79,15 @@
   align-items: center;
   justify-content: center;
   margin: 40px 10px;
+
+  &__info {
+    margin: 0 30px 20px auto;
+    color: #aaa;
+
+    span {
+      color: $alert-color;
+    }
+  }
 }
 
 .create-society-form {
@@ -107,6 +116,10 @@
       font-size: 18px;
       font-weight: 500;
       text-align: left;
+
+      span {
+        color: $alert-color;
+      }
     }
 
     input,
