@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { successAtom } from "../../atom/notificationAtom";
 import { useEffect, useState } from "react";
-import "./Success.css";
+import "./Success.scss";
 
 export default function Error() {
   const [success, setSuccess] = useAtom(successAtom);

@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { useSetAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
 import { clientAtom } from "../../atom/clientAtom";
+import { successAtom } from "../../atom/notificationAtom";
 
 export type FormValues = {
   business_name: string;
@@ -18,6 +19,7 @@ export type FormValues = {
 const ClientNew = () => {
   const setNewClientModalStatus = useSetAtom(newClientModalStatusAtom);
   const setClientsData = useSetAtom(clientAtom);
+  const setSuccess = useSetAtom(successAtom);
   const {
     register,
     handleSubmit,
@@ -31,7 +33,7 @@ const ClientNew = () => {
       "client[user_id]",
       JSON.parse(Cookies.get("token")!).user_id
     );
-    formData.append("client[society_id]", String(1)); // !! TO CHANGE !!
+    formData.append("client[society_id]", Cookies.get("currentSociety")!);
     formData.append("client[business_name]", data.business_name);
     formData.append("client[first_name]", data.first_name);
     formData.append("client[last_name]", data.last_name);
@@ -42,11 +44,12 @@ const ClientNew = () => {
     formData.append("client[is_pro]", data.siret ? "true" : "false");
 
     try {
-      const response = await fetcher("/clients", formData, "POST", true);
+      const response = await fetcher("clients", formData, "POST", true);
       if (!response.error) {
         console.log("response : ", response);
-        console.log("Client created successfully");
         setClientsData((prevClients) => [...prevClients, response]);
+        console.log("Client created successfully");
+        setSuccess("Client created successfully");
         setNewClientModalStatus(false);
       } else {
         console.error(response.error);
