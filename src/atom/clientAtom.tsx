@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 
-export const clientsAtom = atom([
+export const clientAtom = atom([
   {
     id: 0,
     business_name: "",

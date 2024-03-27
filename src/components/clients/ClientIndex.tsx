@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import "./ClientIndex.scss";
 import { useAtom } from "jotai";
 import { currentSocietyAtom } from "../../atom/societyAtom";
-import { clientsAtom } from "../../atom/clientAtom";
+import { clientAtom } from "../../atom/clientAtom";
 
 const ClientIndex = () => {
-  const [clientsData, setClientsData] = useAtom(clientsAtom);
+  const [clientsData, setClientsData] = useAtom(clientAtom);
   const navigate = useNavigate();
   const [currentSociety] = useAtom(currentSocietyAtom);
 
