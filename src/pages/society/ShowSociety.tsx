@@ -80,7 +80,7 @@ const ShowSociety = () => {
             {societyData.capital}
             <br />
             <h4>Address: </h4>
-            {societyData.adress}
+            {societyData.address}
             <br />
             <h4>Zip code: </h4>
             {societyData.zip}
