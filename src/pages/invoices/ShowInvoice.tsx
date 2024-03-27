@@ -110,6 +110,27 @@ const ShowInvoice = () => {
   return (
     <>
       <h1>Invoice {invoiceData?.number}</h1>
+      <Link to="/invoices">&#8592; Back to invoices list</Link>
+      <div
+        style={{
+          display: "flex",
+          gap: 10,
+          justifyContent: "space-around",
+          marginTop: 20,
+          marginBottom: 10,
+          alignItems: "center",
+        }}>
+        <Link to={`/invoices/${id}/edit`} className="btn">
+          Edit
+        </Link>
+        <button
+          className="btn btn-red"
+          onClick={() => {
+            window.confirm("Are you sure to delete this invoice?") && onClick();
+          }}>
+          Delete
+        </button>
+      </div>
       {invoiceData && (
         <>
           <div>
@@ -134,9 +155,6 @@ const ShowInvoice = () => {
           </div>
         </>
       )}
-      <Link to="/invoices">Back to invoices list</Link>
-      <Link to={`/invoices/${id}/edit`}>Edit</Link>
-      <button onClick={onClick}>Delete</button>
     </>
   );
 };

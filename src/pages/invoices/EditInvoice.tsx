@@ -8,7 +8,7 @@ const EditInvoice = () => {
   const { id } = useParams();
   const [invoiceData, setInvoiceData] = useState<TInvoice>();
   const [author, setAuthor] = useState<TUserInfos>();
-  // const [client, setClient] = useState<TUserInfos>();
+  const [client, setClient] = useState<TUserInfos>();
 
   useEffect(() => {
     const fetchInvoice = async () => {
@@ -19,7 +19,7 @@ const EditInvoice = () => {
           const invoice = invoiceDataFormatterReceive(response);
           setInvoiceData(invoice);
           setAuthor(invoice.author);
-          // setClient(invoice.client);
+          setClient(invoice.client);
         } else {
           console.error(response.error);
         }
@@ -35,8 +35,10 @@ const EditInvoice = () => {
       <h1>EditInvoice</h1>
       <Link to={`/invoices/${id}`}>Back to invoice #{id}</Link>
       {!invoiceData && <p>Loading...</p>}
-      {invoiceData && author && <Invoice invoiceProp={invoiceData} authorProp={author} />}
-      {/* {invoiceData && author && client && <Invoice invoiceProp={invoiceData} authorProp={author} clientProp={client} />} */}
+      {/* {invoiceData && author && <Invoice invoiceProp={invoiceData} authorProp={author} />} */}
+      {invoiceData && author && client && (
+        <Invoice invoiceProp={invoiceData} authorProp={author} clientProp={client} />
+      )}
     </>
   );
 };

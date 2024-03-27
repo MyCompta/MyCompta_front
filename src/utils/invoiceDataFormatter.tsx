@@ -79,7 +79,9 @@ const invoiceDataFormatterReceive = (invoice: TInvoiceShowBack) => {
       street: author.address,
       city: author.city,
       zip: author.zip.toString(),
+      country: author.country,
     },
+    siret: author.siret,
   } as TUserInfos;
 
   const client = invoice.client;
@@ -93,6 +95,7 @@ const invoiceDataFormatterReceive = (invoice: TInvoiceShowBack) => {
       street: client.address,
       city: client.city,
       zip: client.zip.toString(),
+      country: client.country,
     },
   } as TUserInfos;
 
