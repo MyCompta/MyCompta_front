@@ -85,17 +85,6 @@
 
 //////////////////////////////////////////createsociety
 
-.createsocietyform
-{
-  display: flex;
-  position: relative;
-  right: 0;
-  justify-content: center;
-  text-align: center;
-  line-height: 2.5rem;
-  background-color: white;
-}
-
 .createsocietyinput
 {
   margin-top: 2%;
@@ -111,20 +100,6 @@
   border-radius: 5px;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
-}
-
-
-@media only screen and (max-width: 1300px)
-{
-  .createsocietyform
-  {
-    scale: 0.8;
-  }
-
-  .companylist
-  {
-    scale: 0.8;
-  }
 }
 
 /////////////////////////////////////////////////////////ShowSosiety
@@ -199,13 +174,13 @@ h4
 /////////////////////////////////////////////////////// Edit society
 
 
-.displayeditsocietycontainer {
+.display_edit_and_new_societycontainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  margin-top: -6%;
-  width: 80%;
+  position: absolute;
+  top: 10%;
+  width: 60%;
   height: 80%;
   background-color: $bg-color;
   text-align: center;
@@ -264,15 +239,20 @@ h4 {
 
 .closetag
 {
-  position: relative;
-  top: -46%;
-  left: 23%;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  display: flex;
+  align-items: center;
+  color: white;
+  border: none;
+  padding: 5px;
   border-radius: 10px;
-  padding-bottom: 2px;
   scale: 1.2;
+  background-color: $second-color;
 
     &:hover
     {
-      border-radius: 5px;
+      border-radius: 2px;
     }
 }

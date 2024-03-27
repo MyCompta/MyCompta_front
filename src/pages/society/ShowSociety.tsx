@@ -105,10 +105,10 @@ const ShowSociety = () => {
           </div>
         </div>
         {showEditSociety && (
-          <div className="displayeditsocietycontainer">
+          <div className="display_edit_and_new_societycontainer">
             <EditSociety />
             <button onClick={closeEditModal} className="closetag">
-              x
+              X
             </button>
           </div>
         )}

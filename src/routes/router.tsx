@@ -18,6 +18,8 @@ import CgProfile from "../pages/users/CgProfile";
 import CGU from "../pages/users/CGU";
 // import Contact from "../pages/Contact"
 
+import Dashboard from "../pages/dashboard";
+
 import IndexInvoices from "../pages/invoices/IndexInvoices";
 import ShowInvoice from "../pages/invoices/ShowInvoice";
 import EditInvoice from "../pages/invoices/EditInvoice";
@@ -52,7 +54,7 @@ export const router = createBrowserRouter(
 
         {/* Protected Routes */}
         <Route element={<LoggedRoute redirectPath="/login" />}>
-          <Route path="/dashboard" element={<ShowSociety />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<CgProfile />} />
 
           <Route path="/invoices" element={<IndexInvoices />} />

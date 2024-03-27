@@ -58,7 +58,7 @@ const CreateSociety = () => {
       const responseData = await response.json();
 
       if (response.ok) {
-        navigate(`/profile`);
+        window.location.reload();
       } else {
         setErrors(responseData);
       }

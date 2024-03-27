@@ -10,9 +10,6 @@ import "./users.scss";
 const CgProfile = () => {
   const [userData, setUserData] = useState<TUserShowBack>();
   const navigate = useNavigate();
-  const apiUrl = import.meta.env.VITE_API_URL;
-  const token = Cookies.get("token");
-  const id = token ? JSON.parse(token).user_id : null;
 
   const apiUrl = import.meta.env.VITE_API_URL;
   const token = Cookies.get("token");
@@ -44,7 +41,7 @@ const CgProfile = () => {
     fetchData();
   }, [apiUrl, id]);
 
-  console.log("user data dans cgprofile",userData)
+  // console.log("user data dans cgprofile",userData)
 
   const onClickDelete = async () => {
     const confirmDelete = window.confirm(
@@ -76,7 +73,7 @@ const CgProfile = () => {
 
   return (
     <div>
-      <h1> Ceci est la page profile user</h1>
+      <h1> Your user's profile</h1>
 
       {userData && (
         <div className="profileuser">
