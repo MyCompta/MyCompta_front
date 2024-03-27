@@ -7,14 +7,14 @@
   justify-content: center;
   text-align: center;
   line-height: 3.5rem;
-  margin-bottom: 40px;
+  height: calc(100% - 50px);
 }
 
 ////////////////////////////////////////////////////////////////////
 
 .loginpage {
   display: flex;
-  height: 90%;
+  height: calc(100% - 50px);
   flex-direction: column;
   align-items: center;
   justify-content: center;

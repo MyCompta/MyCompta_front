@@ -57,103 +57,106 @@ const ClientNew = () => {
       <div className="modal-client-header">
         <h1>New client</h1>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="client-form">
+      <form onSubmit={handleSubmit(onSubmit)} className="client-form-container">
         <p className="client-form__info">
           <span>* </span>indicates a required field
         </p>
-        <div className="client-form__row1">
-          <label htmlFor="business_name">
-            Business Name<span> *</span>
-          </label>
-          <input
-            type="text"
-            {...register("business_name", {
-              required: true,
-            })}
-            placeholder="Business name here"
-            autoComplete="current-business-name"
-          />
-          {errors.business_name && errors.business_name.type === "required" && (
-            <p>Business name can not be empty</p>
-          )}
+        <div className="client-form">
+          <div className="client-form__row1">
+            <label htmlFor="business_name">
+              Business Name<span> *</span>
+            </label>
+            <input
+              type="text"
+              {...register("business_name", {
+                required: true,
+              })}
+              placeholder="Business name here"
+              autoComplete="current-business-name"
+            />
+            {errors.business_name &&
+              errors.business_name.type === "required" && (
+                <p>Business name can not be empty</p>
+              )}
 
-          <label htmlFor="siret">
-            Siret<span> *</span>
-          </label>
-          <input
-            type="number"
-            {...register("siret", {
-              required: true,
-            })}
-            placeholder="Siret here"
-            autoComplete="current-siret"
-          />
-          {errors.siret && errors.siret.type === "required" && (
-            <p>Siret can not be empty</p>
-          )}
+            <label htmlFor="siret">
+              Siret<span> *</span>
+            </label>
+            <input
+              type="number"
+              {...register("siret", {
+                required: true,
+              })}
+              placeholder="Siret here"
+              autoComplete="current-siret"
+            />
+            {errors.siret && errors.siret.type === "required" && (
+              <p>Siret can not be empty</p>
+            )}
 
-          <label htmlFor="first_name">First Name</label>
-          <input
-            type="text"
-            {...register("first_name")}
-            placeholder="First name here"
-            autoComplete="current-first_name"
-          />
+            <label htmlFor="first_name">First Name</label>
+            <input
+              type="text"
+              {...register("first_name")}
+              placeholder="First name here"
+              autoComplete="current-first_name"
+            />
 
-          <label htmlFor="last_name">Last Name</label>
-          <input
-            type="text"
-            {...register("last_name")}
-            placeholder="Last name here"
-            autoComplete="current-last_name"
-          />
-        </div>
+            <label htmlFor="last_name">Last Name</label>
+            <input
+              type="text"
+              {...register("last_name")}
+              placeholder="Last name here"
+              autoComplete="current-last_name"
+            />
+          </div>
 
-        <div className="client-form__row2">
-          <label htmlFor="address">
-            Address<span> *</span>
-          </label>
-          <input
-            type="text"
-            {...register("address", {
-              required: true,
-            })}
-            placeholder="Address here"
-            autoComplete="current-address"
-          />
-          {errors.address && errors.address.type === "required" && (
-            <p>Address can not be empty</p>
-          )}
+          <div className="client-form__row2">
+            <label htmlFor="address">
+              Address<span> *</span>
+            </label>
+            <input
+              type="text"
+              {...register("address", {
+                required: true,
+              })}
+              placeholder="Address here"
+              autoComplete="current-address"
+            />
+            {errors.address && errors.address.type === "required" && (
+              <p>Address can not be empty</p>
+            )}
 
-          <label htmlFor="zip">
-            Zip Code<span> *</span>
-          </label>
-          <input
-            type="number"
-            {...register("zip", {
-              required: true,
-            })}
-            placeholder="Zip code here"
-            autoComplete="current-zip"
-          />
-          {errors.zip && errors.zip.type === "required" && (
-            <p>Zip code can not be empty</p>
-          )}
+            <label htmlFor="zip">
+              Zip Code<span> *</span>
+            </label>
+            <input
+              type="number"
+              {...register("zip", {
+                required: true,
+              })}
+              placeholder="Zip code here"
+              autoComplete="current-zip"
+            />
+            {errors.zip && errors.zip.type === "required" && (
+              <p>Zip code can not be empty</p>
+            )}
 
-          <label htmlFor="city">
-            City<span> *</span>
-          </label>
-          <input
-            type="text"
-            {...register("city", {
-              required: true,
-            })}
-            placeholder="City here"
-            autoComplete="current-city"
-          />
-          {errors.city && errors.city.type === "required" && (
-            <p>City can not be empty</p>
-          )}
+            <label htmlFor="city">
+              City<span> *</span>
+            </label>
+            <input
+              type="text"
+              {...register("city", {
+                required: true,
+              })}
+              placeholder="City here"
+              autoComplete="current-city"
+            />
+            {errors.city && errors.city.type === "required" && (
+              <p>City can not be empty</p>
+            )}
+          </div>
         </div>
 
         <input

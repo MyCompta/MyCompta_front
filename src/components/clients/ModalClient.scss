@@ -6,6 +6,11 @@
   border-bottom: 1px solid #e5e5e5;
 }
 
+.client-form-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .client-form {
   padding: 10px 0;
   display: flex;
@@ -40,6 +45,7 @@
 
     label {
       font-weight: 600;
+      margin-top: 14px;
 
       span {
         color: $alert-color;
@@ -48,10 +54,15 @@
 
     input {
       margin-top: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 6px;
       padding: 10px;
       border-radius: 5px;
       border: 1px solid #e5e5e5;
+    }
+
+    p {
+      color: $alert-color;
+      margin: 0 0 14px;
     }
   }
 
@@ -68,6 +79,7 @@
 
     label {
       font-weight: 600;
+      margin-top: 14px;
 
       span {
         color: $alert-color;
@@ -76,22 +88,25 @@
 
     input {
       margin-top: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 6px;
       padding: 10px;
       border-radius: 5px;
       border: 1px solid #e5e5e5;
     }
+
+    p {
+      color: $alert-color;
+      margin: 0 0 14px;
+    }
   }
 
   &__submit {
-    position: absolute;
-    bottom: -38px;
-    right: 30px;
+    width: 140px;
+    margin: -82px 32px 40px auto !important;
 
     @include medium-screen {
-      width: 100% !important;
-      margin: -30px 30px 100px !important;
-      position: relative;
+      margin: 0 auto 40px !important;
+      width: 400px;
     }
   }
 }
