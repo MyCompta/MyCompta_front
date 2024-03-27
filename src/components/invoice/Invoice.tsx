@@ -328,13 +328,13 @@ export default function Invoice({
     }
   }, [clients.length, currentSociety, setClients]);
 
-  useEffect(() => {
-    console.log("clients", clients);
-  }, [clients]);
+  // useEffect(() => {
+  //   console.log("clients", clients);
+  // }, [clients]);
 
-  useEffect(() => {
-    console.log("client", client);
-  }, [client]);
+  // useEffect(() => {
+  //   console.log("client", client);
+  // }, [client]);
 
   const handleClientSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const clientId = event.target.value;
