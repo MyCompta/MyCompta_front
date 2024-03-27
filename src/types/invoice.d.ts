@@ -34,6 +34,7 @@ type TInvoice = {
   is_paid?: boolean;
   status?: string;
   additionalInfo?: string;
+  is_valid?: boolean;
 };
 
 type TItem = {
