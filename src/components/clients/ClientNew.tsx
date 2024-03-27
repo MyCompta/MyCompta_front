@@ -3,6 +3,7 @@ import fetcher from "../../utils/fetcher";
 import Cookies from "js-cookie";
 import { useSetAtom } from "jotai";
 import { newClientModalStatusAtom } from "../../atom/modalAtom";
+import { clientAtom } from "../../atom/clientAtom";
 
 export type FormValues = {
   business_name: string;
@@ -16,6 +17,7 @@ export type FormValues = {
 
 const ClientNew = () => {
   const setNewClientModalStatus = useSetAtom(newClientModalStatusAtom);
+  const setClientsData = useSetAtom(clientAtom);
   const {
     register,
     handleSubmit,
@@ -42,7 +44,9 @@ const ClientNew = () => {
     try {
       const response = await fetcher("/clients", formData, "POST", true);
       if (!response.error) {
+        console.log("response : ", response);
         console.log("Client created successfully");
+        setClientsData((prevClients) => [...prevClients, response]);
         setNewClientModalStatus(false);
       } else {
         console.error(response.error);
