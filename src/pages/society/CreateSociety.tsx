@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 import { useAtomValue } from "jotai";
 import { currentSocietyAtom } from "../../atom/societyAtom";
 
@@ -139,7 +138,7 @@ const CreateSociety = () => {
             <label>Address</label>
             <input
               type="text"
-              name="adress"
+              name="address"
               value={address}
               placeholder={"adress of your company"}
               onChange={(e) => setAddress(e.target.value)}

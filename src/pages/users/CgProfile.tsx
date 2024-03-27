@@ -9,6 +9,9 @@ import "./users.scss";
 const CgProfile = () => {
   const [userData, setUserData] = useState<TUserShowBack>();
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const token = Cookies.get("token");
+  const id = token ? JSON.parse(token).user_id : null;
 
   useEffect(() => {
     const fetchData = async () => {
