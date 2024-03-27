@@ -12,6 +12,7 @@ import { useAtomValue } from "jotai";
 import { useSetAtom } from "jotai";
 import { isLoggedAtom } from "../../atom/authAtom";
 import { currentSocietyAtom } from "../../atom/societyAtom";
+import { IoPersonCircleSharp } from "react-icons/io5";
 
 const TopNavbarDashboard = ({
   onToggle,
@@ -70,7 +71,7 @@ const TopNavbarDashboard = ({
               <FaBell />
             </div>
             <div className="right-box__profile" onClick={handleProfileClick}>
-              <p>AL</p>
+              <IoPersonCircleSharp />
             </div>
           </div>
         ) : (

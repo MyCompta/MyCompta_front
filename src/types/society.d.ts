@@ -1,6 +1,6 @@
 type TSocietyBack = {
   id: number;
-  adress: string;
+  address: string;
   city: string;
   zip: number;
   country: string;
