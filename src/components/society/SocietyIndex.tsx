@@ -106,7 +106,9 @@ const SocietyIndex = () => {
             </div>
           ))}
         {societiesData && societiesData.length === 0 && (
-          <div className="modal-society-body__item">No society yet</div>
+          <div className="modal-society-body__item modal-society-body__item--empty">
+            No society yet
+          </div>
         )}
       </div>
     </>
