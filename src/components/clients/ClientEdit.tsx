@@ -27,7 +27,7 @@ const ClientEdit = ({
     setValue("business_name", clientData.business_name!);
     setValue("first_name", clientData.first_name!);
     setValue("last_name", clientData.last_name!);
-    setValue("siret", clientData.siret!);
+    setValue("siret", clientData.siret!.toString());
     setValue("address", clientData.address);
     setValue("zip", clientData.zip);
     setValue("city", clientData.city);
@@ -46,10 +46,7 @@ const ClientEdit = ({
   const onSubmit = async (data: FormValues) => {
     const formData = new FormData();
 
-    formData.append(
-      "client[user_id]",
-      JSON.parse(Cookies.get("token")!).user_id
-    );
+    formData.append("client[user_id]", JSON.parse(Cookies.get("token")!).user_id);
     formData.append("client[society_id]", String(1)); // !! TO CHANGE !!
     formData.append("client[business_name]", data.business_name!);
     formData.append("client[first_name]", data.first_name!);
@@ -61,12 +58,7 @@ const ClientEdit = ({
     formData.append("client[is_pro]", String(data.siret ? true : false));
 
     try {
-      const response = await fetcher(
-        `/clients/${clientData.id}`,
-        formData,
-        "PUT",
-        true
-      );
+      const response = await fetcher(`/clients/${clientData.id}`, formData, "PUT", true);
       if (!response.error) {
         setClientData(response);
         console.log("Client updated successfully");
@@ -163,11 +155,7 @@ const ClientEdit = ({
           </div>
         </div>
 
-        <input
-          type="submit"
-          value="Save changes"
-          className="btn client-form__submit"
-        />
+        <input type="submit" value="Save changes" className="btn client-form__submit" />
       </form>
     </>
   );

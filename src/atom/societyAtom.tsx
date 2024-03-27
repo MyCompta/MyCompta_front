@@ -20,4 +20,6 @@ const societyAtom = atom({
   email: "",
 });
 
+export const societiesAtom = atom<TSocietyBack[]>([]);
+
 export default societyAtom;

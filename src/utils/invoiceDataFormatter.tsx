@@ -47,6 +47,8 @@ const invoiceDataFormatterSend = (invoice: TInvoice) => {
     formData.append("invoice[client_infos][address]", invoice.client.address.street);
     formData.append("invoice[client_infos][city]", invoice.client.address.city);
     formData.append("invoice[client_infos][zip]", invoice.client.address.zip);
+    formData.append("invoice[client_infos][country]", invoice.client.address.country);
+    formData.append("invoice[client_infos][email]", invoice.client.email || "");
   }
 
   if (invoice.author.id && invoice.author.modified) {
@@ -77,7 +79,9 @@ const invoiceDataFormatterReceive = (invoice: TInvoiceShowBack) => {
       street: author.address,
       city: author.city,
       zip: author.zip.toString(),
+      country: author.country,
     },
+    siret: author.siret,
   } as TUserInfos;
 
   const client = invoice.client;
@@ -91,6 +95,7 @@ const invoiceDataFormatterReceive = (invoice: TInvoiceShowBack) => {
       street: client.address,
       city: client.city,
       zip: client.zip.toString(),
+      country: client.country,
     },
   } as TUserInfos;
 

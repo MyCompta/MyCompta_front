@@ -25,12 +25,13 @@ const CreateSociety = () => {
   const [siret, setSiret] = useState("");
   const [capital, setCapital] = useState("");
   const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({ name: "", generic: "" });
+  const [errors, setErrors] = useState({ name: "", address: "", capital: "", city: "", country: "", email: "", siret: "", zip: "", generic: "" });
 
-  // const [creationSuccess, setCreationSuccess] = useState(false);
 
   // console.log("dans le create", token)
   // console.log("user token id", user_id)
+
+  console.log("errors dans createsociety", errors)
 
   const HandleSubmitCreateSociety = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,7 +100,6 @@ const CreateSociety = () => {
               value={name}
               placeholder={"name of your company"}
               onChange={(e) => setName(e.target.value)}
-              className={errors && errors.name ? "error" : ""}
             />
 
             <label>
@@ -127,8 +127,8 @@ const CreateSociety = () => {
               value={siret}
               placeholder={"13 digits"}
               onChange={(e) => setSiret(e.target.value)}
-              className={errors && errors.name ? "error" : ""}
             />
+            {errors && errors.siret && <span className="error-message">Siret {errors.siret}</span>}
 
             <label>
               Capital<span> *</span>
@@ -139,8 +139,8 @@ const CreateSociety = () => {
               value={capital}
               placeholder={"capital"}
               onChange={(e) => setCapital(e.target.value)}
-              className={errors && errors.name ? "error" : ""}
             />
+            {errors && errors.capital && <span className="error-message">Capital {errors.capital}</span>}
 
             <label>
               Email<span> *</span>
@@ -151,9 +151,10 @@ const CreateSociety = () => {
               value={email}
               placeholder={"your company's email"}
               onChange={(e) => setEmail(e.target.value)}
-              className={errors && errors.name ? "error" : ""}
             />
+            {errors && errors.email && <span className="error-message">Email {errors.email}</span>}
           </div>
+
           <div className="create-society-form-rows__row2">
             <label>
               Address<span> *</span>
@@ -164,8 +165,8 @@ const CreateSociety = () => {
               value={address}
               placeholder={"adress of your company"}
               onChange={(e) => setAddress(e.target.value)}
-              className={errors && errors.name ? "error" : ""}
             />
+            {errors && errors.address && <span className="error-message">Address {errors.address}</span>}
 
             <label>
               Zip code<span> *</span>
@@ -178,6 +179,7 @@ const CreateSociety = () => {
               onChange={(e) => setZip(e.target.value)}
               className={errors && errors.name ? "error" : ""}
             />
+            {errors && errors.zip && <span className="error-message">Zip code {errors.zip}</span>}
 
             <label>
               City<span> *</span>
@@ -190,6 +192,7 @@ const CreateSociety = () => {
               onChange={(e) => setCity(e.target.value)}
               className={errors && errors.name ? "error" : ""}
             />
+            {errors && errors.city && <span className="error-message">City {errors.city}</span>}
 
             <label>
               Country<span> *</span>
@@ -200,8 +203,9 @@ const CreateSociety = () => {
               value={country}
               placeholder={"country name"}
               onChange={(e) => setCountry(e.target.value)}
-              className={errors && errors.name ? "error" : ""}
             />
+            {errors && errors.country && <span className="error-message">Country {errors.country}</span>}
+
           </div>
         </div>
         <button className="btn">Create society</button>
