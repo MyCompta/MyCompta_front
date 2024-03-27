@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import fetcher from "../../utils/fetcher";
 import { useNavigate } from "react-router-dom";
 import "./ClientIndex.scss";
 import { useAtom } from "jotai";
 import { currentSocietyAtom } from "../../atom/societyAtom";
+import { clientAtom } from "../../atom/clientAtom";
 
 const ClientIndex = () => {
-  const [clientsData, setClientsData] = useState([]);
+  const [clientsData, setClientsData] = useAtom(clientAtom);
   const navigate = useNavigate();
   const [currentSociety] = useAtom(currentSocietyAtom);
 
@@ -30,7 +31,7 @@ const ClientIndex = () => {
     };
 
     fetchData();
-  }, [currentSociety]);
+  }, [currentSociety, setClientsData]);
 
   const handleClientClick = (clientId: number) => {
     navigate(`/clients/${clientId}`);
@@ -53,7 +54,7 @@ const ClientIndex = () => {
           clientsData.map((client: TClient) => (
             <tr key={client.id}>
               <td
-                onClick={() => handleClientClick(client.id!)}
+                onClick={() => client.id && handleClientClick(client.id)}
                 className="client-table__business-name"
               >
                 {client.business_name}
@@ -72,21 +73,6 @@ const ClientIndex = () => {
             </td>
           </tr>
         )}
-        {clientsData.map((client: TClient) => (
-          <tr key={client.id}>
-            <td
-              onClick={() => handleClientClick(client.id!)}
-              className="client-table__business-name"
-            >
-              {client.business_name}
-            </td>
-            <td>_</td>
-            <td>_</td>
-            <td>_</td>
-            <td>_</td>
-            <td>_</td>
-          </tr>
-        ))}
       </tbody>
     </table>
   );
