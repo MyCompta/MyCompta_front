@@ -64,3 +64,48 @@
     }
   }
 }
+
+///////////////////////////Dashboard
+
+.dashboard_page h1
+{
+  font-weight: 900;
+  color: $second-color;
+}
+.chartcontainer
+{
+  margin: 2%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.barchart_on_dashboard
+{
+  box-shadow: 0px 0px 10px 5px $second-color;
+  width: 60%;
+  margin: 2%;
+}
+
+.doughnuts_on_dashboard
+{
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 10px 5px $second-color;
+  margin: 2%;
+}
+
+.linecharts_on_dashboard
+{
+  box-shadow: 0px 0px 10px 5px $second-color;
+  width: 60%;
+  margin: 2%;
+}
+
+.piecharts_on_dashboard
+{
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 10px 5px $second-color;
+  margin: 2%;
+}

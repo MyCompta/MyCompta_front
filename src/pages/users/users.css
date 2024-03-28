@@ -1,28 +1,16 @@
 .registerpage {
   display: flex;
-  height: 90%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   line-height: 3.5rem;
-}
-
-.registerbutton {
-  background-color: #3398bd;
-  border: 1px solid #3398bd;
-  color: white;
-  font-size: 14px;
-  padding: 8px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 4rem;
-  font-family: "Montserrat", sans-serif;
+  height: calc(100% - 50px);
 }
 
 .loginpage {
   display: flex;
-  height: 90%;
+  height: calc(100% - 50px);
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -50,7 +38,7 @@
 .cgupagetitle {
   max-height: 15rem;
   position: sticky;
-  top: 15rem;
+  top: 5rem;
 }
 
 .cgucontent {
@@ -87,4 +75,17 @@
   cursor: pointer;
   margin-top: 4rem;
   font-family: "Montserrat", sans-serif;
+}
+
+.form-form-link {
+  line-height: 45px;
+}
+
+.form-form-cgu__link {
+  color: #3398bd;
+}
+
+#cgu3 {
+  margin-top: -29px;
+  margin-left: -40px;
 }/*# sourceMappingURL=users.css.map */

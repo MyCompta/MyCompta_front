@@ -5,4 +5,9 @@
 }
 .client-table__business-name:hover {
   color: #3398bd;
+}
+.client-table__empty {
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
 }/*# sourceMappingURL=ClientIndex.css.map */
