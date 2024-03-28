@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSetAtom, useAtomValue } from "jotai";
 import { successAtom } from "../../atom/notificationAtom";
 
-import societyAtom from "../../atom/societyAtom";
+import { societyAtom } from "../../atom/societyAtom";
 import "./society.scss";
 
 const CreateSociety = () => {

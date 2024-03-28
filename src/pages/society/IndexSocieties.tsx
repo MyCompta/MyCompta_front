@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useSetAtom } from "jotai";
 
-import type { TSocietyBack } from "../../types/society";
+
 
 import NewSociety from "../../components/society/NewSociety";
 import CreateSociety from "./CreateSociety";

@@ -7,7 +7,7 @@ export const currentSocietyAtom = atom(
     : null
 );
 
-const societyAtom = atom({
+export const societyAtom = atom<TSocietyBack>({
   id: "",
   name: "",
   address: "",

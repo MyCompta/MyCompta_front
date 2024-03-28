@@ -1,12 +1,16 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { useSetAtom, useAtomValue } from "jotai";
-import societyAtom from "../../atom/societyAtom";
+import { societyAtom } from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
 
 import "./society.scss";
 
-const EditSociety = ({ closeEditModal }) => {
+interface EditSocietyProps {
+  closeEditModal: () => void;
+}
+
+const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
   const apiUrl = import.meta.env.VITE_API_URL;
   // const token = Cookies.get("token");
   const user_id = JSON.parse(Cookies.get("token")!).user_id;
@@ -69,7 +73,7 @@ const EditSociety = ({ closeEditModal }) => {
     }
   };
 
-  const onClick = async (e) => {
+  const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
     try {
@@ -134,8 +138,8 @@ const EditSociety = ({ closeEditModal }) => {
             type="number"
             name="zip"
             value={zip}
-            placeholder={societyAtomValue.zip}
-            onChange={(e) => setZip(e.target.value)}
+            placeholder={String(societyAtomValue.zip)}
+            onChange={(e) => setZip(parseInt(e.target.value))}
           />&nbsp;&nbsp;&nbsp;
         {errors && errors.zip && <span className="error-message">Zip code {errors.zip}</span>}
 
@@ -167,8 +171,8 @@ const EditSociety = ({ closeEditModal }) => {
             type="text"
             name="capital"
             value={capital}
-            placeholder={societyAtomValue.capital}
-            onChange={(e) => setCapital(e.target.value)}
+            placeholder={String(societyAtomValue.capital)}
+            onChange={(e) => setCapital(parseInt(e.target.value))}
           />&nbsp;&nbsp;&nbsp;
         {errors && errors.capital && <span className="error-message">Capital {errors.capital}</span>}
 

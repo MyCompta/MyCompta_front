@@ -7,7 +7,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 
 import EditComponentSociety from "../../components/society/EditComponentSociety";
 import EditSociety from "./EditSociety";
-import societyAtom from "../../atom/societyAtom";
+import { societyAtom } from "../../atom/societyAtom";
 import IndexInvoices from "../invoices/IndexInvoices";
 import PageClientIndex from "../clients/PageClientIndex";
 import "./society.scss";
@@ -26,9 +26,9 @@ const ShowSociety = () => {
   let id = idsociety.id
 
   if (!id) {
-    id = localStorage.getItem('societyId');
+    id = parseInt(localStorage.getItem('societyId')!);
   } else {
-    localStorage.setItem('societyId', id);
+    localStorage.setItem('societyId', id.toString());
   }
   
 
