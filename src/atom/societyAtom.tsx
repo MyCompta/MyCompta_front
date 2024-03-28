@@ -18,6 +18,7 @@ const societyAtom = atom({
   status: "",
   capital: "",
   email: "",
+  user_id: '',
 });
 
 export const societiesAtom = atom<TSocietyBack[]>([]);

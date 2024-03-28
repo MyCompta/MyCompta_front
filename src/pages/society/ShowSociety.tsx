@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 // import fetcher from "../../utils/fetcher";
 
@@ -19,11 +19,18 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const ShowSociety = () => {
   const [showEditSociety, setShowEditSociety] = useState(false);
   const [societyData, setSocietyData] = useState<TSocietyBack>();
-  const [, setAtomData] = useAtom(societyAtom);
+  const setSocietyAtom = useSetAtom(societyAtom);
   // const navigate = useNavigate();
 
   const idsociety = useAtomValue(societyAtom)
-  const id = idsociety.id
+  let id = idsociety.id
+
+  if (!id) {
+    id = localStorage.getItem('societyId');
+  } else {
+    localStorage.setItem('societyId', id);
+  }
+  
 
 
   useEffect(() => {
@@ -39,7 +46,7 @@ const ShowSociety = () => {
         if (response.ok) {
           const data = await response.json();
           setSocietyData(data);
-          setAtomData(data);
+          setSocietyAtom(data);
         } else {
           const error = await response.json();
           console.error(error);
@@ -50,7 +57,8 @@ const ShowSociety = () => {
     };
 
     fetchData();
-  }, [id, setAtomData]);
+  },[id,showEditSociety, setSocietyAtom]);
+
 
   const handleEditSocietyClick = () => {
     setShowEditSociety(true);
@@ -59,6 +67,7 @@ const ShowSociety = () => {
   const closeEditModal = () => {
     setShowEditSociety(false);
   };
+
 
   return (
     <>
@@ -106,7 +115,7 @@ const ShowSociety = () => {
         </div>
         {showEditSociety && (
           <div className="display_edit_and_new_societycontainer">
-            <EditSociety />
+            <EditSociety closeEditModal={closeEditModal}/>
             <button onClick={closeEditModal} className="closetag">
               X
             </button>

@@ -1,18 +1,17 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-import { useAtomValue } from "jotai";
-
+import { useSetAtom, useAtomValue } from "jotai";
 import societyAtom from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
 
 import "./society.scss";
 
-const EditSociety = () => {
+const EditSociety = ({ closeEditModal }) => {
   const apiUrl = import.meta.env.VITE_API_URL;
   // const token = Cookies.get("token");
   const user_id = JSON.parse(Cookies.get("token")!).user_id;
   const navigate = useNavigate();
-
+  const setSocietyAtom = useSetAtom(societyAtom);
   const societyAtomValue = useAtomValue(societyAtom);
 
   // const [updateSuccess, setUpdateSuccess] = useState(false);
@@ -28,7 +27,7 @@ const EditSociety = () => {
   const [email, setEmail] = useState(societyAtomValue.email);
   const [errors, setErrors] = useState({name: "", address: "", capital: "", city: "", country: "", email: "", siret: "", zip: "", generic: "" });
 
-  console.log("c'estl'atom", societyAtomValue.id);
+
 
   const HandleSubmitEditSociety = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,6 +41,7 @@ const EditSociety = () => {
         },
         body: JSON.stringify({
           society: {
+            id:societyAtomValue.id,
             name: name,
             status: status,
             address: address,
@@ -58,7 +58,11 @@ const EditSociety = () => {
       const responseData = await response.json();
 
       if (response.ok) {
-        window.location.reload();
+        setSocietyAtom(responseData);
+        console.log("responseDAta dans edit", responseData);
+        console.log("Nouvel état de societyAtom dans edit :", responseData);
+        closeEditModal();
+        navigate(`/societies/${responseData.name}`);
       } else {
         setErrors(responseData);
       }
@@ -67,7 +71,9 @@ const EditSociety = () => {
     }
   };
 
-  const onClick = async () => {
+  const onClick = async (e) => {
+    e.stopPropagation();
+
     try {
       const response = await fetch(apiUrl + `societies/${societyAtomValue.id}`, {
         method: "DELETE",
