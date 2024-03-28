@@ -6,6 +6,7 @@ const invoiceDataFormatterSend = (invoice: TInvoice) => {
     tax: invoice.tax,
   };
 
+  formData.append("invoice[category]", invoice.category);
   formData.append("invoice[content]", JSON.stringify(content));
   formData.append("invoice[issued_at]", invoice.date.toISOString());
   formData.append("invoice[due_at]", invoice.dueDate.toISOString());
@@ -116,6 +117,8 @@ const invoiceDataFormatterReceive = (invoice: TInvoiceShowBack) => {
     status: invoiceData.status,
     author: authorData,
     client: clientData,
+    additionalInfo: invoiceData.additional_info,
+    category: invoiceData.category,
   } as TInvoice;
 };
 

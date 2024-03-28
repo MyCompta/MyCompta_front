@@ -67,7 +67,7 @@ export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
             { fontSize: 30, color: "#999", marginBottom: 10 },
           ]}
           fixed>
-          <Text>Facture</Text>
+          <Text style={{ textTransform: "capitalize" }}>{invoice.category}</Text>
         </View>
 
         <View fixed>

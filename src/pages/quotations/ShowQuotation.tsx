@@ -8,7 +8,7 @@ import { PdfGenerator } from "../../utils/PdfGenerator";
 import { invoiceDataFormatterReceive } from "../../utils/invoiceDataFormatter";
 import Switch from "react-switch";
 
-const ShowInvoice = () => {
+const ShowQuotation = () => {
   const { id } = useParams();
   const [invoiceData, setInvoiceData] = useState<TInvoice>();
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const ShowInvoice = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetcher(`invoices/${id}`, undefined, "GET", true);
+        const response = await fetcher(`quotations/${id}`, undefined, "GET", true);
         if (!response.error) {
           setInvoiceData(invoiceDataFormatterReceive(response));
         } else {
@@ -109,8 +109,8 @@ const ShowInvoice = () => {
 
   return (
     <>
-      <h1>Invoice {invoiceData?.number}</h1>
-      <Link to="/invoices">&#8592; Back to invoices list</Link>
+      <h1>Quotation {invoiceData?.number}</h1>
+      <Link to="/quotations">&#8592; Back to quotations list</Link>
       <div
         style={{
           display: "flex",
@@ -120,7 +120,7 @@ const ShowInvoice = () => {
           marginBottom: 10,
           alignItems: "center",
         }}>
-        <Link to={`/invoices/${id}/edit`} className="btn">
+        <Link to={`/quotations/${id}/edit`} className="btn">
           Edit
         </Link>
         <button
@@ -159,4 +159,4 @@ const ShowInvoice = () => {
   );
 };
 
-export default ShowInvoice;
+export default ShowQuotation;
