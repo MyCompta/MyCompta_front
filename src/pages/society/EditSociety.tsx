@@ -96,7 +96,7 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
       });
 
       if (response.ok) {
-        navigate(`/profile`);
+        navigate(`/dashboard`);
       } else {
         const error = await response.json();
         console.error(error);
