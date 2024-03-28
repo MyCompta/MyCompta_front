@@ -27,4 +27,6 @@ export const societyAtom = atom<TSocietyBack | null>(null);
 
 export const societiesAtom = atom<TSocietyBack[]>([]);
 
+export const currentUserSocietiesAtom = atom<TSocietyBack[]>([]);
+
 export default societyAtom;

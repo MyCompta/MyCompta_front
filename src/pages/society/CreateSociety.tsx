@@ -1,12 +1,9 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { currentSocietyAtom } from "../../atom/societyAtom";
+import { currentUserSocietiesAtom } from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
-import { useAtom, useSetAtom, useAtomValue } from "jotai";
-=======
 import { useSetAtom, useAtom } from "jotai";
->>>>>>> 4a10b12c606909ac83b3aa4c578660b76b6127ac
 import { successAtom } from "../../atom/notificationAtom";
 
 import societyAtom from "../../atom/societyAtom";
@@ -19,6 +16,9 @@ const CreateSociety = () => {
   const setSociety = useSetAtom(societyAtom);
   const setSuccess = useSetAtom(successAtom);
   const setSocietyAtom = useSetAtom(societyAtom);
+  const [currentUserSocieties, setCurrentUserSocieties] = useAtom(
+    currentUserSocietiesAtom
+  );
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -90,6 +90,8 @@ const CreateSociety = () => {
         console.log("Your society has been created");
         setSocietyAtom(responseData);
         setSuccess("Your society has been created");
+        setCurrentUserSocieties([...currentUserSocieties, responseData]);
+        console.log("currentUserSocieties", currentUserSocieties);
 
         navigate(`/societies/${responseData.id}`);
 
@@ -125,11 +127,18 @@ const CreateSociety = () => {
 
   return (
     <div className="create-society-form-container">
-      {currentSociety ? <h2>Add another society</h2> : <h2>Add your society to continue</h2>}
+      {currentSociety ? (
+        <h2>Add another society</h2>
+      ) : (
+        <h2>Add your society to continue</h2>
+      )}
       <p className="create-society-form-container__info">
         <span>* </span>indicates a required field
       </p>
-      <form onSubmit={HandleSubmitCreateSociety} className="create-society-form">
+      <form
+        onSubmit={HandleSubmitCreateSociety}
+        className="create-society-form"
+      >
         <div className="create-society-form-rows">
           <div className="create-society-form-rows__row1">
             <label>
@@ -146,7 +155,11 @@ const CreateSociety = () => {
             <label>
               Society's social reason<span> *</span>
             </label>
-            <select name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
+            <select
+              name="status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
               <option value="micro-entreprise">Micro</option>
               <option value="SASU">SASU</option>
               <option value="EURL">EURL</option>
@@ -165,7 +178,9 @@ const CreateSociety = () => {
               placeholder={"13 digits"}
               onChange={(e) => setSiret(e.target.value)}
             />
-            {errors && errors.siret && <span className="error-message">Siret {errors.siret}</span>}
+            {errors && errors.siret && (
+              <span className="error-message">Siret {errors.siret}</span>
+            )}
 
             <label>
               Capital<span> *</span>
@@ -191,7 +206,9 @@ const CreateSociety = () => {
               placeholder={"your company's email"}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {errors && errors.email && <span className="error-message">Email {errors.email}</span>}
+            {errors && errors.email && (
+              <span className="error-message">Email {errors.email}</span>
+            )}
           </div>
 
           <div className="create-society-form-rows__row2">
@@ -220,7 +237,9 @@ const CreateSociety = () => {
               onChange={(e) => setZip(e.target.value)}
               className={errors && errors.name ? "error" : ""}
             />
-            {errors && errors.zip && <span className="error-message">Zip code {errors.zip}</span>}
+            {errors && errors.zip && (
+              <span className="error-message">Zip code {errors.zip}</span>
+            )}
 
             <label>
               City<span> *</span>
@@ -233,7 +252,9 @@ const CreateSociety = () => {
               onChange={(e) => setCity(e.target.value)}
               className={errors && errors.name ? "error" : ""}
             />
-            {errors && errors.city && <span className="error-message">City {errors.city}</span>}
+            {errors && errors.city && (
+              <span className="error-message">City {errors.city}</span>
+            )}
 
             <label>
               Country<span> *</span>
