@@ -7,5 +7,17 @@ footer {
   padding-left: 5%;
   padding-right: 5%;
   margin-top: 40px;
-  margin-top: auto;
+  margin-top: 5%;
+}
+
+.footer_link {
+  display: flex;
+  flex-wrap: wrap;
+  width: 40%;
+  padding-left: 2%;
+  padding-right: 2%;
+  justify-content: space-around;
+}
+.footer_link > a:hover {
+  color: #3398bd;
 }/*# sourceMappingURL=Footer.css.map */

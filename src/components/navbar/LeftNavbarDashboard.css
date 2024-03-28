@@ -63,11 +63,17 @@
 }
 .left-navbar__profile-options .profile-icon {
   border-radius: 50px;
-  background-color: #3398bd;
-  width: 40px;
-  height: 40px;
+  background-color: white;
+  width: 36px;
+  height: 36px;
   margin: 5px;
-  cursor: pointer;
+}
+.left-navbar__profile-options .profile-icon svg {
+  width: 46px;
+  height: 46px;
+  margin-left: -5px;
+  margin-top: -5px;
+  color: #3398bd;
 }
 .left-navbar__profile-options .profile-icon p {
   text-align: center;
