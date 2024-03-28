@@ -7,7 +7,7 @@ export const currentSocietyAtom = atom(
     : null
 );
 
-const societyAtom = atom({
+export const societyAtom = atom<TSocietyBack>({
   id: "",
   name: "",
   address: "",
@@ -18,6 +18,7 @@ const societyAtom = atom({
   status: "",
   capital: "",
   email: "",
+  user_id: '',
 });
 
 export const societiesAtom = atom<TSocietyBack[]>([]);

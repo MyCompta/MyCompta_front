@@ -1,18 +1,21 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-import { useAtomValue } from "jotai";
-
-import societyAtom from "../../atom/societyAtom";
+import { useSetAtom, useAtomValue } from "jotai";
+import { societyAtom } from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
 
 import "./society.scss";
 
-const EditSociety = () => {
+interface EditSocietyProps {
+  closeEditModal: () => void;
+}
+
+const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
   const apiUrl = import.meta.env.VITE_API_URL;
   // const token = Cookies.get("token");
   const user_id = JSON.parse(Cookies.get("token")!).user_id;
   const navigate = useNavigate();
-
+  const setSocietyAtom = useSetAtom(societyAtom);
   const societyAtomValue = useAtomValue(societyAtom);
 
   // const [updateSuccess, setUpdateSuccess] = useState(false);
@@ -28,7 +31,7 @@ const EditSociety = () => {
   const [email, setEmail] = useState(societyAtomValue.email);
   const [errors, setErrors] = useState({name: "", address: "", capital: "", city: "", country: "", email: "", siret: "", zip: "", generic: "" });
 
-  console.log("c'estl'atom", societyAtomValue.id);
+
 
   const HandleSubmitEditSociety = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,6 +45,7 @@ const EditSociety = () => {
         },
         body: JSON.stringify({
           society: {
+            id:societyAtomValue.id,
             name: name,
             status: status,
             address: address,
@@ -58,7 +62,9 @@ const EditSociety = () => {
       const responseData = await response.json();
 
       if (response.ok) {
-        window.location.reload();
+        setSocietyAtom(responseData);
+        closeEditModal();
+        navigate(`/societies/${responseData.id}`);
       } else {
         setErrors(responseData);
       }
@@ -67,7 +73,9 @@ const EditSociety = () => {
     }
   };
 
-  const onClick = async () => {
+  const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
     try {
       const response = await fetch(apiUrl + `societies/${societyAtomValue.id}`, {
         method: "DELETE",
@@ -130,8 +138,8 @@ const EditSociety = () => {
             type="number"
             name="zip"
             value={zip}
-            placeholder={societyAtomValue.zip}
-            onChange={(e) => setZip(e.target.value)}
+            placeholder={String(societyAtomValue.zip)}
+            onChange={(e) => setZip(parseInt(e.target.value))}
           />&nbsp;&nbsp;&nbsp;
         {errors && errors.zip && <span className="error-message">Zip code {errors.zip}</span>}
 
@@ -163,8 +171,8 @@ const EditSociety = () => {
             type="text"
             name="capital"
             value={capital}
-            placeholder={societyAtomValue.capital}
-            onChange={(e) => setCapital(e.target.value)}
+            placeholder={String(societyAtomValue.capital)}
+            onChange={(e) => setCapital(parseInt(e.target.value))}
           />&nbsp;&nbsp;&nbsp;
         {errors && errors.capital && <span className="error-message">Capital {errors.capital}</span>}
 

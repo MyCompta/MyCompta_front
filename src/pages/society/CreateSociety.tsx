@@ -1,20 +1,20 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-import { useAtom, useSetAtom } from "jotai";
 import { currentSocietyAtom } from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
+import { useSetAtom, useAtomValue } from "jotai";
 import { successAtom } from "../../atom/notificationAtom";
-import societyAtom from "../../atom/societyAtom";
 
+import { societyAtom } from "../../atom/societyAtom";
 import "./society.scss";
 
 const CreateSociety = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
-  // const token = Cookies.get("token");
   const user_id = JSON.parse(Cookies.get("token")!).user_id;
   const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
   const setSociety = useSetAtom(societyAtom);
   const setSuccess = useSetAtom(successAtom);
+  const setSocietyAtom = useSetAtom(societyAtom);
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -84,7 +84,11 @@ const CreateSociety = () => {
       if (response.ok) {
         const responseData = (await response.json()) as TSocietyBack;
         console.log("Your society has been created");
+        setSocietyAtom(responseData);
         setSuccess("Your society has been created");
+
+        navigate(`/societies/${responseData.id}`);
+
 
         Cookies.set("currentSociety", String(responseData.id));
         setCurrentSociety(String(responseData.id));
@@ -102,7 +106,6 @@ const CreateSociety = () => {
           email: responseData.email,
         });
 
-        navigate(`/societies/${name}`);
       } else {
         const responseData = (await response.json()) as ErrorRes;
         setErrors(responseData);

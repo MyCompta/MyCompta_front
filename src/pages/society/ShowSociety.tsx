@@ -1,30 +1,37 @@
 import { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { useAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 
 // import fetcher from "../../utils/fetcher";
 
 import EditComponentSociety from "../../components/society/EditComponentSociety";
 import EditSociety from "./EditSociety";
-import societyAtom from "../../atom/societyAtom";
-
+import { societyAtom } from "../../atom/societyAtom";
 import IndexInvoices from "../invoices/IndexInvoices";
-
 import PageClientIndex from "../clients/PageClientIndex";
-
 import "./society.scss";
 
 const apiUrl = import.meta.env.VITE_API_URL;
-// const token = Cookies.get("token");
+
+
 
 const ShowSociety = () => {
   const [showEditSociety, setShowEditSociety] = useState(false);
   const [societyData, setSocietyData] = useState<TSocietyBack>();
-  const [, setAtomData] = useAtom(societyAtom);
+  const setSocietyAtom = useSetAtom(societyAtom);
   // const navigate = useNavigate();
 
-  const id = localStorage.getItem("selectedSocietyId");
+  const idsociety = useAtomValue(societyAtom)
+  let id = idsociety.id
+
+  if (!id) {
+    id = parseInt(localStorage.getItem('societyId')!);
+  } else {
+    localStorage.setItem('societyId', id.toString());
+  }
+  
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +46,7 @@ const ShowSociety = () => {
         if (response.ok) {
           const data = await response.json();
           setSocietyData(data);
-          setAtomData(data);
+          setSocietyAtom(data);
         } else {
           const error = await response.json();
           console.error(error);
@@ -50,7 +57,8 @@ const ShowSociety = () => {
     };
 
     fetchData();
-  }, [id, setAtomData]);
+  },[id,showEditSociety, setSocietyAtom]);
+
 
   const handleEditSocietyClick = () => {
     setShowEditSociety(true);
@@ -59,6 +67,7 @@ const ShowSociety = () => {
   const closeEditModal = () => {
     setShowEditSociety(false);
   };
+
 
   return (
     <>
@@ -106,7 +115,7 @@ const ShowSociety = () => {
         </div>
         {showEditSociety && (
           <div className="display_edit_and_new_societycontainer">
-            <EditSociety />
+            <EditSociety closeEditModal={closeEditModal}/>
             <button onClick={closeEditModal} className="closetag">
               X
             </button>
