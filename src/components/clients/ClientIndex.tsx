@@ -14,6 +14,7 @@ const ClientIndex = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        if (!currentSociety) return;
         const response = await fetcher(
           "/clients?society_id=" + currentSociety,
           undefined,
@@ -55,8 +56,7 @@ const ClientIndex = () => {
             <tr key={client.id}>
               <td
                 onClick={() => client.id && handleClientClick(client.id)}
-                className="client-table__business-name"
-              >
+                className="client-table__business-name">
                 {client.business_name}
               </td>
               <td>_</td>

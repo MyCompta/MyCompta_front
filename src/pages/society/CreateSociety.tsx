@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-import { useAtomValue } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { currentSocietyAtom } from "../../atom/societyAtom";
 import { currentUserSocietiesAtom } from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
-import { useSetAtom, useAtom } from "jotai";
 import { successAtom } from "../../atom/notificationAtom";
+import societyAtom from "../../atom/societyAtom";
 
 import "./society.scss";
 
@@ -13,7 +13,8 @@ const CreateSociety = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   // const token = Cookies.get("token");
   const user_id = JSON.parse(Cookies.get("token")!).user_id;
-  const currentSociety = useAtomValue(currentSocietyAtom);
+  const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
+  const setSociety = useSetAtom(societyAtom);
   const setSuccess = useSetAtom(successAtom);
   const [currentUserSocieties, setCurrentUserSocieties] = useAtom(
     currentUserSocietiesAtom
@@ -29,7 +30,7 @@ const CreateSociety = () => {
   const [siret, setSiret] = useState("");
   const [capital, setCapital] = useState("");
   const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<ErrorRes>({
     name: "",
     address: "",
     capital: "",
@@ -40,6 +41,18 @@ const CreateSociety = () => {
     zip: "",
     generic: "",
   });
+
+  type ErrorRes = {
+    name: string;
+    address: string;
+    capital: string;
+    city: string;
+    country: string;
+    email: string;
+    siret: string;
+    zip: string;
+    generic: string;
+  };
 
   // console.log("dans le create", token)
   // console.log("user token id", user_id)
@@ -72,15 +85,32 @@ const CreateSociety = () => {
         }),
       });
 
-      const responseData = await response.json();
-
       if (response.ok) {
+        const responseData = (await response.json()) as TSocietyBack;
         console.log("Your society has been created");
         setSuccess("Your society has been created");
         setCurrentUserSocieties([...currentUserSocieties, responseData]);
         console.log("currentUserSocieties", currentUserSocieties);
+
+        Cookies.set("currentSociety", String(responseData.id));
+        setCurrentSociety(String(responseData.id));
+
+        setSociety({
+          id: String(responseData.id),
+          name: responseData.name,
+          address: responseData.address,
+          zip: responseData.zip.toString(),
+          city: responseData.city,
+          country: responseData.country,
+          siret: responseData.siret.toString(),
+          status: responseData.status,
+          capital: responseData.capital.toString(),
+          email: responseData.email,
+        });
+
         navigate(`/societies/${name}`);
       } else {
+        const responseData = (await response.json()) as ErrorRes;
         setErrors(responseData);
       }
     } catch (error) {

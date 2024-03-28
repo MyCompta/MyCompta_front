@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import fetcher from "../../utils/fetcher";
-// import Cookies from "js-cookie"; // TO GET ID CURRENT SOCIETY AND BE ABLE TO SET A NEW ONE
+import Cookies from "js-cookie"; // TO GET ID CURRENT SOCIETY AND BE ABLE TO SET A NEW ONE
 import "./SocietyIndex.scss";
 import Society from "./Society";
 import { useNavigate } from "react-router-dom";
 import { useSetAtom } from "jotai";
 import { societyModalStatusAtom } from "../../atom/modalAtom";
 import { errorAtom } from "../../atom/notificationAtom";
+import { currentUserSocietiesAtom } from "../../atom/societyAtom";
 
 import { IoDocumentText } from "react-icons/io5";
 import { MdEditDocument } from "react-icons/md";
@@ -17,6 +18,7 @@ const SocietyIndex = () => {
   const [societiesData, setSocietiesData] = useState<TSocietyBack[]>();
   const navigate = useNavigate();
   const setError = useSetAtom(errorAtom);
+  const setCurrentUserSocieties = useSetAtom(currentUserSocietiesAtom);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,9 +65,22 @@ const SocietyIndex = () => {
       true
     );
     if (!response.error) {
-      setSocietiesData(
-        societiesData?.filter((society) => society.id !== societyId)
+      const newSocietiesData = societiesData?.filter(
+        (society) => society.id !== societyId
       );
+      setSocietiesData(newSocietiesData);
+      setCurrentUserSocieties(newSocietiesData!);
+      if (
+        societyId === parseInt(Cookies.get("currentSociety")!) &&
+        newSocietiesData?.length
+      ) {
+        Cookies.set("currentSociety", String(newSocietiesData[0].id));
+      }
+      if (!newSocietiesData?.length) {
+        Cookies.remove("currentSociety");
+        setSocietyModalStatus(false);
+        navigate("/societies/create");
+      }
       console.log("Society deleted successfully");
       setError("Society deleted successfully");
     } else {

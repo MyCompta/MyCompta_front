@@ -21,7 +21,7 @@ import { currentSocietyAtom } from "../../atom/societyAtom";
 import { IoPersonCircleSharp } from "react-icons/io5";
 
 export default function LeftNavbarDashboard() {
-  const [currentUserData, setCurrentUserData] = useState<TUserShowBack>();
+  const [, setCurrentUserData] = useState<TUserShowBack>();
   const navigate = useNavigate();
   const setNewClientModalStatus = useSetAtom(newClientModalStatusAtom);
   const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
