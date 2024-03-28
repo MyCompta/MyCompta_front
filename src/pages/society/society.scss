@@ -160,6 +160,7 @@
   align-items: center;
   margin-left: 5%;
   margin-right: 5%;
+  color: $second-color;
 }
 
 .buttoneditsociety {
@@ -177,15 +178,17 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  
 }
 
 h4 {
   display: inline;
+  color: $second-color;
 }
 
 .leftinfosociety {
   margin-top: 2%;
-  position: sticky;
+  position: relative;
   top: 20%;
   box-shadow: 0px 0px 3px $second-color;
   max-height: 13.5rem;
@@ -193,6 +196,7 @@ h4 {
   align-items: center;
   border-radius: 5px;
   line-height: 2rem;
+  background-color: $bg-color;
 }
 
 .indexinvoicesshowsociety {
@@ -201,6 +205,7 @@ h4 {
   box-shadow: 0px 0px 3px $second-color;
   overflow: scroll;
   padding: 2%;
+  background-color: $bg-color;
 }
 
 .indexclientsshowsociety {
@@ -208,6 +213,46 @@ h4 {
   border-radius: 5px;
   box-shadow: 0px 0px 3px $second-color;
   margin-top: 2%;
+  background-color: $bg-color;
+}
+
+.graph_showsociety
+{
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 3px $second-color;
+  background-color: $bg-color;
+  margin-bottom: 2%;
+}
+
+.graph_showsociety select
+{
+  background-color: $second-color;
+  text-align: center;
+  margin: 2%;
+  border: 2px dotted $second-color;
+  color: white;
+
+}
+
+.large_graph_showsociety
+{
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+  width: 70%;
+  box-shadow: 0px 0px 3px $second-color;
+  background-color: $bg-color;
+}
+
+.large_graph_showsociety select
+{
+  background-color: $second-color;
+  text-align: center;
+  margin: 2%;
+  border: 2px dotted $second-color;
+  color: white;
+
 }
 
 /////////////////////////////////////////////////////// Edit society

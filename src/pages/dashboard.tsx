@@ -1,4 +1,4 @@
-import { BarChart } from '../components/charts/Barcharts'
+import { BarCharts } from '../components/charts/BarCharts'
 import { Doughnuts } from '../components/charts/DoughnutsCharts'
 import { LineCharts } from '../components/charts/LineCharts'
 import { PieCharts } from '../components/charts/PieCharts'
@@ -12,7 +12,7 @@ const Dashboard = () => {
       <h1>Dashboard</h1>
       <div className="chartcontainer">
         <div className="barchart_on_dashboard">
-          <BarChart />
+          <BarCharts />
         </div>
         <div className="doughnuts_on_dashboard">
           <Doughnuts />
