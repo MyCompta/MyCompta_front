@@ -15,10 +15,12 @@ export default function Invoice({
   authorProp,
   clientProp,
   invoiceProp,
+  category = "invoice",
 }: {
   authorProp?: TUserInfos;
   clientProp?: TUserInfos;
   invoiceProp?: TInvoice;
+  category?: "invoice" | "quotation";
 }) {
   const setSuccess = useSetAtom(successAtom);
   const [society, setSociety] = useAtom(societyAtom);
@@ -77,6 +79,7 @@ export default function Invoice({
         total: 0,
         items: items,
         is_valid: false,
+        category: category,
       } as TInvoice)
   );
 
@@ -267,7 +270,7 @@ export default function Invoice({
 
     if (!req?.error) {
       console.log(req);
-      setSuccess("Facture enregistrée avec succès");
+      setSuccess(`${invoice.category} saved successfully !`);
 
       if (!invoice.id) {
         setInvoice((invoice) => {
@@ -286,7 +289,7 @@ export default function Invoice({
         });
       }
 
-      return Promise.resolve();
+      return Promise.resolve(req.id);
     }
 
     return Promise.reject();
@@ -452,7 +455,16 @@ export default function Invoice({
   return (
     <div className="invoice">
       <p className="invoice__titles" style={{ textAlign: "right", margin: 0 }}>
-        Facture
+        {invoice.category}
+        <br />
+        <select
+          value={invoice.category}
+          onChange={(e) =>
+            setInvoice({ ...invoice, category: e.target.value as "invoice" | "quotation" })
+          }>
+          <option value={"invoice"}>Invoice</option>
+          <option value={"quotation"}>Quotation</option>
+        </select>
       </p>
       <div className="invoice__author">
         <p className="invoice__titles">Vous</p>
@@ -607,7 +619,7 @@ export default function Invoice({
         </table>
       </div>
       <button
-        onClick={() => handleSave().then(() => navigate(`/invoices/${invoice.id}`))}
+        onClick={() => handleSave().then((id) => navigate(`/${invoice.category}s/${id}`))}
         disabled={!invoice.is_valid}>
         Enregistrer la facture
       </button>

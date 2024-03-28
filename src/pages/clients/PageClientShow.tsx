@@ -13,12 +13,9 @@ import { errorAtom } from "../../atom/notificationAtom";
 const PageClientShow = () => {
   const { id } = useParams();
   const [clientData, setClientData] = useState<TClientBack>();
-  const [invoiceClientData, setInvoiceClientData] =
-    useState<TInvoiceGetBack[]>();
+  const [invoiceClientData, setInvoiceClientData] = useState<TInvoiceGetBack[]>();
   const navigate = useNavigate();
-  const [editClientModalStatus, setEditClientModalStatus] = useAtom(
-    editClientModalStatusAtom
-  );
+  const [editClientModalStatus, setEditClientModalStatus] = useAtom(editClientModalStatusAtom);
   const setError = useSetAtom(errorAtom);
 
   useEffect(() => {
@@ -59,12 +56,7 @@ const PageClientShow = () => {
     if (!confirmed) return;
 
     try {
-      const response = await fetcher(
-        `clients/${id}`,
-        undefined,
-        "DELETE",
-        true
-      );
+      const response = await fetcher(`clients/${id}`, undefined, "DELETE", true);
       if (!response.error) {
         console.log("Client deleted successfully");
         setError("Client deleted successfully");
@@ -98,10 +90,7 @@ const PageClientShow = () => {
               <div className="client-show-body__row1-header">
                 <h2>Client details</h2>
                 <div className="client-show-body__row1-header-right-box">
-                  <p
-                    onClick={() => setEditClientModalStatus(true)}
-                    className="edit"
-                  >
+                  <p onClick={() => setEditClientModalStatus(true)} className="edit">
                     Edit
                   </p>
                   <p onClick={handleDeleteClient} className="delete">
@@ -135,12 +124,9 @@ const PageClientShow = () => {
                 <tbody>
                   {invoiceClientData ? (
                     invoiceClientData.map((invoice) => (
-                      <tr
-                        key={invoice.id}
-                        onClick={() => handleInvoiceClick(invoice.id)}
-                      >
+                      <tr key={invoice.id} onClick={() => handleInvoiceClick(invoice.id)}>
                         <td>#{invoice.id}</td>
-                        <td>{formatDate2(invoice.date)}</td>
+                        <td>{formatDate2(invoice.issued_at)}</td>
                         <td>{invoice.total}</td>
                         <td>BALANCE</td>
                       </tr>

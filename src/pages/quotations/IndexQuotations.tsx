@@ -4,7 +4,7 @@ import { useAtomValue } from "jotai";
 import { currentSocietyAtom } from "../../atom/societyAtom";
 import fetcher from "../../utils/fetcher";
 
-const IndexInvoices = () => {
+const IndexQuotations = () => {
   const [invoicesData, setInvoicesData] = useState<TInvoiceGetBack[]>([]);
   const currentSociety = useAtomValue(currentSocietyAtom);
 
@@ -12,12 +12,13 @@ const IndexInvoices = () => {
     const fetchData = async () => {
       try {
         const response = await fetcher(
-          "/invoices?society_id=" + currentSociety,
+          "/invoices?category=quotation&society_id=" + currentSociety,
           undefined,
           "GET",
           true
         );
         if (!response.error) {
+          console.log(response);
           setInvoicesData(response);
         } else {
           console.error(response.error);
@@ -32,9 +33,9 @@ const IndexInvoices = () => {
 
   return (
     <>
-      <InvoiceTable invoicesData={invoicesData} />
+      <InvoiceTable invoicesData={invoicesData} category="quotation" />
     </>
   );
 };
 
-export default IndexInvoices;
+export default IndexQuotations;
