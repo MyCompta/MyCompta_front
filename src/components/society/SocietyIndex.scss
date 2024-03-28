@@ -47,6 +47,10 @@
       background: $sucess-color;
       margin-left: 6px;
     }
+
+    &--empty {
+      cursor: default !important;
+    }
   }
 
   .modal-society-item-options {
