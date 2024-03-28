@@ -34,8 +34,31 @@ const ClientIndex = () => {
     fetchData();
   }, [currentSociety, setClientsData]);
 
+  useEffect(() => {
+    console.log("clientsData : ", clientsData);
+  }, [clientsData]);
+
   const handleClientClick = (clientId: number) => {
     navigate(`/clients/${clientId}`);
+  };
+
+  const AmountTotalInvoices = (client: TClient, daysAgo?: number) => {
+    let totalAmount = 0;
+    if (client.invoices) {
+      client.invoices.forEach((invoice: TInvoice) => {
+        if (!daysAgo || daysAgo === 0) {
+          totalAmount += invoice.total;
+        } else {
+          const issued = new Date(invoice.issued_at);
+          const daysAgoDate = new Date();
+          daysAgoDate.setDate(daysAgoDate.getDate() - daysAgo);
+          if (issued > daysAgoDate) {
+            totalAmount += invoice.total;
+          }
+        }
+      });
+    }
+    return totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2 });
   };
 
   return (
@@ -56,14 +79,15 @@ const ClientIndex = () => {
             <tr key={client.id}>
               <td
                 onClick={() => client.id && handleClientClick(client.id)}
-                className="client-table__business-name">
+                className="client-table__business-name"
+              >
                 {client.business_name}
               </td>
-              <td>_</td>
-              <td>_</td>
-              <td>_</td>
-              <td>_</td>
-              <td>_</td>
+              <td>{AmountTotalInvoices(client, 7)}</td>
+              <td>{AmountTotalInvoices(client, 14)}</td>
+              <td>{AmountTotalInvoices(client, 30)}</td>
+              <td>{AmountTotalInvoices(client, 60)}</td>
+              <td>{AmountTotalInvoices(client)}</td>
             </tr>
           ))
         ) : (
