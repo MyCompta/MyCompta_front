@@ -23,8 +23,8 @@ type TInvoice = {
   client: TUserInfos;
   title: string;
   number: string;
-  issued_at: Date;
-  due_at: Date;
+  date: Date;
+  dueDate: Date;
   subTotal: number;
   tax: TTax[];
   discountTotal: number;

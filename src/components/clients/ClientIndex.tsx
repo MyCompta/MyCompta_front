@@ -49,7 +49,7 @@ const ClientIndex = () => {
         if (!daysAgo || daysAgo === 0) {
           totalAmount += invoice.total;
         } else {
-          const issued = new Date(invoice.issued_at);
+          const issued = new Date(invoice.date);
           const daysAgoDate = new Date();
           daysAgoDate.setDate(daysAgoDate.getDate() - daysAgo);
           if (issued > daysAgoDate) {
@@ -70,7 +70,7 @@ const ClientIndex = () => {
         const daysAgoDate = new Date();
         daysAgoDate.setDate(daysAgoDate.getDate() - daysAgo);
         client.invoices.forEach((invoice: TInvoice) => {
-          const issued = new Date(invoice.issued_at);
+          const issued = new Date(invoice.date);
           if (issued > daysAgoDate) {
             invoiceCount++;
           }
@@ -95,47 +95,34 @@ const ClientIndex = () => {
       <tbody>
         {clientsData.length > 0 ? (
           clientsData.map((client: TClient) => (
-            <tr
-              key={client.id}
-              onClick={() => client.id && handleClientClick(client.id)}
-            >
-              <td className="client-table__business-name">
-                {client.business_name}
-              </td>
+            <tr key={client.id} onClick={() => client.id && handleClientClick(client.id)}>
+              <td className="client-table__business-name">{client.business_name}</td>
               <td>
                 <p>{amountTotalInvoices(client, 7)} €</p>
                 <p>
                   {countInvoicesByDuration(client, 7)}{" "}
-                  {countInvoicesByDuration(client, 7) > 1
-                    ? "invoices"
-                    : "invoice"}
+                  {countInvoicesByDuration(client, 7) > 1 ? "invoices" : "invoice"}
                 </p>
               </td>
               <td>
                 <p>{amountTotalInvoices(client, 14)} €</p>
                 <p>
                   {countInvoicesByDuration(client, 14)}{" "}
-                  {countInvoicesByDuration(client, 14) > 1
-                    ? "invoices"
-                    : "invoice"}
+                  {countInvoicesByDuration(client, 14) > 1 ? "invoices" : "invoice"}
                 </p>
               </td>
               <td>
                 <p>{amountTotalInvoices(client, 30)} €</p>
                 <p>
                   {countInvoicesByDuration(client, 30)}{" "}
-                  {countInvoicesByDuration(client, 30) > 1
-                    ? "invoices"
-                    : "invoice"}
+                  {countInvoicesByDuration(client, 30) > 1 ? "invoices" : "invoice"}
                 </p>
               </td>
               <td>
                 <p>{amountTotalInvoices(client, 60)} €</p>
                 <p>
                   {countInvoicesByDuration(client, 60)}{" "}
-                  {countInvoicesByDuration(client, 60) > 1
-                    ? "invoices"
-                    : "invoice"}
+                  {countInvoicesByDuration(client, 60) > 1 ? "invoices" : "invoice"}
                 </p>
               </td>
               <td>
