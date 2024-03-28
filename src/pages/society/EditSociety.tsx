@@ -59,10 +59,8 @@ const EditSociety = ({ closeEditModal }) => {
 
       if (response.ok) {
         setSocietyAtom(responseData);
-        console.log("responseDAta dans edit", responseData);
-        console.log("Nouvel état de societyAtom dans edit :", responseData);
         closeEditModal();
-        navigate(`/societies/${responseData.name}`);
+        navigate(`/societies/${responseData.id}`);
       } else {
         setErrors(responseData);
       }

@@ -71,8 +71,8 @@ export const router = createBrowserRouter(
           <Route path="/clients/:id" element={<PageClientShow />} />
 
           <Route path="/societies" element={<IndexSocieties />} />
-          <Route path="/societies/:name" element={<ShowSociety />} />
-          <Route path="/societies/:name/edit" element={<EditSociety />} />
+          <Route path="/societies/:id" element={<ShowSociety />} />
+          <Route path="/societies/:id/edit" element={<EditSociety />} />
           <Route path="/societies/create" element={<CreateSociety />} />
         </Route>
       </Route>

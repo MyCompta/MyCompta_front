@@ -65,7 +65,7 @@ const CreateSociety = () => {
         console.log("Your society has been created");
         setSocietyAtom(responseData);
         setSuccess("Your society has been created");
-        navigate(`/societies/${responseData.name}`);
+        navigate(`/societies/${responseData.id}`);
       } else {
         setErrors(responseData);
       }

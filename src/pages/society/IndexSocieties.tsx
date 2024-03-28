@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useSetAtom } from "jotai";
 
+import type { TSocietyBack } from "../../types/society";
+
 import NewSociety from "../../components/society/NewSociety";
 import CreateSociety from "./CreateSociety";
 import societyAtom from "../../atom/societyAtom";
@@ -66,8 +68,8 @@ const IndexSocieties = () => {
               {societyData.map((societyItem, index) => (
                 <li key={index}>
                   <Link
-                    to={`/societies/${societyItem.name}`}
-                    onClick={() => setSocietyAtom({ ...societyItem, id: societyItem.id })}>
+                    to={`/societies/${societyItem.id}`}
+                    onClick={() => setSocietyAtom({ ...societyItem, id: societyItem.id } as TSocietyBack)}>
                     {societyItem.name.toUpperCase()}
                   </Link>
                 </li>

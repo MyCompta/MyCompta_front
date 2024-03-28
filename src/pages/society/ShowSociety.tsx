@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 
 // import fetcher from "../../utils/fetcher";
 
