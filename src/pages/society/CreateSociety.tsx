@@ -95,7 +95,7 @@ const CreateSociety = () => {
 
         navigate(`/societies/${responseData.id}`);
 
-        Cookies.set("currentSociety", String(responseData.id));
+        // Cookies.set("currentSociety", String(responseData.id));
         setCurrentSociety(String(responseData.id));
 
         setSociety(

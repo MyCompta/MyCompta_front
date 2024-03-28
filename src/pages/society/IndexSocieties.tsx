@@ -54,6 +54,7 @@ const IndexSocieties = () => {
   };
 
 
+
   return (
     <div className="societycontainer">
       <div className="header">
@@ -69,7 +70,10 @@ const IndexSocieties = () => {
                 <li key={index}>
                   <Link
                     to={`/societies/${societyItem.id}`}
-                    onClick={() => setSocietyAtom({ ...societyItem, id: societyItem.id } as TSocietyBack)}>
+                    onClick={() => {
+                      Cookies.set("currentSociety", String(societyItem.id));
+                      setSocietyAtom({ ...societyItem, id: societyItem.id } as TSocietyBack);
+                    }}>
                     {societyItem.name.toUpperCase()}
                   </Link>
                 </li>
