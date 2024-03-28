@@ -2,7 +2,11 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import { currentSocietyAtom } from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 import { useAtom, useSetAtom, useAtomValue } from "jotai";
+=======
+import { useSetAtom, useAtom } from "jotai";
+>>>>>>> 4a10b12c606909ac83b3aa4c578660b76b6127ac
 import { successAtom } from "../../atom/notificationAtom";
 
 import societyAtom from "../../atom/societyAtom";
@@ -89,23 +93,25 @@ const CreateSociety = () => {
 
         navigate(`/societies/${responseData.id}`);
 
-
         Cookies.set("currentSociety", String(responseData.id));
         setCurrentSociety(String(responseData.id));
 
-        setSociety({
-          id: String(responseData.id),
-          name: responseData.name,
-          address: responseData.address,
-          zip: responseData.zip.toString(),
-          city: responseData.city,
-          country: responseData.country,
-          siret: responseData.siret.toString(),
-          status: responseData.status,
-          capital: responseData.capital.toString(),
-          email: responseData.email,
-        });
-
+        setSociety(
+          (prevSociety) =>
+            ({
+              ...prevSociety,
+              id: responseData.id,
+              name: responseData.name,
+              address: responseData.address,
+              zip: responseData.zip,
+              city: responseData.city,
+              country: responseData.country,
+              siret: responseData.siret,
+              status: responseData.status,
+              capital: responseData.capital,
+              email: responseData.email,
+            }) as TSocietyBack
+        );
       } else {
         const responseData = (await response.json()) as ErrorRes;
         setErrors(responseData);

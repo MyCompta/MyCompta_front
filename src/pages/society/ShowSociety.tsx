@@ -14,20 +14,18 @@ import "./society.scss";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-
-
 const ShowSociety = () => {
   const [showEditSociety, setShowEditSociety] = useState(false);
   const [societyData, setSocietyData] = useState<TSocietyBack>();
   const setSocietyAtom = useSetAtom(societyAtom);
 
 
-  const idsociety = useAtomValue(societyAtom)
-  let id = idsociety.id
+  const idsociety = useAtomValue(societyAtom);
+  const id = idsociety!.id;
+
 
   Cookies.set("currentSociety", String(id));
   
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,8 +51,7 @@ const ShowSociety = () => {
     };
 
     fetchData();
-  },[id,showEditSociety, setSocietyAtom]);
-
+  }, [id, showEditSociety, setSocietyAtom]);
 
   const handleEditSocietyClick = () => {
     setShowEditSociety(true);
@@ -63,7 +60,6 @@ const ShowSociety = () => {
   const closeEditModal = () => {
     setShowEditSociety(false);
   };
-
 
   return (
     <>
@@ -111,7 +107,7 @@ const ShowSociety = () => {
         </div>
         {showEditSociety && (
           <div className="display_edit_and_new_societycontainer">
-            <EditSociety closeEditModal={closeEditModal}/>
+            <EditSociety closeEditModal={closeEditModal} />
             <button onClick={closeEditModal} className="closetag">
               X
             </button>
