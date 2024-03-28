@@ -28,7 +28,7 @@ const Society = ({
       onClick={handleUpdateCurrentSociety}
     >
       {society.name}
-      {parseInt(currentSociety) === society.id ? (
+      {currentSociety === society.id ? (
         <div className="modal-society-body__item--active"></div>
       ) : null}
     </div>
