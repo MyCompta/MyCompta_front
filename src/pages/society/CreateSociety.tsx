@@ -4,7 +4,6 @@ import { currentSocietyAtom } from "../../atom/societyAtom";
 import { currentUserSocietiesAtom } from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
 import { useSetAtom, useAtom } from "jotai";
-
 import { successAtom } from "../../atom/notificationAtom";
 
 import societyAtom from "../../atom/societyAtom";
