@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useSetAtom } from "jotai";
+
+
 
 import NewSociety from "../../components/society/NewSociety";
 import CreateSociety from "./CreateSociety";
+import societyAtom from "../../atom/societyAtom";
 
 import "./society.scss";
 
@@ -14,6 +18,7 @@ const IndexSocieties = () => {
   const [societyData, setSocietyData] = useState<TSocietyBack[]>([]);
   const [, setError] = useState("");
   const [showCreateSociety, setShowCreateSociety] = useState(false);
+  const setSocietyAtom = useSetAtom(societyAtom);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,13 +49,11 @@ const IndexSocieties = () => {
     setShowCreateSociety(true);
   };
 
-  const handleSocietyClick = (id: number) => {
-    localStorage.setItem("selectedSocietyId", String(id));
-  };
-
   const closeCreateModal = () => {
     setShowCreateSociety(false);
   };
+
+
 
   return (
     <div className="societycontainer">
@@ -66,8 +69,11 @@ const IndexSocieties = () => {
               {societyData.map((societyItem, index) => (
                 <li key={index}>
                   <Link
-                    to={`/societies/${societyItem.name}`}
-                    onClick={() => handleSocietyClick(societyItem.id)}>
+                    to={`/societies/${societyItem.id}`}
+                    onClick={() => {
+                      Cookies.set("currentSociety", String(societyItem.id));
+                      setSocietyAtom({ ...societyItem, id: societyItem.id } as TSocietyBack);
+                    }}>
                     {societyItem.name.toUpperCase()}
                   </Link>
                 </li>
@@ -77,13 +83,15 @@ const IndexSocieties = () => {
             <p>No societies available</p>
           )}
         </div>
-        {showCreateSociety && (
-          <div className="display_edit_and_new_societycontainer">
-            <CreateSociety />
-            <button onClick={closeCreateModal} className="closetag">
-              X
-            </button>
-          </div>
+
+        
+          {showCreateSociety && (
+            <div className="display_edit_and_new_societycontainer">
+              <CreateSociety />
+              <button onClick={closeCreateModal} className="closetag">
+                X
+              </button>
+            </div>
           )}
         </div>
       </div>

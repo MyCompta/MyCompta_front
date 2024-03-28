@@ -413,18 +413,22 @@ export default function Invoice({
       } as TUserInfos;
     });
 
-    setSociety({
-      id: author.id.toString(),
-      name: author.name,
-      address: author.address,
-      siret: author.siret.toString(),
-      city: author.city,
-      zip: author.zip.toString(),
-      country: author.country,
-      capital: author.capital.toString(),
-      status: author.status,
-      email: author.email,
-    });
+    setSociety(
+      (prevSociety) =>
+        ({
+          ...prevSociety,
+          id: author.id,
+          name: author.name,
+          address: author.address,
+          siret: author.siret,
+          city: author.city,
+          zip: author.zip,
+          country: author.country,
+          capital: author.capital,
+          status: author.status,
+          email: author.email,
+        }) as TSocietyBack
+    );
   };
 
   useEffect(() => {
