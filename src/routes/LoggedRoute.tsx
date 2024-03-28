@@ -19,18 +19,22 @@ export default function LoggedRoute({ redirectPath = "/login" }: { redirectPath:
         .then((res: TSocietyBack[]) => {
           if (!res.length) return false;
           Cookies.set("currentSociety", String(res[0].id));
-          setSociety({
-            id: String(res[0].id),
-            name: res[0].name,
-            address: res[0].address,
-            zip: res[0].zip.toString(),
-            city: res[0].city,
-            country: res[0].country,
-            siret: res[0].siret.toString(),
-            status: res[0].status,
-            capital: res[0].capital.toString(),
-            email: res[0].email,
-          });
+          setSociety(
+            (prevSociety) =>
+              ({
+                ...prevSociety,
+                id: res[0].id,
+                name: res[0].name,
+                address: res[0].address,
+                zip: res[0].zip,
+                city: res[0].city,
+                country: res[0].country,
+                siret: res[0].siret,
+                status: res[0].status,
+                capital: res[0].capital,
+                email: res[0].email,
+              }) as TSocietyBack
+          );
           return true;
         })
         .catch(() => false);

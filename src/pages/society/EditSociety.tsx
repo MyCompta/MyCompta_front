@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import "./society.scss";
 
 interface EditSocietyProps {
-  closeEditModal: () => void;
+  closeEditModal?: () => void;
 }
 
 const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
@@ -21,23 +21,31 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
   // const [updateSuccess, setUpdateSuccess] = useState(false);
   // const [showEditSociety, setShowEditSociety] = useState("");
 
-  const [name, setName] = useState(societyAtomValue.name);
-  const [status, setStatus] = useState(societyAtomValue.status);
-  const [address, setAddress] = useState(societyAtomValue.address);
-  const [zip, setZip] = useState(societyAtomValue.zip);
-  const [city, setCity] = useState(societyAtomValue.city);
-  const [country, setCountry] = useState(societyAtomValue.country);
-  const [capital, setCapital] = useState(societyAtomValue.capital);
-  const [email, setEmail] = useState(societyAtomValue.email);
-  const [errors, setErrors] = useState({name: "", address: "", capital: "", city: "", country: "", email: "", siret: "", zip: "", generic: "" });
-
-
+  const [name, setName] = useState(societyAtomValue!.name);
+  const [status, setStatus] = useState(societyAtomValue!.status);
+  const [address, setAddress] = useState(societyAtomValue!.address);
+  const [zip, setZip] = useState(societyAtomValue!.zip);
+  const [city, setCity] = useState(societyAtomValue!.city);
+  const [country, setCountry] = useState(societyAtomValue!.country);
+  const [capital, setCapital] = useState(societyAtomValue!.capital);
+  const [email, setEmail] = useState(societyAtomValue!.email);
+  const [errors, setErrors] = useState({
+    name: "",
+    address: "",
+    capital: "",
+    city: "",
+    country: "",
+    email: "",
+    siret: "",
+    zip: "",
+    generic: "",
+  });
 
   const HandleSubmitEditSociety = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(apiUrl + `societies/${societyAtomValue.id}`, {
+      const response = await fetch(apiUrl + `societies/${societyAtomValue!.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +53,7 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
         },
         body: JSON.stringify({
           society: {
-            id:societyAtomValue.id,
+            id: societyAtomValue!.id,
             name: name,
             status: status,
             address: address,
@@ -63,13 +71,15 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
 
       if (response.ok) {
         setSocietyAtom(responseData);
-        closeEditModal();
+        closeEditModal!();
         navigate(`/societies/${responseData.id}`);
       } else {
         setErrors(responseData);
       }
     } catch (error) {
-      setErrors(prevError => { return {...prevError, generic: "No answer from server" }});
+      setErrors((prevError) => {
+        return { ...prevError, generic: "No answer from server" };
+      });
     }
   };
 
@@ -77,7 +87,7 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
     e.stopPropagation();
 
     try {
-      const response = await fetch(apiUrl + `societies/${societyAtomValue.id}`, {
+      const response = await fetch(apiUrl + `societies/${societyAtomValue!.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -101,92 +111,99 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
       <form onSubmit={HandleSubmitEditSociety}>
         <h2>You can update information's company here !</h2>
         <label>Company's name :</label>
-          <input
-            type="text"
-            name="name"
-            value={name}
-            placeholder={societyAtomValue.name}
-            onChange={(e) => setName(e.target.value)}
-          />&nbsp;&nbsp;&nbsp;
-        {errors && errors.name && <span className="error-message">Company's name {errors.name}</span>}
-      
+        <input
+          type="text"
+          name="name"
+          value={name}
+          placeholder={societyAtomValue!.name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        &nbsp;&nbsp;&nbsp;
+        {errors && errors.name && (
+          <span className="error-message">Company's name {errors.name}</span>
+        )}
         <br />
         <label>Company's social reason :</label>
-          <select name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
-            <option value="micro-entreprise">Micro</option>
-            <option value="SASU">SASU</option>
-            <option value="EURL">EURL</option>
-            <option value="SARL">SARL</option>
-            <option value="SAS">SAS</option>
-            <option value="SA">SA</option>
-          </select>
+        <select name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
+          <option value="micro-entreprise">Micro</option>
+          <option value="SASU">SASU</option>
+          <option value="EURL">EURL</option>
+          <option value="SARL">SARL</option>
+          <option value="SAS">SAS</option>
+          <option value="SA">SA</option>
+        </select>
         <br />
-
         <label>Address :</label>
-          <input
-            type="text"
-            name="address"
-            value={address}
-            placeholder={societyAtomValue.address}
-            onChange={(e) => setAddress(e.target.value)}
-          />&nbsp;&nbsp;&nbsp;
-        {errors && errors.address && <span className="error-message">Address {errors.address}</span>}
-
+        <input
+          type="text"
+          name="address"
+          value={address}
+          placeholder={societyAtomValue!.address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
+        &nbsp;&nbsp;&nbsp;
+        {errors && errors.address && (
+          <span className="error-message">Address {errors.address}</span>
+        )}
         <br />
         <label>Zip code :</label>
-          <input
-            type="number"
-            name="zip"
-            value={zip}
-            placeholder={String(societyAtomValue.zip)}
-            onChange={(e) => setZip(parseInt(e.target.value))}
-          />&nbsp;&nbsp;&nbsp;
+        <input
+          type="number"
+          name="zip"
+          value={zip}
+          placeholder={String(societyAtomValue!.zip)}
+          onChange={(e) => setZip(parseInt(e.target.value))}
+        />
+        &nbsp;&nbsp;&nbsp;
         {errors && errors.zip && <span className="error-message">Zip code {errors.zip}</span>}
-
         <br />
         <label>City :</label>
-          <input
-            type="text"
-            name="city"
-            value={city}
-            placeholder={societyAtomValue.city}
-            onChange={(e) => setCity(e.target.value)}
-          />&nbsp;&nbsp;&nbsp;
+        <input
+          type="text"
+          name="city"
+          value={city}
+          placeholder={societyAtomValue!.city}
+          onChange={(e) => setCity(e.target.value)}
+        />
+        &nbsp;&nbsp;&nbsp;
         {errors && errors.city && <span className="error-message">City {errors.city}</span>}
-
         <br />
         <label>Country :</label>
-          <input
-            type="text"
-            name="country"
-            value={country}
-            placeholder={societyAtomValue.country}
-            onChange={(e) => setCountry(e.target.value)}
-          />&nbsp;&nbsp;&nbsp;
-        {errors && errors.country && <span className="error-message">Country {errors.country}</span>}
-        
+        <input
+          type="text"
+          name="country"
+          value={country}
+          placeholder={societyAtomValue!.country}
+          onChange={(e) => setCountry(e.target.value)}
+        />
+        &nbsp;&nbsp;&nbsp;
+        {errors && errors.country && (
+          <span className="error-message">Country {errors.country}</span>
+        )}
         <br />
         <label>Capital :</label>
-          <input
-            type="text"
-            name="capital"
-            value={capital}
-            placeholder={String(societyAtomValue.capital)}
-            onChange={(e) => setCapital(parseInt(e.target.value))}
-          />&nbsp;&nbsp;&nbsp;
-        {errors && errors.capital && <span className="error-message">Capital {errors.capital}</span>}
-
+        <input
+          type="text"
+          name="capital"
+          value={capital}
+          placeholder={String(societyAtomValue!.capital)}
+          onChange={(e) => setCapital(parseInt(e.target.value))}
+        />
+        &nbsp;&nbsp;&nbsp;
+        {errors && errors.capital && (
+          <span className="error-message">Capital {errors.capital}</span>
+        )}
         <br />
         <label>Email :</label>
-          <input
-            type="text"
-            name="email"
-            value={email}
-            placeholder={societyAtomValue.email}
-            onChange={(e) => setEmail(e.target.value)}
-          />&nbsp;&nbsp;&nbsp;
+        <input
+          type="text"
+          name="email"
+          value={email}
+          placeholder={societyAtomValue!.email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        &nbsp;&nbsp;&nbsp;
         {errors && errors.email && <span className="error-message">Email {errors.email}</span>}
-
         <br />
         <div className="buttonedit">
           <button className="savebuttoneditsociety">Save</button>

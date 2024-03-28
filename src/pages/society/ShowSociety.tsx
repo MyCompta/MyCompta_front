@@ -14,24 +14,20 @@ import "./society.scss";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-
-
 const ShowSociety = () => {
   const [showEditSociety, setShowEditSociety] = useState(false);
   const [societyData, setSocietyData] = useState<TSocietyBack>();
   const setSocietyAtom = useSetAtom(societyAtom);
   // const navigate = useNavigate();
 
-  const idsociety = useAtomValue(societyAtom)
-  let id = idsociety.id
+  const idsociety = useAtomValue(societyAtom);
+  let id = idsociety!.id;
 
   if (!id) {
-    id = parseInt(localStorage.getItem('societyId')!);
+    id = parseInt(localStorage.getItem("societyId")!);
   } else {
-    localStorage.setItem('societyId', id.toString());
+    localStorage.setItem("societyId", id.toString());
   }
-  
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,8 +53,7 @@ const ShowSociety = () => {
     };
 
     fetchData();
-  },[id,showEditSociety, setSocietyAtom]);
-
+  }, [id, showEditSociety, setSocietyAtom]);
 
   const handleEditSocietyClick = () => {
     setShowEditSociety(true);
@@ -67,7 +62,6 @@ const ShowSociety = () => {
   const closeEditModal = () => {
     setShowEditSociety(false);
   };
-
 
   return (
     <>
@@ -115,7 +109,7 @@ const ShowSociety = () => {
         </div>
         {showEditSociety && (
           <div className="display_edit_and_new_societycontainer">
-            <EditSociety closeEditModal={closeEditModal}/>
+            <EditSociety closeEditModal={closeEditModal} />
             <button onClick={closeEditModal} className="closetag">
               X
             </button>
