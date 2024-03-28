@@ -3,6 +3,7 @@ import { Doughnut } from 'react-chartjs-2';
 
 import './Charts.scss'
 
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const options = {
