@@ -9,6 +9,7 @@ type TClient = {
   zip: number;
   is_pro: boolean;
   siret?: string;
+  invoices?: TInvoice[];
 };
 
 type TClientBack = {
