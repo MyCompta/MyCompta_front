@@ -95,8 +95,21 @@ th,
 td {
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
-  padding: 12px 20px;
-  text-align: right;
+  padding: 8px 15px;
+  text-align: left;
+
+  p {
+    margin: 0;
+    font-size: 12px;
+
+    &:first-child {
+      font-weight: 500;
+    }
+
+    &:last-child {
+      color: #aaa;
+    }
+  }
 }
 
 th {
