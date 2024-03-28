@@ -7,7 +7,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 
 import EditComponentSociety from "../../components/society/EditComponentSociety";
 import EditSociety from "./EditSociety";
-import { societyAtom } from "../../atom/societyAtom";
+import societyAtom from "../../atom/societyAtom";
 import IndexInvoices from "../invoices/IndexInvoices";
 import PageClientIndex from "../clients/PageClientIndex";
 import "./society.scss";
@@ -20,16 +20,12 @@ const ShowSociety = () => {
   const [showEditSociety, setShowEditSociety] = useState(false);
   const [societyData, setSocietyData] = useState<TSocietyBack>();
   const setSocietyAtom = useSetAtom(societyAtom);
-  // const navigate = useNavigate();
+
 
   const idsociety = useAtomValue(societyAtom)
   let id = idsociety.id
 
-  if (!id) {
-    id = parseInt(localStorage.getItem('societyId')!);
-  } else {
-    localStorage.setItem('societyId', id.toString());
-  }
+  Cookies.set("currentSociety", String(id));
   
 
 

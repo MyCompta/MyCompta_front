@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { useSetAtom, useAtomValue } from "jotai";
-import { societyAtom } from "../../atom/societyAtom";
+import societyAtom from "../../atom/societyAtom";
 import { useNavigate } from "react-router-dom";
 
 import "./society.scss";
