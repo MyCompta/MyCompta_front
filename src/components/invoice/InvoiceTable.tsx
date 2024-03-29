@@ -80,7 +80,7 @@ const InvoiceTable = ({
                   key={invoice.id}
                   onClick={() => handleLineClick(invoice.id!)}
                 >
-                  <td>{invoice.number}</td>
+                  <td>#{invoice.number}</td>
                   <td>
                     {invoice.client.is_pro
                       ? invoice.client.business_name
