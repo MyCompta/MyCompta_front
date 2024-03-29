@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 
 import EditComponentSociety from "../../components/society/EditComponentSociety";
 import EditSociety from "./EditSociety";
