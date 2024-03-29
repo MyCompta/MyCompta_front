@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useAtomValue, useSetAtom } from "jotai";
 
@@ -25,6 +26,7 @@ const ShowSociety = () => {
   const [societyData, setSocietyData] = useState<TSocietyBack>();
   const setSocietyAtom = useSetAtom(societyAtom);
   const [selectedOption, setSelectedOption] = useState("turnover");
+  const { id } = useParams();
   const [selectedOptionLarge, setSelectedOptionLarge] =
     useState("globalturnover");
 
@@ -38,8 +40,8 @@ const ShowSociety = () => {
     setSelectedOptionLarge(event.target.value);
   };
 
-  const idsociety = useAtomValue(societyAtom);
-  const id = idsociety!.id;
+  //const idsociety = useAtomValue(societyAtom);
+  //const id = idsociety!.id;
 
   useEffect(() => {
     const fetchData = async () => {
