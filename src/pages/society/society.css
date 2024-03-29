@@ -1,40 +1,29 @@
-.buttonnewsociety {
-  background-color: #3398bd;
-  border: 1px solid #3398bd;
-  color: white;
-  font-size: 12px;
-  padding: 6px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: "Montserrat", sans-serif;
-  top: 6rem;
-}
-
 .societycontainer {
   display: flex;
   flex-direction: column;
-  margin: 2%;
   box-shadow: 0px 0px 3px #3398bd;
   padding: 2%;
   border-radius: 5px;
+  height: 20rem;
+  background-color: #f5f6f9;
 }
 
 .header {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-around;
   align-items: center;
 }
 
 .buttonnewsociety {
+  position: relative;
   background-color: #3398bd;
   border: 1px solid #3398bd;
   color: white;
-  font-size: 12px;
   padding: 6px 20px;
   border-radius: 5px;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
-  top: 6rem;
 }
 
 .main_indexsocieties {
@@ -42,6 +31,8 @@
   flex-wrap: wrap;
   padding-left: 5%;
   padding-right: 5%;
+  overflow: scroll;
+  border-radius: 5px;
 }
 
 .companylist {
@@ -55,16 +46,28 @@
   line-height: 3.5rem;
 }
 
-.singlecompany {
-  padding-left: 3%;
+.companylist li {
+  text-align: center;
+  box-shadow: 0px 0px 10px 1px #3398bd;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
-.singlecompany:hover {
-  background-color: #f5f6f9;
+
+.companylist li a:hover {
+  color: #3398bd;
 }
 
 .error-message {
   color: #ea4a2e;
   font-size: 14px;
+}
+
+.new_societycontainer {
+  position: relative;
+  top: -70%;
+  background-color: #f5f6f9;
+  border-radius: 5px;
+  box-shadow: 0px 0px 1000px 100px #3398bd;
 }
 
 .createsocietyinput {
@@ -149,17 +152,6 @@
   color: #3398bd;
 }
 
-.buttoneditsociety {
-  background-color: #3398bd;
-  border: 1px solid #3398bd;
-  color: white;
-  font-size: 14px;
-  padding: 8px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: "Montserrat", sans-serif;
-}
-
 .displayshowsociety {
   display: flex;
   flex-wrap: wrap;
@@ -240,15 +232,20 @@ h4 {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 10%;
+  top: 50%;
+  transform: translateY(-50%);
   width: 60%;
-  min-height: 80%;
-  background-color: #f5f6f9;
+  background-color: white;
   text-align: center;
   line-height: 2rem;
   border-radius: 5px;
-  box-shadow: 0px 0px 3px #3398bd;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 1000px 100px #3398bd;
   z-index: 999;
+  padding: 40px;
+  margin: 40px 20px;
+  height: calc(100% - 190px);
+  overflow: scroll;
 }
 
 .buttonedit {
@@ -292,17 +289,72 @@ h4 {
 
 .closetag {
   position: absolute;
-  top: 5%;
-  right: 5%;
-  display: flex;
-  align-items: center;
-  color: white;
   border: none;
-  padding: 5px;
-  border-radius: 10px;
-  scale: 1.2;
-  background-color: #3398bd;
+  background-color: transparent;
+  right: 20px;
+  top: 8px;
+  cursor: pointer;
+  font-size: 36px;
 }
 .closetag:hover {
   border-radius: 2px;
+}
+
+.edit-society-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 360px;
+}
+.edit-society-form-container__info {
+  margin: 0 0px 20px auto;
+  color: #aaa;
+}
+.edit-society-form-container__info span {
+  color: #ea4a2e;
+}
+
+.edit-society-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.edit-society-form label {
+  line-height: 1.5em;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: left;
+  margin-top: 14px;
+}
+.edit-society-form label span {
+  color: #ea4a2e;
+}
+.edit-society-form input,
+.edit-society-form select {
+  margin-bottom: 6px;
+  width: 100%;
+  height: 28px;
+  padding: 4px;
+  border: none;
+  border-bottom: 1px solid;
+  font-size: 14px;
+}
+.edit-society-form__btn {
+  width: 160px;
+  margin: 30px auto 10px !important;
+}
+.edit-society-form__delete {
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  background: white;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+}
+.edit-society-form__delete:hover {
+  color: #ea4a2e;
 }/*# sourceMappingURL=society.css.map */

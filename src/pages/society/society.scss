@@ -1,44 +1,33 @@
 @import "../../styles/vars";
 @import "../../styles/mixins";
 
-.buttonnewsociety {
-  background-color: $second-color;
-  border: 1px solid $second-color;
-  color: white;
-  font-size: 12px;
-  padding: 6px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: "Montserrat", sans-serif;
-  top: 6rem;
-}
-
 ////////////////////////////////////////indexsocieties
 .societycontainer {
   display: flex;
   flex-direction: column;
-  margin: 2%;
   box-shadow: 0px 0px 3px $second-color;
   padding: 2%;
   border-radius: 5px;
+  height: 20rem;
+  background-color: $bg-color;
 }
 
 .header {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-around;
   align-items: center;
 }
 
 .buttonnewsociety {
+  position: relative;
   background-color: $second-color;
   border: 1px solid $second-color;
   color: white;
-  font-size: 12px;
   padding: 6px 20px;
   border-radius: 5px;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
-  top: 6rem;
 }
 
 .main_indexsocieties {
@@ -46,6 +35,9 @@
   flex-wrap: wrap;
   padding-left: 5%;
   padding-right: 5%;
+  overflow: scroll;
+  border-radius: 5px;
+
 }
 
 .companylist {
@@ -59,16 +51,31 @@
   line-height: 3.5rem;
 }
 
-.singlecompany {
-  padding-left: 3%;
-  &:hover {
-    background-color: #f5f6f9;
-  }
+.companylist li
+{
+  text-align: center;
+  box-shadow: 0px 0px 10px 1px $second-color;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
+
+.companylist li a:hover {
+    color: $second-color
+}
+
 
 .error-message {
   color: $alert-color;
   font-size: 14px;
+}
+
+.new_societycontainer
+{
+  position: relative;
+  top: -70%;
+  background-color: $bg-color;
+  border-radius: 5px;
+  box-shadow: 0px 0px 1000px 100px $second-color;
 }
 
 //////////////////////////////////////////createsociety
@@ -260,8 +267,7 @@ h4 {
   line-height: 2rem;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0 31px 41px 0 rgba(33, 43, 54, 0.2),
-    0 2px 16px 0 rgba(33, 43, 54, 0.08);
+  box-shadow: 0px 0px 1000px 100px $second-color;
   z-index: 999;
   padding: 40px;
   margin: 40px 20px;
@@ -313,7 +319,7 @@ h4 {
 .closetag {
   position: absolute;
   border: none;
-  background-color: white;
+  background-color: transparent;
 
   right: 20px;
   top: 8px;
