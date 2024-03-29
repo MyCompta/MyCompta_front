@@ -8,13 +8,13 @@ import societyAtom from "../../atom/societyAtom";
 import IndexInvoices from "../invoices/IndexInvoices";
 import PageClientIndex from "../clients/PageClientIndex";
 
-import { Doughnuts } from '../../components/charts/DoughnutsCharts'
-import { PolarCharts } from '../../components/charts/PolarCharts'
-import { RadarCharts } from '../../components/charts/RadarCharts'
-import { PieCharts } from '../../components/charts/PieCharts'
-import { LineCharts } from '../../components/charts/LineCharts'
-import { BarCharts } from '../../components/charts/BarCharts'
-import { StackedCharts } from '../../components/charts/StackedCharts'
+import { Doughnuts } from "../../components/charts/DoughnutsCharts";
+import { PolarCharts } from "../../components/charts/PolarCharts";
+import { RadarCharts } from "../../components/charts/RadarCharts";
+import { PieCharts } from "../../components/charts/PieCharts";
+import { LineCharts } from "../../components/charts/LineCharts";
+import { BarCharts } from "../../components/charts/BarCharts";
+import { StackedCharts } from "../../components/charts/StackedCharts";
 
 import "./society.scss";
 
@@ -24,21 +24,22 @@ const ShowSociety = () => {
   const [showEditSociety, setShowEditSociety] = useState(false);
   const [societyData, setSocietyData] = useState<TSocietyBack>();
   const setSocietyAtom = useSetAtom(societyAtom);
-  const [selectedOption, setSelectedOption] = useState('turnover');
-  const [selectedOptionLarge, setSelectedOptionLarge] = useState('globalturnover');
+  const [selectedOption, setSelectedOption] = useState("turnover");
+  const [selectedOptionLarge, setSelectedOptionLarge] =
+    useState("globalturnover");
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
   };
 
-  const handleSelectChangeLarge = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectChangeLarge = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setSelectedOptionLarge(event.target.value);
   };
 
   const idsociety = useAtomValue(societyAtom);
   const id = idsociety!.id;
-
-  Cookies.set("currentSociety", String(id));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -117,10 +118,10 @@ const ShowSociety = () => {
             <option value="line">P & L</option>
             <option value="pie">Turnover product</option>
           </select>
-          {selectedOption === 'turnover' && <Doughnuts />}
-          {selectedOption === 'bar' && <PolarCharts />}
-          {selectedOption === 'line' && <RadarCharts />}
-          {selectedOption === 'pie' && <PieCharts />}
+          {selectedOption === "turnover" && <Doughnuts />}
+          {selectedOption === "bar" && <PolarCharts />}
+          {selectedOption === "line" && <RadarCharts />}
+          {selectedOption === "pie" && <PieCharts />}
         </div>
         <div className="rightinfosociety">
           <div className="indexinvoicesshowsociety">
@@ -131,14 +132,17 @@ const ShowSociety = () => {
           </div>
         </div>
         <div className="large_graph_showsociety">
-          <select value={selectedOptionLarge} onChange={handleSelectChangeLarge}>
+          <select
+            value={selectedOptionLarge}
+            onChange={handleSelectChangeLarge}
+          >
             <option value="globalturnover">Global turnover</option>
             <option value="global">Global</option>
             <option value="combined">Combined P & L</option>
           </select>
-          {selectedOptionLarge === 'globalturnover' && <LineCharts />}
-          {selectedOptionLarge === 'global' && <BarCharts />}
-          {selectedOptionLarge === 'combined' && <StackedCharts />}
+          {selectedOptionLarge === "globalturnover" && <LineCharts />}
+          {selectedOptionLarge === "global" && <BarCharts />}
+          {selectedOptionLarge === "combined" && <StackedCharts />}
         </div>
         {showEditSociety && (
           <div className="display_edit_and_new_societycontainer">
