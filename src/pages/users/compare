@@ -1,3 +1,5 @@
+@import "../../styles/vars";
+
 .registerpage {
   display: flex;
   flex-direction: column;
@@ -7,6 +9,8 @@
   line-height: 3.5rem;
   height: calc(100% - 50px);
 }
+
+////////////////////////////////////////////////////////////////////
 
 .loginpage {
   display: flex;
@@ -19,6 +23,8 @@
   font-size: 1rem;
 }
 
+////////////////////////////////////////////////////////////////////
+
 .forgotpasswordpage {
   display: flex;
   height: 90%;
@@ -29,6 +35,8 @@
   line-height: 3.5rem;
   font-size: 1rem;
 }
+
+/////////////////////////////////////////////////////////////////
 
 .cgupage {
   display: flex;
@@ -50,19 +58,24 @@
   color: blue;
 }
 
-.global_user_profile_page {
+/////////////////////////////////////////////////////////////////
+
+.global_user_profile_page
+{
   display: flex;
   flex-wrap: wrap;
   height: 78%;
   margin-top: 2%;
 }
 
-.global_user_profile_page h1 {
-  color: #3398bd;
+.global_user_profile_page h1
+{
+  color: $second-color;
   width: 100%;
 }
 
-.user_profil_content {
+.user_profil_content
+{
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -77,22 +90,23 @@
   display: flex;
   flex-direction: column;
   padding-left: 15rem;
-  box-shadow: 0px 0px 3px #3398bd;
+  box-shadow: 0px 0px 3px $second-color;
   padding: 2%;
   align-items: center;
   border-radius: 5px;
   line-height: 2rem;
-  background-color: #f5f6f9;
+  background-color: $bg-color;
 }
 
-.profile_user h5 {
+.profile_user h5
+{
   display: inline;
-  color: #3398bd;
+  color: $second-color;
 }
 
 .deleteprofilebutton {
-  background-color: #3398bd;
-  border: 1px solid #3398bd;
+  background-color: $second-color;
+  border: 1px solid $second-color;
   color: white;
   padding: 8px 10px;
   border-radius: 5px;
@@ -101,7 +115,8 @@
   margin-top: 10%;
 }
 
-.index_societies {
+.index_societies
+{
   position: relative;
   margin-top: 2%;
   margin-bottom: 22%;
@@ -109,15 +124,29 @@
   max-height: 100px;
 }
 
+.display_edit_and_new_societycontainer
+{
+  width: 500px;
+  height: 500px;
+}
+
+// ######## LOGIN PAGE ########
+// ############################
+
 .form-form-link {
   line-height: 45px;
 }
 
-.form-form-cgu__link {
-  color: #3398bd;
+// ######## LOGIN PAGE ########
+// ############################
+
+.form-form-cgu {
+  &__link {
+    color: $second-color;
+  }
 }
 
 #cgu3 {
   margin-top: -29px;
   margin-left: -40px;
-}/*# sourceMappingURL=users.css.map */
+}

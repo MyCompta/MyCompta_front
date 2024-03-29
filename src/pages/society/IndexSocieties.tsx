@@ -82,17 +82,16 @@ const IndexSocieties = () => {
           ) : (
             <p>No societies available</p>
           )}
-        </div>
-
-        {showCreateSociety && (
-          <div className="display_edit_and_new_societycontainer">
+        </div>  
+      </div>
+      {showCreateSociety && (
+          <div className="new_societycontainer">
             <CreateSociety />
             <button onClick={closeCreateModal} className="closetag">
               X
             </button>
           </div>
         )}
-      </div>
     </div>
   );
 };

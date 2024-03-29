@@ -15,6 +15,10 @@
   justify-content: space-between;
 }
 
+h2 {
+  color: #3398bd;
+}
+
 .buttonfilterinvoicetable {
   display: flex;
   justify-content: space-evenly;
@@ -87,4 +91,4 @@
 .buttoncreateinvoices:hover__filters button:hover {
   background-color: #3398bd;
   color: #f5f6f9;
-} /*# sourceMappingURL=InvoiceTable.css.map */
+}/*# sourceMappingURL=InvoiceTable.css.map */
