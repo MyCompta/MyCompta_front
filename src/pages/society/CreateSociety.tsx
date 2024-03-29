@@ -112,7 +112,7 @@ const CreateSociety = () => {
               status: responseData.status,
               capital: responseData.capital,
               email: responseData.email,
-            }) as TSocietyBack
+            } as TSocietyBack)
         );
       } else {
         const responseData = (await response.json()) as ErrorRes;
@@ -153,7 +153,7 @@ const CreateSociety = () => {
             />
 
             <label>
-              Society's social reason<span> *</span>
+              Society's legal status<span> *</span>
             </label>
             <select
               name="status"

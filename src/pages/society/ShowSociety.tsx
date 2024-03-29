@@ -19,13 +19,10 @@ const ShowSociety = () => {
   const [societyData, setSocietyData] = useState<TSocietyBack>();
   const setSocietyAtom = useSetAtom(societyAtom);
 
-
   const idsociety = useAtomValue(societyAtom);
   const id = idsociety!.id;
 
-
   Cookies.set("currentSociety", String(id));
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,7 +106,7 @@ const ShowSociety = () => {
           <div className="display_edit_and_new_societycontainer">
             <EditSociety closeEditModal={closeEditModal} />
             <button onClick={closeEditModal} className="closetag">
-              X
+              ×
             </button>
           </div>
         )}

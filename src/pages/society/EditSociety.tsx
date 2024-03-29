@@ -23,6 +23,7 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
 
   const [name, setName] = useState(societyAtomValue!.name);
   const [status, setStatus] = useState(societyAtomValue!.status);
+  const [siret, setSiret] = useState(societyAtomValue!.siret);
   const [address, setAddress] = useState(societyAtomValue!.address);
   const [zip, setZip] = useState(societyAtomValue!.zip);
   const [city, setCity] = useState(societyAtomValue!.city);
@@ -45,27 +46,31 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(apiUrl + `societies/${societyAtomValue!.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: JSON.parse(Cookies.get("token")!).token,
-        },
-        body: JSON.stringify({
-          society: {
-            id: societyAtomValue!.id,
-            name: name,
-            status: status,
-            address: address,
-            zip: zip,
-            city: city,
-            country: country,
-            capital: capital,
-            email: email,
-            user_id: user_id,
+      const response = await fetch(
+        apiUrl + `societies/${societyAtomValue!.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: JSON.parse(Cookies.get("token")!).token,
           },
-        }),
-      });
+          body: JSON.stringify({
+            society: {
+              id: societyAtomValue!.id,
+              name: name,
+              status: status,
+              siret: siret,
+              address: address,
+              zip: zip,
+              city: city,
+              country: country,
+              capital: capital,
+              email: email,
+              user_id: user_id,
+            },
+          }),
+        }
+      );
 
       const responseData = await response.json();
 
@@ -87,13 +92,16 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
     e.stopPropagation();
 
     try {
-      const response = await fetch(apiUrl + `societies/${societyAtomValue!.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: JSON.parse(Cookies.get("token")!).token,
-        },
-      });
+      const response = await fetch(
+        apiUrl + `societies/${societyAtomValue!.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: JSON.parse(Cookies.get("token")!).token,
+          },
+        }
+      );
 
       if (response.ok) {
         navigate(`/dashboard`);
@@ -107,10 +115,15 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
   };
 
   return (
-    <div className="editsocietyform">
-      <form onSubmit={HandleSubmitEditSociety}>
-        <h2>You can update information's company here !</h2>
-        <label>Company's name :</label>
+    <div className="edit-society-form-container">
+      <h2>Edit society's information</h2>
+      <p className="edit-society-form-container__info">
+        <span>* </span>indicates a required field
+      </p>
+      <form onSubmit={HandleSubmitEditSociety} className="edit-society-form">
+        <label>
+          Society's name<span> *</span>
+        </label>
         <input
           type="text"
           name="name"
@@ -118,13 +131,18 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
           placeholder={societyAtomValue!.name}
           onChange={(e) => setName(e.target.value)}
         />
-        &nbsp;&nbsp;&nbsp;
         {errors && errors.name && (
-          <span className="error-message">Company's name {errors.name}</span>
+          <span className="error-message">Society's name {errors.name}</span>
         )}
-        <br />
-        <label>Company's social reason :</label>
-        <select name="status" value={status} onChange={(e) => setStatus(e.target.value)}>
+
+        <label>
+          Society's legal status<span> *</span>
+        </label>
+        <select
+          name="status"
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+        >
           <option value="micro-entreprise">Micro</option>
           <option value="SASU">SASU</option>
           <option value="EURL">EURL</option>
@@ -132,56 +150,24 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
           <option value="SAS">SAS</option>
           <option value="SA">SA</option>
         </select>
-        <br />
-        <label>Address :</label>
-        <input
-          type="text"
-          name="address"
-          value={address}
-          placeholder={societyAtomValue!.address}
-          onChange={(e) => setAddress(e.target.value)}
-        />
-        &nbsp;&nbsp;&nbsp;
-        {errors && errors.address && (
-          <span className="error-message">Address {errors.address}</span>
-        )}
-        <br />
-        <label>Zip code :</label>
+
+        <label>
+          Siret<span> *</span>
+        </label>
         <input
           type="number"
-          name="zip"
-          value={zip}
-          placeholder={String(societyAtomValue!.zip)}
-          onChange={(e) => setZip(parseInt(e.target.value))}
+          name="siret"
+          value={siret}
+          placeholder={String(societyAtomValue!.siret)}
+          onChange={(e) => setSiret(parseInt(e.target.value))}
         />
-        &nbsp;&nbsp;&nbsp;
-        {errors && errors.zip && <span className="error-message">Zip code {errors.zip}</span>}
-        <br />
-        <label>City :</label>
-        <input
-          type="text"
-          name="city"
-          value={city}
-          placeholder={societyAtomValue!.city}
-          onChange={(e) => setCity(e.target.value)}
-        />
-        &nbsp;&nbsp;&nbsp;
-        {errors && errors.city && <span className="error-message">City {errors.city}</span>}
-        <br />
-        <label>Country :</label>
-        <input
-          type="text"
-          name="country"
-          value={country}
-          placeholder={societyAtomValue!.country}
-          onChange={(e) => setCountry(e.target.value)}
-        />
-        &nbsp;&nbsp;&nbsp;
-        {errors && errors.country && (
-          <span className="error-message">Country {errors.country}</span>
+        {errors && errors.siret && (
+          <span className="error-message">Siret {errors.siret}</span>
         )}
-        <br />
-        <label>Capital :</label>
+
+        <label>
+          Capital<span> *</span>
+        </label>
         <input
           type="text"
           name="capital"
@@ -189,12 +175,13 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
           placeholder={String(societyAtomValue!.capital)}
           onChange={(e) => setCapital(parseInt(e.target.value))}
         />
-        &nbsp;&nbsp;&nbsp;
         {errors && errors.capital && (
           <span className="error-message">Capital {errors.capital}</span>
         )}
-        <br />
-        <label>Email :</label>
+
+        <label>
+          Email<span> *</span>
+        </label>
         <input
           type="text"
           name="email"
@@ -202,15 +189,70 @@ const EditSociety = ({ closeEditModal }: EditSocietyProps) => {
           placeholder={societyAtomValue!.email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        &nbsp;&nbsp;&nbsp;
-        {errors && errors.email && <span className="error-message">Email {errors.email}</span>}
-        <br />
-        <div className="buttonedit">
-          <button className="savebuttoneditsociety">Save</button>
-          <button onClick={onClick} className="deletebuttonsociety">
-            Delete
-          </button>
-        </div>
+        {errors && errors.email && (
+          <span className="error-message">Email {errors.email}</span>
+        )}
+
+        <label>
+          Address<span> *</span>
+        </label>
+        <input
+          type="text"
+          name="address"
+          value={address}
+          placeholder={societyAtomValue!.address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
+        {errors && errors.address && (
+          <span className="error-message">Address {errors.address}</span>
+        )}
+
+        <label>
+          Zip code<span> *</span>
+        </label>
+        <input
+          type="number"
+          name="zip"
+          value={zip}
+          placeholder={String(societyAtomValue!.zip)}
+          onChange={(e) => setZip(parseInt(e.target.value))}
+        />
+        {errors && errors.zip && (
+          <span className="error-message">Zip code {errors.zip}</span>
+        )}
+
+        <label>
+          City<span> *</span>
+        </label>
+        <input
+          type="text"
+          name="city"
+          value={city}
+          placeholder={societyAtomValue!.city}
+          onChange={(e) => setCity(e.target.value)}
+        />
+        {errors && errors.city && (
+          <span className="error-message">City {errors.city}</span>
+        )}
+
+        <label>
+          Country<span> *</span>
+        </label>
+        <input
+          type="text"
+          name="country"
+          value={country}
+          placeholder={societyAtomValue!.country}
+          onChange={(e) => setCountry(e.target.value)}
+        />
+        {errors && errors.country && (
+          <span className="error-message">Country {errors.country}</span>
+        )}
+
+        <button className="btn edit-society-form__btn">Save</button>
+        <button className="edit-society-form__delete" onClick={onClick}>
+          Delete the society
+        </button>
       </form>
     </div>
   );

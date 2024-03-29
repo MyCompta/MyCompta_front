@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useSetAtom } from "jotai";
 
-
-
 import NewSociety from "../../components/society/NewSociety";
 import CreateSociety from "./CreateSociety";
 import societyAtom from "../../atom/societyAtom";
@@ -53,8 +51,6 @@ const IndexSocieties = () => {
     setShowCreateSociety(false);
   };
 
-
-
   return (
     <div className="societycontainer">
       <div className="header">
@@ -72,8 +68,12 @@ const IndexSocieties = () => {
                     to={`/societies/${societyItem.id}`}
                     onClick={() => {
                       Cookies.set("currentSociety", String(societyItem.id));
-                      setSocietyAtom({ ...societyItem, id: societyItem.id } as TSocietyBack);
-                    }}>
+                      setSocietyAtom({
+                        ...societyItem,
+                        id: societyItem.id,
+                      } as TSocietyBack);
+                    }}
+                  >
                     {societyItem.name.toUpperCase()}
                   </Link>
                 </li>
@@ -84,17 +84,16 @@ const IndexSocieties = () => {
           )}
         </div>
 
-        
-          {showCreateSociety && (
-            <div className="display_edit_and_new_societycontainer">
-              <CreateSociety />
-              <button onClick={closeCreateModal} className="closetag">
-                X
-              </button>
-            </div>
-          )}
-        </div>
+        {showCreateSociety && (
+          <div className="display_edit_and_new_societycontainer">
+            <CreateSociety />
+            <button onClick={closeCreateModal} className="closetag">
+              X
+            </button>
+          </div>
+        )}
       </div>
+    </div>
   );
 };
 
