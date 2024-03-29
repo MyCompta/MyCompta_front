@@ -33,6 +33,8 @@ export default function LoggedRoute({ redirectPath = "/login" }: { redirectPath:
                 status: res[0].status,
                 capital: res[0].capital,
                 email: res[0].email,
+                created_at: res[0].created_at,
+                updated_at: res[0].updated_at,
               }) as TSocietyBack
           );
           return true;
