@@ -4,7 +4,7 @@ import Cookies from "js-cookie"; // TO GET ID CURRENT SOCIETY AND BE ABLE TO SET
 import "./SocietyIndex.scss";
 import Society from "./Society";
 import { useNavigate } from "react-router-dom";
-import { useSetAtom } from "jotai";
+import { useSetAtom, useAtom } from "jotai";
 import { societyModalStatusAtom } from "../../atom/modalAtom";
 import { errorAtom } from "../../atom/notificationAtom";
 import { currentUserSocietiesAtom } from "../../atom/societyAtom";
@@ -15,17 +15,19 @@ import { FaTrash } from "react-icons/fa";
 
 const SocietyIndex = () => {
   const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
-  const [societiesData, setSocietiesData] = useState<TSocietyBack[]>();
   const navigate = useNavigate();
   const setError = useSetAtom(errorAtom);
-  const setCurrentUserSocieties = useSetAtom(currentUserSocietiesAtom);
+  const [currentUserSocieties, setCurrentUserSocieties] = useAtom(
+    currentUserSocietiesAtom
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetcher(`societies`, undefined, "GET", true);
         if (!response.error) {
-          setSocietiesData(response);
+          setCurrentUserSocieties(response);
+          console.log("currentUserSocieties : ", currentUserSocieties);
         } else {
           console.error(response.error);
         }
@@ -65,11 +67,10 @@ const SocietyIndex = () => {
       true
     );
     if (!response.error) {
-      const newSocietiesData = societiesData?.filter(
+      const newSocietiesData = currentUserSocieties?.filter(
         (society) => society.id !== societyId
       );
-      setSocietiesData(newSocietiesData);
-      setCurrentUserSocieties(newSocietiesData!);
+      setCurrentUserSocieties(newSocietiesData);
       if (
         societyId === parseInt(Cookies.get("currentSociety")!) &&
         newSocietiesData?.length
@@ -100,8 +101,8 @@ const SocietyIndex = () => {
         </button>
       </div>
       <div className="modal-society-body">
-        {societiesData &&
-          societiesData.map((society) => (
+        {currentUserSocieties &&
+          currentUserSocieties.map((society) => (
             <div className="modal-society-item-container" key={society.id}>
               <Society
                 society={society}
@@ -126,7 +127,7 @@ const SocietyIndex = () => {
               </div>
             </div>
           ))}
-        {societiesData && societiesData.length === 0 && (
+        {currentUserSocieties && currentUserSocieties.length === 0 && (
           <div className="modal-society-body__item modal-society-body__item--empty">
             No society yet
           </div>
