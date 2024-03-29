@@ -163,17 +163,6 @@
   color: $second-color;
 }
 
-.buttoneditsociety {
-  background-color: $second-color;
-  border: 1px solid $second-color;
-  color: white;
-  font-size: 14px;
-  padding: 8px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: "Montserrat", sans-serif;
-}
-
 .displayshowsociety {
   display: flex;
   flex-wrap: wrap;
@@ -263,15 +252,21 @@ h4 {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 10%;
+  top: 50%;
+  transform: translateY(-50%);
   width: 60%;
-  min-height: 80%;
-  background-color: $bg-color;
+  background-color: white;
   text-align: center;
   line-height: 2rem;
   border-radius: 5px;
-  box-shadow: 0px 0px 3px $second-color;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 31px 41px 0 rgba(33, 43, 54, 0.2),
+    0 2px 16px 0 rgba(33, 43, 54, 0.08);
   z-index: 999;
+  padding: 40px;
+  margin: 40px 20px;
+  height: calc(100% - 190px);
+  overflow: scroll;
 }
 
 .buttonedit {
@@ -317,18 +312,82 @@ h4 {
 
 .closetag {
   position: absolute;
-  top: 5%;
-  right: 5%;
-  display: flex;
-  align-items: center;
-  color: white;
   border: none;
-  padding: 5px;
-  border-radius: 10px;
-  scale: 1.2;
-  background-color: $second-color;
+  background-color: white;
+
+  right: 20px;
+  top: 8px;
+  cursor: pointer;
+  font-size: 36px;
 
   &:hover {
     border-radius: 2px;
+  }
+}
+
+.edit-society-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 360px;
+
+  &__info {
+    margin: 0 0px 20px auto;
+    color: #aaa;
+
+    span {
+      color: $alert-color;
+    }
+  }
+}
+
+.edit-society-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  label {
+    line-height: 1.5em;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: left;
+    margin-top: 14px;
+
+    span {
+      color: $alert-color;
+    }
+  }
+
+  input,
+  select {
+    margin-bottom: 6px;
+    width: 100%;
+    height: 28px;
+    padding: 4px;
+    border: none;
+    border-bottom: 1px solid;
+    font-size: 14px;
+  }
+
+  &__btn {
+    width: 160px;
+    margin: 30px auto 10px !important;
+  }
+
+  &__delete {
+    //color: $alert-color;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    background: white;
+    width: fit-content;
+    margin: auto;
+
+    &:hover {
+      color: $alert-color;
+    }
   }
 }
