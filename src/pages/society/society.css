@@ -146,6 +146,7 @@
   align-items: center;
   margin-left: 5%;
   margin-right: 5%;
+  color: #3398bd;
 }
 
 .buttoneditsociety {
@@ -167,11 +168,12 @@
 
 h4 {
   display: inline;
+  color: #3398bd;
 }
 
 .leftinfosociety {
   margin-top: 2%;
-  position: sticky;
+  position: relative;
   top: 20%;
   box-shadow: 0px 0px 3px #3398bd;
   max-height: 13.5rem;
@@ -179,15 +181,16 @@ h4 {
   align-items: center;
   border-radius: 5px;
   line-height: 2rem;
+  background-color: #f5f6f9;
 }
 
 .indexinvoicesshowsociety {
   position: relative;
   border-radius: 5px;
   box-shadow: 0px 0px 3px #3398bd;
-  height: 20rem;
   overflow: scroll;
   padding: 2%;
+  background-color: #f5f6f9;
 }
 
 .indexclientsshowsociety {
@@ -195,6 +198,40 @@ h4 {
   border-radius: 5px;
   box-shadow: 0px 0px 3px #3398bd;
   margin-top: 2%;
+  background-color: #f5f6f9;
+}
+
+.graph_showsociety {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 3px #3398bd;
+  background-color: #f5f6f9;
+  margin-bottom: 2%;
+}
+
+.graph_showsociety select {
+  background-color: #3398bd;
+  text-align: center;
+  margin: 2%;
+  border: 2px dotted #3398bd;
+  color: white;
+}
+
+.large_graph_showsociety {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+  width: 70%;
+  box-shadow: 0px 0px 3px #3398bd;
+  background-color: #f5f6f9;
+}
+
+.large_graph_showsociety select {
+  background-color: #3398bd;
+  text-align: center;
+  margin: 2%;
+  border: 2px dotted #3398bd;
+  color: white;
 }
 
 .display_edit_and_new_societycontainer {

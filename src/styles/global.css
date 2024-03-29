@@ -85,8 +85,21 @@ th,
 td {
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
-  padding: 12px 20px;
+  padding: 8px 15px;
   text-align: left;
+}
+th p,
+td p {
+  margin: 0;
+  font-size: 12px;
+}
+th p:first-child,
+td p:first-child {
+  font-weight: 500;
+}
+th p:last-child,
+td p:last-child {
+  color: #aaa;
 }
 
 th {
