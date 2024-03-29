@@ -27,7 +27,9 @@ export default function LeftNavbarDashboard() {
   const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
   const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
   const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
-  const [userSocieties, setUserSocieties] = useAtom(currentUserSocietiesAtom);
+  const [currentUserSocieties, setCurrentUserSocieties] = useAtom(
+    currentUserSocietiesAtom
+  );
 
   const id = Cookies.get("token")
     ? JSON.parse(Cookies.get("token")!).user_id
@@ -39,7 +41,7 @@ export default function LeftNavbarDashboard() {
         const response = await fetcher(`users/${id}`, undefined, "GET", true);
         if (!response.error) {
           setCurrentUserData(response);
-          setUserSocieties(response.societies);
+          setCurrentUserSocieties(response.societies);
         } else {
           console.error(response.error);
         }
@@ -49,11 +51,11 @@ export default function LeftNavbarDashboard() {
     };
 
     Cookies.get("token") && fetchData();
-  }, [id, setUserSocieties]);
+  }, [id, setCurrentUserSocieties]);
 
   useEffect(() => {
-    console.log("userSocieties", userSocieties);
-  }, [userSocieties]);
+    console.log("currentUserSocieties", currentUserSocieties);
+  }, [currentUserSocieties]);
 
   const handleLogout = () => {
     Cookies.remove("token");
@@ -98,14 +100,16 @@ export default function LeftNavbarDashboard() {
             onClick={handleOpenSocietyModal}
           >
             <p>
-              {userSocieties &&
-                (userSocieties.find((society) => society.id === currentSociety)
-                  ? userSocieties.find(
+              {currentUserSocieties &&
+                (currentUserSocieties.find(
+                  (society) => society.id === currentSociety
+                )
+                  ? currentUserSocieties.find(
                       (society) => society.id === currentSociety
                     )?.name
-                  : userSocieties.length > 0
+                  : currentUserSocieties.length > 0
                   ? (() => {
-                      const selectedSociety = userSocieties[0];
+                      const selectedSociety = currentUserSocieties[0];
                       Cookies.set("currentSociety", String(selectedSociety.id));
                       setCurrentSociety(selectedSociety.id);
                       return selectedSociety.name;
