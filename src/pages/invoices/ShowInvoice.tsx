@@ -84,6 +84,7 @@ const ShowInvoice = () => {
     });
   };
 
+  /*
   const handleStatusSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
     setInvoiceData({
@@ -97,6 +98,7 @@ const ShowInvoice = () => {
         invoiceData?.status === "draft" && { is_draft: false }),
     });
   };
+  */
 
   useEffect(() => {
     // Update invoiceData
