@@ -28,9 +28,7 @@ export default function LeftNavbarDashboard() {
   const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
   const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
   const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
-  const [currentUserSocieties, setCurrentUserSocieties] = useAtom(
-    currentUserSocietiesAtom
-  );
+  const [currentUserSocieties, setCurrentUserSocieties] = useAtom(currentUserSocietiesAtom);
 
   const id = Cookies.get("token") ? JSON.parse(Cookies.get("token")!).user_id : null;
 
@@ -96,35 +94,17 @@ export default function LeftNavbarDashboard() {
         {isLogged && (
           <div className="left-navbar__society" onClick={handleOpenSocietyModal}>
             <p>
-<<<<<<< Updated upstream
               {currentUserSocieties &&
-                (currentUserSocieties.find(
-                  (society) => society.id === currentSociety
-                )
-                  ? currentUserSocieties.find(
-                      (society) => society.id === currentSociety
-                    )?.name
+                (currentUserSocieties.find((society) => society.id === currentSociety)
+                  ? currentUserSocieties.find((society) => society.id === currentSociety)?.name
                   : currentUserSocieties.length > 0
-                  ? (() => {
-                      const selectedSociety = currentUserSocieties[0];
-                      Cookies.set("currentSociety", String(selectedSociety.id));
-                      setCurrentSociety(selectedSociety.id);
-                      return selectedSociety.name;
-                    })()
-                  : "Select society")}
-=======
-              {userSocieties &&
-                (userSocieties.find((society) => society.id === currentSociety)
-                  ? userSocieties.find((society) => society.id === currentSociety)?.name
-                  : userSocieties.length > 0
                     ? (() => {
-                        const selectedSociety = userSocieties[0];
+                        const selectedSociety = currentUserSocieties[0];
                         Cookies.set("currentSociety", String(selectedSociety.id));
                         setCurrentSociety(selectedSociety.id);
                         return selectedSociety.name;
                       })()
                     : "Select society")}
->>>>>>> Stashed changes
             </p>
             <CgSelect />
           </div>
