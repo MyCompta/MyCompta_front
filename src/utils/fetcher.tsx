@@ -2,13 +2,8 @@ import Cookies from "js-cookie";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const fetcher = async (
-  url: string,
-  body?: FormData,
-  method?: string,
-  auth?: boolean
-) => {
-  console.log(body);
+const fetcher = async (url: string, body?: FormData, method?: string, auth?: boolean) => {
+  // console.log(body);
   const token = Cookies.get("token");
   if (auth) {
     if (!token || !JSON.parse(token).token) {
@@ -26,6 +21,7 @@ const fetcher = async (
     .then(async (res) => {
       // TODO : better handle errors
       if (!res.ok) {
+        console.log(await res.json());
         return { error: "Une erreur est survenue : " + res.statusText };
       }
 
