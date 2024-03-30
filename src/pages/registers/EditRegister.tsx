@@ -37,6 +37,7 @@ export default function EditRegister() {
             fetchUrl={`registers/${id}`}
             controller="register"
             btnDisplay="Update Register"
+            isLogged={true}
             fields={[
               { name: "title", displayName: "Title", value: register.title },
               { name: "comment", displayName: "Comment", optional: true, value: register.comment },

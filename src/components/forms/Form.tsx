@@ -10,6 +10,7 @@ export function Form({
   btnDisplay,
   controller,
   onSuccess,
+  isLogged = false,
 }: {
   method?: string;
   fetchUrl: string;
@@ -17,6 +18,7 @@ export function Form({
   btnDisplay: string;
   controller: string;
   onSuccess?: () => void;
+  isLogged?: boolean;
 }) {
   const setError = useSetAtom(errorAtom);
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,7 +31,7 @@ export function Form({
       newFormData.append(`${controller}[${field}]`, value as string);
     }
 
-    const req = await fetcher(fetchUrl, newFormData, method, true);
+    const req = await fetcher(fetchUrl, newFormData, method, isLogged);
 
     if (req?.error) {
       console.error(req.error);

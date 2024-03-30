@@ -15,6 +15,7 @@ export default function CreateRegister() {
         fetchUrl="registers"
         controller="register"
         btnDisplay="Create Register"
+        isLogged={true}
         fields={[
           { name: "title", displayName: "Title" },
           { name: "comment", displayName: "Comment", optional: true },
