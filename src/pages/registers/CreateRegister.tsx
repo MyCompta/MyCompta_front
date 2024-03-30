@@ -1,10 +1,12 @@
 import { currentSocietyAtom } from "../../atom/societyAtom";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { Form } from "../../components/forms/Form";
 import { useNavigate } from "react-router-dom";
+import { successAtom } from "../../atom/notificationAtom";
 
 export default function CreateRegister() {
   const currentSociety = useAtomValue(currentSocietyAtom);
+  const setSuccess = useSetAtom(successAtom);
   const navigate = useNavigate();
   return (
     <>
@@ -45,7 +47,10 @@ export default function CreateRegister() {
           },
           { name: "society_id", value: currentSociety, type: "hidden" },
         ]}
-        onSuccess={() => navigate("/registers")}></Form>
+        onSuccess={() => {
+          setSuccess("Register created successfully");
+          navigate("/registers");
+        }}></Form>
     </>
   );
 }

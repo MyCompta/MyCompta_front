@@ -52,8 +52,11 @@ export default function IndexRegister() {
 
   return (
     <div className="indexRegister">
-      <h1>Index register !</h1>
-      <Link to="/registers/create" className="btn">
+      <h1>Your registers</h1>
+      <Link
+        to="/registers/create"
+        className="btn"
+        style={{ width: "fit-content", marginLeft: "auto", marginRight: "1rem" }}>
         Add a register
       </Link>
       <div className="monthSelect">

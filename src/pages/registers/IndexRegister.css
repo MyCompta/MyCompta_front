@@ -11,6 +11,26 @@
   overflow-x: scroll;
   padding: 0.5rem 1rem;
   justify-content: space-between;
+  max-width: 800px;
+}
+
+@media screen and (min-width: 800px) {
+  .monthSelect,
+  .yearSelect {
+    border-radius: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .monthSelect {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .yearSelect {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 }
 
 .monthSelect span {
