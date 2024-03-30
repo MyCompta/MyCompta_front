@@ -130,8 +130,8 @@ const InvoiceTable = ({
                         " " +
                         invoice.client.last_name}
                   </td>
-                  <td>{formatDate2(invoice.issued_at)}</td>
-                  <td>{formatDate2(invoice.due_at)}</td>
+                  <td>{new Date(invoice.issued_at).toLocaleDateString()}</td>
+                  <td>{new Date(invoice.due_at).toLocaleDateString()}</td>
                   <td>
                     {invoice.total.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
