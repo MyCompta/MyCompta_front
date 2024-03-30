@@ -135,6 +135,7 @@ const InvoiceTable = ({
                   <td>
                     {invoice.total.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
                     })}{" "}
                     €
                   </td>

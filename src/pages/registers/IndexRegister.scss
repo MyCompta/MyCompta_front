@@ -68,3 +68,37 @@
     }
   }
 }
+
+.register-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+
+  &__no-invoices {
+    text-align: center !important;
+    font-weight: 500;
+    font-size: 16px;
+    color: $text-color !important;
+  }
+
+  th:nth-child(2) {
+    border-left: none;
+  }
+
+  tr {
+    > td:nth-child(1) {
+      font-weight: 500;
+    }
+
+    > td:nth-child(2) {
+      color: $text-color-light;
+      min-width: 136px;
+    }
+
+    > td:nth-child(3) {
+      font-weight: 500;
+      border-left: none;
+      min-width: 80px;
+    }
+  }
+}

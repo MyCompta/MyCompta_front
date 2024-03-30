@@ -97,7 +97,7 @@ export default function IndexRegister() {
         </div>
       </div>
 
-      <table className="invoice-table">
+      <table className="register-table">
         <thead>
           <tr>
             <th>TITLE</th>
@@ -120,14 +120,20 @@ export default function IndexRegister() {
               >
                 <td>{register.title}</td>
                 <td>{new Date(register.paid_at).toLocaleDateString()}</td>
-                <td>{register.amount.toFixed(2)}</td>
+                <td>
+                  {register.amount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}{" "}
+                  €
+                </td>
                 <td>{register.payment_method}</td>
                 <td>{register.comment}</td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan={5} className="invoice-table__no-invoices">
+              <td colSpan={5} className="register-table__no-invoices">
                 No registers found
               </td>
             </tr>
