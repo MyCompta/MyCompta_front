@@ -29,7 +29,7 @@ export function Form({
       newFormData.append(`${controller}[${field}]`, value as string);
     }
 
-    const req = await fetcher(fetchUrl, newFormData, method, true);
+    const req = await fetcher(fetchUrl, newFormData, method);
 
     if (req?.error) {
       console.error(req.error);
@@ -69,7 +69,8 @@ export function Form({
               defaultValue={field.value}
               {...(field.displayName && typeof field.displayName === "string"
                 ? { placeholder: field.displayName, title: field.displayName }
-                : {})}></textarea>
+                : {})}
+            ></textarea>
           ) : (
             <input
               type={field.type ? field.type : "text"}
@@ -80,7 +81,9 @@ export function Form({
                 : {})}
               id={field.name + i.toString()}
               required={!field.optional}
-              defaultChecked={field.type === "checkbox" && field.value === "true"}
+              defaultChecked={
+                field.type === "checkbox" && field.value === "true"
+              }
             />
           )}
         </div>
