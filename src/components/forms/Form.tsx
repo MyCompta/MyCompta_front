@@ -10,6 +10,7 @@ export function Form({
   btnDisplay,
   controller,
   onSuccess,
+  isLogged = false,
 }: {
   method?: string;
   fetchUrl: string;
@@ -17,6 +18,7 @@ export function Form({
   btnDisplay: string;
   controller: string;
   onSuccess?: () => void;
+  isLogged?: boolean;
 }) {
   const setError = useSetAtom(errorAtom);
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,7 +31,7 @@ export function Form({
       newFormData.append(`${controller}[${field}]`, value as string);
     }
 
-    const req = await fetcher(fetchUrl, newFormData, method);
+    const req = await fetcher(fetchUrl, newFormData, method, isLogged);
 
     if (req?.error) {
       console.error(req.error);
@@ -69,8 +71,7 @@ export function Form({
               defaultValue={field.value}
               {...(field.displayName && typeof field.displayName === "string"
                 ? { placeholder: field.displayName, title: field.displayName }
-                : {})}
-            ></textarea>
+                : {})}></textarea>
           ) : (
             <input
               type={field.type ? field.type : "text"}
@@ -81,9 +82,7 @@ export function Form({
                 : {})}
               id={field.name + i.toString()}
               required={!field.optional}
-              defaultChecked={
-                field.type === "checkbox" && field.value === "true"
-              }
+              defaultChecked={field.type === "checkbox" && field.value === "true"}
             />
           )}
         </div>
