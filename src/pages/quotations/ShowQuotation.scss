@@ -1,6 +1,6 @@
 @import "../../styles/vars";
 
-.invoice-show-header {
+.quotation-show-header {
   &__title-line {
     display: flex;
     align-items: center;
@@ -64,7 +64,7 @@
   }
 }
 
-.invoice-show-body {
+.quotation-show-body {
   &__right-box {
     margin-left: auto;
     margin-right: 30px;
