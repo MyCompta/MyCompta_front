@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAtomValue } from "jotai";
 import societyAtom, { currentSocietyAtom } from "../../atom/societyAtom";
 import fetcher from "../../utils/fetcher";
-import "./IndexRegister.css";
+import "./IndexRegister.scss";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function IndexRegister() {
@@ -29,7 +29,11 @@ export default function IndexRegister() {
   ];
 
   const years = [];
-  for (let i = now.getFullYear(); i > new Date(currentSociety.created_at).getFullYear(); i--) {
+  for (
+    let i = now.getFullYear();
+    i > new Date(currentSociety.created_at).getFullYear();
+    i--
+  ) {
     years.push(i - 1);
   }
 
@@ -51,33 +55,49 @@ export default function IndexRegister() {
   }, [currentMonth, currentYear, currentSocietyId]);
 
   return (
-    <div className="indexRegister">
-      <h1>Your registers</h1>
-      <Link
-        to="/registers/create"
-        className="btn"
-        style={{ width: "fit-content", marginLeft: "auto", marginRight: "1rem" }}>
-        Add a register
-      </Link>
-      <div className="monthSelect">
-        {months.map((month, i) => {
-          return (
-            <span
-              key={i}
-              onClick={() => setCurrentMonth(i + 1)}
-              className={currentMonth === i + 1 ? "selected" : ""}>
-              {month}
-            </span>
-          );
-        })}
+    <div className="index-register">
+      <div className="index-register-header">
+        <h1>Your registers</h1>
+        <Link
+          to="/registers/create"
+          className="btn"
+          style={{
+            width: "fit-content",
+            marginLeft: "auto",
+            marginRight: "1rem",
+          }}
+        >
+          Add a register
+        </Link>
       </div>
-      <div className="yearSelect">
-        <select value={currentYear} onChange={(e) => setCurrentYear(parseInt(e.target.value))}>
-          <option value={now.getFullYear()}>{now.getFullYear()}</option>
-          {years.length && years.map((year) => <option value={year}>{year}</option>)}
-        </select>
+
+      <div className="index-register-date-picker">
+        <div className="index-register-date-picker__year">
+          <select
+            value={currentYear}
+            onChange={(e) => setCurrentYear(parseInt(e.target.value))}
+          >
+            <option value={now.getFullYear()}>{now.getFullYear()}</option>
+            {years.length &&
+              years.map((year) => <option value={year}>{year}</option>)}
+          </select>
+        </div>
+        <div className="index-register-date-picker__months">
+          {months.map((month, i) => {
+            return (
+              <span
+                key={i}
+                onClick={() => setCurrentMonth(i + 1)}
+                className={currentMonth === i + 1 ? "selected" : ""}
+              >
+                {month}
+              </span>
+            );
+          })}
+        </div>
       </div>
-      <table className="invoice-table" style={{ marginTop: "2rem" }}>
+
+      <table className="invoice-table">
         <thead>
           <tr>
             <th>TITLE</th>
@@ -93,8 +113,11 @@ export default function IndexRegister() {
               <tr
                 key={register.id}
                 onClick={() =>
-                  navigate(`/registers/${register.id}`, { state: { registerState: register } })
-                }>
+                  navigate(`/registers/${register.id}`, {
+                    state: { registerState: register },
+                  })
+                }
+              >
                 <td>{register.title}</td>
                 <td>{new Date(register.paid_at).toLocaleDateString()}</td>
                 <td>{register.amount.toFixed(2)}</td>

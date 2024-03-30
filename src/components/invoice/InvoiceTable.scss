@@ -6,9 +6,10 @@
   background-color: white;
 
   &__no-invoices {
-    text-align: center;
+    text-align: center !important;
     font-weight: 500;
     font-size: 16px;
+    color: $text-color !important;
   }
 
   th:nth-child(2) {
