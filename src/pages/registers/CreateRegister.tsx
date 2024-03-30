@@ -17,7 +17,20 @@ export default function CreateRegister() {
           { name: "title", displayName: "Title" },
           { name: "comment", displayName: "Comment", optional: true },
           { name: "amount", displayName: "Amount" },
-          { name: "payment_method", displayName: "Payment method" },
+          {
+            name: "payment_method",
+            displayName: "Payment method",
+            type: "select",
+            select: {
+              options: [
+                { name: "cash", displayName: "Cash" },
+                { name: "card", displayName: "Card" },
+                { name: "cheque", displayName: "Cheque" },
+                { name: "transfer", displayName: "Transfer" },
+                { name: "other", displayName: "Other" },
+              ],
+            },
+          },
           {
             name: "is_income",
             displayName: "Is the register an income?",

@@ -55,17 +55,34 @@ export function Form({
               ""
             )}
           </label>
-          <input
-            type={field.type ? field.type : "text"}
-            name={field.name}
-            defaultValue={field.value}
-            {...(field.displayName && typeof field.displayName === "string"
-              ? { placeholder: field.displayName, title: field.displayName }
-              : {})}
-            id={field.name + i.toString()}
-            required={!field.optional}
-            defaultChecked={field.type === "checkbox" && field.value === "true"}
-          />
+          {field.type === "select" ? (
+            <select name={field.name}>
+              {field.select?.options.map((option) => (
+                <option key={option.name} value={option.name}>
+                  {option.displayName}
+                </option>
+              ))}
+            </select>
+          ) : field.type === "textarea" ? (
+            <textarea
+              name={field.name}
+              defaultValue={field.value}
+              {...(field.displayName && typeof field.displayName === "string"
+                ? { placeholder: field.displayName, title: field.displayName }
+                : {})}></textarea>
+          ) : (
+            <input
+              type={field.type ? field.type : "text"}
+              name={field.name}
+              defaultValue={field.value}
+              {...(field.displayName && typeof field.displayName === "string"
+                ? { placeholder: field.displayName, title: field.displayName }
+                : {})}
+              id={field.name + i.toString()}
+              required={!field.optional}
+              defaultChecked={field.type === "checkbox" && field.value === "true"}
+            />
+          )}
         </div>
       ))}
       <input type="submit" value={btnDisplay} className="btn form-form__btn" />
@@ -75,8 +92,14 @@ export function Form({
 
 interface IFormFields {
   name: string;
-  type?: string;
+  type?: string | "select";
   value?: string;
   displayName?: string | JSX.Element;
   optional?: boolean;
+  select?: {
+    options: {
+      name: string;
+      displayName: string;
+    }[];
+  };
 }

@@ -6,7 +6,7 @@ type TRegisterBack = {
   amount: number;
   title: string;
   comment?: string;
-  payment_method: string;
+  payment_method: "cash" | "card" | "cheque" | "transfer" | "other";
   is_income: boolean;
   created_at: string;
   updated_at: string;

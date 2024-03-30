@@ -53,7 +53,7 @@ export default function IndexRegister() {
   return (
     <div className="indexRegister">
       <h1>Index register !</h1>
-      <Link to="registers/create" className="btn">
+      <Link to="/registers/create" className="btn">
         Add a register
       </Link>
       <div className="monthSelect">
