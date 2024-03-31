@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import fetcher from "../../utils/fetcher";
 import { useSetAtom } from "jotai";
 import { successAtom } from "../../atom/notificationAtom";
-import { PDFViewer } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { PdfGenerator } from "../../utils/PdfGenerator";
 import { invoiceDataFormatterReceive } from "../../utils/invoiceDataFormatter";
 import Switch from "react-switch";
@@ -19,12 +19,7 @@ const ShowInvoice = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetcher(
-          `invoices/${id}`,
-          undefined,
-          "GET",
-          true
-        );
+        const response = await fetcher(`invoices/${id}`, undefined, "GET", true);
         if (!response.error) {
           setInvoiceData(invoiceDataFormatterReceive(response));
         } else {
@@ -44,12 +39,7 @@ const ShowInvoice = () => {
 
   const onClick = async () => {
     try {
-      const response = await fetcher(
-        `invoices/${id}`,
-        undefined,
-        "DELETE",
-        true
-      );
+      const response = await fetcher(`invoices/${id}`, undefined, "DELETE", true);
 
       // TODO: add error handling
 
@@ -138,10 +128,7 @@ const ShowInvoice = () => {
             <>
               <div className="invoice-show-header__baseline-draft">
                 <p>Draft</p>
-                <Switch
-                  checked={invoiceData.is_draft!}
-                  onChange={handleDraft}
-                />
+                <Switch checked={invoiceData.is_draft!} onChange={handleDraft} />
               </div>
               <div className="invoice-show-header__baseline-paid">
                 <p>Paid</p>
@@ -157,10 +144,8 @@ const ShowInvoice = () => {
           <Link to={`/invoices/${id}/edit`}>Edit</Link>
           <button
             onClick={() => {
-              window.confirm("Are you sure to delete this invoice?") &&
-                onClick();
-            }}
-          >
+              window.confirm("Are you sure to delete this invoice?") && onClick();
+            }}>
             Delete
           </button>
         </div>
@@ -179,14 +164,16 @@ const ShowInvoice = () => {
             </select>
           </div>
       */}
+          <PDFDownloadLink document={<PdfGenerator invoice={invoiceData} />} className="btn">
+            Download my file
+          </PDFDownloadLink>
           <div>
             <PDFViewer
               style={{
                 width: "100%",
                 aspectRatio: "1/1.414",
                 maxHeight: "100vh",
-              }}
-            >
+              }}>
               <PdfGenerator invoice={invoiceData} />
             </PDFViewer>
           </div>
