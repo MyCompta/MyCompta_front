@@ -54,15 +54,16 @@ export default function IndexRegister() {
     fetchRegisters();
   }, [currentMonth, currentYear, currentSocietyId]);
 
-  const handleShowRegister = (id: number) => {
-    navigate(`/registers/${id}`);
-  };
+  // const handleShowRegister = (id: number) => {
+  //   navigate(`/registers/${id}`);
+  // };
 
-  const handleEditRegister = (id: number) => {
-    navigate(`/registers/edit/${id}`);
-  };
+  // const handleEditRegister = (id: number) => {
+  //   navigate(`/registers/edit/${id}`);
+  // };
 
-  const handleDeleteRegister = (id: number) => {
+  const handleDeleteRegister = (e: React.MouseEvent<SVGElement>, id: number) => {
+    e.preventDefault();
     fetcher(`registers/${id}`, undefined, "DELETE", true)
       .then(() => {
         setRegisters(registers?.filter((r) => r.id !== id));
@@ -142,26 +143,25 @@ export default function IndexRegister() {
                   €
                 </td>
                 <td>{register.payment_method}</td>
-                <td>{register.comment}</td>
-                {/* 'register-item-options-ghost' stabilize line on hover. DO NOT REMOVE */}
-                <div className="register-item-options-ghost"></div>{" "}
-                <div className="register-item-options">
-                  <IoDocumentText
-                    className="btn btn--no-bg btn--xxs"
-                    title="Details"
-                    onClick={() => handleShowRegister(register.id)}
-                  />
-                  <MdEditDocument
-                    className="btn btn--no-bg btn--xxs"
-                    title="Edit"
-                    onClick={() => handleEditRegister(register.id)}
-                  />
-                  <FaTrash
-                    className="register-item-options__trash btn btn--alert btn--xxs"
-                    title="Delete"
-                    onClick={() => handleDeleteRegister(register.id)}
-                  />
-                </div>
+                <td>
+                  {register.comment}
+                  {/* 'register-item-options-ghost' stabilize line on hover. DO NOT REMOVE */}
+                  <div className="register-item-options-ghost"></div>{" "}
+                  <div className="register-item-options">
+                    <IoDocumentText className="btn btn--no-bg btn--xxs" title="Details" />
+                    <MdEditDocument className="btn btn--no-bg btn--xxs" title="Edit" />
+                    <FaTrash
+                      className="register-item-options__trash btn btn--alert btn--xxs"
+                      title="Delete"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.confirm("Are you sure you want to delete this register?") &&
+                          handleDeleteRegister(e, register.id);
+                      }}
+                    />
+                  </div>
+                </td>
               </tr>
             ))
           ) : (
