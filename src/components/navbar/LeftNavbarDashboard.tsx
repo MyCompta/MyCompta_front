@@ -6,6 +6,7 @@ import invoiceIcon from "../../assets/images/invoice.svg";
 import quoteIcon from "../../assets/images/quote.svg";
 import customerIcon from "../../assets/images/customer.svg";
 import dashboardIcon from "../../assets/images/dashboard.svg";
+import registersIcon from "../../assets/images/registers.svg";
 import { FaBell } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
@@ -27,11 +28,9 @@ export default function LeftNavbarDashboard() {
   const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
   const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
   const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
-  const [userSocieties, setUserSocieties] = useAtom(currentUserSocietiesAtom);
+  const [currentUserSocieties, setCurrentUserSocieties] = useAtom(currentUserSocietiesAtom);
 
-  const id = Cookies.get("token")
-    ? JSON.parse(Cookies.get("token")!).user_id
-    : null;
+  const id = Cookies.get("token") ? JSON.parse(Cookies.get("token")!).user_id : null;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +38,7 @@ export default function LeftNavbarDashboard() {
         const response = await fetcher(`users/${id}`, undefined, "GET", true);
         if (!response.error) {
           setCurrentUserData(response);
-          setUserSocieties(response.societies);
+          setCurrentUserSocieties(response.societies);
         } else {
           console.error(response.error);
         }
@@ -49,11 +48,11 @@ export default function LeftNavbarDashboard() {
     };
 
     Cookies.get("token") && fetchData();
-  }, [id, setUserSocieties]);
+  }, [id, setCurrentUserSocieties]);
 
   useEffect(() => {
-    console.log("userSocieties", userSocieties);
-  }, [userSocieties]);
+    console.log("currentUserSocieties", currentUserSocieties);
+  }, [currentUserSocieties]);
 
   const handleLogout = () => {
     Cookies.remove("token");
@@ -93,44 +92,31 @@ export default function LeftNavbarDashboard() {
         )}
 
         {isLogged && (
-          <div
-            className="left-navbar__society"
-            onClick={handleOpenSocietyModal}
-          >
+          <div className="left-navbar__society" onClick={handleOpenSocietyModal}>
             <p>
-              {userSocieties &&
-                (userSocieties.find((society) => society.id === currentSociety)
-                  ? userSocieties.find(
-                      (society) => society.id === currentSociety
-                    )?.name
-                  : userSocieties.length > 0
-                  ? (() => {
-                      const selectedSociety = userSocieties[0];
-                      Cookies.set("currentSociety", String(selectedSociety.id));
-                      setCurrentSociety(selectedSociety.id);
-                      return selectedSociety.name;
-                    })()
-                  : "Select society")}
+              {currentUserSocieties &&
+                (currentUserSocieties.find((society) => society.id === currentSociety)
+                  ? currentUserSocieties.find((society) => society.id === currentSociety)?.name
+                  : currentUserSocieties.length > 0
+                    ? (() => {
+                        const selectedSociety = currentUserSocieties[0];
+                        Cookies.set("currentSociety", String(selectedSociety.id));
+                        setCurrentSociety(selectedSociety.id);
+                        return selectedSociety.name;
+                      })()
+                    : "Select society")}
             </p>
             <CgSelect />
           </div>
         )}
 
-        <div
-          className={`left-navbar__item ${
-            isLoggedIn() ? "" : "left-navbar__item--disabled"
-          }`}
-        >
+        <div className={`left-navbar__item ${isLoggedIn() ? "" : "left-navbar__item--disabled"}`}>
           <Link to="/dashboard" className="index">
             <img src={dashboardIcon} alt="dashboard icon" />
             <p>Dashboard</p>
           </Link>
         </div>
-        <div
-          className={`left-navbar__item ${
-            isLoggedIn() ? "" : "left-navbar__item--disabled"
-          }`}
-        >
+        <div className={`left-navbar__item ${isLoggedIn() ? "" : "left-navbar__item--disabled"}`}>
           <Link to="/clients" className="index">
             <img src={customerIcon} alt="customer icon" />
             <p>Clients</p>
@@ -159,12 +145,20 @@ export default function LeftNavbarDashboard() {
             +
           </Link>
         </div>
+        <div className="left-navbar__item">
+          <Link to="/registers" className="index">
+            <img src={registersIcon} alt="registers icon" />
+            <p>Registers</p>
+          </Link>
+          <Link to="/registers/create" className="new">
+            +
+          </Link>
+        </div>
         {!isLogged && (
           <div className="left-navbar__connection">
             <Link
               to="/register"
-              className="left-navbar__connection-link left-navbar__connection--blue"
-            >
+              className="left-navbar__connection-link left-navbar__connection--blue">
               Register
             </Link>
             <Link to="/login" className="left-navbar__connection-link">

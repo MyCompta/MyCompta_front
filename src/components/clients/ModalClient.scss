@@ -9,6 +9,7 @@
 .client-form-container {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .client-form {
@@ -52,7 +53,8 @@
       }
     }
 
-    input {
+    input,
+    select {
       margin-top: 10px;
       margin-bottom: 6px;
       padding: 10px;
@@ -74,7 +76,7 @@
 
     @include medium-screen {
       width: 100%;
-      padding: 30px 0;
+      padding: 20px 0;
     }
 
     label {

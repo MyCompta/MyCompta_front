@@ -1,4 +1,8 @@
-import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
 import LoggedRoute from "./LoggedRoute";
 import NotLoggedRoute from "./NotLoggedRoute";
 import Page404 from "../pages/Page404";
@@ -27,12 +31,15 @@ import PageClientShow from "../pages/clients/PageClientShow";
 
 import IndexSocieties from "../pages/society/IndexSocieties";
 import ShowSociety from "../pages/society/ShowSociety";
-import EditSociety from "../pages/society/EditSociety";
+import PageSocietyEdit from "../pages/society/PageSocietyEdit";
 import CreateSociety from "../pages/society/CreateSociety";
 import ShowQuotation from "../pages/quotations/ShowQuotation";
 import IndexQuotations from "../pages/quotations/IndexQuotations";
 import EditQuotation from "../pages/quotations/EditQuotation";
 import QuotationCreate from "../pages/quotations/QuotationCreate";
+import IndexRegister from "../pages/registers/IndexRegister";
+import CreateRegister from "../pages/registers/CreateRegister";
+import EditRegister from "../pages/registers/EditRegister";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -71,8 +78,12 @@ export const router = createBrowserRouter(
 
           <Route path="/societies" element={<IndexSocieties />} />
           <Route path="/societies/:id" element={<ShowSociety />} />
-          <Route path="/societies/:id/edit" element={<EditSociety />} />
+          <Route path="/societies/:id/edit" element={<PageSocietyEdit />} />
           <Route path="/societies/create" element={<CreateSociety />} />
+
+          <Route path="/registers" element={<IndexRegister />} />
+          <Route path="/registers/create" element={<CreateRegister />} />
+          <Route path="/registers/:id" element={<EditRegister />} />
         </Route>
       </Route>
     </>

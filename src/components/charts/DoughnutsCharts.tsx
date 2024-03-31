@@ -1,5 +1,4 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartOptions } from 'chart.js';
-import type { DeepPartial } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
@@ -13,15 +12,12 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-// Définition du type des options avec DeepPartial
-type DoughnutChartOptions = ChartOptions<'doughnut'>;
-type PartialDoughnutChartOptions = DeepPartial<DoughnutChartOptions>;
 
-export const options: PartialDoughnutChartOptions = {
+const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top',
+      position: 'top' as const,
     },
     title: {
       display: true,

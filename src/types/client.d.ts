@@ -9,7 +9,7 @@ type TClient = {
   zip: number;
   is_pro: boolean;
   siret?: string;
-  invoices?: TInvoice[];
+  invoices?: TInvoiceGetBack[];
 };
 
 type TClientBack = {
@@ -28,4 +28,5 @@ type TClientBack = {
   society_id: number;
   created_at: string;
   updated_at: string;
+  invoices?: TInvoiceShowBack[];
 };
