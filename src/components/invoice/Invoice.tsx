@@ -467,7 +467,7 @@ export default function Invoice({
 
   return (
     <div className="invoice">
-      <p style={{ textAlign: "right", margin: 0 }}>
+      <p style={{ margin: 0, width: "fit-content", marginLeft: "auto" }}>
         <select
           className="invoice__titles"
           style={{ textAlign: "end", borderBottom: "1px solid #313538" }}
@@ -482,7 +482,7 @@ export default function Invoice({
       <div className="invoice__author">
         <p className="invoice__titles">You</p>
         {!isPublic && (
-          <select value={author.id} onChange={handleAuthorSelect}>
+          <select value={author.id} onChange={handleAuthorSelect} className="user__infos__select">
             {societies &&
               societies.length &&
               societies.map((society) => (
@@ -495,9 +495,11 @@ export default function Invoice({
         <UserInfos user={author} setUser={setAuthor} />
       </div>
       <div className="invoice__client">
-        <p className="invoice__titles">Client</p>
+        <p className="invoice__titles">
+          Client {client.is_pro && <span className="invoice__pill">pro</span>}
+        </p>
         {!isPublic && (
-          <select value={client.id} onChange={handleClientSelect}>
+          <select value={client.id} onChange={handleClientSelect} className="user__infos__select">
             <option value="">Créer un nouveau client</option>
             {clients &&
               clients.length &&
@@ -510,13 +512,15 @@ export default function Invoice({
               ))}
           </select>
         )}
-        <div>
+        <div style={{ display: "flex", alignItems: "center", marginBottom: 10 }}>
           Client pro ?
           <Switch
             checked={client.is_pro!}
             onChange={() =>
               setClient((prevClient) => ({ ...prevClient, is_pro: !prevClient.is_pro }))
             }
+            className="invoice__client__switch"
+            onColor="#3398bd"
           />
         </div>
         <UserInfos user={client} setUser={setClient} />
@@ -543,24 +547,32 @@ export default function Invoice({
           />
         </div>
         <div>
-          <label htmlFor="date">Date d'émission :</label>
-          <input
-            type="date"
-            name="date"
-            id="date"
-            onChange={handleInputChange}
-            value={invoice.date.toISOString().substring(0, 10)}
-          />
-          <label htmlFor="dueDate">Date d'écheance :</label>
-          <select name="dueDateSelect" id="dueDate" onChange={handleDateSelect} defaultValue={"30"}>
-            <option value="0">À réception</option>
-            <option value="15">15 jours</option>
-            <option value="30">30 jours</option>
-            <option value="60">60 jours</option>
-            <option value="45">45 jours fin de mois</option>
-            <option value="choice">Choisir une date</option>
-          </select>
-          {dueDateChoice && <input type="date" name="dueDate" onChange={handleInputChange} />}
+          <div>
+            <label htmlFor="date">Date d'émission :</label>
+            <input
+              type="date"
+              name="date"
+              id="date"
+              onChange={handleInputChange}
+              value={invoice.date.toISOString().substring(0, 10)}
+            />
+          </div>
+          <div>
+            <label htmlFor="dueDate">Date d'écheance :</label>
+            <select
+              name="dueDateSelect"
+              id="dueDate"
+              onChange={handleDateSelect}
+              defaultValue={"30"}>
+              <option value="0">À réception</option>
+              <option value="15">15 jours</option>
+              <option value="30">30 jours</option>
+              <option value="60">60 jours</option>
+              <option value="45">45 jours fin de mois</option>
+              <option value="choice">Choisir une date</option>
+            </select>
+            {dueDateChoice && <input type="date" name="dueDate" onChange={handleInputChange} />}
+          </div>
         </div>
       </div>
       <div className="invoice__items">

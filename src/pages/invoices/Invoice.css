@@ -3,7 +3,7 @@
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  color: #222;
+  color: #5e6a73;
   display: flex;
   flex-direction: column;
   min-width: 600px;
@@ -14,9 +14,12 @@
 .invoice__titles {
   font-size: 2em;
   font-weight: bold;
-  margin: 0.67em;
+  margin: 0.67em 0;
   text-transform: capitalize;
   border: none;
+  display: flex;
+  align-items: flex-start;
+  color: #333;
 }
 
 .invoice__author,
@@ -30,4 +33,52 @@
 
 .invoice__author {
   margin-right: auto;
+}
+
+.invoice__client__switch {
+  transform: scale(0.7);
+}
+
+.invoice__pill {
+  background: #3398bd;
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.invoice__title {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.invoice__title > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.invoice__title > div:last-child {
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.invoice__title > div:last-child > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.invoice__title input {
+  border: none;
+  border-bottom: 1px solid #5e6a73;
+  min-width: 300px;
+}
+
+.invoice__title label {
+  color: #333;
+  font-weight: 500;
 }
