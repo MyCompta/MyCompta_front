@@ -1,33 +1,63 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
-import { useAtomValue } from "jotai";
 import { currentSocietyAtom } from "../../atom/societyAtom";
+import { currentUserSocietiesAtom } from "../../atom/societyAtom";
+import { useNavigate } from "react-router-dom";
+import { useSetAtom, useAtom } from "jotai";
+import { successAtom } from "../../atom/notificationAtom";
 
+import societyAtom from "../../atom/societyAtom";
 import "./society.scss";
 
 const CreateSociety = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
-  // const token = Cookies.get("token");
   const user_id = JSON.parse(Cookies.get("token")!).user_id;
+  const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
+  const setSociety = useSetAtom(societyAtom);
+  const setSuccess = useSetAtom(successAtom);
+  const setSocietyAtom = useSetAtom(societyAtom);
+  const [currentUserSocieties, setCurrentUserSocieties] = useAtom(
+    currentUserSocietiesAtom
+  );
   const navigate = useNavigate();
-  const currentSociety = useAtomValue(currentSocietyAtom);
 
   const [name, setName] = useState("");
   const [status, setStatus] = useState("micro-entreprise");
-  const [adress, setAdress] = useState("");
+  const [address, setAddress] = useState("");
   const [zip, setZip] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [siret, setSiret] = useState("");
   const [capital, setCapital] = useState("");
   const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({ name: "", generic: "" });
+  const [errors, setErrors] = useState<ErrorRes>({
+    name: "",
+    address: "",
+    capital: "",
+    city: "",
+    country: "",
+    email: "",
+    siret: "",
+    zip: "",
+    generic: "",
+  });
 
-  // const [creationSuccess, setCreationSuccess] = useState(false);
+  type ErrorRes = {
+    name: string;
+    address: string;
+    capital: string;
+    city: string;
+    country: string;
+    email: string;
+    siret: string;
+    zip: string;
+    generic: string;
+  };
 
   // console.log("dans le create", token)
   // console.log("user token id", user_id)
+
+  console.log("errors dans createsociety", errors);
 
   const HandleSubmitCreateSociety = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,7 +73,7 @@ const CreateSociety = () => {
           society: {
             name: name,
             status: status,
-            adress: adress,
+            address: address,
             zip: zip,
             city: city,
             country: country,
@@ -55,11 +85,37 @@ const CreateSociety = () => {
         }),
       });
 
-      const responseData = await response.json();
-
       if (response.ok) {
-        navigate(`/profile`);
+        const responseData = (await response.json()) as TSocietyBack;
+        console.log("Your society has been created");
+        setSocietyAtom(responseData);
+        setSuccess("Your society has been created");
+        setCurrentUserSocieties([...currentUserSocieties, responseData]);
+        console.log("currentUserSocieties", currentUserSocieties);
+
+        navigate(`/societies/${responseData.id}`);
+
+        // Cookies.set("currentSociety", String(responseData.id));
+        setCurrentSociety(String(responseData.id));
+
+        setSociety(
+          (prevSociety) =>
+            ({
+              ...prevSociety,
+              id: responseData.id,
+              name: responseData.name,
+              address: responseData.address,
+              zip: responseData.zip,
+              city: responseData.city,
+              country: responseData.country,
+              siret: responseData.siret,
+              status: responseData.status,
+              capital: responseData.capital,
+              email: responseData.email,
+            } as TSocietyBack)
+        );
       } else {
+        const responseData = (await response.json()) as ErrorRes;
         setErrors(responseData);
       }
     } catch (error) {
@@ -70,32 +126,35 @@ const CreateSociety = () => {
   };
 
   return (
-    <div className="createsocietyform">
-      <form onSubmit={HandleSubmitCreateSociety}>
-        <div className="createsocietyformtitle">
-          {currentSociety ? (
-            <h2>
-              You can create company here ! <br /> whao!
-            </h2>
-          ) : (
-            <h2>Add your society to continue</h2>
-          )}
-        </div>
-        <div className="createsocietyinput">
-          <label>
-            Company's name :&nbsp;&nbsp;&nbsp;&nbsp;
+    <div className="create-society-form-container">
+      {currentSociety ? (
+        <h2>Add another society</h2>
+      ) : (
+        <h2>Add your society to continue</h2>
+      )}
+      <p className="create-society-form-container__info">
+        <span>* </span>indicates a required field
+      </p>
+      <form
+        onSubmit={HandleSubmitCreateSociety}
+        className="create-society-form"
+      >
+        <div className="create-society-form-rows">
+          <div className="create-society-form-rows__row1">
+            <label>
+              Society's name<span> *</span>
+            </label>
             <input
               type="text"
               name="name"
               value={name}
               placeholder={"name of your company"}
               onChange={(e) => setName(e.target.value)}
-              className={errors && errors.name ? "error" : ""}
             />
-          </label>
-          <br />
-          <label>
-            Company's social reason :&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <label>
+              Society's legal status<span> *</span>
+            </label>
             <select
               name="status"
               value={status}
@@ -108,22 +167,68 @@ const CreateSociety = () => {
               <option value="SAS">SAS</option>
               <option value="SA">SA</option>
             </select>
-          </label>
-          <br />
-          <label>
-            Address :&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <label>
+              Siret<span> *</span>
+            </label>
             <input
               type="text"
-              name="adress"
-              value={adress}
-              placeholder={"adress of your company"}
-              onChange={(e) => setAdress(e.target.value)}
-              className={errors && errors.name ? "error" : ""}
+              name="siret"
+              value={siret}
+              placeholder={"13 digits"}
+              onChange={(e) => setSiret(e.target.value)}
             />
-          </label>
-          <br />
-          <label>
-            Zip code :&nbsp;&nbsp;&nbsp;&nbsp;
+            {errors && errors.siret && (
+              <span className="error-message">Siret {errors.siret}</span>
+            )}
+
+            <label>
+              Capital<span> *</span>
+            </label>
+            <input
+              type="text"
+              name="capital"
+              value={capital}
+              placeholder={"capital"}
+              onChange={(e) => setCapital(e.target.value)}
+            />
+            {errors && errors.capital && (
+              <span className="error-message">Capital {errors.capital}</span>
+            )}
+
+            <label>
+              Email<span> *</span>
+            </label>
+            <input
+              type="text"
+              name="email"
+              value={email}
+              placeholder={"your company's email"}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {errors && errors.email && (
+              <span className="error-message">Email {errors.email}</span>
+            )}
+          </div>
+
+          <div className="create-society-form-rows__row2">
+            <label>
+              Address<span> *</span>
+            </label>
+            <input
+              type="text"
+              name="address"
+              value={address}
+              placeholder={"adress of your company"}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+            {errors && errors.address && (
+              <span className="error-message">Address {errors.address}</span>
+            )}
+
+            <label>
+              Zip code<span> *</span>
+            </label>
             <input
               type="number"
               name="zip"
@@ -132,10 +237,13 @@ const CreateSociety = () => {
               onChange={(e) => setZip(e.target.value)}
               className={errors && errors.name ? "error" : ""}
             />
-          </label>
-          <br />
-          <label>
-            City :&nbsp;&nbsp;&nbsp;&nbsp;
+            {errors && errors.zip && (
+              <span className="error-message">Zip code {errors.zip}</span>
+            )}
+
+            <label>
+              City<span> *</span>
+            </label>
             <input
               type="text"
               name="city"
@@ -144,58 +252,26 @@ const CreateSociety = () => {
               onChange={(e) => setCity(e.target.value)}
               className={errors && errors.name ? "error" : ""}
             />
-          </label>
-          <br />
-          <label>
-            Country :&nbsp;&nbsp;&nbsp;&nbsp;
+            {errors && errors.city && (
+              <span className="error-message">City {errors.city}</span>
+            )}
+
+            <label>
+              Country<span> *</span>
+            </label>
             <input
               type="text"
               name="country"
               value={country}
               placeholder={"country name"}
               onChange={(e) => setCountry(e.target.value)}
-              className={errors && errors.name ? "error" : ""}
             />
-          </label>
-          <br />
-          <label>
-            Siret :&nbsp;&nbsp;&nbsp;&nbsp;
-            <input
-              type="text"
-              name="siret"
-              value={siret}
-              placeholder={"13 digits"}
-              onChange={(e) => setSiret(e.target.value)}
-              className={errors && errors.name ? "error" : ""}
-            />
-          </label>
-          <br />
-          <label>
-            Capital :&nbsp;&nbsp;&nbsp;&nbsp;
-            <input
-              type="text"
-              name="capital"
-              value={capital}
-              placeholder={"capital"}
-              onChange={(e) => setCapital(e.target.value)}
-              className={errors && errors.name ? "error" : ""}
-            />
-          </label>
-          <br />
-          <label>
-            Email :&nbsp;&nbsp;&nbsp;&nbsp;
-            <input
-              type="text"
-              name="email"
-              value={email}
-              placeholder={"your company's email"}
-              onChange={(e) => setEmail(e.target.value)}
-              className={errors && errors.name ? "error" : ""}
-            />
-          </label>
+            {errors && errors.country && (
+              <span className="error-message">Country {errors.country}</span>
+            )}
+          </div>
         </div>
-        <br />
-        <button>Create society</button>
+        <button className="btn">Create society</button>
       </form>
     </div>
   );

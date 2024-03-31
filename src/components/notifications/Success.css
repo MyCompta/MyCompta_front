@@ -1,6 +1,6 @@
 #successModal {
-  color: #2c5915;
-  background: #59fc7a;
+  color: #0a3c14;
+  background: #80ee96;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -19,7 +19,7 @@
   top: 0;
   left: 0;
   position: absolute;
-  background-color: #00ffc3;
+  background-color: #0a3c14;
   animation: Successprogress 5s 1s forwards ease-out;
 }
 
@@ -31,7 +31,6 @@
     width: 100%;
   }
 }
-
 .fadeIn {
   animation: fadeIn 1s forwards;
 }
@@ -50,7 +49,6 @@
     transform: translateY(0);
   }
 }
-
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -58,4 +56,4 @@
   to {
     opacity: 0;
   }
-}
+}/*# sourceMappingURL=Success.css.map */

@@ -49,6 +49,10 @@ export default function Register() {
         controller="user"
         onSuccess={handleOnSuccess}
       />
+
+      <p className="already-have-an-account">
+        Already have an account ? <Link to="/login">Login</Link>
+      </p>
     </div>
   );
 }

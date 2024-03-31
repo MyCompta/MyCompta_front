@@ -32,8 +32,10 @@ type TInvoice = {
   items: TItem[];
   is_draft?: boolean;
   is_paid?: boolean;
-  status?: string;
+  status?: "paid" | "sent" | "draft" | "pending";
   additionalInfo?: string;
+  is_valid?: boolean;
+  category: "invoice" | "quotation";
 };
 
 type TItem = {
@@ -62,8 +64,8 @@ type TInvoiceShowBack = {
   invoice: {
     id: number;
     content: json;
-    date: string;
-    due_date: string;
+    issued_at: string;
+    due_at: string;
     title: string;
     number: string;
     subtotal: number;
@@ -72,12 +74,13 @@ type TInvoiceShowBack = {
     sale: number;
     is_draft: boolean;
     is_paid: boolean;
-    status: string;
+    status: "paid" | "sent" | "draft" | "pending";
     society_id: number;
     user_id: number;
     created_at: string;
     updated_at: string;
     additional_info?: string;
+    category: "invoice" | "quotation";
   };
   author: TSocietyBack;
   client: TClientBack;
@@ -86,8 +89,8 @@ type TInvoiceShowBack = {
 type TInvoiceGetBack = {
   id: number;
   content: json;
-  date: string;
-  due_date: string;
+  issued_at: string;
+  due_at: string;
   title: string;
   number: string;
   subtotal: number;
@@ -96,11 +99,14 @@ type TInvoiceGetBack = {
   sale: number;
   is_draft: boolean;
   is_paid: boolean;
-  status: string;
+  status: "paid" | "sent" | "draft" | "pending";
   society_id: number;
   user_id: number;
   created_at: string;
   updated_at: string;
+  additional_info?: string;
+  category: "invoice" | "quotation";
+  client: TClientBack;
 };
 
 type TClientBack = {

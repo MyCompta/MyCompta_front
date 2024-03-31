@@ -1,4 +1,5 @@
-@import "../../styles/global";
+@import "../../styles/vars";
+@import "../../styles/mixins";
 
 .client-show-header {
   &__baseline {
@@ -59,14 +60,28 @@
       justify-content: space-between;
       align-items: center;
 
-      p {
-        font-weight: 600;
-        color: $second-color;
-        cursor: pointer;
-      }
+      &-right-box {
+        display: flex;
 
-      p:hover {
-        filter: opacity(0.8);
+        .edit {
+          font-weight: 600;
+          color: $second-color;
+          cursor: pointer;
+        }
+
+        .edit:hover {
+          filter: opacity(0.8);
+        }
+
+        .delete {
+          font-weight: 600;
+          color: $alert-color;
+          cursor: pointer;
+        }
+
+        .delete:hover {
+          filter: opacity(0.8);
+        }
       }
     }
 

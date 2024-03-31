@@ -1,0 +1,92 @@
+@import "../../styles/vars";
+
+.invoice-show-header {
+  &__title-line {
+    display: flex;
+    align-items: center;
+
+    p {
+      background: $second-color;
+      color: white;
+      border-radius: 10px;
+      padding: 5px;
+      margin-left: -20px;
+      margin-top: -6px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+  }
+
+  &__baseline {
+    display: flex;
+    align-items: center;
+    margin: -30px 30px 20px;
+
+    &-back {
+      margin: 0;
+      margin-right: 10px;
+      font-weight: 700;
+      color: $second-color;
+      display: flex;
+      align-items: center;
+      font-size: 22px;
+
+      svg {
+        width: 38px;
+        height: 38px;
+        margin-right: 4px;
+      }
+    }
+
+    &-draft,
+    &-paid {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+
+      p {
+        margin: 0 6px;
+      }
+
+      div {
+        scale: 0.8;
+        margin-left: -12px;
+
+        .react-switch-handle {
+          margin-left: 3px;
+        }
+
+        .react-switch-bg > div {
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+}
+
+.invoice-show-body {
+  &__right-box {
+    margin-left: auto;
+    margin-right: 30px;
+    width: fit-content;
+
+    a,
+    button {
+      border: none;
+      background-color: white;
+      font-size: 16px;
+      font-weight: 500;
+      color: $text-color;
+      margin: 4px;
+      cursor: pointer;
+    }
+
+    a {
+      color: $second-color;
+    }
+
+    button:hover {
+      color: $alert-color;
+    }
+  }
+}

@@ -10,20 +10,27 @@
   width: 36px !important;
   height: 34px !important;
   padding: 0 !important;
+  margin-left: -16px !important;
+}
+
+.modal-society-item-container {
+  position: relative;
+  display: flex;
+}
+.modal-society-item-container:hover {
+  background: #f3f5f7;
+}
+.modal-society-item-container:hover .modal-society-item-options {
+  display: flex;
 }
 
 .modal-society-body__item {
   padding: 12px 20px 12px 60px;
-  border-bottom: 1px solid #e5e5e5;
   font-weight: 700;
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   color: #5e6a73;
-}
-.modal-society-body__item:hover {
-  background: #f3f5f7;
 }
 .modal-society-body__item--active {
   width: 12px;
@@ -31,4 +38,20 @@
   border-radius: 100px;
   display: inline-block;
   background: #80ee96;
+  margin-left: 6px;
+}
+.modal-society-body__item--empty {
+  cursor: default !important;
+}
+.modal-society-body .modal-society-item-options {
+  display: none;
+  position: absolute;
+  right: 6px;
+  top: 3px;
+  z-index: 10;
+}
+.modal-society-body .modal-society-item-options__trash {
+  width: 17px !important;
+  height: 15px !important;
+  padding: 10px !important;
 }/*# sourceMappingURL=SocietyIndex.css.map */

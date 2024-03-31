@@ -12,6 +12,7 @@
   position: fixed;
   display: flex;
   flex-direction: column;
+  overflow: scroll;
 
   &--hidden {
     transform: translateX(-230px);
@@ -30,7 +31,7 @@
     border-top: 1px solid #171e1f;
     border-bottom: 1px solid #171e1f;
     width: calc(100% - 15px);
-    min-height: 56px;
+    //min-height: 56px;
     line-height: 26px;
     cursor: pointer;
     display: flex;
@@ -72,11 +73,18 @@
 
     .profile-icon {
       border-radius: 50px;
-      background-color: #3398bd;
-      width: 40px;
-      height: 40px;
+      background-color: white;
+      width: 36px;
+      height: 36px;
       margin: 5px;
-      cursor: pointer;
+
+      svg {
+        width: 46px;
+        height: 46px;
+        margin-left: -5px;
+        margin-top: -5px;
+        color: $second-color;
+      }
 
       p {
         text-align: center;

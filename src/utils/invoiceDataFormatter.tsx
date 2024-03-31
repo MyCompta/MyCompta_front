@@ -6,9 +6,10 @@ const invoiceDataFormatterSend = (invoice: TInvoice) => {
     tax: invoice.tax,
   };
 
+  formData.append("invoice[category]", invoice.category);
   formData.append("invoice[content]", JSON.stringify(content));
-  formData.append("invoice[date]", invoice.date.toISOString());
-  formData.append("invoice[due_date]", invoice.dueDate.toISOString());
+  formData.append("invoice[issued_at]", invoice.date.toISOString());
+  formData.append("invoice[due_at]", invoice.dueDate.toISOString());
   formData.append("invoice[title]", invoice.title);
   formData.append("invoice[number]", invoice.number);
   formData.append("invoice[subtotal]", String(invoice.subTotal));
@@ -47,6 +48,8 @@ const invoiceDataFormatterSend = (invoice: TInvoice) => {
     formData.append("invoice[client_infos][address]", invoice.client.address.street);
     formData.append("invoice[client_infos][city]", invoice.client.address.city);
     formData.append("invoice[client_infos][zip]", invoice.client.address.zip);
+    formData.append("invoice[client_infos][country]", invoice.client.address.country);
+    formData.append("invoice[client_infos][email]", invoice.client.email || "");
   }
 
   if (invoice.author.id && invoice.author.modified) {
@@ -74,10 +77,12 @@ const invoiceDataFormatterReceive = (invoice: TInvoiceShowBack) => {
     email: author.email,
     is_pro: true,
     address: {
-      street: author.adress,
+      street: author.address,
       city: author.city,
       zip: author.zip.toString(),
+      country: author.country,
     },
+    siret: author.siret,
   } as TUserInfos;
 
   const client = invoice.client;
@@ -91,6 +96,7 @@ const invoiceDataFormatterReceive = (invoice: TInvoiceShowBack) => {
       street: client.address,
       city: client.city,
       zip: client.zip.toString(),
+      country: client.country,
     },
   } as TUserInfos;
 
@@ -100,8 +106,8 @@ const invoiceDataFormatterReceive = (invoice: TInvoiceShowBack) => {
     id: invoiceData.id,
     items: content.items,
     tax: content.tax,
-    date: new Date(invoiceData.date),
-    dueDate: new Date(invoiceData.due_date),
+    date: new Date(invoiceData.issued_at),
+    dueDate: new Date(invoiceData.due_at),
     title: invoiceData.title,
     number: invoiceData.number,
     subTotal: invoiceData.subtotal,
@@ -111,6 +117,8 @@ const invoiceDataFormatterReceive = (invoice: TInvoiceShowBack) => {
     status: invoiceData.status,
     author: authorData,
     client: clientData,
+    additionalInfo: invoiceData.additional_info,
+    category: invoiceData.category,
   } as TInvoice;
 };
 

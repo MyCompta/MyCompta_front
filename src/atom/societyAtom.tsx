@@ -2,22 +2,28 @@ import { atom } from "jotai";
 import Cookies from "js-cookie";
 
 export const currentSocietyAtom = atom(
-  Cookies.get("currentSociety")
-    ? JSON.parse(Cookies.get("currentSociety")!)
-    : null
+  Cookies.get("currentSociety") ? JSON.parse(Cookies.get("currentSociety")!) : null
 );
 
-const societyAtom = atom({
-  id: "",
+const societyAtom = atom<TSocietyBack>({
+  id: 0,
   name: "",
-  adress: "",
-  zip: "",
+  address: "",
+  zip: 0,
   city: "",
   country: "",
-  siret: "",
+  siret: 0,
   status: "",
-  capital: "",
+  capital: 0,
   email: "",
-});
+  user_id: 0,
+  created_at: "",
+  updated_at: "",
+} as TSocietyBack);
+
+
+export const societiesAtom = atom<TSocietyBack[]>([]);
+
+export const currentUserSocietiesAtom = atom<TSocietyBack[]>([]);
 
 export default societyAtom;

@@ -1,61 +1,46 @@
 @import "../../styles/vars";
-@import "../../styles/global";
-
-
-.buttonnewsociety
-{
-  background-color: $second-color;
-  border: 1px solid $second-color;
-  color: white;
-  font-size: 12px;
-  padding: 6px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: "Montserrat", sans-serif;
-  top: 6rem;
-}
+@import "../../styles/mixins";
 
 ////////////////////////////////////////indexsocieties
-.societycontainer
-{
+.societycontainer {
   display: flex;
   flex-direction: column;
-  margin: 2%;
   box-shadow: 0px 0px 3px $second-color;
   padding: 2%;
   border-radius: 5px;
+  height: 20rem;
+  background-color: $bg-color;
 }
 
-.header
-{
+.header {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-around;
   align-items: center;
 }
 
-.buttonnewsociety
-{
+.buttonnewsociety {
+  position: relative;
   background-color: $second-color;
   border: 1px solid $second-color;
   color: white;
-  font-size: 12px;
   padding: 6px 20px;
   border-radius: 5px;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
-  top: 6rem;
 }
 
-.main_indexsocieties
-{
+.main_indexsocieties {
   display: flex;
   flex-wrap: wrap;
   padding-left: 5%;
   padding-right: 5%;
+  overflow: scroll;
+  border-radius: 5px;
+
 }
 
-.companylist
-{
+.companylist {
   position: relative;
   font-weight: bold;
   text-decoration: none;
@@ -66,106 +51,140 @@
   line-height: 3.5rem;
 }
 
-.singlecompany
+.companylist li
 {
-  padding-left: 3%;
-  &:hover
-  {
-    background-color: #f5f6f9;
-  }
+  text-align: center;
+  box-shadow: 0px 0px 10px 1px $second-color;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.error
-{
-  color: rgb(255, 0, 0);
-  font-weight: 800;
-
+.companylist li a:hover {
+    color: $second-color
 }
 
+
+.error-message {
+  color: $alert-color;
+  font-size: 14px;
+}
+
+.new_societycontainer
+{
+  position: relative;
+  top: -70%;
+  background-color: $bg-color;
+  border-radius: 5px;
+  box-shadow: 0px 0px 1000px 100px $second-color;
+}
 
 //////////////////////////////////////////createsociety
 
-.createsocietyform
-{
-  display: flex;
-  position: relative;
-  right: 0;
-  justify-content: center;
-  text-align: center;
-  line-height: 2.5rem;
-  background-color: white;
-}
-
-.createsocietyinput
-{
+.createsocietyinput {
   margin-top: 2%;
 }
 
-.createsocietyform button
-{
-  background-color: $second-color;
-  border: 1px solid $second-color;
-  color: white;
-  font-size: 14px;
-  padding: 8px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: "Montserrat", sans-serif;
+.create-society-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+
+  &__info {
+    margin: 0 30px 20px auto;
+    color: #aaa;
+
+    span {
+      color: $alert-color;
+    }
+  }
 }
 
+.create-society-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
-@media only screen and (max-width: 1300px)
-{
-  .createsocietyform
-  {
-    scale: 0.8;
+.create-society-form-rows {
+  display: flex;
+
+  @include medium-screen {
+    flex-direction: column;
+    align-items: center;
   }
 
-  .companylist
-  {
+  &__row1,
+  &__row2 {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px 20px 40px;
+    width: 50%;
+
+    label {
+      line-height: 1.5em;
+      font-size: 18px;
+      font-weight: 500;
+      text-align: left;
+      margin-top: 14px;
+
+      span {
+        color: $alert-color;
+      }
+    }
+
+    input,
+    select {
+      margin-bottom: 6px;
+      width: 100%;
+      height: 28px;
+      padding: 4px;
+      border: none;
+      border-bottom: 1px solid;
+      font-size: 14px;
+    }
+  }
+}
+
+.create-society-form button {
+  margin-left: 35%;
+  margin-right: 35%;
+  margin-bottom: 2%;
+}
+
+@media only screen and (max-width: 1300px) {
+  .companylist {
     scale: 0.8;
   }
 }
 
 /////////////////////////////////////////////////////////ShowSosiety
 
-.headershowsociety
-{
+.headershowsociety {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-left: 5%;
   margin-right: 5%;
+  color: $second-color;
 }
 
-.buttoneditsociety
-{
-  background-color: $second-color;
-  border: 1px solid $second-color;
-  color: white;
-  font-size: 14px;
-  padding: 8px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: "Montserrat", sans-serif; 
-}
-
-.displayshowsociety
-{
+.displayshowsociety {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  
 }
 
-h4
-{
+h4 {
   display: inline;
+  color: $second-color;
 }
 
-.leftinfosociety
-{
+.leftinfosociety {
   margin-top: 2%;
-  position: sticky;
+  position: relative;
   top: 20%;
   box-shadow: 0px 0px 3px $second-color;
   max-height: 13.5rem;
@@ -173,59 +192,97 @@ h4
   align-items: center;
   border-radius: 5px;
   line-height: 2rem;
-}
-.rightinfosociety
-{
+  background-color: $bg-color;
 }
 
-.indexinvoicesshowsociety
-{
+.indexinvoicesshowsociety {
   position: relative;
   border-radius: 5px;
   box-shadow: 0px 0px 3px $second-color;
-  height: 20rem;
   overflow: scroll;
   padding: 2%;
+  background-color: $bg-color;
 }
 
-.indexclientsshowsociety
-{
+.indexclientsshowsociety {
   position: relative;
   border-radius: 5px;
   box-shadow: 0px 0px 3px $second-color;
   margin-top: 2%;
+  background-color: $bg-color;
+}
+
+.graph_showsociety
+{
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 3px $second-color;
+  background-color: $bg-color;
+  margin-bottom: 2%;
+}
+
+.graph_showsociety select
+{
+  background-color: $second-color;
+  text-align: center;
+  margin: 2%;
+  border: 2px dotted $second-color;
+  color: white;
+
+}
+
+.large_graph_showsociety
+{
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+  width: 70%;
+  box-shadow: 0px 0px 3px $second-color;
+  background-color: $bg-color;
+}
+
+.large_graph_showsociety select
+{
+  background-color: $second-color;
+  text-align: center;
+  margin: 2%;
+  border: 2px dotted $second-color;
+  color: white;
+
 }
 
 /////////////////////////////////////////////////////// Edit society
 
-
-.displayeditsocietycontainer {
+.display_edit_and_new_societycontainer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  margin-top: -6%;
-  width: 80%;
-  height: 80%;
-  background-color: $bg-color;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60%;
+  background-color: white;
   text-align: center;
   line-height: 2rem;
   border-radius: 5px;
-  box-shadow: 0px 0px 3px $second-color;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 1000px 100px $second-color;
+  z-index: 999;
+  padding: 40px;
+  margin: 40px 20px;
+  height: calc(100% - 190px);
+  overflow: scroll;
 }
 
-
-
-.buttonedit
-{
+.buttonedit {
   display: flex;
   justify-content: space-evenly;
   margin-top: 5%;
   scale: 0.8;
 }
 
-.savebuttoneditsociety
-{
+.savebuttoneditsociety {
   background-color: $second-color;
   border: 1px solid $second-color;
   color: white;
@@ -235,14 +292,12 @@ h4
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
 
-    &:hover
-    {
-      background-color: #62b8d8;
-    } 
+  &:hover {
+    background-color: #62b8d8;
+  }
 }
 
-.deletebuttonsociety
-{
+.deletebuttonsociety {
   background-color: $second-color;
   border: 1px solid $second-color;
   color: white;
@@ -250,29 +305,95 @@ h4
   padding: 8px 30px;
   border-radius: 5px;
   cursor: pointer;
-  font-family: "Montserrat", sans-serif; 
+  font-family: "Montserrat", sans-serif;
 
-  &:hover
-    {
-      background-color: #62b8d8;
-    } 
+  &:hover {
+    background-color: #62b8d8;
+  }
 }
 
 h4 {
   display: inline;
 }
 
-.closetag
-{
-  position: relative;
-  top: -46%;
-  left: 23%;
-  border-radius: 10px;
-  padding-bottom: 2px;
-  scale: 1.2;
+.closetag {
+  position: absolute;
+  border: none;
+  background-color: transparent;
 
-    &:hover
-    {
-      border-radius: 5px;
+  right: 20px;
+  top: 8px;
+  cursor: pointer;
+  font-size: 36px;
+
+  &:hover {
+    border-radius: 2px;
+  }
+}
+
+.edit-society-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 360px;
+
+  &__info {
+    margin: 0 0px 20px auto;
+    color: #aaa;
+
+    span {
+      color: $alert-color;
     }
+  }
+}
+
+.edit-society-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  label {
+    line-height: 1.5em;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: left;
+    margin-top: 14px;
+
+    span {
+      color: $alert-color;
+    }
+  }
+
+  input,
+  select {
+    margin-bottom: 6px;
+    width: 100%;
+    height: 28px;
+    padding: 4px;
+    border: none;
+    border-bottom: 1px solid;
+    font-size: 14px;
+  }
+
+  &__btn {
+    width: 160px;
+    margin: 30px auto 10px !important;
+  }
+
+  &__delete {
+    //color: $alert-color;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    background: white;
+    width: fit-content;
+    margin: auto;
+
+    &:hover {
+      color: $alert-color;
+    }
+  }
 }

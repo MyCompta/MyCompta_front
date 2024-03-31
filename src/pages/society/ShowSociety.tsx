@@ -1,30 +1,47 @@
 import { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { useAtom } from "jotai";
-
-// import fetcher from "../../utils/fetcher";
+import { useSetAtom } from "jotai";
 
 import EditComponentSociety from "../../components/society/EditComponentSociety";
 import EditSociety from "./EditSociety";
 import societyAtom from "../../atom/societyAtom";
-
 import IndexInvoices from "../invoices/IndexInvoices";
-
 import PageClientIndex from "../clients/PageClientIndex";
+
+import { Doughnuts } from "../../components/charts/DoughnutsCharts";
+import { PolarCharts } from "../../components/charts/PolarCharts";
+import { RadarCharts } from "../../components/charts/RadarCharts";
+import { PieCharts } from "../../components/charts/PieCharts";
+import { LineCharts } from "../../components/charts/LineCharts";
+import { BarCharts } from "../../components/charts/BarCharts";
+import { StackedCharts } from "../../components/charts/StackedCharts";
 
 import "./society.scss";
 
 const apiUrl = import.meta.env.VITE_API_URL;
-// const token = Cookies.get("token");
 
 const ShowSociety = () => {
   const [showEditSociety, setShowEditSociety] = useState(false);
   const [societyData, setSocietyData] = useState<TSocietyBack>();
-  const [, setAtomData] = useAtom(societyAtom);
-  // const navigate = useNavigate();
+  const setSocietyAtom = useSetAtom(societyAtom);
+  const [selectedOption, setSelectedOption] = useState("turnover");
+  const { id } = useParams();
+  const [selectedOptionLarge, setSelectedOptionLarge] =
+    useState("globalturnover");
 
-  const id = localStorage.getItem("selectedSocietyId");
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleSelectChangeLarge = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedOptionLarge(event.target.value);
+  };
+
+  //const idsociety = useAtomValue(societyAtom);
+  //const id = idsociety!.id;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +56,7 @@ const ShowSociety = () => {
         if (response.ok) {
           const data = await response.json();
           setSocietyData(data);
-          setAtomData(data);
+          setSocietyAtom(data);
         } else {
           const error = await response.json();
           console.error(error);
@@ -50,7 +67,7 @@ const ShowSociety = () => {
     };
 
     fetchData();
-  }, [id, setAtomData]);
+  }, [id, showEditSociety, setSocietyAtom]);
 
   const handleEditSocietyClick = () => {
     setShowEditSociety(true);
@@ -80,7 +97,7 @@ const ShowSociety = () => {
             {societyData.capital}
             <br />
             <h4>Address: </h4>
-            {societyData.adress}
+            {societyData.address}
             <br />
             <h4>Zip code: </h4>
             {societyData.zip}
@@ -96,6 +113,18 @@ const ShowSociety = () => {
             <br />
           </div>
         )}
+        <div className="graph_showsociety">
+          <select value={selectedOption} onChange={handleSelectChange}>
+            <option value="turnover">Turnover client</option>
+            <option value="bar">Taxes</option>
+            <option value="line">P & L</option>
+            <option value="pie">Turnover product</option>
+          </select>
+          {selectedOption === "turnover" && <Doughnuts />}
+          {selectedOption === "bar" && <PolarCharts />}
+          {selectedOption === "line" && <RadarCharts />}
+          {selectedOption === "pie" && <PieCharts />}
+        </div>
         <div className="rightinfosociety">
           <div className="indexinvoicesshowsociety">
             <IndexInvoices />
@@ -104,11 +133,24 @@ const ShowSociety = () => {
             <PageClientIndex />
           </div>
         </div>
+        <div className="large_graph_showsociety">
+          <select
+            value={selectedOptionLarge}
+            onChange={handleSelectChangeLarge}
+          >
+            <option value="globalturnover">Global turnover</option>
+            <option value="global">Global</option>
+            <option value="combined">Combined P & L</option>
+          </select>
+          {selectedOptionLarge === "globalturnover" && <LineCharts />}
+          {selectedOptionLarge === "global" && <BarCharts />}
+          {selectedOptionLarge === "combined" && <StackedCharts />}
+        </div>
         {showEditSociety && (
-          <div className="displayeditsocietycontainer">
-            <EditSociety />
+          <div className="display_edit_and_new_societycontainer">
+            <EditSociety closeEditModal={closeEditModal} />
             <button onClick={closeEditModal} className="closetag">
-              x
+              ×
             </button>
           </div>
         )}

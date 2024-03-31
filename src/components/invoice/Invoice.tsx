@@ -3,31 +3,46 @@ import { ItemLine } from "./ItemLine";
 import { useState, useEffect } from "react";
 import fetcher from "../../utils/fetcher";
 import { invoiceDataFormatterSend } from "../../utils/invoiceDataFormatter";
-import { useSetAtom } from "jotai";
+import { useSetAtom, useAtom, useAtomValue } from "jotai";
 import { successAtom } from "../../atom/notificationAtom";
+import { clientsAtom } from "../../atom/clientsAtom";
+import { currentSocietyAtom, societiesAtom } from "../../atom/societyAtom";
+import societyAtom from "../../atom/societyAtom";
+import Switch from "react-switch";
+import { useNavigate } from "react-router-dom";
 
 export default function Invoice({
   authorProp,
   clientProp,
   invoiceProp,
+  category = "invoice",
+  isPublic = false,
 }: {
   authorProp?: TUserInfos;
   clientProp?: TUserInfos;
   invoiceProp?: TInvoice;
+  category?: "invoice" | "quotation";
+  isPublic?: boolean;
 }) {
   const setSuccess = useSetAtom(successAtom);
+  const [society, setSociety] = useAtom(societyAtom);
+  const navigate = useNavigate();
   const [author, setAuthor] = useState(
     authorProp ||
       ({
-        name: "",
+        id: society?.id || undefined,
+        name: society?.name || "",
         logo: "",
         is_pro: true,
         logoAlt: "",
         address: {
-          street: "",
-          city: "",
-          zip: "",
+          street: society?.address || "",
+          city: society?.city || "",
+          zip: society?.zip.toString() || "",
+          country: society?.country || "",
         },
+        siret: society?.siret || 0,
+        email: society?.email || "",
       } as TUserInfos)
   );
 
@@ -43,7 +58,10 @@ export default function Invoice({
           street: "",
           city: "",
           zip: "",
+          country: "",
         },
+        email: "",
+        siret: undefined,
       } as TUserInfos)
   );
 
@@ -62,6 +80,8 @@ export default function Invoice({
         discountTotal: 0,
         total: 0,
         items: items,
+        is_valid: false,
+        category: category,
       } as TInvoice)
   );
 
@@ -207,6 +227,41 @@ export default function Invoice({
     });
   }, [client, setInvoice]);
 
+  useEffect(() => {
+    if (
+      (client.id && author.id) ||
+      ((author.id ||
+        (isPublic &&
+          author.address &&
+          author.name &&
+          author.address.city &&
+          author.address.street &&
+          author.address.zip &&
+          author.address.country)) &&
+        client.address &&
+        client.address.city &&
+        client.address.zip &&
+        client.address.street &&
+        client.address.country &&
+        client.name &&
+        (isPublic || client.email))
+    ) {
+      setInvoice((prevInvoice) => {
+        return {
+          ...prevInvoice,
+          is_valid: true,
+        };
+      });
+    } else {
+      setInvoice((prevInvoice) => {
+        return {
+          ...prevInvoice,
+          is_valid: false,
+        };
+      });
+    }
+  }, [client, author, setInvoice, isPublic]);
+
   const handleSave = async () => {
     let req: TSaveReq;
     if (invoice.id) {
@@ -224,7 +279,7 @@ export default function Invoice({
 
     if (!req?.error) {
       console.log(req);
-      setSuccess("Facture enregistrée avec succès");
+      setSuccess(`${invoice.category} saved successfully !`);
 
       if (!invoice.id) {
         setInvoice((invoice) => {
@@ -242,7 +297,11 @@ export default function Invoice({
           };
         });
       }
+
+      return Promise.resolve(req.id);
     }
+
+    return Promise.reject();
   };
 
   // Auto save after 5s
@@ -251,6 +310,7 @@ export default function Invoice({
     if (autoSave) {
       clearTimeout(autoSave);
     }
+    if (!invoice.is_valid || isPublic) return;
 
     const timeout = setTimeout(() => {
       handleSave();
@@ -270,17 +330,195 @@ export default function Invoice({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invoice]);
 
+  const [clients, setClients] = useAtom(clientsAtom);
+  const currentSociety = useAtomValue(currentSocietyAtom);
+  // Clients fetch
+  useEffect(() => {
+    if (!clients.length && !isPublic) {
+      fetcher(
+        `clients${currentSociety ? `?society_id=${currentSociety}` : ""}`,
+        undefined,
+        "GET",
+        true
+      )
+        .then((res) => setClients(res))
+        .catch((err) => console.error(err));
+    }
+  }, [clients.length, currentSociety, setClients, isPublic]);
+
+  // useEffect(() => {
+  //   console.log("clients", clients);
+  // }, [clients]);
+
+  // useEffect(() => {
+  //   console.log("client", client);
+  // }, [client]);
+
+  const handleClientSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const clientId = event.target.value;
+
+    if (!clientId) {
+      setClient((client) => {
+        return {
+          ...client,
+          id: undefined,
+          address: {
+            street: "",
+            zip: "",
+            city: "",
+            country: "",
+          },
+          siret: undefined,
+          is_pro: false,
+          name: "",
+          surname: "",
+          email: "",
+        } as TUserInfos;
+      });
+      return;
+    }
+
+    const client = clients.find((client) => client.id === Number(clientId)) as TClientBack;
+
+    setClient({
+      id: client.id,
+      address: {
+        street: client.address,
+        zip: String(client.zip),
+        city: client.city,
+        country: client.country,
+      },
+      email: client.email,
+      siret: client.siret,
+      is_pro: client.is_pro,
+      ...(client.is_pro && {
+        name: client.business_name,
+      }),
+      ...(!client.is_pro && {
+        name: client.first_name,
+        surname: client.last_name,
+      }),
+    } as TUserInfos);
+  };
+
+  const [societies, setSocieties] = useAtom(societiesAtom);
+  const handleAuthorSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const authorId = event.target.value;
+    const author = societies.find((society) => society.id === Number(authorId)) as TSocietyBack;
+
+    setAuthor((prevAuthor) => {
+      return {
+        ...prevAuthor,
+        id: author.id,
+        name: author.name,
+        address: {
+          street: author.address,
+          zip: author.zip.toString(),
+          city: author.city,
+          country: author.country,
+        },
+        email: author.email,
+        siret: author.siret,
+      } as TUserInfos;
+    });
+
+    setSociety(
+      (prevSociety) =>
+        ({
+          ...prevSociety,
+          id: author.id,
+          name: author.name,
+          address: author.address,
+          siret: author.siret,
+          city: author.city,
+          zip: author.zip,
+          country: author.country,
+          capital: author.capital,
+          status: author.status,
+          email: author.email,
+        }) as TSocietyBack
+    );
+  };
+
+  useEffect(() => {
+    if (!societies.length && !isPublic) {
+      fetcher("societies", undefined, "GET", true).then((societies) => {
+        setSocieties(societies);
+        if (!author.id) {
+          setAuthor((prevAuthor) => {
+            return {
+              ...prevAuthor,
+              id: societies[0].id,
+              address: {
+                street: societies[0].address,
+                zip: societies[0].zip.toString(),
+                city: societies[0].city,
+                country: societies[0].country,
+              },
+              siret: Number(societies[0].siret),
+              email: societies[0].email,
+              name: societies[0].name,
+            } as TUserInfos;
+          });
+        }
+      });
+    }
+  }, [societies, setSocieties, author.id, isPublic]);
+
   return (
     <div className="invoice">
       <p className="invoice__titles" style={{ textAlign: "right", margin: 0 }}>
-        Facture
+        {invoice.category}
+        <br />
+        <select
+          value={invoice.category}
+          onChange={(e) =>
+            setInvoice({ ...invoice, category: e.target.value as "invoice" | "quotation" })
+          }>
+          <option value={"invoice"}>Invoice</option>
+          <option value={"quotation"}>Quotation</option>
+        </select>
       </p>
       <div className="invoice__author">
-        <p className="invoice__titles">Vous</p>
+        <p className="invoice__titles">You</p>
+        {!isPublic && (
+          <select value={author.id} onChange={handleAuthorSelect}>
+            {societies &&
+              societies.length &&
+              societies.map((society) => (
+                <option key={society.id} value={society.id}>
+                  {society.name}
+                </option>
+              ))}
+          </select>
+        )}
         <UserInfos user={author} setUser={setAuthor} />
       </div>
       <div className="invoice__client">
         <p className="invoice__titles">Client</p>
+        {!isPublic && (
+          <select value={client.id} onChange={handleClientSelect}>
+            <option value="">Créer un nouveau client</option>
+            {clients &&
+              clients.length &&
+              clients.map((client) => (
+                <option key={client.id} value={client.id}>
+                  {client.is_pro
+                    ? client.business_name
+                    : client.first_name + " " + client.last_name}
+                </option>
+              ))}
+          </select>
+        )}
+        <div>
+          Client pro ?
+          <Switch
+            checked={client.is_pro!}
+            onChange={() =>
+              setClient((prevClient) => ({ ...prevClient, is_pro: !prevClient.is_pro }))
+            }
+          />
+        </div>
         <UserInfos user={client} setUser={setClient} />
       </div>
       <div className="invoice__title">
@@ -399,7 +637,19 @@ export default function Invoice({
           </tfoot>
         </table>
       </div>
-      <button onClick={handleSave}>Enregistrer la facture</button>
+      {!isPublic ? (
+        <button
+          onClick={() => handleSave().then((id) => navigate(`/${invoice.category}s/${id}`))}
+          disabled={!invoice.is_valid}>
+          Save the {invoice.category}
+        </button>
+      ) : (
+        <button
+          onClick={() => navigate(`/document/preview`, { state: { invoice: invoice } })}
+          disabled={!invoice.is_valid}>
+          Generate my {invoice.category}
+        </button>
+      )}
     </div>
   );
 }

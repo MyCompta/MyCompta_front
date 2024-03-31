@@ -1,5 +1,11 @@
+.unlogged-home-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 50px);
+}
+
 .unlogged-home {
-  margin: auto;
   width: 420px;
   text-align: center;
 }
@@ -42,4 +48,42 @@
 .unlogged-home__connection-login-text a {
   color: #3398bd;
   font-weight: 600;
+}
+
+.dashboard_page h1 {
+  font-weight: 900;
+  color: #3398bd;
+}
+
+.chartcontainer {
+  margin: 2%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.barchart_on_dashboard {
+  box-shadow: 0px 0px 10px 5px #3398bd;
+  width: 60%;
+  margin: 2%;
+}
+
+.doughnuts_on_dashboard {
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 10px 5px #3398bd;
+  margin: 2%;
+}
+
+.linecharts_on_dashboard {
+  box-shadow: 0px 0px 10px 5px #3398bd;
+  width: 60%;
+  margin: 2%;
+}
+
+.piecharts_on_dashboard {
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 10px 5px #3398bd;
+  margin: 2%;
 }/*# sourceMappingURL=index.css.map */

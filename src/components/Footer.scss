@@ -1,11 +1,27 @@
-footer {
+@import "../styles/vars";
+
+.footer {
   display: flex;
-  position: static;
-  bottom: 0;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  padding-left: 5%;
-  padding-right: 5%;
-  margin-top: 40px;
-  margin-top: auto;
+  margin: auto auto 10px auto;
+  padding: 2rem 10px 0px 10px;
+  width: calc(100% - 40px);
+  font-size: 14px;
+
+  &__link {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0px 10px 0 20px;
+
+    & > a {
+      padding: 2px 6px;
+
+      &:hover {
+        color: $second-color;
+        font-weight: 500;
+      }
+    }
+  }
 }

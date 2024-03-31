@@ -62,8 +62,19 @@ h1 {
 }
 .btn--no-bg {
   background-image: linear-gradient(-180deg, #fff 0, #f9fafb 100%);
-  color: #0f526b !important;
+  color: #313538 !important;
+  border: 1px solid #c4cdd5 !important;
   font-weight: 500;
+}
+.btn--xs {
+  padding: 8px;
+  height: 20px;
+  width: 22px;
+  margin: 0px 2px;
+}
+.btn--alert {
+  background: linear-gradient(-180deg, #ea4a2e 0, #da391d 100%);
+  border: 1px solid #a83c29;
 }
 
 table {
@@ -74,8 +85,21 @@ th,
 td {
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
-  padding: 12px 20px;
+  padding: 8px 15px;
   text-align: left;
+}
+th p,
+td p {
+  margin: 0;
+  font-size: 12px;
+}
+th p:first-child,
+td p:first-child {
+  font-weight: 500;
+}
+th p:last-child,
+td p:last-child {
+  color: #aaa;
 }
 
 th {
@@ -151,10 +175,8 @@ tbody tr:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  justify-content: space-between;
   padding-left: 5%;
   padding-right: 5%;
-  height: 100vh;
   height: calc(100% - 60px);
 }
 

@@ -3,10 +3,12 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import fetcher from "../../utils/fetcher";
 import { useSetAtom } from "jotai";
 import { successAtom } from "../../atom/notificationAtom";
-import { PDFViewer } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { PdfGenerator } from "../../utils/PdfGenerator";
 import { invoiceDataFormatterReceive } from "../../utils/invoiceDataFormatter";
 import Switch from "react-switch";
+import { IoIosArrowDropleftCircle } from "react-icons/io";
+import "./ShowInvoice.scss";
 
 const ShowInvoice = () => {
   const { id } = useParams();
@@ -72,17 +74,21 @@ const ShowInvoice = () => {
     });
   };
 
+  /*
   const handleStatusSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
     setInvoiceData({
       ...invoiceData!,
-      status: value,
+      status: value as "paid" | "sent" | "draft" | "pending",
       ...(value === "paid" && { is_draft: false, is_paid: true }),
-      ...(value !== "paid" && invoiceData?.status === "paid" && { is_paid: false }),
+      ...(value !== "paid" &&
+        invoiceData?.status === "paid" && { is_paid: false }),
       ...(value === "draft" && { is_draft: true, is_paid: false }),
-      ...(value !== "draft" && invoiceData?.status === "draft" && { is_draft: false }),
+      ...(value !== "draft" &&
+        invoiceData?.status === "draft" && { is_draft: false }),
     });
   };
+  */
 
   useEffect(() => {
     // Update invoiceData
@@ -109,9 +115,45 @@ const ShowInvoice = () => {
 
   return (
     <>
-      <h1>Invoice {invoiceData?.number}</h1>
+      <div className="invoice-show-header">
+        <div className="invoice-show-header__title-line">
+          <h1>Invoice #{invoiceData?.number}</h1>
+          <p>{invoiceData?.status}</p>
+        </div>
+        <div className="invoice-show-header__baseline">
+          <Link to="/invoices" className="invoice-show-header__baseline-back">
+            <IoIosArrowDropleftCircle /> Invoices list
+          </Link>
+          {invoiceData && (
+            <>
+              <div className="invoice-show-header__baseline-draft">
+                <p>Draft</p>
+                <Switch checked={invoiceData.is_draft!} onChange={handleDraft} />
+              </div>
+              <div className="invoice-show-header__baseline-paid">
+                <p>Paid</p>
+                <Switch checked={invoiceData.is_paid!} onChange={handlePaid} />
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
+      <div className="invoice-show-body">
+        <div className="invoice-show-body__right-box">
+          <Link to={`/invoices/${id}/edit`}>Edit</Link>
+          <button
+            onClick={() => {
+              window.confirm("Are you sure to delete this invoice?") && onClick();
+            }}>
+            Delete
+          </button>
+        </div>
+      </div>
+
       {invoiceData && (
         <>
+          {/*}
           <div>
             Invoice status :
             <select value={invoiceData.status} onChange={handleStatusSelect}>
@@ -121,22 +163,22 @@ const ShowInvoice = () => {
               <option value={"paid"}>Paid</option>
             </select>
           </div>
+      */}
+          <PDFDownloadLink document={<PdfGenerator invoice={invoiceData} />} className="btn">
+            Download my file
+          </PDFDownloadLink>
           <div>
-            Draft : <Switch checked={invoiceData.is_draft!} onChange={handleDraft} />
-          </div>
-          <div>
-            Paid : <Switch checked={invoiceData.is_paid!} onChange={handlePaid} />
-          </div>
-          <div>
-            <PDFViewer style={{ width: "100%", aspectRatio: "1/1.414", maxHeight: "100vh" }}>
+            <PDFViewer
+              style={{
+                width: "100%",
+                aspectRatio: "1/1.414",
+                maxHeight: "100vh",
+              }}>
               <PdfGenerator invoice={invoiceData} />
             </PDFViewer>
           </div>
         </>
       )}
-      <Link to="/invoices">Back to invoices list</Link>
-      <Link to={`/invoices/${id}/edit`}>Edit</Link>
-      <button onClick={onClick}>Delete</button>
     </>
   );
 };

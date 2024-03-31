@@ -1,9 +1,9 @@
 import { Form } from "../../components/forms/Form";
 import { useSetAtom } from "jotai";
 import { successAtom } from "../../atom/notificationAtom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-import "./users.scss"
+import "./users.scss";
 
 export default function ForgotPassword() {
   const navigate = useNavigate();
@@ -15,13 +15,23 @@ export default function ForgotPassword() {
         method="POST"
         fetchUrl="users/password"
         btnDisplay="Send"
-        fields={[{ name: "email", displayName: "Email Address : ", type: "email" }]}
+        fields={[
+          { name: "email", displayName: "Email Address : ", type: "email" },
+        ]}
         controller="user"
         onSuccess={() => {
           setSuccess("Proceed  reinitialization password");
           navigate("/");
         }}
       />
+      <div className="form-form-links">
+        <Link className="form-form-link" to="/login">
+          Login
+        </Link>
+        <Link className="form-form-link" to="/register">
+          Register
+        </Link>
+      </div>
     </div>
   );
 }

@@ -3,6 +3,11 @@
   border-bottom: 1px solid #e5e5e5;
 }
 
+.client-form-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .client-form {
   padding: 10px 0;
   display: flex;
@@ -20,7 +25,7 @@
   right: 30px;
 }
 .client-form__info span {
-  color: #e66b55;
+  color: #ea4a2e;
 }
 .client-form__row1 {
   display: flex;
@@ -37,16 +42,21 @@
 }
 .client-form__row1 label {
   font-weight: 600;
+  margin-top: 14px;
 }
 .client-form__row1 label span {
-  color: #e66b55;
+  color: #ea4a2e;
 }
 .client-form__row1 input {
   margin-top: 10px;
-  margin-bottom: 14px;
+  margin-bottom: 6px;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #e5e5e5;
+}
+.client-form__row1 p {
+  color: #ea4a2e;
+  margin: 0 0 14px;
 }
 .client-form__row2 {
   display: flex;
@@ -62,26 +72,29 @@
 }
 .client-form__row2 label {
   font-weight: 600;
+  margin-top: 14px;
 }
 .client-form__row2 label span {
-  color: #e66b55;
+  color: #ea4a2e;
 }
 .client-form__row2 input {
   margin-top: 10px;
-  margin-bottom: 14px;
+  margin-bottom: 6px;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #e5e5e5;
 }
+.client-form__row2 p {
+  color: #ea4a2e;
+  margin: 0 0 14px;
+}
 .client-form__submit {
-  position: absolute;
-  bottom: -38px;
-  right: 30px;
+  width: 140px;
+  margin: -82px 32px 40px auto !important;
 }
 @media only screen and (max-width: 950px) {
   .client-form__submit {
-    width: 100% !important;
-    margin: -30px 30px 100px !important;
-    position: relative;
+    margin: 0 auto 40px !important;
+    width: 400px;
   }
 }/*# sourceMappingURL=ModalClient.css.map */

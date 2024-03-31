@@ -6,6 +6,7 @@ import invoiceIcon from "../../assets/images/invoice.svg";
 import quoteIcon from "../../assets/images/quote.svg";
 import customerIcon from "../../assets/images/customer.svg";
 import dashboardIcon from "../../assets/images/dashboard.svg";
+import registersIcon from "../../assets/images/registers.svg";
 import { FaBell } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
@@ -16,19 +17,20 @@ import fetcher from "../../utils/fetcher";
 import { isLoggedIn } from "../../utils/auth";
 import { useAtom, useSetAtom } from "jotai";
 import { isLoggedAtom } from "../../atom/authAtom";
+import { currentUserSocietiesAtom } from "../../atom/societyAtom";
 import { currentSocietyAtom } from "../../atom/societyAtom";
+import { IoPersonCircleSharp } from "react-icons/io5";
 
 export default function LeftNavbarDashboard() {
-  const [currentUserData, setCurrentUserData] = useState<TUserShowBack>();
+  const [, setCurrentUserData] = useState<TUserShowBack>();
   const navigate = useNavigate();
   const setNewClientModalStatus = useSetAtom(newClientModalStatusAtom);
   const setSocietyModalStatus = useSetAtom(societyModalStatusAtom);
   const [isLogged, setIsLogged] = useAtom(isLoggedAtom);
-  const setCurrentSociety = useSetAtom(currentSocietyAtom);
+  const [currentSociety, setCurrentSociety] = useAtom(currentSocietyAtom);
+  const [currentUserSocieties, setCurrentUserSocieties] = useAtom(currentUserSocietiesAtom);
 
-  const id = Cookies.get("token")
-    ? JSON.parse(Cookies.get("token")!).user_id
-    : null;
+  const id = Cookies.get("token") ? JSON.parse(Cookies.get("token")!).user_id : null;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +38,7 @@ export default function LeftNavbarDashboard() {
         const response = await fetcher(`users/${id}`, undefined, "GET", true);
         if (!response.error) {
           setCurrentUserData(response);
+          setCurrentUserSocieties(response.societies);
         } else {
           console.error(response.error);
         }
@@ -45,11 +48,11 @@ export default function LeftNavbarDashboard() {
     };
 
     Cookies.get("token") && fetchData();
-  }, [id]);
+  }, [id, setCurrentUserSocieties]);
 
   useEffect(() => {
-    console.log("currentUserData", currentUserData);
-  }, [currentUserData]);
+    console.log("currentUserSocieties", currentUserSocieties);
+  }, [currentUserSocieties]);
 
   const handleLogout = () => {
     Cookies.remove("token");
@@ -74,7 +77,7 @@ export default function LeftNavbarDashboard() {
         {Cookies.get("token") && (
           <div className="left-navbar__profile-options">
             <div className="profile-icon">
-              <p>AL</p>
+              <IoPersonCircleSharp />
             </div>
             <div className="notification">
               <FaBell />
@@ -89,50 +92,31 @@ export default function LeftNavbarDashboard() {
         )}
 
         {isLogged && (
-          <div
-            className="left-navbar__society"
-            onClick={handleOpenSocietyModal}
-          >
+          <div className="left-navbar__society" onClick={handleOpenSocietyModal}>
             <p>
-              {currentUserData &&
-                currentUserData.societies &&
-                (currentUserData.societies.find(
-                  (society) =>
-                    society.id === parseInt(Cookies.get("currentSociety")!)
-                )
-                  ? currentUserData.societies.find(
-                      (society) =>
-                        society.id === parseInt(Cookies.get("currentSociety")!)
-                    )?.name
-                  : currentUserData &&
-                    currentUserData.societies &&
-                    currentUserData.societies.length > 0
-                  ? (() => {
-                      console.log("society.id", currentUserData.societies[0]);
-                      const selectedSociety = currentUserData.societies[0];
-                      Cookies.set("currentSociety", String(selectedSociety.id));
-                      return selectedSociety.name;
-                    })()
-                  : "Select society")}
+              {currentUserSocieties &&
+                (currentUserSocieties.find((society) => society.id === currentSociety)
+                  ? currentUserSocieties.find((society) => society.id === currentSociety)?.name
+                  : currentUserSocieties.length > 0
+                    ? (() => {
+                        const selectedSociety = currentUserSocieties[0];
+                        Cookies.set("currentSociety", String(selectedSociety.id));
+                        setCurrentSociety(selectedSociety.id);
+                        return selectedSociety.name;
+                      })()
+                    : "Select society")}
             </p>
             <CgSelect />
           </div>
         )}
-        <div
-          className={`left-navbar__item ${
-            isLoggedIn() ? "" : "left-navbar__item--disabled"
-          }`}
-        >
+
+        <div className={`left-navbar__item ${isLoggedIn() ? "" : "left-navbar__item--disabled"}`}>
           <Link to="/dashboard" className="index">
             <img src={dashboardIcon} alt="dashboard icon" />
             <p>Dashboard</p>
           </Link>
         </div>
-        <div
-          className={`left-navbar__item ${
-            isLoggedIn() ? "" : "left-navbar__item--disabled"
-          }`}
-        >
+        <div className={`left-navbar__item ${isLoggedIn() ? "" : "left-navbar__item--disabled"}`}>
           <Link to="/clients" className="index">
             <img src={customerIcon} alt="customer icon" />
             <p>Clients</p>
@@ -144,20 +128,29 @@ export default function LeftNavbarDashboard() {
           )}
         </div>
         <div className="left-navbar__item">
-          <Link to="/quotations" className="index">
+          <Link to={isLogged ? "/quotations" : "/quotation/create"} className="index">
             <img src={quoteIcon} alt="quote icon" />
             <p>Quotations</p>
           </Link>
-          <Link to="/quotations/create" className="new">
+          <Link to={isLogged ? "/quotations/create" : "/quotation/create"} className="new">
             +
           </Link>
         </div>
         <div className="left-navbar__item">
-          <Link to="/invoices" className="index">
+          <Link to={isLogged ? "/invoices" : "/invoice/create"} className="index">
             <img src={invoiceIcon} alt="invoice icon" />
             <p>Invoices</p>
           </Link>
-          <Link to="/invoices/create" className="new">
+          <Link to={isLogged ? "/invoices/create" : "/invoice/create"} className="new">
+            +
+          </Link>
+        </div>
+        <div className={`left-navbar__item ${isLoggedIn() ? "" : "left-navbar__item--disabled"}`}>
+          <Link to="/registers" className="index">
+            <img src={registersIcon} alt="registers icon" />
+            <p>Registers</p>
+          </Link>
+          <Link to="/registers/create" className="new">
             +
           </Link>
         </div>
@@ -165,8 +158,7 @@ export default function LeftNavbarDashboard() {
           <div className="left-navbar__connection">
             <Link
               to="/register"
-              className="left-navbar__connection-link left-navbar__connection--blue"
-            >
+              className="left-navbar__connection-link left-navbar__connection--blue">
               Register
             </Link>
             <Link to="/login" className="left-navbar__connection-link">

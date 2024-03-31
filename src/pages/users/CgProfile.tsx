@@ -38,7 +38,9 @@ const CgProfile = () => {
     fetchData();
   }, [apiUrl, id]);
 
-  console.log("user data dans cgprofile", userData);
+
+  // console.log("user data dans cgprofile",userData)
+
 
   const onClickDelete = async () => {
     const confirmDelete = window.confirm(
@@ -69,30 +71,36 @@ const CgProfile = () => {
   };
 
   return (
-    <div>
-      <h1> Ceci est la page profile user</h1>
+    <div className="global_user_profile_page">
+      <h1> Your user's profile</h1>
+      <br />
+      <div className="user_profil_content">
+        {userData && (
+          <div className="profile_user">
+            <p>
+            <h4>Email &nbsp;:&nbsp;&nbsp; </h4>{userData.email}
+            </p>
+            <p>
+            <h4>Date of creation  &nbsp;: &nbsp; &nbsp;{" "}</h4>
+              {new Date(Date.parse(userData.created_at)).toLocaleDateString()}
+            </p>
+            <p>
+              <h4>Last uptdate  &nbsp;: &nbsp; &nbsp;{" "}</h4>
+              {new Date(Date.parse(userData.updated_at)).toLocaleDateString()}
+            </p>
+            <button onClick={onClickDelete} className="deleteprofilebutton">
+              Delete profile
+            </button>
+          </div>
+        )}
 
-      {userData && (
-        <div className="profileuser">
-          <p>Email : {userData.email}</p>
-          <p>
-            Date of creation :{" "}
-            {new Date(Date.parse(userData.created_at)).toLocaleDateString()}
-          </p>
-          <p>
-            Last uptdate :{" "}
-            {new Date(Date.parse(userData.updated_at)).toLocaleDateString()}
-          </p>
+        <div className="index_societies">
+          <IndexSocieties />
         </div>
-      )}
 
-      <div className="indexsocieties">
-        <IndexSocieties />
       </div>
 
-      <button onClick={onClickDelete} className="deleteprofilebutton">
-        Delete profile
-      </button>
+      
     </div>
   );
 };

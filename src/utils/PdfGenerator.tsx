@@ -67,7 +67,7 @@ export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
             { fontSize: 30, color: "#999", marginBottom: 10 },
           ]}
           fixed>
-          <Text>Facture</Text>
+          <Text style={{ textTransform: "capitalize" }}>{invoice.category}</Text>
         </View>
 
         <View fixed>
@@ -127,14 +127,14 @@ export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
           invoice.items.map((item) => {
             return (
               <View style={styles.itemLine} key={item.id}>
-                <View style={{ width: "75%" }}>
+                <View style={{ width: "65%" }}>
                   <Text>{item.name}</Text>
                   <Text style={styles.subtext}>{item.description}</Text>
                 </View>
-                <View style={{ width: "10%" }}>
+                <View style={{ width: "15%" }}>
                   <Text style={styles.ml_a}>{item.price}€</Text>
                   <Text style={[styles.subtext, styles.ml_a]}>
-                    + {(item.tax.percentage / 100) * item.price}€
+                    + {((item.tax.percentage / 100) * item.price).toFixed(2)}€
                   </Text>
                 </View>
                 <View style={{ width: "5%" }}>
@@ -142,7 +142,7 @@ export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
                 </View>
                 <View
                   style={{
-                    width: "10%",
+                    width: "15%",
                   }}>
                   <Text style={styles.ml_a}>{item.price * item.quantity}€</Text>
                   <Text style={[styles.subtext, styles.ml_a]}>+ {item.tax.total}€</Text>

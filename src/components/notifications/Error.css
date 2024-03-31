@@ -1,6 +1,6 @@
 #errorModal {
-  color: #591515;
-  background: #fc5959;
+  color: #5a0f02;
+  background: #ea4a2e;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -19,7 +19,7 @@
   top: 0;
   left: 0;
   position: absolute;
-  background-color: #ff9300;
+  background-color: #5a0f02;
   animation: Errorprogress 5s 1s forwards ease-out;
 }
 
@@ -31,7 +31,6 @@
     width: 100%;
   }
 }
-
 .fadeIn {
   animation: fadeIn 1s forwards;
 }
@@ -50,7 +49,6 @@
     transform: translateY(0);
   }
 }
-
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -58,4 +56,4 @@
   to {
     opacity: 0;
   }
-}
+}/*# sourceMappingURL=Error.css.map */
