@@ -16,11 +16,13 @@ export default function Invoice({
   clientProp,
   invoiceProp,
   category = "invoice",
+  isPublic = false,
 }: {
   authorProp?: TUserInfos;
   clientProp?: TUserInfos;
   invoiceProp?: TInvoice;
   category?: "invoice" | "quotation";
+  isPublic?: boolean;
 }) {
   const setSuccess = useSetAtom(successAtom);
   const [society, setSociety] = useAtom(societyAtom);
@@ -228,14 +230,21 @@ export default function Invoice({
   useEffect(() => {
     if (
       (client.id && author.id) ||
-      (author.id &&
+      ((author.id ||
+        (isPublic &&
+          author.address &&
+          author.name &&
+          author.address.city &&
+          author.address.street &&
+          author.address.zip &&
+          author.address.country)) &&
         client.address &&
         client.address.city &&
         client.address.zip &&
         client.address.street &&
         client.address.country &&
         client.name &&
-        client.email)
+        (isPublic || client.email))
     ) {
       setInvoice((prevInvoice) => {
         return {
@@ -251,7 +260,7 @@ export default function Invoice({
         };
       });
     }
-  }, [client, author, setInvoice]);
+  }, [client, author, setInvoice, isPublic]);
 
   const handleSave = async () => {
     let req: TSaveReq;
@@ -301,7 +310,7 @@ export default function Invoice({
     if (autoSave) {
       clearTimeout(autoSave);
     }
-    if (!invoice.is_valid) return;
+    if (!invoice.is_valid || isPublic) return;
 
     const timeout = setTimeout(() => {
       handleSave();
@@ -325,7 +334,7 @@ export default function Invoice({
   const currentSociety = useAtomValue(currentSocietyAtom);
   // Clients fetch
   useEffect(() => {
-    if (!clients.length) {
+    if (!clients.length && !isPublic) {
       fetcher(
         `clients${currentSociety ? `?society_id=${currentSociety}` : ""}`,
         undefined,
@@ -335,7 +344,7 @@ export default function Invoice({
         .then((res) => setClients(res))
         .catch((err) => console.error(err));
     }
-  }, [clients.length, currentSociety, setClients]);
+  }, [clients.length, currentSociety, setClients, isPublic]);
 
   // useEffect(() => {
   //   console.log("clients", clients);
@@ -432,7 +441,7 @@ export default function Invoice({
   };
 
   useEffect(() => {
-    if (!societies.length) {
+    if (!societies.length && !isPublic) {
       fetcher("societies", undefined, "GET", true).then((societies) => {
         setSocieties(societies);
         if (!author.id) {
@@ -454,7 +463,7 @@ export default function Invoice({
         }
       });
     }
-  }, [societies, setSocieties, author.id]);
+  }, [societies, setSocieties, author.id, isPublic]);
 
   return (
     <div className="invoice">
@@ -471,30 +480,36 @@ export default function Invoice({
         </select>
       </p>
       <div className="invoice__author">
-        <p className="invoice__titles">Vous</p>
-        <select value={author.id} onChange={handleAuthorSelect}>
-          {societies &&
-            societies.length &&
-            societies.map((society) => (
-              <option key={society.id} value={society.id}>
-                {society.name}
-              </option>
-            ))}
-        </select>
+        <p className="invoice__titles">You</p>
+        {!isPublic && (
+          <select value={author.id} onChange={handleAuthorSelect}>
+            {societies &&
+              societies.length &&
+              societies.map((society) => (
+                <option key={society.id} value={society.id}>
+                  {society.name}
+                </option>
+              ))}
+          </select>
+        )}
         <UserInfos user={author} setUser={setAuthor} />
       </div>
       <div className="invoice__client">
         <p className="invoice__titles">Client</p>
-        <select value={client.id} onChange={handleClientSelect}>
-          <option value="">Créer un nouveau client</option>
-          {clients &&
-            clients.length &&
-            clients.map((client) => (
-              <option key={client.id} value={client.id}>
-                {client.is_pro ? client.business_name : client.first_name + " " + client.last_name}
-              </option>
-            ))}
-        </select>
+        {!isPublic && (
+          <select value={client.id} onChange={handleClientSelect}>
+            <option value="">Créer un nouveau client</option>
+            {clients &&
+              clients.length &&
+              clients.map((client) => (
+                <option key={client.id} value={client.id}>
+                  {client.is_pro
+                    ? client.business_name
+                    : client.first_name + " " + client.last_name}
+                </option>
+              ))}
+          </select>
+        )}
         <div>
           Client pro ?
           <Switch
@@ -622,11 +637,19 @@ export default function Invoice({
           </tfoot>
         </table>
       </div>
-      <button
-        onClick={() => handleSave().then((id) => navigate(`/${invoice.category}s/${id}`))}
-        disabled={!invoice.is_valid}>
-        Enregistrer la facture
-      </button>
+      {!isPublic ? (
+        <button
+          onClick={() => handleSave().then((id) => navigate(`/${invoice.category}s/${id}`))}
+          disabled={!invoice.is_valid}>
+          Save the {invoice.category}
+        </button>
+      ) : (
+        <button
+          onClick={() => navigate(`/document/preview`, { state: { invoice: invoice } })}
+          disabled={!invoice.is_valid}>
+          Generate my {invoice.category}
+        </button>
+      )}
     </div>
   );
 }

@@ -14,11 +14,7 @@ import { isLoggedAtom } from "../../atom/authAtom";
 import { currentSocietyAtom } from "../../atom/societyAtom";
 import { IoPersonCircleSharp } from "react-icons/io5";
 
-const TopNavbarDashboard = ({
-  onToggle,
-}: {
-  onToggle: (toggle: boolean) => void;
-}) => {
+const TopNavbarDashboard = ({ onToggle }: { onToggle: (toggle: boolean) => void }) => {
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
   const [isHamburgerOpen, setHamburgerOpen] = useState(false);
   const profilePopupRef = useRef<HTMLDivElement>(null);
@@ -35,10 +31,7 @@ const TopNavbarDashboard = ({
 
   useEffect(() => {
     const handleClickOutsideProfilePopup = (event: MouseEvent) => {
-      if (
-        profilePopupRef.current &&
-        !profilePopupRef.current.contains(event.target as Node)
-      ) {
+      if (profilePopupRef.current && !profilePopupRef.current.contains(event.target as Node)) {
         setIsProfilePopupOpen(false);
       }
     };
@@ -58,7 +51,7 @@ const TopNavbarDashboard = ({
       <div className="top-navbar">
         <Hamburger toggled={isHamburgerOpen} toggle={setHamburgerOpen} />
         <div className="top-navbar__logo">
-          <Link to="/dashboard">
+          <Link to={isLogged ? "/dashboard" : "/"}>
             <p>
               My<span>C</span>ompta
             </p>

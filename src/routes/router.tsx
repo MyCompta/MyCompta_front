@@ -12,6 +12,9 @@ const IndexRegister = React.lazy(() => import("../pages/registers/IndexRegister"
 const CreateRegister = React.lazy(() => import("../pages/registers/CreateRegister"));
 const EditRegister = React.lazy(() => import("../pages/registers/EditRegister"));
 
+const InvoiceCreation = React.lazy(() => import("../pages/public/InvoiceCreation"));
+const QuotationCreation = React.lazy(() => import("../pages/public/QuotationCreation"));
+const PreviewPdf = React.lazy(() => import("../pages/public/PreviewPdf"));
 const Index = React.lazy(() => import("../pages/Index"));
 const Login = React.lazy(() => import("../pages/users/Login"));
 const Register = React.lazy(() => import("../pages/users/Register"));
@@ -95,6 +98,30 @@ export const router = createBrowserRouter(
             element={
               <React.Suspense fallback={<div>Loading...</div>}>
                 <ResetPassword />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="/invoice/create"
+            element={
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <InvoiceCreation />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="/quotation/create"
+            element={
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <QuotationCreation />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="/document/preview"
+            element={
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <PreviewPdf />
               </React.Suspense>
             }
           />

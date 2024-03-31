@@ -11,10 +11,10 @@ export default function Index() {
           <div className="unlogged-home__free-services">
             <p>Simply generate an invoice or a quote straight away</p>
             <div className="unlogged-home__free-services__btns">
-              <Link to="/invoices/create" className="btn">
+              <Link to="/invoice/create" className="btn">
                 Invoice
               </Link>
-              <Link to="/quotations/create" className="btn">
+              <Link to="/quotation/create" className="btn">
                 Quote
               </Link>
             </div>
