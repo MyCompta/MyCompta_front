@@ -1,7 +1,7 @@
-import { BarCharts } from '../components/charts/BarCharts'
-import { Doughnuts } from '../components/charts/DoughnutsCharts'
-import { LineCharts } from '../components/charts/LineCharts'
-import { PieCharts } from '../components/charts/PieCharts'
+import BarCharts from '../components/charts/BarCharts'
+import DoughnutsCharts from '../components/charts/DoughnutsCharts'
+import LineCharts from '../components/charts/LineCharts'
+import PieCharts   from '../components/charts/PieCharts'
 
 import "./index.scss"
 
@@ -15,7 +15,7 @@ const Dashboard = () => {
           <BarCharts />
         </div>
         <div className="doughnuts_on_dashboard">
-          <Doughnuts />
+          <DoughnutsCharts />
         </div>
         <div className="piecharts_on_dashboard">
           <PieCharts />

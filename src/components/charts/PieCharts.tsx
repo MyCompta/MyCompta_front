@@ -1,9 +1,16 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+
+
+import './Charts.scss';
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const options = {
+const options = {
   responsive: true,
   plugins: {
     legend: {
@@ -11,38 +18,92 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Turnover by products',
+      text: 'Transformation rate',
     },
   },
 };
 
-export const data = {
-  labels: ['Products1', 'Products2', 'Products3', 'Products4', 'Products4', 'Products5'],
+const PieCharts = () => {
+  const [sumTransformedData, setSumTransformedData] = useState(null);
+  const [sumNoTransformedData, setSumNoTransformedData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(apiUrl + "charts/transformed", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: JSON.parse(Cookies.get("token")!).token,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setSumTransformedData(data);
+        } else {
+          console.error("Failed to fetch data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(apiUrl + "charts/notransformed", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: JSON.parse(Cookies.get("token")!).token,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setSumNoTransformedData(data);
+        } else {
+          console.error("Failed to fetch data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!sumTransformedData && !sumNoTransformedData) {
+    return <div>Loading...</div>;
+  }
+
+
+
+const data = {
+  labels: ['Invoice', 'Quotation'],
   datasets: [
     {
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
+      label: '# of',
+      data: [sumTransformedData, sumNoTransformedData],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
       ],
       borderColor: [
         'rgba(255, 99, 132, 1)',
         'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
       ],
       borderWidth: 1,
     },
   ],
 };
 
-export function PieCharts() {
+
   return <Pie options={options} data={data} />;
-}
+};
+
+export default PieCharts;

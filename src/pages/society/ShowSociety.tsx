@@ -8,12 +8,12 @@ import societyAtom from "../../atom/societyAtom";
 import IndexInvoices from "../invoices/IndexInvoices";
 import PageClientIndex from "../clients/PageClientIndex";
 
-import { Doughnuts } from '../../components/charts/DoughnutsCharts'
+import DoughnutsCharts from '../../components/charts/DoughnutsCharts'
 import { PolarCharts } from '../../components/charts/PolarCharts'
 import { RadarCharts } from '../../components/charts/RadarCharts'
-import { PieCharts } from '../../components/charts/PieCharts'
-import { LineCharts } from '../../components/charts/LineCharts'
-import { BarCharts } from '../../components/charts/BarCharts'
+import PieCharts from '../../components/charts/PieCharts'
+import LineCharts from '../../components/charts/LineCharts'
+import BarCharts from '../../components/charts/BarCharts'
 import { StackedCharts } from '../../components/charts/StackedCharts'
 
 import "./society.scss";
@@ -117,7 +117,7 @@ const ShowSociety = () => {
             <option value="line">P & L</option>
             <option value="pie">Turnover product</option>
           </select>
-          {selectedOption === 'turnover' && <Doughnuts />}
+          {selectedOption === 'turnover' && <DoughnutsCharts />}
           {selectedOption === 'bar' && <PolarCharts />}
           {selectedOption === 'line' && <RadarCharts />}
           {selectedOption === 'pie' && <PieCharts />}

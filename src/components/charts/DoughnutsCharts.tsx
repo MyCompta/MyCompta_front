@@ -1,51 +1,97 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartOptions } from 'chart.js';
+import type { DeepPartial } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { useAtom } from 'jotai';
 
-import './Charts.scss'
+import { sumbySocietyAtom } from "./ChartsAtom";
 
+import './Charts.scss';
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const options = {
+// Définition du type des options avec DeepPartial
+type DoughnutChartOptions = ChartOptions<'doughnut'>;
+type PartialDoughnutChartOptions = DeepPartial<DoughnutChartOptions>;
+
+export const options: PartialDoughnutChartOptions = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top' as const,
+      position: 'top',
     },
     title: {
       display: true,
-      text: 'Turnover by clients',
+      text: 'Turnover by societies',
     },
   },
 };
 
-export const data = {
-  labels: ['client1', 'client2', 'client3', 'client4', 'client5', 'client6'],
-  datasets: [
-    {
-      label: '# of Votes',
-      data: [120, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-      ],
-      borderWidth: 5,
-    },
-  ],
+const DoughnutsCharts = () => {
+  const [error, setError] = useState<string>("");
+  const [sumbySocietyData, setSumbySocietyData] = useAtom(sumbySocietyAtom);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(apiUrl + "charts/sum_all_society", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: JSON.parse(Cookies.get("token")!).token,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setSumbySocietyData(data);
+        } else {
+          setError("Failed to fetch data: " + response.statusText);
+        }
+      } catch (error) {
+        setError("Error fetching data: " + (error instanceof Error ? error.message : String(error)));
+      }
+    };
+
+    fetchData();
+  }, [setSumbySocietyData]);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!sumbySocietyData) {
+    return <div>Loading...</div>;
+  }
+
+  const labels = Object.keys(sumbySocietyData);
+  const values = Object.values(sumbySocietyData);
+
+  const generateRandomColor = () => {
+    const randomColor = Math.floor(Math.random()*256); // Valeur aléatoire entre 0 et 255
+    return randomColor;
+  };
+
+  const backgroundColor = labels.map(() => `rgba(${generateRandomColor()}, ${generateRandomColor()}, ${generateRandomColor()}, 0.2)`);
+  const borderColor = labels.map(() => `rgba(${generateRandomColor()}, ${generateRandomColor()}, ${generateRandomColor()}, 1)`);
+
+  const data = {
+    datasets: [
+      {
+        data: values,
+        backgroundColor: backgroundColor,
+        borderColor: borderColor,
+        borderWidth: 1
+        ,
+      },
+    ],
+    labels: labels,
+  };
+
+  return <Doughnut options={options} data={data} />;
 };
 
-export function Doughnuts() {
-  return <Doughnut options={options} data={data} />;
-}
+export default DoughnutsCharts;
