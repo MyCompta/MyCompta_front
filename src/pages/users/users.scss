@@ -141,6 +141,16 @@
   margin-top: 10px;
 }
 
+.form-form-link-box {
+  display: flex;
+  align-items: center;
+
+  p {
+    margin: 0 5px;
+    line-height: 0px;
+  }
+}
+
 .form-form-link {
   line-height: 32px;
   font-weight: 500;
@@ -149,9 +159,6 @@
     color: $second-color;
   }
 }
-
-// ######## LOGIN PAGE ########
-// ############################
 
 .form-form-cgu {
   &__link {

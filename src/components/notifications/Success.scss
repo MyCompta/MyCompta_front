@@ -2,7 +2,7 @@
 
 #successModal {
   color: $sucess-color-dark;
-  background: $sucess-color;
+  background: $sucess-color-light;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -21,7 +21,7 @@
   top: 0;
   left: 0;
   position: absolute;
-  background-color: $sucess-color-dark;
+  background-color: $sucess-color;
   animation: Successprogress 5s 1s forwards ease-out;
 }
 
