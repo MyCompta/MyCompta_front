@@ -59,9 +59,13 @@ export default function Login() {
         onSuccess={handleOnSuccess}
       />
       <div className="form-form-links">
-        <Link to="/register" className="form-form-link">
-          Register
-        </Link>
+        <div className="form-form-link-box">
+          <p>Need an account ?</p>
+          <Link to="/register" className="form-form-link">
+            Register
+          </Link>
+        </div>
+
         <Link to="/forgot-password" className="form-form-link">
           Forgot password
         </Link>
