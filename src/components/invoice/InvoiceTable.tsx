@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./InvoiceTable.scss";
 import { useNavigate, Link } from "react-router-dom";
-import { formatDate2 } from "../../utils/date";
 import { FiAlertTriangle } from "react-icons/fi";
 
 const InvoiceTable = ({

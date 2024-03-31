@@ -6,13 +6,15 @@ import { newRegisterModalStatusAtom } from "../../atom/modalAtom";
 import { editRegisterModalStatusAtom } from "../../atom/modalAtom";
 import { Dispatch, SetStateAction } from "react";
 
+interface ModalRegisterProps {
+  registerData?: TRegisterBack;
+  setRegisterData?: Dispatch<SetStateAction<TRegisterBack | undefined>>;
+}
+
 const ModalRegister = ({
   registerData,
   setRegisterData,
-}: {
-  registerData?: TRegisterBack;
-  setRegisterData?: Dispatch<SetStateAction<TRegisterBack | undefined>>;
-}) => {
+}: ModalRegisterProps) => {
   const [newRegisterModalStatus, setNewRegisterModalStatus] = useAtom(
     newRegisterModalStatusAtom
   );
@@ -34,7 +36,7 @@ const ModalRegister = ({
         {newRegisterModalStatus && <RegisterNew />}
         {editRegisterModalStatus && (
           <RegisterEdit
-            registerData={registerData!}
+            registerData={registerData}
             setRegisterData={setRegisterData!}
           />
         )}
