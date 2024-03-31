@@ -35,12 +35,6 @@ export default function CreateRegister() {
             },
           },
           {
-            name: "is_income",
-            displayName: "Is the register an income?",
-            type: "checkbox",
-            value: "true",
-          },
-          {
             name: "paid_at",
             displayName: "Date of payment",
             type: "date",
