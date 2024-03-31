@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import { useAtomValue } from "jotai";
+import { useSetAtom, useAtomValue, useAtom } from "jotai";
 import societyAtom, { currentSocietyAtom } from "../../atom/societyAtom";
+import { newRegisterModalStatusAtom } from "../../atom/modalAtom";
+import { registersAtom } from "../../atom/registerAtom";
 import fetcher from "../../utils/fetcher";
+import Register from "./Register";
 import "./IndexRegister.scss";
-import { Link, useNavigate } from "react-router-dom";
-
-import { IoDocumentText } from "react-icons/io5";
-import { MdEditDocument } from "react-icons/md";
-import { FaTrash } from "react-icons/fa";
 
 export default function IndexRegister() {
   const now = new Date();
@@ -15,7 +13,8 @@ export default function IndexRegister() {
   const [currentYear, setCurrentYear] = useState(now.getFullYear());
   const currentSocietyId = useAtomValue(currentSocietyAtom);
   const currentSociety = useAtomValue(societyAtom);
-  const navigate = useNavigate();
+  const setNewRegisterModalStatus = useSetAtom(newRegisterModalStatusAtom);
+  const [registers, setRegisters] = useAtom(registersAtom);
 
   const months = [
     "jan",
@@ -41,7 +40,6 @@ export default function IndexRegister() {
     years.push(i - 1);
   }
 
-  const [registers, setRegisters] = useState<TRegisterBack[]>();
   useEffect(() => {
     const fetchRegisters = async () => {
       fetcher(
@@ -56,31 +54,19 @@ export default function IndexRegister() {
     };
 
     fetchRegisters();
-  }, [currentMonth, currentYear, currentSocietyId]);
+  }, [currentMonth, currentYear, currentSocietyId, setRegisters]);
 
-  const handleShowRegister = (register: TRegisterBack) => {
-    navigate(`/registers/${register.id}`);
-  };
-
-  const handleEditRegister = (register: TRegisterBack) => {
-    navigate(`/registers/edit/${register.id}`);
-  };
-
-  const handleDeleteRegister = (register: TRegisterBack) => {
-    fetcher(`registers/${register.id}`, undefined, "DELETE", true)
-      .then(() => {
-        setRegisters(registers?.filter((r) => r.id !== register.id));
-      })
-      .catch((err) => console.error(err));
+  const handleOpenModalNewRegister = () => {
+    setNewRegisterModalStatus(true);
   };
 
   return (
     <div className="index-register">
       <div className="index-register-header">
         <h1>Your registers</h1>
-        <Link
-          to="/registers/create"
-          className="btn"
+        <button
+          onClick={() => handleOpenModalNewRegister()}
+          className="btn index-register-header__add-register-btn"
           style={{
             width: "fit-content",
             marginLeft: "auto",
@@ -88,7 +74,7 @@ export default function IndexRegister() {
           }}
         >
           Add a register
-        </Link>
+        </button>
       </div>
 
       <div className="index-register-date-picker">
@@ -131,49 +117,7 @@ export default function IndexRegister() {
         <tbody>
           {registers && registers.length ? (
             registers.map((register) => (
-              <tr
-                className={register.is_income ? "green-bg" : "red-bg"}
-                key={register.id}
-                onClick={() =>
-                  navigate(`/registers/${register.id}`, {
-                    state: { registerState: register },
-                  })
-                }
-              >
-                <td>{register.title}</td>
-                <td>{new Date(register.paid_at).toLocaleDateString()}</td>
-                <td className={register.is_income ? "green" : "red"}>
-                  {register.is_income ? "+" : "-"}
-                </td>
-                <td>
-                  {register.amount.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}{" "}
-                  €
-                </td>
-                <td>{register.payment_method}</td>
-                <td>{register.comment}</td>
-                {/* 'register-item-options-ghost' stabilize line on hover. DO NOT REMOVE */}
-                <div className="register-item-options-ghost"></div>{" "}
-                <div className="register-item-options">
-                  <IoDocumentText
-                    className="btn btn--no-bg btn--xxs"
-                    title="Details"
-                    onClick={() => handleShowRegister(register.id)}
-                  />
-                  <MdEditDocument
-                    className="btn btn--no-bg btn--xxs"
-                    title="Edit"
-                    onClick={() => handleEditRegister(register.id)}
-                  />
-                  <FaTrash
-                    className="register-item-options__trash btn btn--alert btn--xxs"
-                    title="Delete"
-                    onClick={() => handleDeleteRegister(register.id)}
-                  />
-                </div>
-              </tr>
+              <Register key={register.id} register={register} />
             ))
           ) : (
             <tr>

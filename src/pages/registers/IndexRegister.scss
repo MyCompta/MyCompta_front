@@ -9,7 +9,7 @@
   justify-content: space-between;
   align-items: center;
 
-  a {
+  &__add-register-btn {
     margin-right: 30px !important;
   }
 }
@@ -127,17 +127,18 @@
 
       > td:nth-child(2) {
         color: $text-color-light;
-        min-width: 77px;
+        width: 77px;
       }
 
       > td:nth-child(3) {
         border-right: none;
+        width: 0px;
       }
 
       > td:nth-child(4) {
         font-weight: 500;
         border-left: none;
-        min-width: 80px;
+        min-width: 86px;
         text-align: right;
         width: 30px;
 
@@ -149,6 +150,17 @@
         text-align: center;
         font-weight: 500;
       }
+
+      > td:nth-child(6) {
+        border-right: none;
+      }
+
+      > td:nth-child(7) {
+        width: 0px;
+        margin: 0;
+        padding: 0;
+        border: none;
+      }
     }
   }
 }
@@ -157,7 +169,8 @@
   display: none;
   position: absolute;
   right: 6px;
-  top: 3px;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 10;
 
   &__trash {
@@ -165,4 +178,7 @@
     height: 11px !important;
     padding: 8px !important;
   }
+}
+
+.register-item-options-ghost {
 }

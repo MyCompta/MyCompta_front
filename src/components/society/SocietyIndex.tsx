@@ -58,6 +58,7 @@ const SocietyIndex = () => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this society? All associated information with this society will be erased."
     );
+
     if (!confirmed) return;
 
     const response = await fetcher(
