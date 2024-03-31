@@ -4,17 +4,8 @@ import RegisterEdit from "./RegisterEdit";
 import { useAtom } from "jotai";
 import { newRegisterModalStatusAtom } from "../../atom/modalAtom";
 import { editRegisterModalStatusAtom } from "../../atom/modalAtom";
-import { Dispatch, SetStateAction } from "react";
 
-interface ModalRegisterProps {
-  registerData?: TRegisterBack;
-  setRegisterData?: Dispatch<SetStateAction<TRegisterBack | undefined>>;
-}
-
-const ModalRegister = ({
-  registerData,
-  setRegisterData,
-}: ModalRegisterProps) => {
+const ModalRegister = () => {
   const [newRegisterModalStatus, setNewRegisterModalStatus] = useAtom(
     newRegisterModalStatusAtom
   );
@@ -34,12 +25,7 @@ const ModalRegister = ({
           ×
         </div>
         {newRegisterModalStatus && <RegisterNew />}
-        {editRegisterModalStatus && (
-          <RegisterEdit
-            registerData={registerData}
-            setRegisterData={setRegisterData!}
-          />
-        )}
+        {editRegisterModalStatus && <RegisterEdit />}
       </div>
     </div>
   );
