@@ -8,12 +8,11 @@ footer {
   justify-content: space-between;
   padding-left: 5%;
   padding-right: 5%;
-  margin-top: 40px;
-  margin-top: 5%;
+  padding-top: 2rem;
+  margin-top: auto;
 }
 
-.footer_link
-{
+.footer_link {
   display: flex;
   flex-wrap: wrap;
   width: 40%;
@@ -21,12 +20,9 @@ footer {
   padding-right: 2%;
   justify-content: space-around;
 
-  & > a
-  {
-    &:hover
-    {
-      color: $second-color
-    } 
+  & > a {
+    &:hover {
+      color: $second-color;
+    }
   }
-
 }
