@@ -1,8 +1,4 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-} from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
 import LoggedRoute from "./LoggedRoute";
 import NotLoggedRoute from "./NotLoggedRoute";
 import Page404 from "../pages/Page404";
@@ -40,6 +36,9 @@ import QuotationCreate from "../pages/quotations/QuotationCreate";
 import IndexRegister from "../pages/registers/IndexRegister";
 import CreateRegister from "../pages/registers/CreateRegister";
 import EditRegister from "../pages/registers/EditRegister";
+import InvoiceCreation from "../pages/public/InvoiceCreation";
+import QuotationCreation from "../pages/public/QuotationCreation";
+import PreviewPdf from "../pages/public/PreviewPdf";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -56,6 +55,9 @@ export const router = createBrowserRouter(
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/invoice/create" element={<InvoiceCreation />} />
+          <Route path="/quotation/create" element={<QuotationCreation />} />
+          <Route path="/document/preview" element={<PreviewPdf />} />
         </Route>
 
         {/* Protected Routes */}

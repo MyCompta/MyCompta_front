@@ -128,24 +128,24 @@ export default function LeftNavbarDashboard() {
           )}
         </div>
         <div className="left-navbar__item">
-          <Link to="/quotations" className="index">
+          <Link to={isLogged ? "/quotations" : "/quotation/create"} className="index">
             <img src={quoteIcon} alt="quote icon" />
             <p>Quotations</p>
           </Link>
-          <Link to="/quotations/create" className="new">
+          <Link to={isLogged ? "/quotations/create" : "/quotation/create"} className="new">
             +
           </Link>
         </div>
         <div className="left-navbar__item">
-          <Link to="/invoices" className="index">
+          <Link to={isLogged ? "/invoices" : "/invoice/create"} className="index">
             <img src={invoiceIcon} alt="invoice icon" />
             <p>Invoices</p>
           </Link>
-          <Link to="/invoices/create" className="new">
+          <Link to={isLogged ? "/invoices/create" : "/invoice/create"} className="new">
             +
           </Link>
         </div>
-        <div className="left-navbar__item">
+        <div className={`left-navbar__item ${isLoggedIn() ? "" : "left-navbar__item--disabled"}`}>
           <Link to="/registers" className="index">
             <img src={registersIcon} alt="registers icon" />
             <p>Registers</p>
