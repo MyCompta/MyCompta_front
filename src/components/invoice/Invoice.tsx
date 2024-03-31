@@ -500,7 +500,7 @@ export default function Invoice({
         </p>
         {!isPublic && (
           <select value={client.id} onChange={handleClientSelect} className="user__infos__select">
-            <option value="">Créer un nouveau client</option>
+            <option value="">New client</option>
             {clients &&
               clients.length &&
               clients.map((client) => (
@@ -527,7 +527,7 @@ export default function Invoice({
       </div>
       <div className="invoice__title">
         <div>
-          <label htmlFor="title">Titre de la facture</label>
+          <label htmlFor="title">Document title</label>
           <input
             type="text"
             name="title"
@@ -537,7 +537,7 @@ export default function Invoice({
           />
         </div>
         <div>
-          <label htmlFor="number">N° de facture</label>
+          <label htmlFor="number">Document N°</label>
           <input
             type="text"
             name="number"
@@ -548,7 +548,7 @@ export default function Invoice({
         </div>
         <div>
           <div>
-            <label htmlFor="date">Date d'émission :</label>
+            <label htmlFor="date">Issue Date:</label>
             <input
               type="date"
               name="date"
@@ -558,18 +558,18 @@ export default function Invoice({
             />
           </div>
           <div>
-            <label htmlFor="dueDate">Date d'écheance :</label>
+            <label htmlFor="dueDate">Due Date:</label>
             <select
               name="dueDateSelect"
               id="dueDate"
               onChange={handleDateSelect}
               defaultValue={"30"}>
-              <option value="0">À réception</option>
-              <option value="15">15 jours</option>
-              <option value="30">30 jours</option>
-              <option value="60">60 jours</option>
-              <option value="45">45 jours fin de mois</option>
-              <option value="choice">Choisir une date</option>
+              <option value="0">Reception date</option>
+              <option value="15">15 days</option>
+              <option value="30">30 days</option>
+              <option value="60">60 days</option>
+              <option value="45">45 days end of month</option>
+              <option value="choice">Pick a date</option>
             </select>
             {dueDateChoice && <input type="date" name="dueDate" onChange={handleInputChange} />}
           </div>
@@ -577,17 +577,17 @@ export default function Invoice({
       </div>
       <div className="invoice__items">
         <button onClick={addNewItem} className="btn">
-          Ajouter un produit
+          Add new item
         </button>
         <table>
           <thead>
             <tr>
               <th>Designation</th>
-              <th>Quantité</th>
-              <th>Unité</th>
-              <th>Prix</th>
-              <th>TVA</th>
-              <th>Total HT</th>
+              <th>Quantity</th>
+              <th>Unit</th>
+              <th>Price</th>
+              <th>VAT</th>
+              <th>Total VAT-FREE</th>
               <th>ACTIONS</th>
             </tr>
           </thead>
@@ -598,7 +598,7 @@ export default function Invoice({
             <tr>
               <td colSpan={7}>
                 <button onClick={addNewItem} className="btn">
-                  Ajouter un produit
+                  Add new item
                 </button>
               </td>
             </tr>
@@ -608,7 +608,7 @@ export default function Invoice({
               <td colSpan={3}></td>
               <td colSpan={4}>
                 <p>
-                  Sous total HT :{" "}
+                  Subtotal no VAT :{" "}
                   {items.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}
                 </p>
                 {/* TVAs */}
@@ -618,13 +618,13 @@ export default function Invoice({
                     if (tax.total > 0) {
                       return (
                         <p key={index}>
-                          TVA {tax.percentage}% : {tax.total.toFixed(2)}
+                          VAT {tax.percentage}% : {tax.total.toFixed(2)}
                         </p>
                       );
                     }
                   })}
                 <p>
-                  Total TTC :{" "}
+                  Total :{" "}
                   {(
                     items.reduce((acc, item) => acc + item.price * item.quantity, 0) +
                     sumTaxValues(items)
@@ -639,7 +639,7 @@ export default function Invoice({
                 <textarea
                   name="additionalInfo"
                   id="additionalInfo"
-                  placeholder="Informations additionnelles"
+                  placeholder="Additional information"
                   className="item__line__description"
                   value={invoice.additionalInfo}
                   onChange={(e) =>
