@@ -58,12 +58,14 @@ export default function Login() {
         controller="user"
         onSuccess={handleOnSuccess}
       />
-      <Link to="/register" className="form-form-link">
-        Register
-      </Link>
-      <Link to="/forgot-password" className="form-form-link">
-        Forgot password
-      </Link>
+      <div className="form-form-links">
+        <Link to="/register" className="form-form-link">
+          Register
+        </Link>
+        <Link to="/forgot-password" className="form-form-link">
+          Forgot password
+        </Link>
+      </div>
     </div>
   );
 }
