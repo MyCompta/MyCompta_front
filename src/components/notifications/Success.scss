@@ -1,7 +1,7 @@
 @import "../../styles/vars.scss";
 
 #successModal {
-  color: #0a3c14;
+  color: $sucess-color-dark;
   background: $sucess-color;
   position: fixed;
   bottom: 0;
@@ -21,7 +21,7 @@
   top: 0;
   left: 0;
   position: absolute;
-  background-color: #0a3c14;
+  background-color: $sucess-color-dark;
   animation: Successprogress 5s 1s forwards ease-out;
 }
 
