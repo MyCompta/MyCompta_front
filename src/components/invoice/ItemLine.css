@@ -17,9 +17,9 @@
 
 .invoice__items input,
 .invoice__items select {
-  border: 1px dashed #222;
+  /* border: 1px dashed #222; */
   border: none;
-  border-radius: 0.5rem;
+  /* border-radius: 0.5rem; */
   padding: 0.5rem;
   background: transparent;
   width: calc(100% - 1rem);
@@ -29,7 +29,7 @@
   min-width: max-content;
 }
 
-.item__line td:not(.no-outline) {
+/* .item__line td:not(.no-outline) {
   border: 1px dashed #222;
   border-bottom: none;
 }
@@ -42,6 +42,11 @@
 .item__line td:not(.no-outline):nth-child(5) {
   border-right: 1px dashed #222;
   border-top-right-radius: 0.5rem;
+} */
+
+.item__line td {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
 .item__line__price {
@@ -53,18 +58,43 @@
   width: calc(100% - 1rem);
   padding: 0.5rem;
   border: none;
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
+  /* border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem; */
   background: transparent;
   resize: vertical;
 }
 
 .item__line__description__cell {
-  border: 1px dashed #222;
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
+  /* border: 1px solid #ddd; */
+  /* border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem; */
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
 .item__line__spacing {
   padding-bottom: 1.5rem;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.invoice__items table tfoot tr:first-child td {
+  border-top: 1px solid #ddd;
+}
+
+.item__line__actions {
+  display: flex;
+  gap: 4px;
+}
+.item__line__actions button {
+  padding: 0 6px;
+  margin: 5px 0;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.item__line__actions button svg {
+  width: 12px;
+  height: 12px;
 }

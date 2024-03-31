@@ -16,6 +16,7 @@
   font-weight: bold;
   margin: 0.67em;
   text-transform: capitalize;
+  border: none;
 }
 
 .invoice__author,

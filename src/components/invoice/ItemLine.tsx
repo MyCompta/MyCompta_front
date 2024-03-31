@@ -136,13 +136,16 @@ export const ItemLine = ({
           <div className="item__line__actions">
             <button
               title="Supprimer la ligne"
-              onClick={() => {
-                setItems((items) => items.filter((i) => i.id !== item.id));
-              }}>
+              className="btn btn--alert"
+              onClick={() =>
+                window.confirm("Are you sure to delete this line?") &&
+                setItems((items) => items.filter((i) => i.id !== item.id))
+              }>
               <IoTrashOutline />
             </button>
             <button
               title="Dupliquer la ligne"
+              className="btn btn--no-bg"
               onClick={() => setItems((items) => [...items, { ...item, id: Date.now() }])}>
               <IoDuplicateOutline />
             </button>
@@ -150,7 +153,7 @@ export const ItemLine = ({
         </td>
       </tr>
       <tr>
-        <td colSpan={5} className="item__line__description__cell">
+        <td colSpan={7} className="item__line__description__cell">
           <textarea
             name="description"
             placeholder="Description"
@@ -160,9 +163,9 @@ export const ItemLine = ({
           />
         </td>
       </tr>
-      <tr>
-        <td className="item__line__spacing"></td>
-      </tr>
+      {/* <tr>
+        <td colSpan={7} className="item__line__spacing"></td>
+      </tr> */}
     </>
   );
 };

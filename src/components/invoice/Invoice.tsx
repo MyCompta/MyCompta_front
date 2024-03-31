@@ -467,10 +467,10 @@ export default function Invoice({
 
   return (
     <div className="invoice">
-      <p className="invoice__titles" style={{ textAlign: "right", margin: 0 }}>
-        {invoice.category}
-        <br />
+      <p style={{ textAlign: "right", margin: 0 }}>
         <select
+          className="invoice__titles"
+          style={{ textAlign: "end", borderBottom: "1px solid #313538" }}
           value={invoice.category}
           onChange={(e) =>
             setInvoice({ ...invoice, category: e.target.value as "invoice" | "quotation" })
@@ -564,7 +564,9 @@ export default function Invoice({
         </div>
       </div>
       <div className="invoice__items">
-        <button onClick={addNewItem}>Ajouter un produit</button>
+        <button onClick={addNewItem} className="btn">
+          Ajouter un produit
+        </button>
         <table>
           <thead>
             <tr>
@@ -574,36 +576,22 @@ export default function Invoice({
               <th>Prix</th>
               <th>TVA</th>
               <th>Total HT</th>
-              <th></th>
+              <th>ACTIONS</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="item__line__spacing"></td>
-            </tr>
             {items.map((item, index) => (
               <ItemLine key={index} item={item} setItems={setItems} />
             ))}
             <tr>
-              <td>
-                <button onClick={addNewItem}>Ajouter un produit</button>
+              <td colSpan={7}>
+                <button onClick={addNewItem} className="btn">
+                  Ajouter un produit
+                </button>
               </td>
             </tr>
           </tbody>
           <tfoot>
-            <tr>
-              <td colSpan={7} className="item__line__description__cell">
-                <textarea
-                  name="additionalInfo"
-                  id="additionalInfo"
-                  placeholder="Informations additionnelles"
-                  className="item__line__description"
-                  value={invoice.additionalInfo}
-                  onChange={(e) =>
-                    setInvoice({ ...invoice, additionalInfo: e.target.value })
-                  }></textarea>
-              </td>
-            </tr>
             <tr>
               <td colSpan={3}></td>
               <td colSpan={4}>
@@ -634,19 +622,34 @@ export default function Invoice({
                 </p>
               </td>
             </tr>
+            <tr>
+              <td colSpan={7} className="item__line__description__cell">
+                <textarea
+                  name="additionalInfo"
+                  id="additionalInfo"
+                  placeholder="Informations additionnelles"
+                  className="item__line__description"
+                  value={invoice.additionalInfo}
+                  onChange={(e) =>
+                    setInvoice({ ...invoice, additionalInfo: e.target.value })
+                  }></textarea>
+              </td>
+            </tr>
           </tfoot>
         </table>
       </div>
       {!isPublic ? (
         <button
           onClick={() => handleSave().then((id) => navigate(`/${invoice.category}s/${id}`))}
-          disabled={!invoice.is_valid}>
+          disabled={!invoice.is_valid}
+          className="btn">
           Save the {invoice.category}
         </button>
       ) : (
         <button
           onClick={() => navigate(`/document/preview`, { state: { invoice: invoice } })}
-          disabled={!invoice.is_valid}>
+          disabled={!invoice.is_valid}
+          className="btn">
           Generate my {invoice.category}
         </button>
       )}
