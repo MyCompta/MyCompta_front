@@ -8,6 +8,19 @@
   text-align: center;
   line-height: 3.5rem;
   height: calc(100% - 50px);
+  margin: 40px 10px 80px;
+}
+
+.already-have-an-account {
+  margin: 0 10px;
+
+  a {
+    font-weight: 500;
+
+    &:hover {
+      color: $second-color;
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -60,22 +73,19 @@
 
 /////////////////////////////////////////////////////////////////
 
-.global_user_profile_page
-{
+.global_user_profile_page {
   display: flex;
   flex-wrap: wrap;
   height: 78%;
   margin-top: 2%;
 }
 
-.global_user_profile_page h1
-{
+.global_user_profile_page h1 {
   color: $second-color;
   width: 100%;
 }
 
-.user_profil_content
-{
+.user_profil_content {
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -98,8 +108,7 @@
   background-color: $bg-color;
 }
 
-.profile_user h5
-{
+.profile_user h5 {
   display: inline;
   color: $second-color;
 }
@@ -115,8 +124,7 @@
   margin-top: 10%;
 }
 
-.index_societies
-{
+.index_societies {
   position: relative;
   margin-top: 2%;
   margin-bottom: 22%;
@@ -124,13 +132,22 @@
   max-height: 100px;
 }
 
-
-
 // ######## LOGIN PAGE ########
 // ############################
 
+.form-form-links {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
 .form-form-link {
-  line-height: 45px;
+  line-height: 32px;
+  font-weight: 500;
+
+  &:hover {
+    color: $second-color;
+  }
 }
 
 // ######## LOGIN PAGE ########

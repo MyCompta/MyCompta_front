@@ -58,7 +58,10 @@ const ClientIndex = () => {
         }
       });
     }
-    return totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2 });
+    return totalAmount.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
   };
 
   const countInvoicesByDuration = (client: TClient, daysAgo?: number) => {

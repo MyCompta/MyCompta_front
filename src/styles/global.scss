@@ -84,6 +84,13 @@ h1 {
     margin: 0px 2px;
   }
 
+  &--xxs {
+    padding: 6px;
+    height: 16px;
+    width: 18px;
+    margin: 5px 2px;
+  }
+
   &--alert {
     background: linear-gradient(-180deg, #ea4a2e 0, #da391d 100%);
     border: 1px solid #a83c29;
@@ -98,7 +105,7 @@ th,
 td {
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
-  padding: 8px 15px;
+  padding: 14px 15px;
   text-align: left;
 }
 
