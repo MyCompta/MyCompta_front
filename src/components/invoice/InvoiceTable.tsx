@@ -144,7 +144,7 @@ const InvoiceTable = ({
             )
           ) : (
             <tr>
-              <td colSpan={6} className="invoice-table__no-invoices">
+              <td colSpan={7} className="invoice-table__no-invoices">
                 No invoices found
               </td>
             </tr>

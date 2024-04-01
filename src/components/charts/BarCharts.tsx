@@ -1,16 +1,12 @@
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
-import './Charts.scss'
+
+import './Charts.scss';
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 ChartJS.register(
   CategoryScale,
@@ -21,7 +17,7 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
+const options = {
   responsive: true,
   plugins: {
     legend: {
@@ -29,29 +25,57 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Global',
+      text: 'Total turnover by Client',
     },
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const BarCharts = () => {
+  const [sumbyclientData, setSumbyclientData] = useState(null);
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Turnover',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'Expediture',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-  ],
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(apiUrl + "charts/sum_all_client", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: JSON.parse(Cookies.get("token")!).token,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setSumbyclientData(data);
+        } else {
+          console.error("Failed to fetch data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!sumbyclientData) {
+    return <div>Loading...</div>;
+  }
+
+  const labels = Object.keys(sumbyclientData);
+  const values = Object.values(sumbyclientData);
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Turnover in currency',
+        data: values,
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ],
+  };
+
+  return <Bar options={options} data={data} />;
 };
 
-export function BarCharts() {
-  return <Bar options={options} data={data} />;
-}
+export default BarCharts;

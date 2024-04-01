@@ -80,7 +80,7 @@ export const ItemLine = ({
           <input
             type="number"
             name="quantity"
-            placeholder="Quantité"
+            placeholder="Quantity"
             min={0}
             value={item.quantity}
             style={{
@@ -92,13 +92,13 @@ export const ItemLine = ({
 
         <td>
           <select name="unit" value={item.unit} onChange={handleItemChange}>
-            <option value={""}>Aucune</option>
-            <option value={"unit"}>Unité{item.quantity > 1 ? "s" : ""}</option>
-            <option value={"heure"}>Heure{item.quantity > 1 ? "s" : ""}</option>
-            <option value={"jour"}>Jour{item.quantity > 1 ? "s" : ""}</option>
-            <option value={"semaine"}>Semaine{item.quantity > 1 ? "s" : ""}</option>
-            <option value={"mois"}>Mois</option>
-            <option value={"forfait"}>Forfait{item.quantity > 1 ? "s" : ""}</option>
+            <option value={""}>None</option>
+            <option value={"unit"}>Unit{item.quantity > 1 ? "s" : ""}</option>
+            <option value={"hour"}>Hour{item.quantity > 1 ? "s" : ""}</option>
+            <option value={"day"}>Day{item.quantity > 1 ? "s" : ""}</option>
+            <option value={"week"}>Week{item.quantity > 1 ? "s" : ""}</option>
+            <option value={"month"}>Month{item.quantity > 1 ? "s" : ""}</option>
+            <option value={"package"}>Package{item.quantity > 1 ? "s" : ""}</option>
           </select>
         </td>
 
@@ -106,7 +106,7 @@ export const ItemLine = ({
           <input
             type="number"
             name="price"
-            placeholder="Prix"
+            placeholder="Price"
             min={0}
             step={0.01}
             style={{
@@ -135,14 +135,17 @@ export const ItemLine = ({
         <td className="no-outline">
           <div className="item__line__actions">
             <button
-              title="Supprimer la ligne"
-              onClick={() => {
-                setItems((items) => items.filter((i) => i.id !== item.id));
-              }}>
+              title="Delete item"
+              className="btn btn--alert"
+              onClick={() =>
+                window.confirm("Are you sure to delete this line?") &&
+                setItems((items) => items.filter((i) => i.id !== item.id))
+              }>
               <IoTrashOutline />
             </button>
             <button
-              title="Dupliquer la ligne"
+              title="Duplicate item"
+              className="btn btn--no-bg"
               onClick={() => setItems((items) => [...items, { ...item, id: Date.now() }])}>
               <IoDuplicateOutline />
             </button>
@@ -150,7 +153,7 @@ export const ItemLine = ({
         </td>
       </tr>
       <tr>
-        <td colSpan={5} className="item__line__description__cell">
+        <td colSpan={7} className="item__line__description__cell">
           <textarea
             name="description"
             placeholder="Description"
@@ -159,9 +162,6 @@ export const ItemLine = ({
             onChange={handleItemChange}
           />
         </td>
-      </tr>
-      <tr>
-        <td className="item__line__spacing"></td>
       </tr>
     </>
   );

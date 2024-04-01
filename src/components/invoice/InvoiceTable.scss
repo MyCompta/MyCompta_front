@@ -12,6 +12,12 @@
     color: $text-color !important;
   }
 
+  thead {
+    tr:nth-child(1) {
+      cursor: default;
+    }
+  }
+
   th:nth-child(1) {
     border-right: none;
   }
@@ -21,6 +27,8 @@
   }
 
   tr {
+    cursor: pointer;
+
     > td:nth-child(1) {
       font-size: 17px;
       color: $alert-color;
@@ -37,12 +45,12 @@
     > td:nth-child(4),
     > td:nth-child(5) {
       color: $text-color-light;
-      width: 77px;
+      white-space: nowrap;
     }
 
     > td:nth-child(6) {
       font-weight: 600;
-      min-width: 80px;
+      white-space: nowrap;
     }
 
     > td:nth-child(7) {

@@ -27,12 +27,15 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     overflow: "hidden",
   },
+  flexGrow: {
+    flexGrow: 1,
+  },
   header_content: {
     backgroundColor: "#fafafa",
     padding: 10,
     flex: "1 1 50%",
   },
-  test: {
+  split: {
     gap: 3,
     flexDirection: "column",
     flex: "1 1 50%",
@@ -58,7 +61,7 @@ const styles = StyleSheet.create({
 
 export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
   return (
-    <Document title={invoice.author.name + "_Facture_" + invoice.number}>
+    <Document title={invoice.author.name + "_" + invoice.category + "_" + invoice.number}>
       <Page size="A4" style={styles.page}>
         <View
           style={[
@@ -75,14 +78,14 @@ export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
         </View>
 
         <View style={styles.header} wrap={false}>
-          <View style={styles.test}>
+          <View style={[styles.split, styles.flexGrow]}>
             <View style={{ padding: 10, backgroundColor: "#fafafa" }}>
-              <Text style={styles.label}>Facturé par :</Text>
+              <Text style={styles.label}>Charged by:</Text>
               <Text>{invoice.author.name}</Text>
             </View>
-            <View style={styles.header}>
+            <View style={[styles.header, styles.flexGrow]}>
               <View style={styles.header_content}>
-                <Text style={styles.label}>Addresse: </Text>
+                <Text style={styles.label}>Address: </Text>
                 <Text style={{ flexWrap: "wrap", flexDirection: "row" }}>
                   {invoice.author.address.street}
                 </Text>
@@ -96,9 +99,9 @@ export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
               </View>
             </View>
           </View>
-          <View style={styles.test}>
+          <View style={[styles.split, styles.flexGrow]}>
             <View style={{ padding: 10, backgroundColor: "#fafafa" }}>
-              <Text style={styles.label}>Facturé à :</Text>
+              <Text style={styles.label}>Charged to:</Text>
               <Text>
                 {invoice.client.name} {invoice.client.surname}
               </Text>
@@ -107,13 +110,13 @@ export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
                 {invoice.client.address.zip} {invoice.client.address.city}
               </Text>
             </View>
-            <View style={styles.header}>
+            <View style={[styles.header, styles.flexGrow]}>
               <View style={styles.header_content}>
-                <Text style={styles.label}>Date facture :</Text>
+                <Text style={styles.label}>Issued at:</Text>
                 <Text>{new Date(invoice.date).toLocaleDateString()}</Text>
               </View>
               <View style={styles.header_content}>
-                <Text style={styles.label}>Date d'échéance :</Text>
+                <Text style={styles.label}>Due at:</Text>
                 <Text>{new Date(invoice.dueDate).toLocaleDateString()}</Text>
               </View>
             </View>
@@ -127,25 +130,37 @@ export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
           invoice.items.map((item) => {
             return (
               <View style={styles.itemLine} key={item.id}>
-                <View style={{ width: "65%" }}>
+                <View style={{ width: "60%" }}>
                   <Text>{item.name}</Text>
                   <Text style={styles.subtext}>{item.description}</Text>
                 </View>
                 <View style={{ width: "15%" }}>
                   <Text style={styles.ml_a}>{item.price}€</Text>
                   <Text style={[styles.subtext, styles.ml_a]}>
-                    + {((item.tax.percentage / 100) * item.price).toFixed(2)}€
+                    {item.tax.percentage > 0 ? (
+                      <>+ {((item.tax.percentage / 100) * item.price).toFixed(2)}€</>
+                    ) : (
+                      "No VAT"
+                    )}
                   </Text>
                 </View>
                 <View style={{ width: "5%" }}>
                   <Text style={styles.ml_a}>x{item.quantity}</Text>
+                </View>
+                <View style={{ width: "5%" }}>
+                  <Text
+                    style={
+                      styles.ml_a
+                    }>{`${item.unit}${item.quantity > 1 && item.unit !== "mois" ? "s" : ""}`}</Text>
                 </View>
                 <View
                   style={{
                     width: "15%",
                   }}>
                   <Text style={styles.ml_a}>{item.price * item.quantity}€</Text>
-                  <Text style={[styles.subtext, styles.ml_a]}>+ {item.tax.total}€</Text>
+                  {item.tax.total > 0 && (
+                    <Text style={[styles.subtext, styles.ml_a]}>+ {item.tax.total}€</Text>
+                  )}
                 </View>
               </View>
             );
@@ -157,7 +172,9 @@ export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
             marginLeft: "auto",
           }}
           wrap={false}>
-          <Text style={[styles.ml_a, { marginBottom: 10 }]}>Sous total: {invoice.subTotal}€</Text>
+          <Text style={[styles.ml_a, { marginBottom: 10 }]}>
+            Subtotal: {invoice.subTotal.toFixed(2)}€
+          </Text>
           {invoice.tax &&
             invoice.tax.length &&
             invoice.tax
@@ -166,12 +183,12 @@ export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
                 if (tax.percentage === 0) return;
                 return (
                   <Text key={tax.percentage} style={[styles.subtext, styles.ml_a]}>
-                    TVA {tax.percentage}% : {tax.total}€
+                    VAT {tax.percentage}%: {tax.total.toFixed(2)}€
                   </Text>
                 );
               })}
           <Text style={{ fontSize: 20, marginTop: 10, marginLeft: "auto" }}>
-            Total: {invoice.total}€
+            Total: {invoice.total.toFixed(2)}€
           </Text>
         </View>
 
@@ -189,7 +206,7 @@ export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
               opacity: 0.2,
             }}
             fixed>
-            <Text>Payé</Text>
+            <Text>Paid</Text>
           </View>
         )}
 
@@ -204,15 +221,25 @@ export const PdfGenerator = ({ invoice }: { invoice: TInvoice }) => {
               opacity: 0.1,
             }}
             fixed>
-            <Text>Brouillon</Text>
+            <Text>Draft</Text>
           </View>
         )}
+        <Text
+          fixed
+          style={{
+            textAlign: "center",
+            marginTop: "auto",
+            color: "#666",
+            alignItems: "baseline",
+          }}>
+          {invoice.additionalInfo!}
+        </Text>
 
         <Text
           render={({ pageNumber, totalPages }) =>
             totalPages > 1 ? `Page ${pageNumber} / ${totalPages}` : undefined
           }
-          style={{ textAlign: "center", marginTop: "auto", color: "#666" }}
+          style={{ textAlign: "center", color: "#666" }}
           fixed
         />
       </Page>
