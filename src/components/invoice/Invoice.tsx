@@ -622,9 +622,6 @@ export default function Invoice({
         </div>
       </div>
       <div className="invoice__items">
-        <button onClick={addNewItem} className="btn btn--s">
-          Add new item
-        </button>
         <table>
           <thead>
             <tr>
