@@ -121,7 +121,7 @@ export default function IndexRegister() {
             ))
           ) : (
             <tr>
-              <td colSpan={5} className="register-table__no-invoices">
+              <td colSpan={6} className="register-table__no-invoices">
                 No registers found
               </td>
             </tr>

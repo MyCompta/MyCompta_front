@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import fetcher from "../../utils/fetcher";
 import { useSetAtom } from "jotai";
 import { registersAtom } from "../../atom/registerAtom";
@@ -11,18 +10,17 @@ import { MdEditDocument } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 
 const Register = ({ register }: { register: TRegisterBack }) => {
-  const navigate = useNavigate();
   const setEditRegisterModalStatus = useSetAtom(editRegisterModalStatusAtom);
   const setRegisters = useSetAtom(registersAtom);
   const setRegister = useSetAtom(registerAtom);
   const setError = useSetAtom(errorAtom);
 
   const handleShowRegister = (register: TRegisterBack) => {
-    navigate(`/registers/${register.id}`);
+    setRegister(register);
+    setEditRegisterModalStatus(true);
   };
 
   const handleEditRegister = (register: TRegisterBack) => {
-    console.log("register", register);
     setRegister(register);
     setEditRegisterModalStatus(true);
   };
