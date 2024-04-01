@@ -467,10 +467,10 @@ export default function Invoice({
 
   return (
     <div className="invoice">
-      <p className="invoice__titles" style={{ textAlign: "right", margin: 0 }}>
-        {invoice.category}
-        <br />
+      <p style={{ margin: 0, width: "fit-content", marginLeft: "auto" }}>
         <select
+          className="invoice__titles"
+          style={{ textAlign: "end", borderBottom: "1px solid #313538" }}
           value={invoice.category}
           onChange={(e) =>
             setInvoice({ ...invoice, category: e.target.value as "invoice" | "quotation" })
@@ -482,7 +482,7 @@ export default function Invoice({
       <div className="invoice__author">
         <p className="invoice__titles">You</p>
         {!isPublic && (
-          <select value={author.id} onChange={handleAuthorSelect}>
+          <select value={author.id} onChange={handleAuthorSelect} className="user__infos__select">
             {societies &&
               societies.length &&
               societies.map((society) => (
@@ -495,10 +495,12 @@ export default function Invoice({
         <UserInfos user={author} setUser={setAuthor} />
       </div>
       <div className="invoice__client">
-        <p className="invoice__titles">Client</p>
+        <p className="invoice__titles">
+          Client {client.is_pro && <span className="invoice__pill">pro</span>}
+        </p>
         {!isPublic && (
-          <select value={client.id} onChange={handleClientSelect}>
-            <option value="">Créer un nouveau client</option>
+          <select value={client.id} onChange={handleClientSelect} className="user__infos__select">
+            <option value="">New client</option>
             {clients &&
               clients.length &&
               clients.map((client) => (
@@ -510,20 +512,22 @@ export default function Invoice({
               ))}
           </select>
         )}
-        <div>
+        <div style={{ display: "flex", alignItems: "center", marginBottom: 10 }}>
           Client pro ?
           <Switch
             checked={client.is_pro!}
             onChange={() =>
               setClient((prevClient) => ({ ...prevClient, is_pro: !prevClient.is_pro }))
             }
+            className="invoice__client__switch"
+            onColor="#3398bd"
           />
         </div>
         <UserInfos user={client} setUser={setClient} />
       </div>
       <div className="invoice__title">
         <div>
-          <label htmlFor="title">Titre de la facture</label>
+          <label htmlFor="title">Document title</label>
           <input
             type="text"
             name="title"
@@ -533,7 +537,7 @@ export default function Invoice({
           />
         </div>
         <div>
-          <label htmlFor="number">N° de facture</label>
+          <label htmlFor="number">Document N°</label>
           <input
             type="text"
             name="number"
@@ -543,72 +547,68 @@ export default function Invoice({
           />
         </div>
         <div>
-          <label htmlFor="date">Date d'émission :</label>
-          <input
-            type="date"
-            name="date"
-            id="date"
-            onChange={handleInputChange}
-            value={invoice.date.toISOString().substring(0, 10)}
-          />
-          <label htmlFor="dueDate">Date d'écheance :</label>
-          <select name="dueDateSelect" id="dueDate" onChange={handleDateSelect} defaultValue={"30"}>
-            <option value="0">À réception</option>
-            <option value="15">15 jours</option>
-            <option value="30">30 jours</option>
-            <option value="60">60 jours</option>
-            <option value="45">45 jours fin de mois</option>
-            <option value="choice">Choisir une date</option>
-          </select>
-          {dueDateChoice && <input type="date" name="dueDate" onChange={handleInputChange} />}
+          <div>
+            <label htmlFor="date">Issue Date:</label>
+            <input
+              type="date"
+              name="date"
+              id="date"
+              onChange={handleInputChange}
+              value={invoice.date.toISOString().substring(0, 10)}
+            />
+          </div>
+          <div>
+            <label htmlFor="dueDate">Due Date:</label>
+            <select
+              name="dueDateSelect"
+              id="dueDate"
+              onChange={handleDateSelect}
+              defaultValue={"30"}>
+              <option value="0">Reception date</option>
+              <option value="15">15 days</option>
+              <option value="30">30 days</option>
+              <option value="60">60 days</option>
+              <option value="45">45 days end of month</option>
+              <option value="choice">Pick a date</option>
+            </select>
+            {dueDateChoice && <input type="date" name="dueDate" onChange={handleInputChange} />}
+          </div>
         </div>
       </div>
       <div className="invoice__items">
-        <button onClick={addNewItem}>Ajouter un produit</button>
+        <button onClick={addNewItem} className="btn">
+          Add new item
+        </button>
         <table>
           <thead>
             <tr>
               <th>Designation</th>
-              <th>Quantité</th>
-              <th>Unité</th>
-              <th>Prix</th>
-              <th>TVA</th>
-              <th>Total HT</th>
-              <th></th>
+              <th>Quantity</th>
+              <th>Unit</th>
+              <th>Price</th>
+              <th>VAT</th>
+              <th>Total VAT-FREE</th>
+              <th>ACTIONS</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="item__line__spacing"></td>
-            </tr>
             {items.map((item, index) => (
               <ItemLine key={index} item={item} setItems={setItems} />
             ))}
             <tr>
-              <td>
-                <button onClick={addNewItem}>Ajouter un produit</button>
+              <td colSpan={7}>
+                <button onClick={addNewItem} className="btn">
+                  Add new item
+                </button>
               </td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan={7} className="item__line__description__cell">
-                <textarea
-                  name="additionalInfo"
-                  id="additionalInfo"
-                  placeholder="Informations additionnelles"
-                  className="item__line__description"
-                  value={invoice.additionalInfo}
-                  onChange={(e) =>
-                    setInvoice({ ...invoice, additionalInfo: e.target.value })
-                  }></textarea>
-              </td>
-            </tr>
-            <tr>
               <td colSpan={3}></td>
               <td colSpan={4}>
                 <p>
-                  Sous total HT :{" "}
+                  Subtotal no VAT :{" "}
                   {items.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}
                 </p>
                 {/* TVAs */}
@@ -618,13 +618,13 @@ export default function Invoice({
                     if (tax.total > 0) {
                       return (
                         <p key={index}>
-                          TVA {tax.percentage}% : {tax.total.toFixed(2)}
+                          VAT {tax.percentage}% : {tax.total.toFixed(2)}
                         </p>
                       );
                     }
                   })}
                 <p>
-                  Total TTC :{" "}
+                  Total :{" "}
                   {(
                     items.reduce((acc, item) => acc + item.price * item.quantity, 0) +
                     sumTaxValues(items)
@@ -634,19 +634,34 @@ export default function Invoice({
                 </p>
               </td>
             </tr>
+            <tr>
+              <td colSpan={7} className="item__line__description__cell">
+                <textarea
+                  name="additionalInfo"
+                  id="additionalInfo"
+                  placeholder="Additional information"
+                  className="item__line__description"
+                  value={invoice.additionalInfo}
+                  onChange={(e) =>
+                    setInvoice({ ...invoice, additionalInfo: e.target.value })
+                  }></textarea>
+              </td>
+            </tr>
           </tfoot>
         </table>
       </div>
       {!isPublic ? (
         <button
           onClick={() => handleSave().then((id) => navigate(`/${invoice.category}s/${id}`))}
-          disabled={!invoice.is_valid}>
+          disabled={!invoice.is_valid}
+          className="btn">
           Save the {invoice.category}
         </button>
       ) : (
         <button
           onClick={() => navigate(`/document/preview`, { state: { invoice: invoice } })}
-          disabled={!invoice.is_valid}>
+          disabled={!invoice.is_valid}
+          className="btn">
           Generate my {invoice.category}
         </button>
       )}
