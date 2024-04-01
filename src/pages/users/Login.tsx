@@ -49,6 +49,10 @@ export default function Login() {
     checkUserSocieties();
   };
 
+  const handleOnError = () => {
+    setError("Invalid email or password");
+  };
+
   return (
     <div className="loginpage">
       <h1>Log into Your Account</h1>
@@ -62,6 +66,7 @@ export default function Login() {
         ]}
         controller="user"
         onSuccess={handleOnSuccess}
+        onError={handleOnError}
       />
       <div className="form-form-links">
         <div className="form-form-link-box">

@@ -18,6 +18,10 @@ export default function Register() {
     navigate("/societies/create");
   };
 
+  const handleOnError = () => {
+    setError("Invalid email or password");
+  };
+
   return (
     <div className="registerpage">
       <h1>Create Your account</h1>
@@ -53,6 +57,7 @@ export default function Register() {
         ]}
         controller="user"
         onSuccess={handleOnSuccess}
+        onError={handleOnError}
       />
 
       <p className="already-have-an-account">
