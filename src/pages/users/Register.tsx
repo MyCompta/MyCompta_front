@@ -3,14 +3,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSetAtom } from "jotai";
 import { isLoggedAtom } from "../../atom/authAtom";
 import "./users.scss";
+import { successAtom } from "../../atom/notificationAtom";
+import { errorAtom } from "../../atom/notificationAtom";
 
 export default function Register() {
   const navigate = useNavigate();
   const setIsLogged = useSetAtom(isLoggedAtom);
+  const setSuccess = useSetAtom(successAtom);
+  const setError = useSetAtom(errorAtom);
 
   const handleOnSuccess = () => {
     setIsLogged(true);
+    setSuccess("You are registered and logged in");
     navigate("/societies/create");
+  };
+
+  const handleOnError = () => {
+    setError("Invalid email or password");
   };
 
   return (
@@ -48,6 +57,7 @@ export default function Register() {
         ]}
         controller="user"
         onSuccess={handleOnSuccess}
+        onError={handleOnError}
       />
 
       <p className="already-have-an-account">

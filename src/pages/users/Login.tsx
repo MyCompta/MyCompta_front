@@ -6,6 +6,8 @@ import { useSetAtom } from "jotai";
 import { isLoggedAtom } from "../../atom/authAtom";
 import { currentSocietyAtom } from "../../atom/societyAtom";
 import Cookies from "js-cookie";
+import { successAtom } from "../../atom/notificationAtom";
+import { errorAtom } from "../../atom/notificationAtom";
 
 import "./users.scss";
 
@@ -13,6 +15,8 @@ export default function Login() {
   const navigate = useNavigate();
   const setIsLogged = useSetAtom(isLoggedAtom);
   const setCurrentSociety = useSetAtom(currentSocietyAtom);
+  const setSuccess = useSetAtom(successAtom);
+  const setError = useSetAtom(errorAtom);
 
   const checkUserSocieties = async () => {
     try {
@@ -41,7 +45,12 @@ export default function Login() {
 
   const handleOnSuccess = () => {
     console.log("handleSuccess", Cookies.get("token"));
+    setSuccess("You are logged in");
     checkUserSocieties();
+  };
+
+  const handleOnError = () => {
+    setError("Invalid email or password");
   };
 
   return (
@@ -57,6 +66,7 @@ export default function Login() {
         ]}
         controller="user"
         onSuccess={handleOnSuccess}
+        onError={handleOnError}
       />
       <div className="form-form-links">
         <div className="form-form-link-box">
