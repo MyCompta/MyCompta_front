@@ -21,6 +21,11 @@
 
   th,
   td {
+    white-space: nowrap;
+
+    &:nth-child(1) {
+      white-space: normal;
+    }
     p {
       margin: 0;
       font-size: 12px;

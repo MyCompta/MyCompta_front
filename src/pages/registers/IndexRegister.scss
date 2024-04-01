@@ -126,7 +126,7 @@
 
       > td:nth-child(2) {
         color: $text-color-light;
-        width: 77px;
+        white-space: nowrap;
       }
 
       > td:nth-child(3) {
@@ -139,13 +139,13 @@
         border-left: none;
         min-width: 86px;
         text-align: right;
-        width: 30px;
+        white-space: nowrap;
 
         border-left: none;
       }
 
       > td:nth-child(5) {
-        width: 60px;
+        white-space: nowrap;
         text-align: center;
         font-weight: 500;
       }

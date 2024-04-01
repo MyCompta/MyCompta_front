@@ -20,7 +20,7 @@ export default function ForgotPassword() {
         ]}
         controller="user"
         onSuccess={() => {
-          setSuccess("Proceed  reinitialization password");
+          setSuccess("You will receive an email to reset your password");
           navigate("/");
         }}
       />
