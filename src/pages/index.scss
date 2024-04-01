@@ -84,22 +84,23 @@
 {
   box-shadow: 0px 0px 10px 5px $second-color;
   width: 60%;
-  margin: 2%;
+  margin: 1%;
+  padding: 1%;
 }
 
 .doughnuts_on_dashboard
 {
-  display: flex;
-  align-items: center;
   box-shadow: 0px 0px 10px 5px $second-color;
-  margin: 2%;
+  margin: 1%;
+  padding: 1%;
 }
 
 .linecharts_on_dashboard
 {
   box-shadow: 0px 0px 10px 5px $second-color;
   width: 60%;
-  margin: 2%;
+  margin: 1%;
+  padding: 1%;
 }
 
 .piecharts_on_dashboard
@@ -107,5 +108,6 @@
   display: flex;
   align-items: center;
   box-shadow: 0px 0px 10px 5px $second-color;
-  margin: 2%;
+  margin: 1%;
+  padding: 1%;
 }

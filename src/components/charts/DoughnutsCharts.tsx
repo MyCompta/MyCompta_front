@@ -21,7 +21,7 @@ const options = {
     },
     title: {
       display: true,
-      text: 'Turnover by societies',
+      text: 'Overall by clients',
     },
   },
 };
@@ -33,7 +33,7 @@ const DoughnutsCharts = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(apiUrl + "charts/sum_all_society", {
+        const response = await fetch(apiUrl + "charts/sum_all_client", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -80,8 +80,7 @@ const DoughnutsCharts = () => {
         data: values,
         backgroundColor: backgroundColor,
         borderColor: borderColor,
-        borderWidth: 1
-        ,
+        borderWidth: 2,
       },
     ],
     labels: labels,
