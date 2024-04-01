@@ -18,7 +18,7 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
+const options = {
   responsive: true,
   plugins: {
     legend: {
@@ -26,17 +26,17 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Invoice due',
+      text: '',
     },
   },
 };
 
-export const data = {
+const data = {
   labels: ['reception', '15 days', '30 days', '45 days', '60 days'],
   datasets: [
     {
       label: '# of invoices',
-      data: [8, 9, 6, 2, 7],
+      data: [5, 5, 5, 4, 5],
       backgroundColor: 'rgba(255, 99, 132, 0.2)',
       borderColor: 'rgba(255, 99, 132, 1)',
       borderWidth: 1,
