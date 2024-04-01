@@ -12,7 +12,7 @@ const IndexInvoices = () => {
     const fetchData = async () => {
       try {
         const response = await fetcher(
-          "/invoices?society_id=" + currentSociety,
+          "/invoices?category=invoice&society_id=" + currentSociety,
           undefined,
           "GET",
           true
