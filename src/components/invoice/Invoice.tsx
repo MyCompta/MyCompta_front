@@ -104,27 +104,24 @@ export default function Invoice({
   };
 
   const sumTaxValues = (items: TItem[]) => {
-    const taxGroups = items.reduce(
-      (acc, item) => {
-        const taxKey = item.tax?.percentage;
-        const taxValue = item.tax?.total ?? 0;
+    const taxGroups = items.reduce((acc, item) => {
+      const taxKey = item.tax?.percentage;
+      const taxValue = item.tax?.total ?? 0;
 
-        if (!acc[taxKey!]) {
-          acc[taxKey!] = 0;
-        }
-        acc[taxKey!] += taxValue;
+      if (!acc[taxKey!]) {
+        acc[taxKey!] = 0;
+      }
+      acc[taxKey!] += taxValue;
 
-        return acc;
-      },
-      {} as { [key: number]: number }
-    );
+      return acc;
+    }, {} as { [key: number]: number });
 
     return Object.entries(taxGroups).map(
       ([tax, sum]) =>
         ({
           percentage: Number(tax),
           total: sum,
-        }) as TTax
+        } as TTax)
     );
   };
 
@@ -155,8 +152,8 @@ export default function Invoice({
                   return Number(date) === 12
                     ? "01"
                     : Number(date) + 1 >= 10
-                      ? `${Number(date) + 1}`
-                      : "0" + (Number(date) + 1);
+                    ? `${Number(date) + 1}`
+                    : "0" + (Number(date) + 1);
                 }
                 return "01";
               })
@@ -171,7 +168,10 @@ export default function Invoice({
 
     setInvoice({
       ...invoice,
-      dueDate: new Date(Date.parse(invoice.date.toString()) + Number(value) * 24 * 60 * 60 * 1000),
+      dueDate: new Date(
+        Date.parse(invoice.date.toString()) +
+          Number(value) * 24 * 60 * 60 * 1000
+      ),
     } as TInvoice);
 
     // console.log(invoice);
@@ -196,7 +196,10 @@ export default function Invoice({
       return {
         ...prevInvoice,
         items: items,
-        subTotal: items.reduce((acc, item) => acc + item.price * item.quantity, 0),
+        subTotal: items.reduce(
+          (acc, item) => acc + item.price * item.quantity,
+          0
+        ),
         tax: sumTaxValues(items),
         discountTotal: items
           .filter((item) => item.discount)
@@ -272,7 +275,12 @@ export default function Invoice({
         true
       );
     } else {
-      req = await fetcher("invoices", invoiceDataFormatterSend(invoice), "POST", true);
+      req = await fetcher(
+        "invoices",
+        invoiceDataFormatterSend(invoice),
+        "POST",
+        true
+      );
     }
 
     req?.error && console.error(req.error);
@@ -378,7 +386,9 @@ export default function Invoice({
       return;
     }
 
-    const client = clients.find((client) => client.id === Number(clientId)) as TClientBack;
+    const client = clients.find(
+      (client) => client.id === Number(clientId)
+    ) as TClientBack;
 
     setClient({
       id: client.id,
@@ -404,7 +414,9 @@ export default function Invoice({
   const [societies, setSocieties] = useAtom(societiesAtom);
   const handleAuthorSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const authorId = event.target.value;
-    const author = societies.find((society) => society.id === Number(authorId)) as TSocietyBack;
+    const author = societies.find(
+      (society) => society.id === Number(authorId)
+    ) as TSocietyBack;
 
     setAuthor((prevAuthor) => {
       return {
@@ -436,7 +448,7 @@ export default function Invoice({
           capital: author.capital,
           status: author.status,
           email: author.email,
-        }) as TSocietyBack
+        } as TSocietyBack)
     );
   };
 
@@ -473,8 +485,12 @@ export default function Invoice({
           style={{ textAlign: "end", borderBottom: "1px solid #313538" }}
           value={invoice.category}
           onChange={(e) =>
-            setInvoice({ ...invoice, category: e.target.value as "invoice" | "quotation" })
-          }>
+            setInvoice({
+              ...invoice,
+              category: e.target.value as "invoice" | "quotation",
+            })
+          }
+        >
           <option value={"invoice"}>Invoice</option>
           <option value={"quotation"}>Quotation</option>
         </select>
@@ -482,7 +498,11 @@ export default function Invoice({
       <div className="invoice__author">
         <p className="invoice__titles">You</p>
         {!isPublic && (
-          <select value={author.id} onChange={handleAuthorSelect} className="user__infos__select">
+          <select
+            value={author.id}
+            onChange={handleAuthorSelect}
+            className="user__infos__select"
+          >
             {societies &&
               societies.length &&
               societies.map((society) => (
@@ -499,7 +519,11 @@ export default function Invoice({
           Client {client.is_pro && <span className="invoice__pill">pro</span>}
         </p>
         {!isPublic && (
-          <select value={client.id} onChange={handleClientSelect} className="user__infos__select">
+          <select
+            value={client.id}
+            onChange={handleClientSelect}
+            className="user__infos__select"
+          >
             <option value="">New client</option>
             {clients &&
               clients.length &&
@@ -512,12 +536,17 @@ export default function Invoice({
               ))}
           </select>
         )}
-        <div style={{ display: "flex", alignItems: "center", marginBottom: 10 }}>
+        <div
+          style={{ display: "flex", alignItems: "center", marginBottom: 10 }}
+        >
           Client pro ?
           <Switch
             checked={client.is_pro!}
             onChange={() =>
-              setClient((prevClient) => ({ ...prevClient, is_pro: !prevClient.is_pro }))
+              setClient((prevClient) => ({
+                ...prevClient,
+                is_pro: !prevClient.is_pro,
+              }))
             }
             className="invoice__client__switch"
             onColor="#3398bd"
@@ -563,7 +592,8 @@ export default function Invoice({
               name="dueDateSelect"
               id="dueDate"
               onChange={handleDateSelect}
-              defaultValue={"30"}>
+              defaultValue={"30"}
+            >
               <option value="0">Reception date</option>
               <option value="15">15 days</option>
               <option value="30">30 days</option>
@@ -571,12 +601,14 @@ export default function Invoice({
               <option value="45">45 days end of month</option>
               <option value="choice">Pick a date</option>
             </select>
-            {dueDateChoice && <input type="date" name="dueDate" onChange={handleInputChange} />}
+            {dueDateChoice && (
+              <input type="date" name="dueDate" onChange={handleInputChange} />
+            )}
           </div>
         </div>
       </div>
       <div className="invoice__items">
-        <button onClick={addNewItem} className="btn">
+        <button onClick={addNewItem} className="btn btn--s">
           Add new item
         </button>
         <table>
@@ -597,7 +629,7 @@ export default function Invoice({
             ))}
             <tr>
               <td colSpan={7}>
-                <button onClick={addNewItem} className="btn">
+                <button onClick={addNewItem} className="btn btn--s">
                   Add new item
                 </button>
               </td>
@@ -609,7 +641,9 @@ export default function Invoice({
               <td colSpan={4}>
                 <p>
                   Subtotal no VAT :{" "}
-                  {items.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}
+                  {items
+                    .reduce((acc, item) => acc + item.price * item.quantity, 0)
+                    .toFixed(2)}
                 </p>
                 {/* TVAs */}
                 {sumTaxValues(items)
@@ -626,7 +660,10 @@ export default function Invoice({
                 <p>
                   Total :{" "}
                   {(
-                    items.reduce((acc, item) => acc + item.price * item.quantity, 0) +
+                    items.reduce(
+                      (acc, item) => acc + item.price * item.quantity,
+                      0
+                    ) +
                     sumTaxValues(items)
                       .map((tax) => tax.total)
                       .reduce((acc, curr) => acc + curr, 0)
@@ -644,7 +681,8 @@ export default function Invoice({
                   value={invoice.additionalInfo}
                   onChange={(e) =>
                     setInvoice({ ...invoice, additionalInfo: e.target.value })
-                  }></textarea>
+                  }
+                ></textarea>
               </td>
             </tr>
           </tfoot>
@@ -652,16 +690,22 @@ export default function Invoice({
       </div>
       {!isPublic ? (
         <button
-          onClick={() => handleSave().then((id) => navigate(`/${invoice.category}s/${id}`))}
+          onClick={() =>
+            handleSave().then((id) => navigate(`/${invoice.category}s/${id}`))
+          }
           disabled={!invoice.is_valid}
-          className="btn">
+          className="btn"
+        >
           Save the {invoice.category}
         </button>
       ) : (
         <button
-          onClick={() => navigate(`/document/preview`, { state: { invoice: invoice } })}
+          onClick={() =>
+            navigate(`/document/preview`, { state: { invoice: invoice } })
+          }
           disabled={!invoice.is_valid}
-          className="btn">
+          className="btn"
+        >
           Generate my {invoice.category}
         </button>
       )}
