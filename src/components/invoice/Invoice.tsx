@@ -65,7 +65,21 @@ export default function Invoice({
       } as TUserInfos)
   );
 
-  const [items, setItems] = useState<TItem[]>(invoiceProp?.items || []);
+  const [items, setItems] = useState<TItem[]>(
+    invoiceProp?.items || [
+      {
+        id: Date.now(),
+        name: "",
+        quantity: 1,
+        price: 0,
+        unit: "",
+        tax: {
+          percentage: 0,
+          total: 0,
+        },
+        description: "",
+      },
+  ]);
 
   const [invoice, setInvoice] = useState(
     invoiceProp ||
