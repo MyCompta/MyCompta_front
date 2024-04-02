@@ -1,12 +1,21 @@
-.polar-chart-container
-{
+.polar-chart-container {
   position: relative;
   width: 30rem;
 }
 
-.large_graph_showsociety
-{
+.large_graph_showsociety {
   position: relative;
   margin-bottom: 5%;
   width: 90%;
+}
+
+.radar-chart-container {
+  position: relative;
+  width: 30rem;
+}
+
+.stacked-chart-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
