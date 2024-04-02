@@ -157,6 +157,9 @@
   cursor: pointer;
   border-bottom: 1px solid #e7e9eb;
 }
+.popup-profile a:hover {
+  font-weight: 500;
+}
 .popup-profile a svg {
   margin-right: 6px;
   vertical-align: text-bottom;
@@ -174,7 +177,7 @@
   cursor: pointer;
 }
 .popup-profile button:hover {
-  background-color: #ea4a2e;
+  background-color: #ce462e;
   color: white;
 }
 .popup-profile button:hover svg {

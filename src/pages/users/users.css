@@ -6,6 +6,17 @@
   text-align: center;
   line-height: 3.5rem;
   height: calc(100% - 50px);
+  margin: 40px 10px 80px;
+}
+
+.already-have-an-account {
+  margin: 0 10px;
+}
+.already-have-an-account a {
+  font-weight: 500;
+}
+.already-have-an-account a:hover {
+  color: #3398bd;
 }
 
 .loginpage {
@@ -109,8 +120,27 @@
   max-height: 100px;
 }
 
+.form-form-links {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.form-form-link-box {
+  display: flex;
+  align-items: center;
+}
+.form-form-link-box p {
+  margin: 0 5px;
+  line-height: 0px;
+}
+
 .form-form-link {
-  line-height: 45px;
+  line-height: 32px;
+  font-weight: 500;
+}
+.form-form-link:hover {
+  color: #3398bd;
 }
 
 .form-form-cgu__link {

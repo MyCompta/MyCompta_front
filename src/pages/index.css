@@ -65,25 +65,27 @@
 .barchart_on_dashboard {
   box-shadow: 0px 0px 10px 5px #3398bd;
   width: 60%;
-  margin: 2%;
+  margin: 1%;
+  padding: 1%;
 }
 
 .doughnuts_on_dashboard {
-  display: flex;
-  align-items: center;
   box-shadow: 0px 0px 10px 5px #3398bd;
-  margin: 2%;
+  margin: 1%;
+  padding: 1%;
 }
 
 .linecharts_on_dashboard {
   box-shadow: 0px 0px 10px 5px #3398bd;
   width: 60%;
-  margin: 2%;
+  margin: 1%;
+  padding: 1%;
 }
 
 .piecharts_on_dashboard {
   display: flex;
   align-items: center;
   box-shadow: 0px 0px 10px 5px #3398bd;
-  margin: 2%;
+  margin: 1%;
+  padding: 1%;
 }/*# sourceMappingURL=index.css.map */

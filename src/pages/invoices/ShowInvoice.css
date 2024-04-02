@@ -1,0 +1,75 @@
+.invoice-show-header__title-line {
+  display: flex;
+  align-items: center;
+}
+.invoice-show-header__title-line p {
+  background: #3398bd;
+  color: white;
+  border-radius: 20px;
+  padding: 5px;
+  margin-left: -20px;
+  margin-top: -6px;
+  font-size: 10px;
+  font-weight: 600;
+  border: 1px solid #0f526b;
+}
+.invoice-show-header__baseline {
+  display: flex;
+  align-items: center;
+  margin: -30px 30px 20px;
+}
+.invoice-show-header__baseline-back {
+  margin: 0;
+  margin-right: 10px;
+  font-weight: 700;
+  color: #3398bd;
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+}
+.invoice-show-header__baseline-back svg {
+  width: 38px;
+  height: 38px;
+  margin-right: 4px;
+}
+.invoice-show-header__baseline-draft, .invoice-show-header__baseline-paid {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+.invoice-show-header__baseline-draft p, .invoice-show-header__baseline-paid p {
+  margin: 0 6px;
+}
+.invoice-show-header__baseline-draft div, .invoice-show-header__baseline-paid div {
+  scale: 0.8;
+  margin-left: -12px;
+}
+.invoice-show-header__baseline-draft div .react-switch-handle, .invoice-show-header__baseline-paid div .react-switch-handle {
+  margin-left: 3px;
+}
+.invoice-show-header__baseline-draft div .react-switch-bg > div, .invoice-show-header__baseline-paid div .react-switch-bg > div {
+  margin-left: 0px;
+}
+
+.invoice-show-body__right-box {
+  margin-left: auto;
+  margin-right: 30px;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.invoice-show-body__right-box a,
+.invoice-show-body__right-box button {
+  border: none;
+  background-color: white;
+  font-size: 16px;
+  font-weight: 500;
+  color: #313538;
+  margin: 4px;
+  cursor: pointer;
+}
+.invoice-show-body__right-box a {
+  color: #3398bd;
+}
+.invoice-show-body__right-box button:hover {
+  color: #ce462e;
+}/*# sourceMappingURL=ShowInvoice.css.map */

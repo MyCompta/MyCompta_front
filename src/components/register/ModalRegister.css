@@ -1,0 +1,95 @@
+.modal-register-header {
+  width: 100%;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.register-form-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  padding: 60px 0 40px;
+  margin: auto;
+  display: flex;
+  width: 400px;
+}
+.register-form__info {
+  color: #aaa;
+  position: absolute;
+  right: 30px;
+}
+.register-form__info span {
+  color: #ce462e;
+  font-weight: 600;
+}
+.register-form label {
+  font-weight: 600;
+  margin-top: 14px;
+}
+.register-form label span {
+  color: #ce462e;
+}
+.register-form input,
+.register-form select {
+  margin-top: 10px;
+  margin-bottom: 6px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #e5e5e5;
+}
+.register-form__amount-box {
+  display: flex;
+  align-items: baseline;
+}
+.register-form__amount-box input {
+  width: 141px;
+  margin-left: 10px;
+  padding-left: 28px;
+}
+.register-form__amount-box-sign {
+  position: relative;
+}
+.register-form__amount-box-sign p {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  font-size: 22px;
+  font-weight: 700;
+}
+.register-form__amount-box-sign .green {
+  color: #6cbb7c;
+}
+.register-form__amount-box-sign .red {
+  color: #ce462e;
+  font-size: 24px;
+  font-weight: 800;
+  margin-top: -2px;
+  margin-left: 2px;
+}
+.register-form__checkbox {
+  margin-left: 10px;
+}
+.register-form__checkbox input {
+  width: 20px;
+  height: 20px;
+  vertical-align: sub;
+  margin-left: 8px;
+}
+.register-form p {
+  color: #ce462e;
+  margin: 0px;
+}
+.register-form__submit {
+  width: 200px;
+  margin: 0 auto 60px !important;
+}
+@media only screen and (max-width: 950px) {
+  .register-form__submit {
+    margin: 0 auto 40px !important;
+    width: 400px;
+  }
+}/*# sourceMappingURL=ModalRegister.css.map */

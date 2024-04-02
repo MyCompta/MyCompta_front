@@ -6,6 +6,7 @@
 .client-form-container {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .client-form {
@@ -25,7 +26,7 @@
   right: 30px;
 }
 .client-form__info span {
-  color: #ea4a2e;
+  color: #ce462e;
 }
 .client-form__row1 {
   display: flex;
@@ -45,9 +46,10 @@
   margin-top: 14px;
 }
 .client-form__row1 label span {
-  color: #ea4a2e;
+  color: #ce462e;
 }
-.client-form__row1 input {
+.client-form__row1 input,
+.client-form__row1 select {
   margin-top: 10px;
   margin-bottom: 6px;
   padding: 10px;
@@ -55,8 +57,8 @@
   border: 1px solid #e5e5e5;
 }
 .client-form__row1 p {
-  color: #ea4a2e;
-  margin: 0 0 14px;
+  color: #ce462e;
+  margin: 0px;
 }
 .client-form__row2 {
   display: flex;
@@ -67,7 +69,7 @@
 @media only screen and (max-width: 950px) {
   .client-form__row2 {
     width: 100%;
-    padding: 30px 0;
+    padding: 20px 0;
   }
 }
 .client-form__row2 label {
@@ -75,7 +77,7 @@
   margin-top: 14px;
 }
 .client-form__row2 label span {
-  color: #ea4a2e;
+  color: #ce462e;
 }
 .client-form__row2 input {
   margin-top: 10px;
@@ -85,7 +87,7 @@
   border: 1px solid #e5e5e5;
 }
 .client-form__row2 p {
-  color: #ea4a2e;
+  color: #ce462e;
   margin: 0 0 14px;
 }
 .client-form__submit {

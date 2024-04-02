@@ -58,7 +58,7 @@
 }
 
 .error-message {
-  color: #ea4a2e;
+  color: #ce462e;
   font-size: 14px;
 }
 
@@ -86,7 +86,7 @@
   color: #aaa;
 }
 .create-society-form-container__info span {
-  color: #ea4a2e;
+  color: #ce462e;
 }
 
 .create-society-form {
@@ -118,7 +118,7 @@
   margin-top: 14px;
 }
 .create-society-form-rows__row1 label span, .create-society-form-rows__row2 label span {
-  color: #ea4a2e;
+  color: #ce462e;
 }
 .create-society-form-rows__row1 input,
 .create-society-form-rows__row1 select, .create-society-form-rows__row2 input,
@@ -166,7 +166,6 @@ h4 {
 .leftinfosociety {
   margin-top: 2%;
   position: relative;
-  top: 20%;
   box-shadow: 0px 0px 3px #3398bd;
   max-height: 13.5rem;
   padding: 2%;
@@ -198,7 +197,7 @@ h4 {
   flex-direction: column;
   box-shadow: 0px 0px 3px #3398bd;
   background-color: #f5f6f9;
-  margin-bottom: 2%;
+  margin: 2%;
 }
 
 .graph_showsociety select {
@@ -313,7 +312,7 @@ h4 {
   color: #aaa;
 }
 .edit-society-form-container__info span {
-  color: #ea4a2e;
+  color: #ce462e;
 }
 
 .edit-society-form {
@@ -329,7 +328,7 @@ h4 {
   margin-top: 14px;
 }
 .edit-society-form label span {
-  color: #ea4a2e;
+  color: #ce462e;
 }
 .edit-society-form input,
 .edit-society-form select {
@@ -356,5 +355,5 @@ h4 {
   margin: auto;
 }
 .edit-society-form__delete:hover {
-  color: #ea4a2e;
+  color: #ce462e;
 }/*# sourceMappingURL=society.css.map */

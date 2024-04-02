@@ -1,6 +1,6 @@
 #successModal {
   color: #0a3c14;
-  background: #80ee96;
+  background: #e7f6ea;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -19,7 +19,7 @@
   top: 0;
   left: 0;
   position: absolute;
-  background-color: #0a3c14;
+  background-color: #6cbb7c;
   animation: Successprogress 5s 1s forwards ease-out;
 }
 

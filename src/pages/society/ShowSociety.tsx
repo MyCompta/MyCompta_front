@@ -10,7 +10,7 @@ import IndexInvoices from "../invoices/IndexInvoices";
 import PageClientIndex from "../clients/PageClientIndex";
 
 import PolarCharts from '../../components/charts/PolarCharts'
-import { RadarCharts } from '../../components/charts/RadarCharts'
+import RadarCharts from '../../components/charts/RadarCharts'
 import StackedCharts from '../../components/charts/StackedCharts'
 
 import "./society.scss";
@@ -102,10 +102,10 @@ const ShowSociety = () => {
         <div className="graph_showsociety">
           <select value={selectedOption} onChange={handleSelectChange}>
             <option value="clientsbysociety">Client's Sales</option>
-            <option value="invoicedue">Invoice Due Date (fkr)</option>
+            <option value="salescountry">Sales by country</option>
           </select>
           {selectedOption === 'clientsbysociety' && <PolarCharts />}
-          {selectedOption === 'invoicedue' && <RadarCharts />}
+          {selectedOption === 'salescountry' && <RadarCharts />}
         </div>
         <div className="large_graph_showsociety">
           <StackedCharts />

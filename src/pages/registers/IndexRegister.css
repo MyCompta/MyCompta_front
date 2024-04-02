@@ -1,0 +1,148 @@
+.index-register {
+  max-width: 100%;
+}
+
+.index-register-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.index-register-header__add-register-btn {
+  margin-right: 30px !important;
+}
+
+.month-select,
+.year-select {
+  width: calc(100% - 2rem);
+  background-color: #333;
+  display: flex;
+  gap: 1rem;
+  overflow-x: scroll;
+  padding: 0.5rem 1rem;
+  justify-content: space-between;
+  max-width: 800px;
+}
+
+.index-register-date-picker {
+  display: flex;
+  align-items: baseline;
+}
+.index-register-date-picker__year select {
+  padding: 8px;
+  background: #3398bd;
+  color: white;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0px 0px 0 1px rgba(22, 29, 37, 0.1), inset 0 1px 0 1px rgba(255, 255, 255, 0.06);
+  padding-left: 16px;
+}
+.index-register-date-picker__months span {
+  color: #909599;
+  font-size: 15px;
+  font-weight: 400;
+  outline: 0;
+  border-bottom: 4px solid transparent;
+  border-radius: 0;
+  padding: 7px 10px 4px;
+  margin: 0;
+  cursor: pointer;
+}
+.index-register-date-picker__months span:hover {
+  color: #3398bd;
+}
+.index-register-date-picker__months .selected {
+  border-bottom: 4px solid #3398bd;
+  font-weight: 500;
+  color: #3398bd;
+}
+
+.register-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+.register-table__no-invoices {
+  text-align: center !important;
+  font-weight: 500;
+  font-size: 16px;
+  color: #313538 !important;
+}
+.register-table th:nth-child(3) {
+  border-right: none;
+}
+.register-table th:nth-child(4) {
+  border-left: none;
+}
+.register-table tbody .green-bg {
+  background-color: #e7f6ea;
+}
+.register-table tbody .red-bg {
+  background-color: #f8eeec;
+}
+.register-table tbody tr {
+  position: relative;
+}
+.register-table tbody tr:hover .register-item-options {
+  display: flex;
+}
+.register-table tbody tr .green {
+  color: #6cbb7c;
+  font-size: 22px;
+  font-weight: 600;
+  padding: 0;
+  text-align: right;
+}
+.register-table tbody tr .red {
+  color: #ce462e;
+  font-size: 30px;
+  font-weight: 600;
+  padding: 0;
+  text-align: right;
+}
+.register-table tbody tr > td:nth-child(1) {
+  font-weight: 500;
+}
+.register-table tbody tr > td:nth-child(2) {
+  color: #5e6a73;
+  white-space: nowrap;
+}
+.register-table tbody tr > td:nth-child(3) {
+  border-right: none;
+  width: 0px;
+}
+.register-table tbody tr > td:nth-child(4) {
+  font-weight: 500;
+  border-left: none;
+  min-width: 86px;
+  text-align: right;
+  white-space: nowrap;
+  border-left: none;
+}
+.register-table tbody tr > td:nth-child(5) {
+  white-space: nowrap;
+  text-align: center;
+  font-weight: 500;
+}
+.register-table tbody tr > td:nth-child(6) {
+  border-right: none;
+}
+.register-table tbody tr > td:nth-child(7) {
+  width: 0px;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.register-item-options {
+  display: none;
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+.register-item-options__trash {
+  width: 13px !important;
+  height: 11px !important;
+  padding: 8px !important;
+}/*# sourceMappingURL=IndexRegister.css.map */

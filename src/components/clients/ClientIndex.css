@@ -10,4 +10,28 @@
   text-align: center;
   font-weight: 500;
   font-size: 16px;
+}
+.client-table tbody {
+  cursor: pointer;
+}
+.client-table th,
+.client-table td {
+  white-space: nowrap;
+}
+.client-table th:nth-child(1),
+.client-table td:nth-child(1) {
+  white-space: normal;
+}
+.client-table th p,
+.client-table td p {
+  margin: 0;
+  font-size: 12px;
+}
+.client-table th p:first-child,
+.client-table td p:first-child {
+  font-weight: 600;
+}
+.client-table th p:last-child,
+.client-table td p:last-child {
+  color: #aaa;
 }/*# sourceMappingURL=ClientIndex.css.map */

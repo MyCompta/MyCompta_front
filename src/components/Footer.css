@@ -1,23 +1,22 @@
-footer {
+.footer {
   display: flex;
-  position: static;
-  bottom: 0;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  padding-left: 5%;
-  padding-right: 5%;
-  margin-top: 40px;
-  margin-top: 5%;
+  margin: auto auto 10px auto;
+  padding: 2rem 10px 0px 10px;
+  width: calc(100% - 40px);
+  font-size: 14px;
 }
-
-.footer_link {
+.footer__link {
   display: flex;
   flex-wrap: wrap;
-  width: 40%;
-  padding-left: 2%;
-  padding-right: 2%;
   justify-content: space-around;
+  padding: 0px 10px 0 20px;
 }
-.footer_link > a:hover {
+.footer__link > a {
+  padding: 2px 6px;
+}
+.footer__link > a:hover {
   color: #3398bd;
+  font-weight: 500;
 }/*# sourceMappingURL=Footer.css.map */
